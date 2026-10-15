@@ -1,0 +1,17 @@
+{
+  "name": "@lo2ma/core",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@lo2ma/i18n": "0.0.0",
+    "zod": "4.6.7"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  }
+}
