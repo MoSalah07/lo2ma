@@ -1,0 +1,11 @@
+# Store and check out every text file with LF, even on Windows (overrides core.autocrlf).
+* text=auto eol=lf
+
+# Binary assets: never touch their bytes.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary
+*.woff2 binary
+*.glb binary

@@ -1,0 +1,5 @@
+package-lock.json
+
+# Generated files
+packages/tokens/tokens.css
+apps/web/public/mockServiceWorker.js
