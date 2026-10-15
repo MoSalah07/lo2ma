@@ -1,0 +1,8 @@
+@import 'tailwindcss';
+@import '@lo2ma/tokens/tokens.css';
+
+@layer base {
+  body {
+    @apply bg-bg font-sans text-ink antialiased;
+  }
+}

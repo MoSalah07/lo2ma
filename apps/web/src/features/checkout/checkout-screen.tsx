@@ -1,0 +1,140 @@
+'use client';
+
+import {
+  addMinutes,
+  ARRIVAL_BUFFER_MINUTES,
+  formatMoney,
+  formatNumber,
+  formatTime,
+  type PaymentMethod,
+} from '@lo2ma/core';
+import { Clock, Lock, MapPin } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
+import { useState } from 'react';
+import { BottomAction } from '@/components/bottom-action';
+import { MealIcon } from '@/components/meal-icon';
+import { ErrorMessage, LoadingBlocks } from '@/components/status-message';
+import { Card } from '@/components/ui/card';
+import { Field, Input } from '@/components/ui/field';
+import { SignedInButton } from '@/features/auth/signed-in-button';
+import { useSuggestion } from '@/features/meal/api';
+import { PickSummary } from '@/features/meal/pick-summary';
+import { useCreateOrder } from '@/features/orders/api';
+import { usePrefs } from '@/features/prefs/api';
+import { useRouter } from '@/i18n/navigation';
+import { mealName, pounds } from '@/lib/meal';
+import { PaymentPicker } from './payment-picker';
+
+/** When no preferences exist yet (a guest who skipped onboarding). */
+const DEFAULT_BREAK = '13:30';
+
+export function CheckoutScreen({ id }: { id: string }) {
+  const t = useTranslations();
+  const locale = useLocale();
+  const router = useRouter();
+  const suggestion = useSuggestion(id);
+  const prefs = usePrefs();
+  const createOrder = useCreateOrder();
+  const [method, setMethod] = useState<PaymentMethod>('card');
+  const [note, setNote] = useState('');
+
+  if (suggestion.isPending) return <LoadingBlocks count={3} />;
+  if (suggestion.isError) return <ErrorMessage onRetry={() => void suggestion.refetch()} />;
+  if (!suggestion.data) return <ErrorMessage message={t('meal.notFound')} />;
+
+  const meal = suggestion.data;
+  const breakTime = prefs.data?.breakTime ?? DEFAULT_BREAK;
+  const arrival = addMinutes(breakTime, -ARRIVAL_BUFFER_MINUTES);
+
+  function pay() {
+    createOrder.mutate(
+      { suggestionId: meal.id, paymentMethod: method, note: note.trim() || undefined },
+      { onSuccess: (order) => router.push(`/orders/${order.id}`) },
+    );
+  }
+
+  return (
+    <>
+      <div className="flex flex-col gap-4 px-5 pb-40">
+        <Card className="flex flex-col gap-2.5 p-4">
+          <div className="flex items-center gap-3">
+            <MealIcon />
+            <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+              <span className="text-15 font-bold">{mealName(meal, locale)}</span>
+              <span className="text-12 text-muted">{meal.restaurant.name[locale]}</span>
+            </div>
+            <span className="shrink-0 text-18 font-extrabold">
+              {formatMoney(meal.bill.total, locale)}
+            </span>
+          </div>
+          <p className="text-12 text-muted">
+            {t('bill.breakdown', {
+              food: formatNumber(pounds(meal.bill.food), locale),
+              delivery: formatNumber(pounds(meal.bill.delivery), locale),
+              service: formatNumber(pounds(meal.bill.service), locale),
+            })}
+          </p>
+        </Card>
+
+        <section className="flex flex-col gap-2">
+          <h2 className="text-13 font-semibold text-ink-2">{t('checkout.deliveryTitle')}</h2>
+          <Card className="flex flex-col gap-3 p-4">
+            {prefs.data && (
+              <p className="flex items-center gap-2.5 text-14 font-medium">
+                <MapPin aria-hidden className="size-4.5 shrink-0 text-primary-ink" />
+                {prefs.data.workplace.name[locale]}
+              </p>
+            )}
+            <p className="flex items-center gap-2.5 text-13 text-ink-2">
+              <Clock aria-hidden className="size-4.5 shrink-0 text-primary-ink" />
+              {t('checkout.eta', {
+                time: formatTime(arrival),
+                beforeBreak: t('common.beforeBreak', { minutes: ARRIVAL_BUFFER_MINUTES }),
+              })}
+            </p>
+            <hr className="border-divider" />
+            <Field label={t('checkout.noteLabel')}>
+              {(control) => (
+                <Input
+                  {...control}
+                  value={note}
+                  maxLength={200}
+                  onChange={(event) => setNote(event.target.value)}
+                  placeholder={t('checkout.notePlaceholder')}
+                />
+              )}
+            </Field>
+          </Card>
+        </section>
+
+        <PaymentPicker value={method} onChange={setMethod} />
+
+        <p className="flex items-center gap-2.5 rounded-18 bg-good px-3.5 py-3 text-13 leading-body font-medium text-on-good">
+          <Lock aria-hidden className="size-4.5 shrink-0" />
+          {t('checkout.safety', { action: t('checkout.confirm') })}
+        </p>
+
+        {createOrder.isError && <ErrorMessage />}
+      </div>
+
+      <BottomAction>
+        <SignedInButton
+          block
+          next={`/checkout/${meal.id}`}
+          onSignedIn={pay}
+          disabled={createOrder.isPending}
+          summary={<PickSummary suggestion={meal} />}
+        >
+          {createOrder.isPending
+            ? t('checkout.paying')
+            : t('checkout.confirmAmount', { amount: formatMoney(meal.bill.total, locale) })}
+        </SignedInButton>
+        <p className="text-center text-11 text-muted">
+          {t.rich('checkout.terms', {
+            terms: (chunks) => <span className="underline">{chunks}</span>,
+          })}
+        </p>
+      </BottomAction>
+    </>
+  );
+}

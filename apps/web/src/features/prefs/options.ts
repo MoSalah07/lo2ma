@@ -1,0 +1,47 @@
+import {
+  BREAK_TIMES,
+  formatNumber,
+  fromPounds,
+  ingredientSchema,
+  MIN_ORDER,
+  type CaloriePref,
+  type UserPrefs,
+} from '@lo2ma/core';
+import type { Locale } from '@lo2ma/i18n';
+import { useLocale, useTranslations } from 'next-intl';
+
+/** The calorie choices onboarding offers. */
+export const calorieOptions: CaloriePref[] = [
+  { mode: 'any' },
+  { mode: 'around', kcal: 700 },
+  { mode: 'under', kcal: 500 },
+];
+
+export const ingredients = ingredientSchema.options;
+
+export const budgetLimits = { min: MIN_ORDER, max: fromPounds(500) };
+
+/** Starting values for someone who has never set preferences. */
+export function defaultPrefs(workplace: UserPrefs['workplace']): UserPrefs {
+  return {
+    workplace,
+    breakTime: BREAK_TIMES[2],
+    budget: fromPounds(150),
+    calories: { mode: 'around', kcal: 700 },
+    exclusions: [],
+  };
+}
+
+export const sameCalories = (a: CaloriePref, b: CaloriePref) =>
+  a.mode === b.mode && (a.mode === 'any' || (b.mode !== 'any' && a.kcal === b.kcal));
+
+/** «مش فارقة», «حوالي 700», «أقل من 500». */
+export function useCalorieLabel() {
+  const t = useTranslations('prefs');
+  const locale: Locale = useLocale();
+  return (pref: CaloriePref) => {
+    if (pref.mode === 'any') return t('caloriesAny');
+    const kcal = formatNumber(pref.kcal, locale);
+    return pref.mode === 'around' ? t('caloriesAround', { kcal }) : t('caloriesUnder', { kcal });
+  };
+}

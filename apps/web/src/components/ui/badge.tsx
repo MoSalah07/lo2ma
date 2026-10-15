@@ -1,0 +1,38 @@
+import { cva, type VariantProps } from 'class-variance-authority';
+import type { ComponentProps } from 'react';
+import { cn } from '@/lib/cn';
+
+const badgeVariantsBase = cva(
+  'inline-flex items-center gap-1 rounded-full font-semibold whitespace-nowrap',
+  {
+    variants: {
+      tone: {
+        neutral: 'bg-surface-2 text-ink-2',
+        inverse: 'bg-inverse text-on-inverse',
+        tint: 'bg-tint text-on-tint',
+        lilac: 'bg-lilac text-on-lilac',
+        pink: 'bg-pink text-on-pink',
+        good: 'bg-good text-on-good',
+        warn: 'bg-warn text-on-warn',
+        danger: 'bg-danger text-on-danger',
+        /** On a primary-colored surface, such as the tracking card. */
+        onPrimary: 'bg-on-primary/20 text-on-primary',
+      },
+      size: {
+        sm: 'h-5.5 px-2.5 text-11',
+        md: 'h-7 px-3 text-12',
+      },
+    },
+    defaultVariants: { tone: 'neutral', size: 'sm' },
+  },
+);
+
+/** Class names for this component, merged so a later class (like px-0) overrides the default. */
+export const badgeVariants = (props?: Parameters<typeof badgeVariantsBase>[0]) =>
+  cn(badgeVariantsBase(props));
+
+export type BadgeProps = ComponentProps<'span'> & VariantProps<typeof badgeVariants>;
+
+export function Badge({ tone, size, className, ...props }: BadgeProps) {
+  return <span className={cn(badgeVariants({ tone, size }), className)} {...props} />;
+}
