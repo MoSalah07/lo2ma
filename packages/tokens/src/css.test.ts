@@ -1,0 +1,50 @@
+import { describe, expect, it } from 'vitest';
+import { colors, type ColorName } from './colors.ts';
+import { buildTokensCss, colorVar, shadowVar } from './css.ts';
+import { shadows, type ShadowName } from './shadows.ts';
+
+const css = buildTokensCss();
+
+function blockOf(selector: string): string {
+  const start = css.indexOf(`${selector} {`);
+  expect(start).toBeGreaterThanOrEqual(0);
+  return css.slice(start, css.indexOf('}', start));
+}
+
+const colorNames = Object.keys(colors.light) as ColorName[];
+const shadowNames = Object.keys(shadows.light) as ShadowName[];
+
+describe('buildTokensCss', () => {
+  it.each([
+    ['light', ':root'],
+    ['dark', '.dark'],
+  ] as const)('puts every %s color and shadow on %s', (theme, selector) => {
+    const block = blockOf(selector);
+    expect(block).toContain(`color-scheme: ${theme};`);
+    for (const name of colorNames) {
+      expect(block).toContain(`${colorVar(name)}: ${colors[theme][name]};`);
+    }
+    for (const name of shadowNames) {
+      expect(block).toContain(`${shadowVar(name)}: ${shadows[theme][name]};`);
+    }
+  });
+
+  it('points every Tailwind color and shadow at its runtime variable', () => {
+    const theme = blockOf('@theme inline');
+    expect(theme).toContain('--color-surface-2: var(--lq-surface-2);');
+    expect(theme).toContain('--color-on-primary: var(--lq-on-primary);');
+    expect(theme).toContain('--shadow-card: var(--lq-shadow-card);');
+  });
+
+  it("turns off Tailwind's default colors, shadows, radii and font sizes", () => {
+    const theme = blockOf('@theme inline');
+    for (const namespace of ['color', 'shadow', 'radius', 'text']) {
+      expect(theme).toContain(`--${namespace}-*: initial;`);
+    }
+  });
+
+  it('writes font sizes in rem and radii in px', () => {
+    expect(css).toContain('--text-15: 0.9375rem;');
+    expect(css).toContain('--radius-26: 26px;');
+  });
+});

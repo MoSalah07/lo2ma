@@ -1,0 +1,52 @@
+import { colors, type ColorName } from './colors.ts';
+import { kebab } from './names.ts';
+import { radius } from './radius.ts';
+import { shadows, type ShadowName } from './shadows.ts';
+import type { Theme } from './theme.ts';
+import { fontFallback, fontSizes, fontVariable, lineHeights } from './typography.ts';
+
+const HEADER =
+  '/* Generated from packages/tokens/src by `npm run build -w @lo2ma/tokens`. Do not edit by hand. */';
+
+const selectors: Record<Theme, string> = { light: ':root', dark: '.dark' };
+
+export const colorVar = (name: ColorName) => `--lq-${kebab(name)}`;
+export const shadowVar = (name: ShadowName) => `--lq-shadow-${kebab(name)}`;
+
+const block = (selector: string, lines: string[]) =>
+  `${selector} {\n${lines.map((line) => `  ${line}`).join('\n')}\n}`;
+
+function themeBlock(theme: Theme): string {
+  return block(selectors[theme], [
+    `color-scheme: ${theme};`,
+    ...Object.entries(colors[theme]).map(
+      ([name, value]) => `${colorVar(name as ColorName)}: ${value};`,
+    ),
+    ...Object.entries(shadows[theme]).map(
+      ([name, value]) => `${shadowVar(name as ShadowName)}: ${value};`,
+    ),
+  ]);
+}
+
+// `inline` makes each utility read the runtime variable, so `.dark` swaps every color and shadow at once.
+// `initial` removes Tailwind's defaults, so only design tokens exist (no bg-red-500, rounded-lg or text-sm).
+function tailwindTheme(): string {
+  const colorNames = Object.keys(colors.light) as ColorName[];
+  const shadowNames = Object.keys(shadows.light) as ShadowName[];
+  return block('@theme inline', [
+    '--color-*: initial;',
+    ...colorNames.map((name) => `--color-${kebab(name)}: var(${colorVar(name)});`),
+    '--shadow-*: initial;',
+    ...shadowNames.map((name) => `--shadow-${kebab(name)}: var(${shadowVar(name)});`),
+    '--radius-*: initial;',
+    ...radius.map((px) => `--radius-${px}: ${px}px;`),
+    '--text-*: initial;',
+    ...fontSizes.map((px) => `--text-${px}: ${px / 16}rem;`),
+    ...Object.entries(lineHeights).map(([name, value]) => `--leading-${name}: ${value};`),
+    `--font-sans: var(${fontVariable}), ${fontFallback};`,
+  ]);
+}
+
+export function buildTokensCss(): string {
+  return `${[HEADER, themeBlock('light'), themeBlock('dark'), tailwindTheme()].join('\n\n')}\n`;
+}
