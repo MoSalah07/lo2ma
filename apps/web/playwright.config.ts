@@ -1,0 +1,33 @@
+import { defineConfig, devices } from '@playwright/test';
+import type { AppOptions } from './e2e/fixtures';
+
+const PORT = 3100;
+
+/**
+ * End-to-end tests run against the production build (`npm run build` first) in the Chrome that is already
+ * installed, so nothing is downloaded. Every test runs in Arabic and English, light and dark.
+ */
+export default defineConfig<AppOptions>({
+  testDir: './e2e',
+  fullyParallel: true,
+  forbidOnly: true,
+  reporter: [['list'], ['html', { open: 'never' }]],
+  use: {
+    ...devices['Pixel 7'],
+    channel: 'chrome',
+    baseURL: `http://localhost:${PORT}`,
+    trace: 'retain-on-failure',
+  },
+  projects: [
+    { name: 'ar-light', use: { appLocale: 'ar', colorScheme: 'light' } },
+    { name: 'ar-dark', use: { appLocale: 'ar', colorScheme: 'dark' } },
+    { name: 'en-light', use: { appLocale: 'en', colorScheme: 'light' } },
+    { name: 'en-dark', use: { appLocale: 'en', colorScheme: 'dark' } },
+  ],
+  webServer: {
+    command: `npm run start -- -p ${PORT}`,
+    url: `http://localhost:${PORT}/ar`,
+    reuseExistingServer: true,
+    timeout: 120_000,
+  },
+});
