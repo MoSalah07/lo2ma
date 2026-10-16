@@ -16,6 +16,7 @@ the contract: its handlers are what the FastAPI service has to implement, and th
 - [Conventions](#conventions)
 - [Testing](#testing)
 - [Scripts](#scripts)
+- [Troubleshooting](#troubleshooting)
 - [Deploying to Vercel](#deploying-to-vercel)
 
 ## Screens
@@ -154,7 +155,8 @@ ESLint enforces most of these, with zero warnings allowed.
 - **End to end** (Playwright, the installed Chrome): the main journeys (onboarding, chat, guest sign-in at
   checkout, paying, tracking; the weekly plan through a fixed clock; dictation and the call through Chrome's fake
   microphone; the admin dashboard; the 404 page) run in four projects: Arabic and English, light and dark. Every
-  screen also gets an axe scan, and serious issues fail the run.
+  screen also gets an axe scan, and serious issues fail the run. So does any error in the browser console: an
+  uncaught exception, a hydration mismatch, anything React reports.
 - **Lighthouse** as a phone on the production build, after warming up the server and the browser. It fails under
   90 for performance or accessibility.
 
@@ -176,6 +178,14 @@ Run from the repo root.
 | Variable                  | Default    | Effect                                                              |
 | ------------------------- | ---------- | ------------------------------------------------------------------- |
 | `NEXT_PUBLIC_API_MOCKING` | (mocks on) | `disabled` sends `/api/*` to a real backend instead of the mock API |
+
+## Troubleshooting
+
+**A hydration error or "Encountered a script tag" in development.** Check your browser extensions first.
+Translators, grammar checkers and the like edit the page before React hydrates it, so React finds HTML it
+didn't render, rebuilds the page in the browser, and then warns about the theme's script on the way. Open the
+app in a private window or a profile without extensions. The end-to-end tests run in a clean browser and fail on
+any console error, so a mismatch that comes from our own code doesn't get past them.
 
 ## Deploying to Vercel
 
