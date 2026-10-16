@@ -34,7 +34,7 @@ function Plate({ side }: { side: number }) {
       </group>
       <mesh ref={crumb} position={[0.95 * side, 0.55, 0.45]} scale={0.13}>
         <icosahedronGeometry args={[1, 0]} />
-        <meshStandardMaterial color={sceneColors.cobalt} flatShading />
+        <meshStandardMaterial color={sceneColors.brand} flatShading />
       </mesh>
     </>
   );

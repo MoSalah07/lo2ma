@@ -11,7 +11,7 @@ interface WordmarkProps {
   size?: keyof typeof sizes;
 }
 
-/** «لقمة» followed by the cobalt dot. */
+/** «لقمة» followed by the brand-colored dot. */
 export function Wordmark({ name, size = 'md' }: WordmarkProps) {
   return (
     <span className="inline-flex items-baseline gap-1.5">

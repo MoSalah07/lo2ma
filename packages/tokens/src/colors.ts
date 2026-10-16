@@ -1,73 +1,116 @@
-// Semantic colors from the «لقمة مودرن» design system. Components use these names (bg-surface, text-ink),
+// Semantic colors, built from Radix Colors 3.0 scales: Jade (the brand), Sage (its gray), Violet (the lilac
+// accent), Pink, Grass (good), Amber (warn) and Red (danger). Components use these names (bg-surface, text-ink),
 // so switching the theme swaps the values without any dark: classes.
+//
+// Every value is a Radix step, mostly the usual ones: 1–3 for backgrounds, 6 for lines, 9 for solid fills,
+// 11 for colored text and 12 for the main text. Where a usual step misses 4.5:1 (WCAG AA), the next one is used
+// and noted below.
 const light = {
-  bg: '#F5F5F7',
+  /** sage 2 */
+  bg: '#F7F9F8',
   surface: '#FFFFFF',
-  surface2: '#F2F2F5',
+  /** sage 3 */
+  surface2: '#EEF1F0',
   /** The selected segment of a segmented control. */
   surfaceRaised: '#FFFFFF',
-  ink: '#0C0C10',
-  ink2: '#3A3A44',
-  muted: '#6B6B76',
-  /** Borders, outlines and progress tracks. */
-  line: '#E4E4EA',
-  /** Separators inside cards and disabled fills. */
-  divider: '#EEEEF2',
-  primary: '#3452FF',
+  /** sage 12 */
+  ink: '#1A211E',
+  /** sage 11. Radix has two text levels, so the secondary and the quiet text share it. */
+  ink2: '#5F6563',
+  muted: '#5F6563',
+  /** Borders, outlines and progress tracks. sage 6 */
+  line: '#D7DAD9',
+  /** Separators inside cards and disabled fills. sage 4 */
+  divider: '#E6E9E8',
+  /** jade 11: jade 9 is too light for white text in the light theme (3.2:1). */
+  primary: '#208368',
+  /** The primary button under the pointer: one step toward more contrast. jade 12 */
+  primaryHover: '#1D3B31',
   onPrimary: '#FFFFFF',
-  /** Brand-colored text and icons on bg or surface (links, «غيّر»). */
-  primaryInk: '#2238C9',
-  /** Text on a white (onPrimary) button that sits on a primary surface. The same in both themes. */
-  primaryDeep: '#2238C9',
-  tint: '#E3E7FF',
-  onTint: '#2238C9',
-  lilac: '#E9E3FF',
-  onLilac: '#4B2FB8',
-  pink: '#FFE1F0',
-  onPink: '#9B1C5E',
-  good: '#DDF2E8',
-  onGood: '#14724F',
-  warn: '#FFEBD6',
-  onWarn: '#8A4B00',
-  danger: '#FDE7E5',
-  onDanger: '#B42318',
-  inverse: '#0C0C10',
-  onInverse: '#FFFFFF',
+  /** Brand-colored text and icons on bg or surface (links, «غيّر»). jade 12: jade 11 is 4.4:1 on bg. */
+  primaryInk: '#1D3B31',
+  /** Brand text on a button colored onPrimary that sits on a primary surface. jade 11 */
+  primaryDeep: '#208368',
+  /** jade 3 */
+  tint: '#E6F7ED',
+  /** jade 12: jade 11 is 4.2:1 on jade 3. */
+  onTint: '#1D3B31',
+  /** violet 3 and 11 */
+  lilac: '#F4F0FE',
+  onLilac: '#6550B9',
+  /** pink 3 and 11 */
+  pink: '#FEE9F5',
+  onPink: '#C2298A',
+  /** grass 3 and 11 */
+  good: '#E9F6E9',
+  onGood: '#2A7E3B',
+  /** amber 3 and 12: amber 11 is 4.3:1 on amber 3. */
+  warn: '#FFF7C2',
+  onWarn: '#4F3422',
+  /** red 3 and 11 */
+  danger: '#FEEBEC',
+  onDanger: '#CE2C31',
+  /** sage 12 and 1 */
+  inverse: '#1A211E',
+  onInverse: '#FBFDFC',
   glass: 'rgba(255, 255, 255, 0.86)',
-  scrim: 'rgba(12, 12, 16, 0.48)',
+  /** sage 12 at 48% */
+  scrim: 'rgba(26, 33, 30, 0.48)',
 } as const;
 
 export type ColorName = keyof typeof light;
 
+// The dark scales of the same colors, at the same steps.
 const dark: Record<ColorName, string> = {
-  bg: '#0C0C10',
-  surface: '#17171D',
-  surface2: '#202028',
-  surfaceRaised: '#2A2A33',
-  ink: '#F4F4F6',
-  ink2: '#C9C9D1',
-  muted: '#A0A0AB',
-  line: '#2A2A33',
-  divider: '#2A2A33',
-  primary: '#4A63FF',
-  onPrimary: '#FFFFFF',
-  primaryInk: '#9DAEFF',
-  primaryDeep: '#2238C9',
-  tint: '#232A55',
-  onTint: '#C3CCFF',
-  lilac: '#2D2550',
-  onLilac: '#D4C7FF',
-  pink: '#4A1D36',
-  onPink: '#FFB3D9',
-  good: '#12372A',
-  onGood: '#7FE0B4',
-  warn: '#47300F',
-  onWarn: '#FFC98A',
-  danger: '#4A1A17',
-  onDanger: '#FF9C94',
-  inverse: '#F4F4F6',
-  onInverse: '#0C0C10',
-  glass: 'rgba(30, 30, 38, 0.84)',
+  /** sage 1 */
+  bg: '#101211',
+  /** sage 2 */
+  surface: '#171918',
+  /** sage 3 */
+  surface2: '#202221',
+  /** sage 4 */
+  surfaceRaised: '#272A29',
+  /** sage 12 */
+  ink: '#ECEEED',
+  /** sage 11 */
+  ink2: '#ADB5B2',
+  muted: '#ADB5B2',
+  /** sage 6 */
+  line: '#373B39',
+  /** sage 4 */
+  divider: '#272A29',
+  /** jade 9, with the darkest gray on it: Radix's advice for bright colors, and 6:1. */
+  primary: '#29A383',
+  /** jade 10, Radix's hover step for a step-9 fill. */
+  primaryHover: '#27B08B',
+  onPrimary: '#101211',
+  /** jade 11 */
+  primaryInk: '#1FD8A4',
+  /** jade 11, light enough for the dark onPrimary. */
+  primaryDeep: '#1FD8A4',
+  /** jade 3 and 11 */
+  tint: '#0F2E22',
+  onTint: '#1FD8A4',
+  /** violet 3 and 11 */
+  lilac: '#291F43',
+  onLilac: '#BAA7FF',
+  /** pink 3 and 11 */
+  pink: '#37172F',
+  onPink: '#FF8DCC',
+  /** grass 3 and 11 */
+  good: '#1B2A1E',
+  onGood: '#71D083',
+  /** amber 3 and 11 */
+  warn: '#302008',
+  onWarn: '#FFCA16',
+  /** red 3 and 11 */
+  danger: '#3B1219',
+  onDanger: '#FF9592',
+  /** sage 12 and 1 */
+  inverse: '#ECEEED',
+  onInverse: '#101211',
+  /** sage 2 at 84% */
+  glass: 'rgba(23, 25, 24, 0.84)',
   scrim: 'rgba(0, 0, 0, 0.62)',
 };
 

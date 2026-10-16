@@ -11,7 +11,7 @@ interface VoiceOrbProps {
   onTap?: () => void;
 }
 
-/** The call's picture in brand shapes: lilac, a tint ring, the cobalt core and a pink tile. Tap it to talk. */
+/** The call's picture in brand shapes: lilac, a tint ring, the brand-colored core and a pink tile. Tap it to talk. */
 export function VoiceOrb({ level, speaking, label, onTap }: VoiceOrbProps) {
   return (
     <button

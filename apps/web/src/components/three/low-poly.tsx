@@ -33,7 +33,7 @@ export function Bite(props: GroupProps) {
   return (
     <group {...props}>
       <mesh geometry={biteGeometry}>
-        <meshStandardMaterial color={sceneColors.cobalt} flatShading roughness={0.55} />
+        <meshStandardMaterial color={sceneColors.brand} flatShading roughness={0.55} />
       </mesh>
     </group>
   );
@@ -83,7 +83,7 @@ export function Bag(props: GroupProps) {
     <group {...props}>
       <mesh>
         <boxGeometry args={[1, 1.15, 0.55]} />
-        <meshStandardMaterial color={sceneColors.cobalt} flatShading />
+        <meshStandardMaterial color={sceneColors.brand} flatShading />
       </mesh>
       <mesh position={[0, 0.58, 0]}>
         <torusGeometry args={[0.28, 0.06, 4, 8, Math.PI]} />

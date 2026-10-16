@@ -22,6 +22,7 @@ const textPairs: Pair[] = [
   ['primaryInk', 'surface'],
   ['primaryInk', 'surface2'],
   ['onPrimary', 'primary'],
+  ['onPrimary', 'primaryHover'],
   ['primaryDeep', 'onPrimary'],
   ['onTint', 'tint'],
   ['onLilac', 'lilac'],

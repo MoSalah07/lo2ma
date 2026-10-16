@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import { useLocale } from 'next-intl';
 import { LazyScene } from './lazy-scene';
 
-/** The still 404 picture: a bitten cobalt bite over a pink bowl. */
+/** The still 404 picture: a bitten green bite over a pink bowl. */
 function NotFoundStill() {
   return (
     <div aria-hidden className="absolute inset-0 flex flex-col items-center justify-end gap-2 pb-6">
