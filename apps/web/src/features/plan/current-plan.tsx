@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { Screen } from '@/components/screen';
 import { ErrorMessage } from '@/components/status-message';
 import { Badge } from '@/components/ui/badge';
+import { Sequence, SequenceItem } from '@/components/motion/entrance';
 import { usePlanErrorText, useSwapDay } from './api';
 import { DayCard } from './day-card';
 import { PlanDayRow } from './plan-day-row';
@@ -53,13 +54,13 @@ export function CurrentPlan({ plan }: { plan: WeeklyPlan }) {
   return (
     <Screen clear="nav">
       <WeekSummary plan={plan} />
-      <ol className="flex flex-col gap-list">
+      <Sequence as="ol" className="flex flex-col gap-list">
         {plan.days.map((day) => (
           <li key={day.date} aria-current={isOnItsWay(day) ? 'date' : undefined}>
-            {renderDay(day)}
+            <SequenceItem>{renderDay(day)}</SequenceItem>
           </li>
         ))}
-      </ol>
+      </Sequence>
       <p className="px-1 text-12 text-muted">
         {t('plan.cutoff', { time: formatTime(plan.changeCutoff) })}
       </p>

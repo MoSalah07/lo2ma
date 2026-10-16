@@ -2,6 +2,7 @@ import { directions, type Locale } from '@lo2ma/i18n/locales';
 import { NextIntlClientProvider } from 'next-intl';
 import type { ReactNode } from 'react';
 import { alexandria } from '@/app/fonts';
+import { MotionProvider } from './motion/motion-provider';
 import { QueryProvider } from './query-provider';
 import { ThemeProvider } from './theme-provider';
 import '@/app/globals.css';
@@ -28,7 +29,9 @@ export function AppDocument({ locale, children }: AppDocumentProps) {
         {/* Messages stay on the server. A client island that needs text gets its own subset. */}
         <NextIntlClientProvider locale={locale} messages={null}>
           <ThemeProvider>
-            <QueryProvider>{children}</QueryProvider>
+            <QueryProvider>
+              <MotionProvider>{children}</MotionProvider>
+            </QueryProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

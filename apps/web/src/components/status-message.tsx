@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { Appear } from '@/components/motion/entrance';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -21,13 +22,15 @@ export function LoadingBlocks({ count = 3 }: { count?: number }) {
 export function ErrorMessage({ onRetry, message }: { onRetry?: () => void; message?: string }) {
   const t = useTranslations('common');
   return (
-    <div role="alert" className="flex flex-col items-center gap-3 py-8 text-center">
-      <p className="text-15 text-ink-2">{message ?? t('error')}</p>
-      {onRetry && (
-        <Button variant="tonal" size="sm" onClick={onRetry}>
-          {t('retry')}
-        </Button>
-      )}
-    </div>
+    <Appear>
+      <div role="alert" className="flex flex-col items-center gap-3 py-8 text-center">
+        <p className="text-15 text-ink-2">{message ?? t('error')}</p>
+        {onRetry && (
+          <Button variant="tonal" size="sm" onClick={onRetry}>
+            {t('retry')}
+          </Button>
+        )}
+      </div>
+    </Appear>
   );
 }

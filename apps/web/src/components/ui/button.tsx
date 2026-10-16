@@ -2,11 +2,13 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import type { ComponentProps } from 'react';
 import { cn } from '@/lib/cn';
 import { focusRing } from './focus';
+import { pressable } from './press';
 
 /** Also used to style links that look like buttons: <Link className={buttonVariants({ … })}>. */
 const buttonVariantsBase = cva(
   [
-    'inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors',
+    'inline-flex items-center justify-center gap-2 rounded-full font-semibold',
+    pressable,
     'disabled:pointer-events-none disabled:bg-divider disabled:text-muted',
     'aria-disabled:pointer-events-none aria-disabled:bg-divider aria-disabled:text-muted',
     focusRing,

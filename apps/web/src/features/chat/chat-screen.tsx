@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef } from 'react';
+import { Appear, Sequence, SequenceItem } from '@/components/motion/entrance';
 import { Screen } from '@/components/screen';
 import { usePrefs } from '@/features/prefs/api';
 import { ChatBubble } from './chat-bubble';
@@ -35,17 +36,25 @@ export function ChatScreen() {
         {messages.map((message) => {
           const [first, ...others] = message.suggestions ?? [];
           return (
-            <div key={message.id} className="flex flex-col gap-stack">
+            <Appear key={message.id} className="flex flex-col gap-stack">
               <ChatBubble from={message.role} avatar={avatar} busy={message.status === 'streaming'}>
                 {message.status === 'error'
                   ? t('common.error')
                   : message.text || (message.status === 'streaming' ? t('chat.thinking') : '')}
               </ChatBubble>
-              {first && <MealCard suggestion={first} budget={message.budget} />}
-              {others.map((suggestion) => (
-                <MealRow key={suggestion.id} suggestion={suggestion} />
-              ))}
-            </div>
+              {first && (
+                <Sequence className="flex flex-col gap-stack">
+                  <SequenceItem>
+                    <MealCard suggestion={first} budget={message.budget} />
+                  </SequenceItem>
+                  {others.map((suggestion) => (
+                    <SequenceItem key={suggestion.id}>
+                      <MealRow suggestion={suggestion} />
+                    </SequenceItem>
+                  ))}
+                </Sequence>
+              )}
+            </Appear>
           );
         })}
         {/* Keeps the newest card above the message box and tab bar when scrolled into view. */}

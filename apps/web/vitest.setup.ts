@@ -12,6 +12,23 @@ afterEach(() => {
   document.documentElement.className = '';
 });
 
+/** jsdom has no IntersectionObserver, which motion entrances use; in tests nothing is ever scrolled into view. */
+class NoIntersections {
+  readonly root = null;
+  readonly rootMargin = '0px';
+  readonly thresholds = [];
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+  takeRecords() {
+    return [];
+  }
+}
+
+if (hasDom && typeof IntersectionObserver === 'undefined') {
+  Object.defineProperty(window, 'IntersectionObserver', { writable: true, value: NoIntersections });
+}
+
 if (hasDom) {
   // jsdom has no matchMedia. next-themes uses it to read the system theme, so default to light.
   Object.defineProperty(window, 'matchMedia', {
