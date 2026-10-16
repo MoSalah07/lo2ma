@@ -2,7 +2,7 @@ import type { ComponentProps } from 'react';
 import { cn } from '@/lib/cn';
 
 /**
- * A part of the page that stays dark in both themes (the hero, the photo cards, the last band): the tokens inside
+ * A part of the page that stays dark in both themes (the photo cards and the last band): the tokens inside
  * take their dark values, so text and surfaces stay readable over food photos.
  */
 export const alwaysDark = 'dark bg-bg text-ink';

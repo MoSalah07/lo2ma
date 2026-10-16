@@ -4,7 +4,7 @@ import { HeroSceneLazy } from './hero-scene-lazy';
 import koshariHand from './photos/koshari-hand.jpg';
 
 /**
- * The hero's picture: a real bowl of koshari fading into the dark band, real ingredients floating around it in
+ * The hero's picture: a real bowl of koshari fading into the page in either theme, real ingredients floating around it in
  * 3D where the device allows, and the chat example in plain HTML. The photo is the first thing to load.
  */
 export function HeroVisual() {
@@ -21,10 +21,11 @@ export function HeroVisual() {
         placeholder="blur"
         className="-z-20 object-cover"
       />
-      {/* The photo's edges fade into the band, so it reads as part of the page, not a box. */}
+      {/* The photo's edges fade into the page, so it reads as part of the page, not a box. The ellipse reaches the
+          corners and crosses the middle of each side at 1/√2 (70.7%) of the way, so ending at 70% leaves no edge. */}
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-radial from-bg/0 from-35% to-bg to-72%"
+        className="absolute inset-0 -z-10 bg-radial from-bg/0 from-35% to-bg to-70%"
       />
       <HeroSceneLazy />
       <div className="relative w-full max-w-85 pb-6">

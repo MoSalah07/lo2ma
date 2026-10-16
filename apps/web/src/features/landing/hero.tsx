@@ -1,17 +1,16 @@
 import { useTranslations } from 'next-intl';
-import { cn } from '@/lib/cn';
 import { Eyebrow } from './eyebrow';
 import { HeroVisual } from './hero-visual';
 import { LandingHeader } from './landing-header';
-import { alwaysDark, Section } from './section';
+import { Section } from './section';
 import { StartLink } from './start-link';
 
-/** The first screen: dark in both themes, the koshari photo with real ingredients floating around it. */
+/** The first screen, in the page's theme: the koshari photo with real ingredients floating around it. */
 export function Hero() {
   const t = useTranslations();
 
   return (
-    <div className={cn(alwaysDark, 'relative isolate overflow-hidden')}>
+    <div className="relative isolate overflow-hidden">
       <LandingHeader />
       <Section className="grid items-center gap-8 pt-stack lg:grid-cols-2 lg:gap-12 lg:pt-section">
         <div className="flex flex-col items-start gap-5">
