@@ -1,46 +1,24 @@
-import { formatMoney, MIN_ORDER } from '@lo2ma/core';
-import { locales } from '@lo2ma/i18n';
-import { useLocale, useTranslations } from 'next-intl';
-import { LanguageSwitcher } from '@/components/language-switcher';
-import { ThemeSwitcher } from '@/components/theme-switcher';
-import { buttonVariants } from '@/components/ui/button';
-import { Link } from '@/i18n/navigation';
+import { EndCta } from '@/features/landing/end-cta';
+import { Hero } from '@/features/landing/hero';
+import { HowItWorks } from '@/features/landing/how-it-works';
+import { LandingFooter } from '@/features/landing/landing-footer';
+import { LandingHeader } from '@/features/landing/landing-header';
+import { RulesSection } from '@/features/landing/rules-section';
+import { WeekSection } from '@/features/landing/week-section';
 
-// Temporary home page until the landing page is designed (task 24).
+/** The landing page. Everything is a Server Component; only the theme button runs in the browser. */
 export default function HomePage() {
-  const locale = useLocale();
-  const t = useTranslations();
-
   return (
-    <main className="mx-auto flex min-h-dvh max-w-md flex-col justify-center gap-4 p-5">
-      <div className="flex flex-wrap gap-2">
-        <LanguageSwitcher
-          label={t('account.language')}
-          options={locales.map((option) => ({ locale: option, label: t(`languages.${option}`) }))}
-        />
-        <ThemeSwitcher
-          label={t('account.appearance')}
-          labels={{
-            light: t('account.themes.light'),
-            dark: t('account.themes.dark'),
-            system: t('account.themes.system'),
-          }}
-        />
-      </div>
-      <h1 className="text-44 leading-heading font-extrabold">{t('common.brand')}</h1>
-      <p className="text-17 text-ink-2">{t('common.tagline')}</p>
-      <p className="rounded-26 bg-surface p-4 text-15 shadow-card">
-        {t('onboarding.minOrder', { amount: formatMoney(MIN_ORDER, locale) })}
-      </p>
-      <Link href="/onboarding" className={buttonVariants({ block: true })}>
-        {t('onboarding.start')}
-      </Link>
-      <Link
-        href="/sign-in"
-        className={buttonVariants({ variant: 'outline', size: 'md', block: true })}
-      >
-        {t('common.signIn')}
-      </Link>
-    </main>
+    <>
+      <LandingHeader />
+      <main className="flex flex-col">
+        <Hero />
+        <HowItWorks />
+        <WeekSection />
+        <RulesSection />
+        <EndCta />
+      </main>
+      <LandingFooter />
+    </>
   );
 }

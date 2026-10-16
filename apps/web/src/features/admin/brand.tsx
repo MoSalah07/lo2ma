@@ -1,5 +1,5 @@
+import { Wordmark } from '@/components/wordmark';
 import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/cn';
 
 interface BrandProps {
   name: string;
@@ -12,15 +12,7 @@ export function AdminBrand({ name, badge, size = 'md' }: BrandProps) {
   const large = size === 'lg';
   return (
     <div className="flex items-center justify-between gap-3">
-      <div className="flex items-baseline gap-1.5">
-        <span className={cn('leading-none font-extrabold', large ? 'text-30' : 'text-24')}>
-          {name}
-        </span>
-        <span
-          aria-hidden
-          className={cn('rounded-full bg-primary', large ? 'size-2.5' : 'size-2')}
-        />
-      </div>
+      <Wordmark name={name} size={large ? 'lg' : 'sm'} />
       <Badge tone="inverse" size={large ? 'md' : 'sm'}>
         {badge}
       </Badge>
