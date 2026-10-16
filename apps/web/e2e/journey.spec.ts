@@ -43,6 +43,8 @@ test('a guest sets up lunch, signs in at checkout, pays and tracks the order', a
   await expect(page.getByRole('heading', { name: t.checkout.title })).toBeVisible();
   await snap('4-checkout');
   await page.getByRole('button', { name: new RegExp(prefix(t.checkout.confirmAmount)) }).click();
+  // A short celebration, then the order's page.
+  await expect(page.getByRole('heading', { name: t.success.order })).toBeFocused();
 
   await expect(page).toHaveURL(new RegExp(`/${appLocale}/orders/LQ-`));
   await expect(page.getByRole('heading', { name: t.tracking.title })).toBeVisible();

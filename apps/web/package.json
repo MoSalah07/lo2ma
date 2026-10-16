@@ -9,13 +9,17 @@
     "start": "cross-env NEXT_TELEMETRY_DISABLED=1 next start",
     "test": "vitest run",
     "typecheck": "next typegen && tsc --noEmit",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "lighthouse": "node scripts/lighthouse.mjs",
+    "screenshots": "node scripts/screenshots.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "5.9.1",
     "@lo2ma/core": "0.0.0",
     "@lo2ma/i18n": "0.0.0",
     "@lo2ma/tokens": "0.0.0",
+    "@react-three/drei": "10.7.9",
+    "@react-three/fiber": "9.8.2",
     "@tanstack/react-query": "5.104.2",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
@@ -29,6 +33,7 @@
     "react-dom": "19.3.1",
     "react-hook-form": "7.90.0",
     "tailwind-merge": "3.7.0",
+    "three": "0.186.1",
     "zod": "4.6.7",
     "zustand": "5.0.15"
   },
@@ -42,10 +47,13 @@
     "@testing-library/user-event": "14.6.8",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
+    "@types/three": "0.186.0",
     "@vitejs/plugin-react": "6.1.2",
     "babel-plugin-react-compiler": "1.0.0",
+    "chrome-launcher": "1.2.2",
     "cross-env": "10.1.0",
     "jsdom": "30.1.2",
+    "lighthouse": "13.5.0",
     "msw": "3.0.3",
     "tailwindcss": "4.3.3"
   },

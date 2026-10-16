@@ -14,7 +14,7 @@ interface TopBarProps {
 /** The 60px bar at the top of flow screens: a back or close button, a centered title, an optional action. */
 export function TopBar({ title, leading, trailing }: TopBarProps) {
   return (
-    <header className="flex h-15 shrink-0 items-center justify-between gap-2 px-3">
+    <header className="flex h-15 shrink-0 items-center justify-between gap-2 px-bar">
       {leading ? (
         <Link href={leading.href} aria-label={leading.label} className={iconButtonVariants()}>
           {leading.icon === 'back' ? (

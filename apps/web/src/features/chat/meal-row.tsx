@@ -21,7 +21,9 @@ export function MealRow({ suggestion }: { suggestion: Suggestion }) {
       )}
     >
       <span className="flex min-w-0 flex-col gap-0.5">
-        <span className="truncate text-14 font-semibold">{mealName(suggestion, locale)}</span>
+        <span className="truncate text-14 font-semibold">
+          <bdi>{mealName(suggestion, locale)}</bdi>
+        </span>
         <span className="text-12 text-muted">
           {t('chat.mealMeta', {
             restaurant: suggestion.restaurant.name[locale],

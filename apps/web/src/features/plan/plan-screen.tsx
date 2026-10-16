@@ -2,7 +2,10 @@
 
 import { formatDateRange } from '@lo2ma/core';
 import { useLocale, useTranslations } from 'next-intl';
+import { useState } from 'react';
+import { Screen, ScreenHeader } from '@/components/screen';
 import { ErrorMessage, LoadingBlocks } from '@/components/status-message';
+import { SuccessMoment } from '@/components/success-moment';
 import { buttonVariants } from '@/components/ui/button';
 import { Link } from '@/i18n/navigation';
 import { usePlan } from './api';
@@ -12,14 +15,13 @@ import { PlanBuilder } from './plan-builder';
 function PlanHeader({ range }: { range?: string }) {
   const t = useTranslations('plan');
   return (
-    <header className="flex items-center justify-between gap-3 px-5 pt-5 pb-3">
-      <h1 className="text-26 leading-heading font-extrabold">{t('title')}</h1>
+    <ScreenHeader title={t('title')}>
       {range && (
         <span className="inline-flex h-8.5 items-center rounded-full bg-surface px-3 text-13 font-medium ring-1 ring-line ring-inset">
           {range}
         </span>
       )}
-    </header>
+    </ScreenHeader>
   );
 }
 
@@ -28,14 +30,23 @@ export function PlanScreen() {
   const t = useTranslations();
   const locale = useLocale();
   const plan = usePlan();
+  const confirmed = plan.data?.confirmed;
+  const [celebrating, setCelebrating] = useState(false);
+  // The week turning from the builder to confirmed, while the screen is open, is the moment to celebrate.
+  // Opening a week that is already confirmed is not.
+  const [seenConfirmed, setSeenConfirmed] = useState(confirmed);
+  if (confirmed !== seenConfirmed) {
+    setSeenConfirmed(confirmed);
+    if (seenConfirmed === false && confirmed) setCelebrating(true);
+  }
 
   if (plan.isPending) {
     return (
       <>
         <PlanHeader />
-        <div className="px-4">
+        <Screen>
           <LoadingBlocks count={5} />
-        </div>
+        </Screen>
       </>
     );
   }
@@ -51,12 +62,12 @@ export function PlanScreen() {
     return (
       <>
         <PlanHeader />
-        <div className="flex flex-col items-center gap-4 px-5 py-10 text-center">
+        <Screen className="items-center py-10 text-center">
           <p className="text-15 text-ink-2">{t('plan.needsOnboarding')}</p>
           <Link href="/onboarding" className={buttonVariants({ size: 'md' })}>
             {t('onboarding.start')}
           </Link>
-        </div>
+        </Screen>
       </>
     );
   }
@@ -67,8 +78,17 @@ export function PlanScreen() {
 
   return (
     <>
-      <PlanHeader range={first && last ? formatDateRange(first, last, locale) : undefined} />
-      {week.confirmed ? <CurrentPlan plan={week} /> : <PlanBuilder plan={week} />}
+      <div inert={celebrating} className="contents">
+        <PlanHeader range={first && last ? formatDateRange(first, last, locale) : undefined} />
+        {week.confirmed ? <CurrentPlan plan={week} /> : <PlanBuilder plan={week} />}
+      </div>
+      {celebrating && (
+        <SuccessMoment
+          title={t('success.plan')}
+          note={t('success.planNext')}
+          onDone={() => setCelebrating(false)}
+        />
+      )}
     </>
   );
 }

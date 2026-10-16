@@ -15,6 +15,11 @@ export default defineConfig<AppOptions>({
   use: {
     ...devices['Pixel 7'],
     channel: 'chrome',
+    // Chrome's own fake microphone (a steady tone), allowed up front, so voice can be tested headless.
+    launchOptions: {
+      args: ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream'],
+    },
+    permissions: ['microphone'],
     baseURL: `http://localhost:${PORT}`,
     trace: 'retain-on-failure',
   },

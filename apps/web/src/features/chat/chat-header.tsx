@@ -23,7 +23,7 @@ export function ChatHeader({ prefs }: { prefs: UserPrefs | null | undefined }) {
   const calories = prefs?.calories;
 
   return (
-    <header className="flex flex-col gap-3.5 px-5 pt-5 pb-3">
+    <header className="flex flex-col gap-3.5 px-gutter pt-gutter pb-3">
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-baseline gap-1.5">
           <span className="text-26 leading-none font-extrabold">{t('common.brand')}</span>

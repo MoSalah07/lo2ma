@@ -8,6 +8,7 @@ const screens = [
   '/',
   '/onboarding',
   '/chat',
+  '/voice',
   '/plan',
   '/orders',
   '/account',

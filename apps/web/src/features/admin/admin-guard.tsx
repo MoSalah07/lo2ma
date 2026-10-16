@@ -23,7 +23,7 @@ export function AdminGuard({ children }: { children: ReactNode }) {
   if (session.isError) return <ErrorMessage onRetry={() => void session.refetch()} />;
   if (!session.data) {
     return (
-      <div className="mx-auto w-full max-w-md p-6">
+      <div className="mx-auto w-full max-w-app p-gutter">
         <LoadingBlocks />
       </div>
     );

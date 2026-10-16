@@ -41,7 +41,9 @@ export function PlanRow({
         <span className={cn('leading-tight font-bold', large ? 'text-18' : 'text-16')}>{day}</span>
       </div>
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <span className={cn('truncate text-14 font-semibold', done && 'text-ink-2')}>{meal}</span>
+        <span className={cn('truncate text-14 font-semibold', done && 'text-ink-2')}>
+          <bdi>{meal}</bdi>
+        </span>
         <span className="text-12 text-muted">{meta}</span>
       </div>
       {children}

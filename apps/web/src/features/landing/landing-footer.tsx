@@ -9,7 +9,7 @@ export function LandingFooter() {
     <footer
       className={cn(
         landingColumn,
-        'flex flex-wrap items-center justify-between gap-x-4 gap-y-2 pt-4 pb-10',
+        'flex flex-wrap items-center justify-between gap-x-4 gap-y-2 pt-stack pb-section',
       )}
     >
       <span className="text-16 font-extrabold">{t('common.brand')}</span>

@@ -41,7 +41,9 @@ export function TodayCard({ day, status, plan }: TodayCardProps) {
           {t(`tracking.steps.${status}`)}
         </Badge>
       </div>
-      <span className="text-17 leading-heading font-bold">{mealName(day.suggestion, locale)}</span>
+      <span className="text-17 leading-heading font-bold">
+        <bdi>{mealName(day.suggestion, locale)}</bdi>
+      </span>
       <Meter value={orderProgress(status)} label={t('tracking.title')} tone="onPrimary" />
       <div className="flex items-center justify-between gap-2 pt-0.5">
         <span className="text-13 font-medium">

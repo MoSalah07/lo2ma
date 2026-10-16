@@ -9,6 +9,7 @@ import {
 } from '@lo2ma/core';
 import { Phone, UserRound } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
+import { Screen } from '@/components/screen';
 import { ErrorMessage, LoadingBlocks } from '@/components/status-message';
 import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
@@ -36,14 +37,14 @@ export function TrackingScreen({ id }: { id: string }) {
   const early = minutesBetween(order.data.arrivalTime, order.data.breakTime);
 
   return (
-    <div className="flex flex-col gap-4 px-5 pb-8">
+    <Screen>
       <section
         aria-live="polite"
         className="flex flex-col gap-1.5 rounded-28 bg-primary p-5 text-on-primary"
       >
         <div className="flex items-center justify-between gap-2">
           <span className="truncate text-12 font-medium">
-            {`${suggestion.restaurant.name[locale]} · ${mealName(suggestion, locale)}`}
+            <bdi>{`${suggestion.restaurant.name[locale]} · ${mealName(suggestion, locale)}`}</bdi>
           </span>
           {order.data.onTime && (
             <Badge tone="onPrimary" className="h-6 px-2.5">
@@ -92,6 +93,6 @@ export function TrackingScreen({ id }: { id: string }) {
       <p className="text-center text-12 text-muted">
         {t('tracking.paid', { amount: formatMoney(suggestion.bill.total, locale) })}
       </p>
-    </div>
+    </Screen>
   );
 }

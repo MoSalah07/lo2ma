@@ -1,6 +1,7 @@
 import { formatMoney, formatTime, type PlanDay, type WeeklyPlan } from '@lo2ma/core';
 import { Check } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
+import { Screen } from '@/components/screen';
 import { ErrorMessage } from '@/components/status-message';
 import { Badge } from '@/components/ui/badge';
 import { usePlanErrorText, useSwapDay } from './api';
@@ -50,9 +51,9 @@ export function CurrentPlan({ plan }: { plan: WeeklyPlan }) {
   }
 
   return (
-    <div className="flex flex-col gap-3 px-4 pb-28">
+    <Screen clear="nav">
       <WeekSummary plan={plan} />
-      <ol className="flex flex-col gap-2">
+      <ol className="flex flex-col gap-list">
         {plan.days.map((day) => (
           <li key={day.date} aria-current={isOnItsWay(day) ? 'date' : undefined}>
             {renderDay(day)}
@@ -63,6 +64,6 @@ export function CurrentPlan({ plan }: { plan: WeeklyPlan }) {
         {t('plan.cutoff', { time: formatTime(plan.changeCutoff) })}
       </p>
       {swap.isError && <ErrorMessage message={errorText(swap.error)} />}
-    </div>
+    </Screen>
   );
 }

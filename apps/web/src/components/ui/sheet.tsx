@@ -32,7 +32,7 @@ export function Sheet({
         <Dialog.Overlay className="fixed inset-0 z-40 bg-scrim" />
         <Dialog.Content
           aria-describedby={description ? undefined : ''}
-          className="fixed inset-x-0 bottom-0 z-50 mx-auto flex max-w-md flex-col gap-4 rounded-t-32 bg-surface px-5 pt-2.5 pb-6 shadow-sheet"
+          className="fixed inset-x-0 bottom-0 z-50 mx-auto flex max-w-app flex-col gap-4 rounded-t-32 bg-surface px-gutter pt-2.5 pb-6 shadow-sheet"
         >
           <span aria-hidden className="mx-auto h-1.5 w-10 rounded-full bg-line" />
           <div className="flex items-start justify-between gap-3">

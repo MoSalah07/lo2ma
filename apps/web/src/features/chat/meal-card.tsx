@@ -38,7 +38,9 @@ export function MealCard({ suggestion, budget }: MealCardProps) {
       <div className="flex items-center gap-3">
         <MealIcon />
         <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-          <h3 className="text-15 font-bold">{mealName(suggestion, locale)}</h3>
+          <h3 className="text-15 font-bold">
+            <bdi>{mealName(suggestion, locale)}</bdi>
+          </h3>
           <span className="text-12 text-muted">
             {t('chat.mealMeta', {
               restaurant: restaurant.name[locale],

@@ -14,7 +14,9 @@ export function LandingHeader() {
   const other = locales.find((option) => option !== locale) ?? locale;
 
   return (
-    <header className={cn(landingColumn, 'flex flex-wrap items-center justify-between gap-3 py-5')}>
+    <header
+      className={cn(landingColumn, 'flex flex-wrap items-center justify-between gap-3 py-gutter')}
+    >
       <Link href="/" className={cn('inline-flex h-11 items-center rounded-12', focusRing)}>
         <Wordmark name={t('common.brand')} />
       </Link>

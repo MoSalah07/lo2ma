@@ -27,9 +27,11 @@ async function errorCode(response: Response): Promise<string> {
 /** Sends a request to /api and returns the raw response, throwing ApiError on a non-2xx status. */
 export async function request(path: string, init?: RequestInit): Promise<Response> {
   await ensureMocks();
+  // A file upload (FormData) needs the browser to set its own multipart Content-Type with the boundary.
+  const isForm = init?.body instanceof FormData;
   const response = await fetch(`/api${path}`, {
     ...init,
-    headers: { 'Content-Type': 'application/json', ...init?.headers },
+    headers: isForm ? init?.headers : { 'Content-Type': 'application/json', ...init?.headers },
   });
   if (!response.ok) throw new ApiError(response.status, await errorCode(response));
   return response;

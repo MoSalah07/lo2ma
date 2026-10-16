@@ -7,6 +7,7 @@ import { CalorieLine } from '@/components/calorie-line';
 import { MealIcon } from '@/components/meal-icon';
 import { ErrorMessage, LoadingBlocks } from '@/components/status-message';
 import { Badge } from '@/components/ui/badge';
+import { Screen } from '@/components/screen';
 import { Card } from '@/components/ui/card';
 import { SignedInButton } from '@/features/auth/signed-in-button';
 import { usePrefs } from '@/features/prefs/api';
@@ -33,10 +34,12 @@ export function MealScreen({ id }: { id: string }) {
 
   return (
     <>
-      <div className="flex flex-col gap-4 px-5 pb-32">
+      <Screen clear="action">
         <MealIcon size="hero" />
         <div className="flex flex-col gap-1.5">
-          <h2 className="text-22 leading-heading font-extrabold">{mealName(meal, locale)}</h2>
+          <h2 className="text-22 leading-heading font-extrabold">
+            <bdi>{mealName(meal, locale)}</bdi>
+          </h2>
           <p className="text-13 text-muted">
             {t('meal.meta', {
               restaurant: meal.restaurant.name[locale],
@@ -92,7 +95,7 @@ export function MealScreen({ id }: { id: string }) {
         </section>
 
         <BillCard bill={meal.bill} budget={prefs.data?.budget} />
-      </div>
+      </Screen>
 
       <BottomAction>
         <SignedInButton

@@ -11,6 +11,8 @@ import {
   orderSchema,
   planDayBill,
   SHARED_DELIVERY_FEE,
+  transcriptionSchema,
+  VOICE_MAX_BYTES,
   weeklyPlanSchema,
   type ChatEvent,
   type CreateCoupon,
@@ -53,6 +55,36 @@ async function signIn() {
     body: { channel: 'phone', destination: '1012345678', code: '482193' },
   });
 }
+
+describe('POST /api/chat/transcribe', () => {
+  /** A voice message as the browser sends it: multipart, with the audio file and the page language. */
+  function transcribe(audio: Blob, locale: string) {
+    const form = new FormData();
+    form.append('audio', audio, 'voice');
+    form.append('locale', locale);
+    return fetch('http://localhost/api/chat/transcribe', { method: 'POST', body: form });
+  }
+
+  it('writes down what was said, for the user to check', async () => {
+    for (const locale of ['ar', 'en']) {
+      const response = await transcribe(new Blob(['voice'], { type: 'audio/webm' }), locale);
+      expect(transcriptionSchema.parse(await response.json()).text).not.toBe('');
+    }
+  });
+
+  it('treats an empty recording as silence', async () => {
+    const response = await transcribe(new Blob([], { type: 'audio/webm' }), 'ar');
+    expect(response.status).toBe(422);
+    expect(await response.json()).toEqual({ code: 'no_speech' });
+  });
+
+  it('refuses a recording far bigger than a minute of speech', async () => {
+    const huge = new Blob([new Uint8Array(VOICE_MAX_BYTES + 1)], { type: 'audio/webm' });
+    const response = await transcribe(huge, 'ar');
+    expect(response.status).toBe(413);
+    expect(await response.json()).toEqual({ code: 'audio_too_large' });
+  });
+});
 
 describe('POST /api/chat', () => {
   it('streams the reply word by word, then the suggestions, then done', async () => {

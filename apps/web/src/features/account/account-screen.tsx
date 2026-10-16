@@ -1,13 +1,14 @@
 'use client';
 
 import { formatList, formatMoney, formatTime, maskEgyptMobile } from '@lo2ma/core';
-import { locales } from '@lo2ma/i18n';
+import { locales } from '@lo2ma/i18n/locales';
 import { ChevronRight, LogOut } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import type { ReactNode } from 'react';
 import { LanguageSwitcher } from '@/components/language-switcher';
 import { ThemeSwitcher } from '@/components/theme-switcher';
 import { Button, buttonVariants } from '@/components/ui/button';
+import { Screen, ScreenHeader } from '@/components/screen';
 import { Card } from '@/components/ui/card';
 import { focusRing } from '@/components/ui/focus';
 import { useSession, useSignOut } from '@/features/auth/api';
@@ -61,92 +62,96 @@ export function AccountScreen() {
   const contact = user?.phone ? maskEgyptMobile(user.phone) : user?.email;
 
   return (
-    <div className="flex flex-col gap-3.5 px-4 pt-5 pb-32">
-      <h1 className="px-1 text-26 leading-heading font-extrabold">{t('account.title')}</h1>
-
-      {user ? (
-        <Card className="flex items-center gap-3 p-3">
-          <span
-            aria-hidden
-            className="flex size-13 shrink-0 items-center justify-center rounded-full bg-tint text-20 font-bold text-on-tint"
-          >
-            {(user.name || t('common.brand')).charAt(0)}
-          </span>
-          <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-            <span className="text-16 font-bold">{user.name || t('account.noName')}</span>
-            {contact && (
-              <bdi dir="ltr" className="text-start text-13 text-muted">
-                {contact}
-              </bdi>
-            )}
-          </div>
-          <Link href="/onboarding" className={buttonVariants({ variant: 'tonal', size: 'sm' })}>
-            {t('common.edit')}
-          </Link>
-        </Card>
-      ) : (
-        <Card className="flex flex-col items-start gap-3 p-4">
-          <p className="text-14 leading-body text-ink-2">{t('account.guest')}</p>
-          <Link href="/sign-in?next=/account" className={buttonVariants({ size: 'sm' })}>
-            {t('common.signIn')}
-          </Link>
-        </Card>
-      )}
-
-      {prefs.data && (
-        <Section title={t('account.lunchPrefs')}>
-          <PrefRow label={t('prefs.workplace')} value={prefs.data.workplace.name[locale]} />
-          <PrefRow label={t('prefs.breakTime')} value={formatTime(prefs.data.breakTime)} />
-          <PrefRow label={t('prefs.budget')} value={formatMoney(prefs.data.budget, locale)} />
-          <PrefRow label={t('prefs.calories')} value={calorieLabel(prefs.data.calories)} />
-          <PrefRow
-            label={t('prefs.avoid')}
-            value={formatList(
-              prefs.data.exclusions.map((ingredient) => t(`prefs.exclusions.${ingredient}`)),
-              locale,
-            )}
-          />
-        </Section>
-      )}
-
-      <Section title={t('account.paymentAndApp')}>
-        {card && (
-          <SettingRow label={t('account.paymentMethods')}>
-            <span className="text-13 text-muted">
-              {t('payment.card', { last4: card.last4 ?? '' })}
+    <>
+      <ScreenHeader title={t('account.title')} />
+      <Screen clear="nav">
+        {user ? (
+          <Card className="flex items-center gap-3 p-3">
+            <span
+              aria-hidden
+              className="flex size-13 shrink-0 items-center justify-center rounded-full bg-tint text-20 font-bold text-on-tint"
+            >
+              {(user.name || t('common.brand')).charAt(0)}
             </span>
-          </SettingRow>
+            <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+              <span className="text-16 font-bold">{user.name || t('account.noName')}</span>
+              {contact && (
+                <bdi dir="ltr" className="text-start text-13 text-muted">
+                  {contact}
+                </bdi>
+              )}
+            </div>
+            <Link href="/onboarding" className={buttonVariants({ variant: 'tonal', size: 'sm' })}>
+              {t('common.edit')}
+            </Link>
+          </Card>
+        ) : (
+          <Card className="flex flex-col items-start gap-3 p-4">
+            <p className="text-14 leading-body text-ink-2">{t('account.guest')}</p>
+            <Link href="/sign-in?next=/account" className={buttonVariants({ size: 'sm' })}>
+              {t('common.signIn')}
+            </Link>
+          </Card>
         )}
-        <SettingRow label={t('account.language')}>
-          <LanguageSwitcher
-            label={t('account.language')}
-            options={locales.map((option) => ({ locale: option, label: t(`languages.${option}`) }))}
-          />
-        </SettingRow>
-        <SettingRow label={t('account.appearance')}>
-          <ThemeSwitcher
-            label={t('account.appearance')}
-            labels={{
-              light: t('account.themes.light'),
-              dark: t('account.themes.dark'),
-              system: t('account.themes.system'),
-            }}
-          />
-        </SettingRow>
-      </Section>
 
-      {user && (
-        <Button
-          variant="ghost"
-          size="md"
-          className="text-14 text-ink-2"
-          disabled={signOut.isPending}
-          onClick={() => signOut.mutate(undefined, { onSuccess: () => router.replace('/') })}
-        >
-          <LogOut aria-hidden className="size-4.5 rtl:rotate-180" />
-          {t('account.signOut')}
-        </Button>
-      )}
-    </div>
+        {prefs.data && (
+          <Section title={t('account.lunchPrefs')}>
+            <PrefRow label={t('prefs.workplace')} value={prefs.data.workplace.name[locale]} />
+            <PrefRow label={t('prefs.breakTime')} value={formatTime(prefs.data.breakTime)} />
+            <PrefRow label={t('prefs.budget')} value={formatMoney(prefs.data.budget, locale)} />
+            <PrefRow label={t('prefs.calories')} value={calorieLabel(prefs.data.calories)} />
+            <PrefRow
+              label={t('prefs.avoid')}
+              value={formatList(
+                prefs.data.exclusions.map((ingredient) => t(`prefs.exclusions.${ingredient}`)),
+                locale,
+              )}
+            />
+          </Section>
+        )}
+
+        <Section title={t('account.paymentAndApp')}>
+          {card && (
+            <SettingRow label={t('account.paymentMethods')}>
+              <span className="text-13 text-muted">
+                {t('payment.card', { last4: card.last4 ?? '' })}
+              </span>
+            </SettingRow>
+          )}
+          <SettingRow label={t('account.language')}>
+            <LanguageSwitcher
+              label={t('account.language')}
+              options={locales.map((option) => ({
+                locale: option,
+                label: t(`languages.${option}`),
+              }))}
+            />
+          </SettingRow>
+          <SettingRow label={t('account.appearance')}>
+            <ThemeSwitcher
+              label={t('account.appearance')}
+              labels={{
+                light: t('account.themes.light'),
+                dark: t('account.themes.dark'),
+                system: t('account.themes.system'),
+              }}
+            />
+          </SettingRow>
+        </Section>
+
+        {user && (
+          <Button
+            variant="ghost"
+            size="md"
+            className="text-14 text-ink-2"
+            disabled={signOut.isPending}
+            onClick={() => signOut.mutate(undefined, { onSuccess: () => router.replace('/') })}
+          >
+            <LogOut aria-hidden className="size-4.5 rtl:rotate-180" />
+            {t('account.signOut')}
+          </Button>
+        )}
+      </Screen>
+    </>
   );
 }

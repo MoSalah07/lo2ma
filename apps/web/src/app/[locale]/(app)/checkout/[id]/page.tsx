@@ -20,7 +20,9 @@ export default async function CheckoutPage({ params }: PageProps<'/[locale]/chec
         leading={{ href: `/meals/${suggestionId}`, label: t('common.back'), icon: 'back' }}
       />
       <main>
-        <ClientMessages namespaces={['common', 'checkout', 'bill', 'payment', 'meal', 'auth']}>
+        <ClientMessages
+          namespaces={['common', 'checkout', 'bill', 'payment', 'meal', 'auth', 'success']}
+        >
           <CheckoutScreen id={suggestionId} />
         </ClientMessages>
       </main>

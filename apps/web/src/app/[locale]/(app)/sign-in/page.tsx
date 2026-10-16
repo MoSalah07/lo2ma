@@ -16,7 +16,7 @@ export default async function SignInPage({ searchParams }: PageProps<'/[locale]/
   const t = await getTranslations('common');
   return (
     <main className="flex flex-1 flex-col">
-      <div className="flex flex-col gap-3.5 px-6 pt-14">
+      <div className="flex flex-col gap-3.5 px-gutter pt-14">
         <div className="flex items-baseline gap-2">
           <span className="text-44 leading-none font-extrabold">{t('brand')}</span>
           <span aria-hidden className="size-3 rounded-full bg-primary" />

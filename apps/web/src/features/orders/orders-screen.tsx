@@ -3,6 +3,7 @@
 import { formatMoney, type OrderStatus } from '@lo2ma/core';
 import { useLocale, useTranslations } from 'next-intl';
 import { MealIcon } from '@/components/meal-icon';
+import { Screen, ScreenHeader } from '@/components/screen';
 import { ErrorMessage, LoadingBlocks } from '@/components/status-message';
 import { Badge, type BadgeProps } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
@@ -28,10 +29,8 @@ export function OrdersScreen() {
 
   return (
     <>
-      <header className="px-5 pt-5 pb-3">
-        <h1 className="text-26 leading-heading font-extrabold">{t('orders.title')}</h1>
-      </header>
-      <div className="flex flex-col gap-2 px-4 pb-32">
+      <ScreenHeader title={t('orders.title')} />
+      <Screen clear="nav" className="gap-list">
         {orders.isPending && <LoadingBlocks count={3} />}
         {orders.isError && <ErrorMessage onRetry={() => void orders.refetch()} />}
         {orders.data?.length === 0 && (
@@ -42,7 +41,7 @@ export function OrdersScreen() {
             </Link>
           </div>
         )}
-        <ul className="flex flex-col gap-2">
+        <ul className="flex flex-col gap-list">
           {orders.data?.map((order) => (
             <li key={order.id}>
               <Link
@@ -55,7 +54,7 @@ export function OrdersScreen() {
                 <MealIcon size="sm" />
                 <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                   <span className="truncate text-14 font-semibold">
-                    {mealName(order.suggestion, locale)}
+                    <bdi>{mealName(order.suggestion, locale)}</bdi>
                   </span>
                   <bdi dir="ltr" className="text-start text-12 text-muted">{`#${order.id}`}</bdi>
                 </span>
@@ -71,7 +70,7 @@ export function OrdersScreen() {
             </li>
           ))}
         </ul>
-      </div>
+      </Screen>
     </>
   );
 }

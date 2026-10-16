@@ -6,9 +6,9 @@ import { AdminSidebar } from '@/features/admin/admin-sidebar';
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <AdminGuard>
-      <div className="mx-auto flex w-full max-w-360 flex-col items-start gap-6 p-4 sm:p-6 lg:flex-row">
+      <div className="mx-auto flex w-full max-w-admin flex-col items-start gap-gutter p-gutter md:p-gutter-md lg:flex-row">
         <AdminSidebar />
-        <main className="flex w-full min-w-0 flex-1 flex-col gap-5">{children}</main>
+        <main className="flex w-full min-w-0 flex-1 flex-col gap-gutter">{children}</main>
       </div>
     </AdminGuard>
   );

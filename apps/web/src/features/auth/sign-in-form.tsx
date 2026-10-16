@@ -52,7 +52,7 @@ export function SignInForm({ initialChannel, next }: SignInFormProps) {
 
   return (
     <form onSubmit={submit} noValidate className="flex flex-1 flex-col">
-      <div className="flex flex-1 flex-col gap-5 px-5 pt-9">
+      <div className="flex flex-1 flex-col gap-5 px-gutter pt-9">
         <div className="flex flex-col gap-1.5">
           <h1 className="text-26 leading-heading font-extrabold">{t('title')}</h1>
           <p className="text-14 leading-body text-muted">{t('subtitle')}</p>
@@ -103,7 +103,7 @@ export function SignInForm({ initialChannel, next }: SignInFormProps) {
         )}
       </div>
 
-      <div className="flex flex-col gap-3 px-5 pt-3 pb-[calc(1.375rem+env(safe-area-inset-bottom))]">
+      <div className="flex flex-col gap-3 px-gutter pt-3 pb-screen-end">
         <Button type="submit" block disabled={requestOtp.isPending}>
           {t('sendCode')}
         </Button>

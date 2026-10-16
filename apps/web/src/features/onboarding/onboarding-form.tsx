@@ -13,6 +13,7 @@ import { X } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useId, type ReactNode } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { Screen } from '@/components/screen';
 import { BottomAction } from '@/components/bottom-action';
 import { BudgetStepper } from '@/components/budget-stepper';
 import { ErrorMessage, LoadingBlocks } from '@/components/status-message';
@@ -50,12 +51,30 @@ function Group({
   );
 }
 
-/** Loads the saved preferences (or sensible defaults) and only then shows the form. */
+/** The title and its line. They show at once, before the saved preferences arrive. */
+function OnboardingIntro() {
+  const t = useTranslations('onboarding');
+  return (
+    <div className="flex flex-col gap-1.5">
+      <h1 className="text-28 leading-heading font-extrabold">{t('title')}</h1>
+      <p className="text-15 text-muted">{t('subtitle')}</p>
+    </div>
+  );
+}
+
+/** Loads the saved preferences (or sensible defaults) and only then shows the form's fields. */
 export function OnboardingForm() {
   const prefs = usePrefs();
   const workplaces = useWorkplaces();
 
-  if (prefs.isPending || workplaces.isPending) return <LoadingBlocks count={5} />;
+  if (prefs.isPending || workplaces.isPending) {
+    return (
+      <Screen clear="action" className="pt-2">
+        <OnboardingIntro />
+        <LoadingBlocks count={4} />
+      </Screen>
+    );
+  }
   const fallback = workplaces.data?.[0];
   const initial = prefs.data ?? (fallback ? defaultPrefs(fallback) : undefined);
   if (!initial) return <ErrorMessage onRetry={() => void workplaces.refetch()} />;
@@ -82,11 +101,8 @@ function PrefsForm({ initial }: { initial: UserPrefs }) {
 
   return (
     <form onSubmit={(event) => void submit(event)} noValidate>
-      <div className="flex flex-col gap-5 px-5 pt-2 pb-44">
-        <div className="flex flex-col gap-1.5">
-          <h1 className="text-28 leading-heading font-extrabold">{t('onboarding.title')}</h1>
-          <p className="text-15 text-muted">{t('onboarding.subtitle')}</p>
-        </div>
+      <Screen clear="action" className="pt-2">
+        <OnboardingIntro />
 
         <div className="flex flex-col gap-2">
           <span id={workplaceLabelId} className="text-13 font-semibold text-ink-2">
@@ -199,7 +215,7 @@ function PrefsForm({ initial }: { initial: UserPrefs }) {
         />
 
         {save.isError && <ErrorMessage message={t('onboarding.saveError')} />}
-      </div>
+      </Screen>
 
       <BottomAction>
         <Button type="submit" block disabled={save.isPending}>

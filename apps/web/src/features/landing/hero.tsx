@@ -8,7 +8,7 @@ export function Hero() {
   const t = useTranslations();
 
   return (
-    <Section className="grid items-center gap-8 pt-4 lg:grid-cols-2 lg:gap-16 lg:pt-10">
+    <Section className="grid items-center gap-8 pt-stack lg:grid-cols-2 lg:gap-16 lg:pt-section">
       <div className="flex flex-col items-start gap-5">
         <Eyebrow tone="lilac">{t('landing.eyebrow')}</Eyebrow>
         <h1 className="text-34 leading-tight font-extrabold text-balance lg:text-44 xl:text-56">

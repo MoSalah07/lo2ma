@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef } from 'react';
+import { Screen } from '@/components/screen';
 import { usePrefs } from '@/features/prefs/api';
 import { ChatBubble } from './chat-bubble';
 import { ChatHeader } from './chat-header';
@@ -27,14 +28,14 @@ export function ChatScreen() {
     <>
       <ChatHeader prefs={prefs.data} />
       {/* role="log" announces finished messages politely; aria-busy holds a reply until it's complete. */}
-      <div role="log" className="flex flex-col gap-3.5 px-4 pt-1 pb-56">
+      <Screen role="log" clear="composer" className="pt-1">
         <ChatBubble from="agent" avatar={avatar}>
           {t('chat.greeting')}
         </ChatBubble>
         {messages.map((message) => {
           const [first, ...others] = message.suggestions ?? [];
           return (
-            <div key={message.id} className="flex flex-col gap-3.5">
+            <div key={message.id} className="flex flex-col gap-stack">
               <ChatBubble from={message.role} avatar={avatar} busy={message.status === 'streaming'}>
                 {message.status === 'error'
                   ? t('common.error')
@@ -49,7 +50,7 @@ export function ChatScreen() {
         })}
         {/* Keeps the newest card above the message box and tab bar when scrolled into view. */}
         <div ref={endRef} className="scroll-mb-60" />
-      </div>
+      </Screen>
       <Composer busy={busy} onSend={(text) => void send(text)} />
     </>
   );

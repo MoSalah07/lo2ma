@@ -1,10 +1,19 @@
-import { chatRequestSchema, type ChatEvent, type Ingredient } from '@lo2ma/core';
+import {
+  chatRequestSchema,
+  transcriptionSchema,
+  VOICE_MAX_BYTES,
+  type ChatEvent,
+  type Ingredient,
+} from '@lo2ma/core';
 import { delay, http, HttpResponse } from 'msw';
 import { parseMessage } from '../engine/parse-message';
 import { replyText } from '../engine/reply';
 import { suggestMeals } from '../engine/suggest';
 import { readDb, writeDb } from '../store';
 import { fail, readBody, route } from './respond';
+
+/** What the demo "hears" in any voice message. */
+const DEMO_TRANSCRIPTS = { ar: 'معايا 150 ومش عايز فراخ', en: 'I have 150, no chicken please' };
 
 const encoder = new TextEncoder();
 const sseFrame = (event: ChatEvent) => encoder.encode(`data: ${JSON.stringify(event)}\n\n`);
@@ -55,5 +64,18 @@ export const chatHandlers = [
     return new HttpResponse(stream, {
       headers: { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache' },
     });
+  }),
+
+  // Phase 3 sends the audio to a speech-to-text model chosen by evals. The demo hears the same sentence
+  // every time, after a short wait, and an empty recording is silence.
+  http.post(route('/chat/transcribe'), async ({ request }) => {
+    const form = await request.formData().catch(() => null);
+    const audio = form?.get('audio');
+    if (!(audio instanceof Blob)) return fail(400, 'invalid_audio');
+    if (audio.size > VOICE_MAX_BYTES) return fail(413, 'audio_too_large');
+    if (audio.size === 0) return fail(422, 'no_speech');
+    await delay(600);
+    const locale = form?.get('locale') === 'en' ? 'en' : 'ar';
+    return HttpResponse.json(transcriptionSchema.parse({ text: DEMO_TRANSCRIPTS[locale] }));
   }),
 ];

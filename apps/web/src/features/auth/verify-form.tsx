@@ -63,7 +63,7 @@ export function VerifyForm({ channel, destination, next }: VerifyFormProps) {
         event.preventDefault();
         submit();
       }}
-      className="flex flex-col gap-7 px-5 pt-5"
+      className="flex flex-col gap-7 px-gutter pt-gutter"
     >
       <div className="flex flex-col gap-2.5">
         <h1 className="text-28 leading-heading font-extrabold">{t('auth.otp.title')}</h1>

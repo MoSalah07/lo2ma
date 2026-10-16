@@ -10,10 +10,12 @@ import {
 } from '@lo2ma/core';
 import { Clock, Lock, MapPin } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BottomAction } from '@/components/bottom-action';
 import { MealIcon } from '@/components/meal-icon';
 import { ErrorMessage, LoadingBlocks } from '@/components/status-message';
+import { Screen } from '@/components/screen';
+import { preloadSuccessScene, SuccessMoment } from '@/components/success-moment';
 import { Card } from '@/components/ui/card';
 import { Field, Input } from '@/components/ui/field';
 import { SignedInButton } from '@/features/auth/signed-in-button';
@@ -37,6 +39,10 @@ export function CheckoutScreen({ id }: { id: string }) {
   const createOrder = useCreateOrder();
   const [method, setMethod] = useState<PaymentMethod>('card');
   const [note, setNote] = useState('');
+  const [paidOrder, setPaidOrder] = useState<string | null>(null);
+
+  // The celebration's 3D loads while the user reads the bill, so paying never waits for it.
+  useEffect(() => preloadSuccessScene(), []);
 
   if (suggestion.isPending) return <LoadingBlocks count={3} />;
   if (suggestion.isError) return <ErrorMessage onRetry={() => void suggestion.refetch()} />;
@@ -47,94 +53,109 @@ export function CheckoutScreen({ id }: { id: string }) {
   const arrival = arrivalTimeFor(breakTime);
 
   function pay() {
+    // Paid already: the celebration is on screen and the order is on its way. Never a second order.
+    if (paidOrder || createOrder.isPending) return;
     createOrder.mutate(
       { suggestionId: meal.id, paymentMethod: method, note: note.trim() || undefined },
-      { onSuccess: (order) => router.push(`/orders/${order.id}`) },
+      { onSuccess: (order) => setPaidOrder(order.id) },
     );
   }
 
   return (
     <>
-      <div className="flex flex-col gap-4 px-5 pb-40">
-        <Card className="flex flex-col gap-2.5 p-4">
-          <div className="flex items-center gap-3">
-            <MealIcon />
-            <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-              <span className="text-15 font-bold">{mealName(meal, locale)}</span>
-              <span className="text-12 text-muted">{meal.restaurant.name[locale]}</span>
+      {/* Behind the celebration nothing can be reached, by touch, keyboard or screen reader. */}
+      <div inert={paidOrder !== null} className="contents">
+        <Screen clear="action">
+          <Card className="flex flex-col gap-2.5 p-4">
+            <div className="flex items-center gap-3">
+              <MealIcon />
+              <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+                <span className="text-15 font-bold">
+                  <bdi>{mealName(meal, locale)}</bdi>
+                </span>
+                <span className="text-12 text-muted">{meal.restaurant.name[locale]}</span>
+              </div>
+              <span className="shrink-0 text-18 font-extrabold">
+                {formatMoney(meal.bill.total, locale)}
+              </span>
             </div>
-            <span className="shrink-0 text-18 font-extrabold">
-              {formatMoney(meal.bill.total, locale)}
-            </span>
-          </div>
-          <p className="text-12 text-muted">
-            {t('bill.breakdown', {
-              food: formatNumber(pounds(meal.bill.food), locale),
-              delivery: formatNumber(pounds(meal.bill.delivery), locale),
-              service: formatNumber(pounds(meal.bill.service), locale),
-            })}
-          </p>
-        </Card>
-
-        <section className="flex flex-col gap-2">
-          <h2 className="text-13 font-semibold text-ink-2">{t('checkout.deliveryTitle')}</h2>
-          <Card className="flex flex-col gap-3 p-4">
-            {prefs.data && (
-              <p className="flex items-center gap-2.5 text-14 font-medium">
-                <MapPin aria-hidden className="size-4.5 shrink-0 text-primary-ink" />
-                {prefs.data.workplace.name[locale]}
-              </p>
-            )}
-            <p className="flex items-center gap-2.5 text-13 text-ink-2">
-              <Clock aria-hidden className="size-4.5 shrink-0 text-primary-ink" />
-              {t('checkout.eta', {
-                time: formatTime(arrival),
-                beforeBreak: t('common.beforeBreak', { minutes: ARRIVAL_BUFFER_MINUTES }),
+            <p className="text-12 text-muted">
+              {t('bill.breakdown', {
+                food: formatNumber(pounds(meal.bill.food), locale),
+                delivery: formatNumber(pounds(meal.bill.delivery), locale),
+                service: formatNumber(pounds(meal.bill.service), locale),
               })}
             </p>
-            <hr className="border-divider" />
-            <Field label={t('checkout.noteLabel')}>
-              {(control) => (
-                <Input
-                  {...control}
-                  value={note}
-                  maxLength={200}
-                  onChange={(event) => setNote(event.target.value)}
-                  placeholder={t('checkout.notePlaceholder')}
-                />
-              )}
-            </Field>
           </Card>
-        </section>
 
-        <PaymentPicker value={method} onChange={setMethod} />
+          <section className="flex flex-col gap-2">
+            <h2 className="text-13 font-semibold text-ink-2">{t('checkout.deliveryTitle')}</h2>
+            <Card className="flex flex-col gap-3 p-4">
+              {prefs.data && (
+                <p className="flex items-center gap-2.5 text-14 font-medium">
+                  <MapPin aria-hidden className="size-4.5 shrink-0 text-primary-ink" />
+                  {prefs.data.workplace.name[locale]}
+                </p>
+              )}
+              <p className="flex items-center gap-2.5 text-13 text-ink-2">
+                <Clock aria-hidden className="size-4.5 shrink-0 text-primary-ink" />
+                {t('checkout.eta', {
+                  time: formatTime(arrival),
+                  beforeBreak: t('common.beforeBreak', { minutes: ARRIVAL_BUFFER_MINUTES }),
+                })}
+              </p>
+              <hr className="border-divider" />
+              <Field label={t('checkout.noteLabel')}>
+                {(control) => (
+                  <Input
+                    {...control}
+                    value={note}
+                    maxLength={200}
+                    onChange={(event) => setNote(event.target.value)}
+                    placeholder={t('checkout.notePlaceholder')}
+                  />
+                )}
+              </Field>
+            </Card>
+          </section>
 
-        <p className="flex items-center gap-2.5 rounded-18 bg-good px-3.5 py-3 text-13 leading-body font-medium text-on-good">
-          <Lock aria-hidden className="size-4.5 shrink-0" />
-          {t('checkout.safety', { action: t('checkout.confirm') })}
-        </p>
+          <PaymentPicker value={method} onChange={setMethod} />
 
-        {createOrder.isError && <ErrorMessage />}
+          <p className="flex items-center gap-2.5 rounded-18 bg-good px-3.5 py-3 text-13 leading-body font-medium text-on-good">
+            <Lock aria-hidden className="size-4.5 shrink-0" />
+            {t('checkout.safety', { action: t('checkout.confirm') })}
+          </p>
+
+          {createOrder.isError && <ErrorMessage />}
+        </Screen>
+
+        <BottomAction>
+          <SignedInButton
+            block
+            next={`/checkout/${meal.id}`}
+            onSignedIn={pay}
+            disabled={createOrder.isPending || paidOrder !== null}
+            summary={<PickSummary suggestion={meal} />}
+          >
+            {createOrder.isPending
+              ? t('checkout.paying')
+              : t('checkout.confirmAmount', { amount: formatMoney(meal.bill.total, locale) })}
+          </SignedInButton>
+          <p className="text-center text-11 text-muted">
+            {t.rich('checkout.terms', {
+              terms: (chunks) => <span className="underline">{chunks}</span>,
+            })}
+          </p>
+        </BottomAction>
       </div>
 
-      <BottomAction>
-        <SignedInButton
-          block
-          next={`/checkout/${meal.id}`}
-          onSignedIn={pay}
-          disabled={createOrder.isPending}
-          summary={<PickSummary suggestion={meal} />}
-        >
-          {createOrder.isPending
-            ? t('checkout.paying')
-            : t('checkout.confirmAmount', { amount: formatMoney(meal.bill.total, locale) })}
-        </SignedInButton>
-        <p className="text-center text-11 text-muted">
-          {t.rich('checkout.terms', {
-            terms: (chunks) => <span className="underline">{chunks}</span>,
-          })}
-        </p>
-      </BottomAction>
+      {paidOrder && (
+        <SuccessMoment
+          title={t('success.order')}
+          note={t('success.orderNext')}
+          onDone={() => router.push(`/orders/${paidOrder}`)}
+        />
+      )}
     </>
   );
 }

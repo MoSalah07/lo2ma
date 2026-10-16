@@ -14,7 +14,9 @@ export function PickSummary({ suggestion }: { suggestion: Suggestion }) {
       <MealIcon size="sm" />
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <span className="text-12 text-muted">{t('yourPick')}</span>
-        <span className="truncate text-14 font-semibold">{mealName(suggestion, locale)}</span>
+        <span className="truncate text-14 font-semibold">
+          <bdi>{mealName(suggestion, locale)}</bdi>
+        </span>
       </div>
       <span className="text-16 font-extrabold">{formatMoney(suggestion.bill.total, locale)}</span>
     </div>

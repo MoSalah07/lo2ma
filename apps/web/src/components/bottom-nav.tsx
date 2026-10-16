@@ -26,7 +26,7 @@ export function BottomNav({ label, labels }: BottomNavProps) {
   return (
     <nav
       aria-label={label}
-      className="fixed inset-x-0 bottom-0 z-20 mx-auto max-w-md px-3 pt-2.5 pb-[calc(0.875rem+env(safe-area-inset-bottom))]"
+      className="fixed inset-x-0 bottom-0 z-20 mx-auto max-w-app px-bar pt-2.5 pb-nav-end"
     >
       <ul className="grid h-16 grid-cols-4 gap-1 rounded-32 bg-glass p-1.5 shadow-glass backdrop-blur-xl">
         {tabs.map(({ key, href, icon: Icon }) => {
