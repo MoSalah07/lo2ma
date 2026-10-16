@@ -1,4 +1,4 @@
-import { intlLocales, type Locale } from '@lo2ma/i18n';
+import { intlLocales, type Locale } from '@lo2ma/i18n/locales';
 
 /** Groups thousands (21,480) and shows exactly `fractionDigits` decimals, with Latin digits in both languages. */
 export function formatNumber(value: number, locale: Locale, fractionDigits = 0): string {

@@ -27,6 +27,18 @@ export const PLAN_CHANGE_CUTOFF = '11:30';
 /** A planned day's order goes to the restaurant this many minutes before it should arrive. */
 export const PLAN_SEND_LEAD_MINUTES = 45;
 
+/** A voice message is at most a minute; recording stops on its own there. */
+export const VOICE_MAX_SECONDS = 60;
+
+/** Anything shorter than a second is treated as a slip of the finger, not a message. */
+export const VOICE_MIN_SECONDS = 1;
+
+/**
+ * The biggest recording the server takes, in bytes. A minute of speech is about 1 MB at the browsers' usual
+ * bitrates, so this only stops an upload that went wrong. Bigger ones get `413 audio_too_large`.
+ */
+export const VOICE_MAX_BYTES = 4 * 1024 * 1024;
+
 /** When lunch should arrive for a break: "13:30" → "13:15". */
 export function arrivalTimeFor(breakTime: string): string {
   return addMinutes(breakTime, -ARRIVAL_BUFFER_MINUTES);

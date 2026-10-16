@@ -1,4 +1,5 @@
-import { messages, type Locale } from '@lo2ma/i18n';
+import { formats } from '@lo2ma/i18n/formats';
+import type { Locale } from '@lo2ma/i18n/locales';
 import { fillTemplate, formatNumber } from './number.ts';
 
 interface CalorieOptions {
@@ -11,7 +12,7 @@ export function formatCalories(
   locale: Locale,
   { approximate = false }: CalorieOptions = {},
 ): string {
-  const { format } = messages[locale];
+  const format = formats[locale];
   const template = approximate ? format.caloriesApprox : format.calories;
   return fillTemplate(template, { kcal: formatNumber(Math.round(kcal), locale) });
 }

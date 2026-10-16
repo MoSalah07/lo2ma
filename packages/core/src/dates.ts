@@ -1,4 +1,4 @@
-import { intlLocales, type Locale } from '@lo2ma/i18n';
+import { intlLocales, type Locale } from '@lo2ma/i18n/locales';
 
 /** "2026-10-18" → a Date at local midnight (not UTC, so the day never shifts). */
 function parseIsoDate(date: string): Date {
