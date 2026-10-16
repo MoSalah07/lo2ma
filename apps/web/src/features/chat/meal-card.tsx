@@ -52,7 +52,7 @@ export function MealCard({ suggestion, budget }: MealCardProps) {
           <span className="text-20 leading-none font-extrabold">
             {formatMoney(bill.total, locale)}
           </span>
-          {suggestion.bestValue && <Badge tone="pink">{t('common.bestValue')}</Badge>}
+          {suggestion.bestValue && <Badge tone="highlight">{t('common.bestValue')}</Badge>}
         </div>
       </div>
 

@@ -8,6 +8,7 @@ import { ErrorMessage, LoadingBlocks } from '@/components/status-message';
 import { Badge, type BadgeProps } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
 import { focusRing } from '@/components/ui/focus';
+import { Sequence, SequenceItem } from '@/components/motion/entrance';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/cn';
 import { mealName } from '@/lib/meal';
@@ -16,7 +17,7 @@ import { useOrders } from './api';
 const statusTone: Record<OrderStatus, BadgeProps['tone']> = {
   sent: 'tint',
   accepted: 'tint',
-  preparing: 'lilac',
+  preparing: 'accent',
   onTheWay: 'inverse',
   delivered: 'good',
 };
@@ -41,35 +42,37 @@ export function OrdersScreen() {
             </Link>
           </div>
         )}
-        <ul className="flex flex-col gap-list">
+        <Sequence as="ul" className="flex flex-col gap-list">
           {orders.data?.map((order) => (
             <li key={order.id}>
-              <Link
-                href={`/orders/${order.id}`}
-                className={cn(
-                  'flex items-center gap-3 rounded-22 bg-surface px-3.5 py-3 shadow-card',
-                  focusRing,
-                )}
-              >
-                <MealIcon size="sm" />
-                <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-                  <span className="truncate text-14 font-semibold">
-                    <bdi>{mealName(order.suggestion, locale)}</bdi>
+              <SequenceItem>
+                <Link
+                  href={`/orders/${order.id}`}
+                  className={cn(
+                    'flex items-center gap-3 rounded-22 bg-surface px-3.5 py-3 shadow-card',
+                    focusRing,
+                  )}
+                >
+                  <MealIcon size="sm" />
+                  <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                    <span className="truncate text-14 font-semibold">
+                      <bdi>{mealName(order.suggestion, locale)}</bdi>
+                    </span>
+                    <bdi dir="ltr" className="text-start text-12 text-muted">{`#${order.id}`}</bdi>
                   </span>
-                  <bdi dir="ltr" className="text-start text-12 text-muted">{`#${order.id}`}</bdi>
-                </span>
-                <span className="flex shrink-0 flex-col items-end gap-1">
-                  <span className="text-15 font-extrabold">
-                    {formatMoney(order.suggestion.bill.total, locale)}
+                  <span className="flex shrink-0 flex-col items-end gap-1">
+                    <span className="text-15 font-extrabold">
+                      {formatMoney(order.suggestion.bill.total, locale)}
+                    </span>
+                    <Badge tone={statusTone[order.status]}>
+                      {t(`tracking.steps.${order.status}`)}
+                    </Badge>
                   </span>
-                  <Badge tone={statusTone[order.status]}>
-                    {t(`tracking.steps.${order.status}`)}
-                  </Badge>
-                </span>
-              </Link>
+                </Link>
+              </SequenceItem>
             </li>
           ))}
-        </ul>
+        </Sequence>
       </Screen>
     </>
   );

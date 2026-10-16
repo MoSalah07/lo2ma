@@ -1,7 +1,9 @@
 import { colors, type ColorName } from './colors.ts';
 import { containers, layoutSpacing, safeOffsets } from './layout.ts';
+import { cubicBezier, durations, easings, type Easing } from './motion.ts';
 import { kebab } from './names.ts';
 import { radius } from './radius.ts';
+import { sceneColors } from './scene.ts';
 import { shadows, type ShadowName } from './shadows.ts';
 import type { Theme } from './theme.ts';
 import { fontFallback, fontSizes, fontVariable, lineHeights } from './typography.ts';
@@ -40,6 +42,10 @@ function tailwindTheme(): string {
   return block('@theme inline', [
     '--color-*: initial;',
     ...colorNames.map((name) => `--color-${kebab(name)}: var(${colorVar(name)});`),
+    // The 3D materials, the same in both themes, so a scene's still picture matches the scene (bg-scene-highlight).
+    ...Object.entries(sceneColors).map(
+      ([name, value]) => `--color-scene-${kebab(name)}: ${value};`,
+    ),
     '--shadow-*: initial;',
     ...shadowNames.map((name) => `--shadow-${kebab(name)}: var(${shadowVar(name)});`),
     '--radius-*: initial;',
@@ -48,6 +54,12 @@ function tailwindTheme(): string {
     ...fontSizes.map((px) => `--text-${px}: ${px / 16}rem;`),
     ...Object.entries(lineHeights).map(([name, value]) => `--leading-${name}: ${value};`),
     `--font-sans: var(${fontVariable}), ${fontFallback};`,
+    // Motion: only our curves exist (ease-standard, ease-enter, ease-exit), and every transition-* utility
+    // defaults to the fast duration on the standard curve.
+    '--ease-*: initial;',
+    ...(Object.keys(easings) as Easing[]).map((name) => `--ease-${name}: ${cubicBezier(name)};`),
+    `--default-transition-duration: ${durations.fast}ms;`,
+    `--default-transition-timing-function: ${cubicBezier('standard')};`,
     '--container-*: initial;',
     ...Object.entries(containers).map(([name, px]) => `--container-${name}: ${rem(px)};`),
     ...Object.entries(layoutSpacing).map(([name, px]) => `--spacing-${name}: ${rem(px)};`),

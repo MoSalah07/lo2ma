@@ -3,11 +3,13 @@ import type { LucideIcon } from 'lucide-react';
 import type { ComponentProps } from 'react';
 import { cn } from '@/lib/cn';
 import { focusRing } from './focus';
+import { pressable } from './press';
 
 /** Also used for icon links (back, close): <Link className={iconButtonVariants()} aria-label={…}>. */
 const iconButtonVariantsBase = cva(
   [
-    'inline-flex size-11 shrink-0 items-center justify-center rounded-full transition-colors',
+    'inline-flex size-11 shrink-0 items-center justify-center rounded-full',
+    pressable,
     'disabled:pointer-events-none disabled:opacity-50',
     focusRing,
   ],

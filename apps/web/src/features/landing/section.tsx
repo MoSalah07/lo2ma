@@ -1,6 +1,12 @@
 import type { ComponentProps } from 'react';
 import { cn } from '@/lib/cn';
 
+/**
+ * A part of the page that stays dark in both themes (the hero, the photo cards, the last band): the tokens inside
+ * take their dark values, so text and surfaces stay readable over food photos.
+ */
+export const alwaysDark = 'dark bg-bg text-ink';
+
 /** The landing page's column: the same max width and side padding for the header, every band and the footer. */
 export const landingColumn = 'mx-auto w-full max-w-site px-gutter md:px-gutter-md lg:px-gutter-lg';
 

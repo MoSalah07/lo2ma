@@ -1,50 +1,67 @@
 'use client';
 
-import { sceneColors } from '@lo2ma/tokens';
+import { ContactShadows } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
-import type { Group, Mesh } from 'three';
+import type { Group } from 'three';
+import { Food, preloadFood } from './food';
 import type { SceneProps } from './lazy-scene';
-import { Bite, Bowl } from './low-poly';
 import { SceneCanvas } from './scene-canvas';
 
-/** One slow turn of the bite, and how often a crumb falls into the bowl. */
-const TURN_SECONDS = 20;
-const CRUMB_EVERY_SECONDS = 6;
+preloadFood('bowl', 'lime', 'onion');
 
-function Plate({ side }: { side: number }) {
-  const bite = useRef<Group>(null);
-  const crumb = useRef<Mesh>(null);
+/** One slow turn of the bowl, and one lap of the ingredients around it. */
+const TURN_SECONDS = 24;
+const LAP_SECONDS = 9;
+
+function EmptyBowl({ side }: { side: number }) {
+  const bowl = useRef<Group>(null);
+  const lime = useRef<Group>(null);
+  const onion = useRef<Group>(null);
 
   useFrame((state, delta) => {
-    if (bite.current) bite.current.rotation.y += (delta * Math.PI * 2) / TURN_SECONDS;
-    if (crumb.current) {
-      const cycle = (state.clock.elapsedTime % CRUMB_EVERY_SECONDS) / CRUMB_EVERY_SECONDS;
-      const fall = Math.min(cycle * 5, 1);
-      crumb.current.position.y = 0.55 - fall * 1.45;
-      crumb.current.visible = cycle < 0.22;
+    if (bowl.current) bowl.current.rotation.y += (delta * Math.PI * 2) / TURN_SECONDS;
+    const lap = (state.clock.elapsedTime / LAP_SECONDS) * Math.PI * 2 * side;
+    // The two ingredients roll around the empty bowl, half a lap apart: the bite they were for is gone.
+    for (const [ref, offset] of [
+      [lime, 0],
+      [onion, Math.PI],
+    ] as const) {
+      const current = ref.current;
+      if (!current) continue;
+      current.position.set(Math.cos(lap + offset) * 1.85, -0.5, Math.sin(lap + offset) * 0.9);
+      current.rotation.z = -(lap + offset) * 2;
     }
   });
 
   return (
     <>
-      <Bowl position={[0, -0.95, 0]} scale={1.25} rotation={[0.22, 0, 0]} />
-      <group ref={bite} position={[0, 0.75, 0]}>
-        <Bite scale={0.78} />
+      <group ref={bowl} position={[0, 0, 0]} rotation={[0.38, 0, 0]}>
+        <Food name="bowl" size={2.5} />
       </group>
-      <mesh ref={crumb} position={[0.95 * side, 0.55, 0.45]} scale={0.13}>
-        <icosahedronGeometry args={[1, 0]} />
-        <meshStandardMaterial color={sceneColors.cobalt} flatShading />
-      </mesh>
+      <group ref={lime}>
+        <Food name="lime" size={0.55} />
+      </group>
+      <group ref={onion}>
+        <Food name="onion" size={0.6} />
+      </group>
+      <ContactShadows
+        position={[0, -0.9, 0]}
+        scale={7}
+        blur={2.4}
+        far={2.5}
+        opacity={0.4}
+        resolution={256}
+      />
     </>
   );
 }
 
-/** The 404 picture: a bitten «لقمة» turning slowly over its bowl. */
+/** The 404 picture: an empty wooden bowl turning slowly, its ingredients rolling around it. */
 export default function NotFoundScene({ onDecline, rtl }: SceneProps) {
   return (
-    <SceneCanvas onDecline={onDecline} distance={5.2}>
-      <Plate side={rtl ? -1 : 1} />
+    <SceneCanvas onDecline={onDecline} distance={5.6}>
+      <EmptyBowl side={rtl ? -1 : 1} />
     </SceneCanvas>
   );
 }

@@ -9,8 +9,10 @@ import { Check } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { Card } from '@/components/ui/card';
 import { Eyebrow } from './eyebrow';
+import iftarTable from './photos/iftar-table.jpg';
 import { Section, SectionTitle } from './section';
 import { WeekPreview } from './week-preview';
+import { NearbyImage } from './nearby-image';
 
 export function WeekSection() {
   const t = useTranslations();
@@ -27,7 +29,7 @@ export function WeekSection() {
     <Section>
       <Card className="grid items-center gap-7 rounded-32 p-5 md:p-10 lg:grid-cols-2 lg:gap-14 lg:p-14">
         <div className="flex flex-col items-start gap-4">
-          <Eyebrow tone="pink">{t('plan.title')}</Eyebrow>
+          <Eyebrow tone="highlight">{t('plan.title')}</Eyebrow>
           <SectionTitle>{t('landing.week.title')}</SectionTitle>
           <p className="text-15 leading-loose text-pretty text-ink-2">
             {t('landing.week.body', { time: formatTime(PLAN_CHANGE_CUTOFF) })}
@@ -43,7 +45,15 @@ export function WeekSection() {
             ))}
           </ul>
         </div>
-        <WeekPreview />
+        {/* A real table of Egyptian food behind the week, which stays plain, readable HTML. */}
+        <div className="relative isolate overflow-hidden rounded-28 p-4 md:p-8">
+          <NearbyImage
+            src={iftarTable}
+            sizes="(min-width: 1024px) 40vw, 100vw"
+            className="object-cover"
+          />
+          <WeekPreview />
+        </div>
       </Card>
     </Section>
   );

@@ -1,9 +1,18 @@
 import { formatNumber } from '@lo2ma/core';
 import { useLocale, useTranslations } from 'next-intl';
-import { Card } from '@/components/ui/card';
-import { Section, SectionTitle } from './section';
+import { Sequence, SequenceItem } from '@/components/motion/entrance';
+import { cn } from '@/lib/cn';
+import koshariSauces from './photos/koshari-sauces.jpg';
+import koshariSpoon from './photos/koshari-spoon.jpg';
+import taameya from './photos/taameya.jpg';
+import { alwaysDark, Section, SectionTitle } from './section';
+import { NearbyImage } from './nearby-image';
 
-const steps = ['say', 'pick', 'pay'] as const;
+const steps = [
+  { key: 'say', photo: koshariSpoon },
+  { key: 'pick', photo: koshariSauces },
+  { key: 'pay', photo: taameya },
+] as const;
 
 export function HowItWorks() {
   const t = useTranslations('landing.how');
@@ -12,23 +21,37 @@ export function HowItWorks() {
   return (
     <Section className="flex flex-col gap-7">
       <SectionTitle>{t('title')}</SectionTitle>
-      <ol className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {steps.map((step, index) => (
-          <li key={step}>
-            <Card className="flex h-full flex-col gap-3 rounded-28 p-6">
+      <Sequence as="ol" trigger="scroll" className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {steps.map(({ key, photo }, index) => (
+          <li key={key}>
+            <SequenceItem
+              className={cn(
+                alwaysDark,
+                'relative isolate flex h-full min-h-100 flex-col justify-end gap-3 overflow-hidden rounded-28 p-6',
+              )}
+            >
+              <NearbyImage
+                src={photo}
+                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                className="object-cover"
+              />
+              <div
+                aria-hidden
+                className="absolute inset-0 -z-10 bg-linear-to-b from-bg/0 from-25% to-bg/95 to-75%"
+              />
               {/* The list already numbers the steps for screen readers. */}
               <span
                 aria-hidden
-                className="flex size-11 items-center justify-center rounded-16 bg-tint text-18 font-bold text-on-tint"
+                className="flex size-11 items-center justify-center rounded-full bg-primary text-18 font-bold text-on-primary"
               >
                 {formatNumber(index + 1, locale)}
               </span>
-              <h3 className="text-20 leading-heading font-bold">{t(`${step}.title`)}</h3>
-              <p className="text-15 leading-loose text-ink-2">{t(`${step}.body`)}</p>
-            </Card>
+              <h3 className="text-22 leading-heading font-bold">{t(`${key}.title`)}</h3>
+              <p className="text-15 leading-loose text-ink-2">{t(`${key}.body`)}</p>
+            </SequenceItem>
           </li>
         ))}
-      </ol>
+      </Sequence>
     </Section>
   );
 }
