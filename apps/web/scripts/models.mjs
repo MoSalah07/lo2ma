@@ -1,6 +1,6 @@
 // Downloads the 3D food models from Poly Haven (CC0) and compresses them for the web: meshopt geometry, which
-// three.js decodes without fetching anything else, and WebP textures at 512 px, plenty for a model a few hundred
-// pixels wide. The results go to public/models/; the downloads are cached in .models-cache/, which git ignores.
+// three.js decodes without fetching anything else, and WebP textures. The results go to public/models/; the
+// downloads are cached in .models-cache/, which git ignores.
 import { spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, statSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
@@ -13,12 +13,19 @@ const MODELS = {
   pomegranate: 'food_pomegranate_01',
   onion: 'yellow_onion',
   bread: 'hamburger_buns',
-  croissant: 'croissant',
   lemon: 'lemon',
   bowl: 'wooden_bowl_02',
+  pot: 'brass_pot_02',
+  spoon: 'wooden_spoon',
 };
 const RESOLUTION = '1k';
+/**
+ * Texture size in pixels. 512 is plenty for a model a couple of hundred pixels wide, but the ones the scenes show
+ * large look soft with it on a 2x screen, so they keep 1024.
+ */
 const TEXTURE_SIZE = 512;
+const LARGE_TEXTURE_SIZE = 1024;
+const SHOWN_LARGE = new Set(['pomegranate', 'onion', 'lime', 'pot']);
 
 const app = fileURLToPath(new URL('..', import.meta.url));
 const cache = path.join(app, '.models-cache');
@@ -66,7 +73,7 @@ for (const [name, asset] of Object.entries(MODELS)) {
       '--texture-compress',
       'webp',
       '--texture-size',
-      String(TEXTURE_SIZE),
+      String(SHOWN_LARGE.has(name) ? LARGE_TEXTURE_SIZE : TEXTURE_SIZE),
     ],
     { stdio: ['ignore', 'ignore', 'inherit'] },
   );

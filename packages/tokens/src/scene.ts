@@ -16,3 +16,15 @@ export const sceneColors = {
   /** The ring (the break-time clock): jade 6. */
   tint: '#ACDEC8',
 } as const;
+
+/**
+ * The color of the studio lights in every scene, from the color of a black body at that temperature (Mitchell
+ * Charity's table): a warm key, like a window in the afternoon, and a cool rim from behind, so food reads as lit,
+ * not flat, on both themes.
+ */
+export const sceneLights = {
+  /** 5000 K */
+  key: '#FFE4CE',
+  /** 8000 K */
+  rim: '#E3E9FF',
+} as const;

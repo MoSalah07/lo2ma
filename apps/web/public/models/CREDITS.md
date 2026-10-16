@@ -6,6 +6,7 @@ From [Poly Haven](https://polyhaven.com), CC0. Regenerate with `npm run models -
 - `pomegranate.glb`: [food_pomegranate_01](https://polyhaven.com/a/food_pomegranate_01)
 - `onion.glb`: [yellow_onion](https://polyhaven.com/a/yellow_onion)
 - `bread.glb`: [hamburger_buns](https://polyhaven.com/a/hamburger_buns)
-- `croissant.glb`: [croissant](https://polyhaven.com/a/croissant)
 - `lemon.glb`: [lemon](https://polyhaven.com/a/lemon)
 - `bowl.glb`: [wooden_bowl_02](https://polyhaven.com/a/wooden_bowl_02)
+- `pot.glb`: [brass_pot_02](https://polyhaven.com/a/brass_pot_02)
+- `spoon.glb`: [wooden_spoon](https://polyhaven.com/a/wooden_spoon)

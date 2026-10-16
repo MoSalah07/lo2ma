@@ -5,7 +5,8 @@ import type { ThreeElements } from '@react-three/fiber';
 import { Box3, Vector3, type Object3D } from 'three';
 
 /** The food models in public/models (`npm run models`): real, scanned food from Poly Haven. */
-export type FoodName = 'lime' | 'pomegranate' | 'onion' | 'bread' | 'croissant' | 'lemon' | 'bowl';
+export type FoodName =
+  'lime' | 'pomegranate' | 'onion' | 'bread' | 'lemon' | 'bowl' | 'pot' | 'spoon';
 
 const path = (name: FoodName) => `/models/${name}.glb`;
 
