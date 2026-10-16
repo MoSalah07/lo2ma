@@ -47,4 +47,18 @@ describe('buildTokensCss', () => {
     expect(css).toContain('--text-15: 0.9375rem;');
     expect(css).toContain('--radius-26: 26px;');
   });
+
+  it("replaces Tailwind's container widths with the layout ones, and adds the layout spacing", () => {
+    const theme = blockOf('@theme inline');
+    expect(theme).toContain('--container-*: initial;');
+    expect(theme).toContain('--container-app: 30rem;');
+    expect(theme).toContain('--container-site: 80rem;');
+    expect(theme).toContain('--container-form: 27.5rem;');
+    expect(theme).toContain('--spacing-gutter: 1.25rem;');
+    expect(theme).toContain('--spacing-stack: 1rem;');
+  });
+
+  it('adds the safe area to every distance from the bottom edge', () => {
+    expect(css).toContain('--spacing-above-nav: calc(5.75rem + env(safe-area-inset-bottom));');
+  });
 });

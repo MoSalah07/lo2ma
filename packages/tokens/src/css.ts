@@ -1,4 +1,5 @@
 import { colors, type ColorName } from './colors.ts';
+import { containers, layoutSpacing, safeOffsets } from './layout.ts';
 import { kebab } from './names.ts';
 import { radius } from './radius.ts';
 import { shadows, type ShadowName } from './shadows.ts';
@@ -12,6 +13,9 @@ const selectors: Record<Theme, string> = { light: ':root', dark: '.dark' };
 
 export const colorVar = (name: ColorName) => `--lq-${kebab(name)}`;
 export const shadowVar = (name: ShadowName) => `--lq-shadow-${kebab(name)}`;
+
+/** px → rem, so layout follows the browser's font size like the text does. */
+const rem = (px: number) => `${px / 16}rem`;
 
 const block = (selector: string, lines: string[]) =>
   `${selector} {\n${lines.map((line) => `  ${line}`).join('\n')}\n}`;
@@ -44,6 +48,12 @@ function tailwindTheme(): string {
     ...fontSizes.map((px) => `--text-${px}: ${px / 16}rem;`),
     ...Object.entries(lineHeights).map(([name, value]) => `--leading-${name}: ${value};`),
     `--font-sans: var(${fontVariable}), ${fontFallback};`,
+    '--container-*: initial;',
+    ...Object.entries(containers).map(([name, px]) => `--container-${name}: ${rem(px)};`),
+    ...Object.entries(layoutSpacing).map(([name, px]) => `--spacing-${name}: ${rem(px)};`),
+    ...Object.entries(safeOffsets).map(
+      ([name, px]) => `--spacing-${name}: calc(${rem(px)} + env(safe-area-inset-bottom));`,
+    ),
   ]);
 }
 

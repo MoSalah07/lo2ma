@@ -148,4 +148,25 @@
   --leading-body: 1.6;
   --leading-loose: 1.7;
   --font-sans: var(--font-alexandria), "Segoe UI", Tahoma, sans-serif;
+  --container-*: initial;
+  --container-app: 30rem;
+  --container-site: 80rem;
+  --container-admin: 90rem;
+  --container-form: 27.5rem;
+  --spacing-gutter: 1.25rem;
+  --spacing-bar: 0.75rem;
+  --spacing-gutter-md: 2rem;
+  --spacing-gutter-lg: 3rem;
+  --spacing-list: 0.5rem;
+  --spacing-stack: 1rem;
+  --spacing-section: 2rem;
+  --spacing-section-lg: 3.5rem;
+  --spacing-clear-end: 2rem;
+  --spacing-clear-nav: 8rem;
+  --spacing-clear-action: 11rem;
+  --spacing-clear-composer: 17rem;
+  --spacing-clear-nav-action: 16rem;
+  --spacing-nav-end: calc(0.875rem + env(safe-area-inset-bottom));
+  --spacing-screen-end: calc(1.375rem + env(safe-area-inset-bottom));
+  --spacing-above-nav: calc(5.75rem + env(safe-area-inset-bottom));
 }
