@@ -9,6 +9,7 @@ import { preloadSuccessScene } from '@/components/success-moment';
 import { ErrorMessage } from '@/components/status-message';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
+import { Sequence, SequenceItem } from '@/components/motion/entrance';
 import { SignedInButton } from '@/features/auth/signed-in-button';
 import { useConfirmPlan, usePlanErrorText, useSwapDay } from './api';
 import { DayCard } from './day-card';
@@ -55,18 +56,20 @@ export function PlanBuilder({ plan }: { plan: WeeklyPlan }) {
           </div>
         </Card>
 
-        <ul className="flex flex-col gap-list">
+        <Sequence as="ul" className="flex flex-col gap-list">
           {plan.days.map((day) => (
             <li key={day.date}>
-              <DayCard
-                day={day}
-                onSwap={() => swap.mutate(day.date)}
-                swapping={swap.isPending && swap.variables === day.date}
-                disabled={swap.isPending || !day.canChange}
-              />
+              <SequenceItem>
+                <DayCard
+                  day={day}
+                  onSwap={() => swap.mutate(day.date)}
+                  swapping={swap.isPending && swap.variables === day.date}
+                  disabled={swap.isPending || !day.canChange}
+                />
+              </SequenceItem>
             </li>
           ))}
-        </ul>
+        </Sequence>
 
         <p className="flex items-center gap-2 px-1 text-12 text-muted">
           <UsersRound aria-hidden className="size-4 shrink-0" />

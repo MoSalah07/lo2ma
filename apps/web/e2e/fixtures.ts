@@ -1,5 +1,5 @@
 import { messages, type Locale, type Messages } from '@lo2ma/i18n';
-import { test as base } from '@playwright/test';
+import { expect, test as base } from '@playwright/test';
 
 export interface AppOptions {
   appLocale: Locale;
@@ -12,7 +12,22 @@ interface AppFixtures {
   path: (route: string) => string;
 }
 
+/** Statuses the API contract answers on purpose (a guest has no session or no preferences yet). */
+const EXPECTED_ERROR = /^Failed to load resource: the server responded with a status of 4\d\d/;
+
 export const test = base.extend<AppOptions & AppFixtures>({
+  // Every journey fails on a browser error: an uncaught exception, a hydration mismatch or anything else React
+  // reports as an error. They come from our code here, in a clean browser with no extensions.
+  page: async ({ page }, use) => {
+    const errors: string[] = [];
+    page.on('pageerror', (error) => errors.push(`uncaught: ${error.message}`));
+    page.on('console', (message) => {
+      if (message.type() === 'error' && !EXPECTED_ERROR.test(message.text()))
+        errors.push(message.text());
+    });
+    await use(page);
+    expect(errors, 'errors in the browser console').toEqual([]);
+  },
   appLocale: ['ar', { option: true }],
   t: async ({ appLocale }, use) => {
     await use(messages[appLocale]);

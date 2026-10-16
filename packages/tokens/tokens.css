@@ -156,6 +156,12 @@
   --leading-body: 1.6;
   --leading-loose: 1.7;
   --font-sans: var(--font-alexandria), "Segoe UI", Tahoma, sans-serif;
+  --ease-*: initial;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-enter: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --ease-exit: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --default-transition-duration: 150ms;
+  --default-transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
   --container-*: initial;
   --container-app: 30rem;
   --container-site: 80rem;

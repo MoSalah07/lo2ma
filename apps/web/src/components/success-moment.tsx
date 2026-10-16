@@ -5,6 +5,7 @@ import { Check } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { useLocale } from 'next-intl';
 import { useEffect, useRef } from 'react';
+import { Appear } from '@/components/motion/entrance';
 import { canShowScene, LazyScene, useReducedMotion } from '@/components/three/lazy-scene';
 
 const loadScene = () => import('@/components/three/success-scene');
@@ -70,7 +71,7 @@ export function SuccessMoment({ title, note, onDone }: SuccessMomentProps) {
             rtl={directions[locale] === 'rtl'}
           />
         </div>
-        <div className="flex flex-col items-center gap-2 text-center">
+        <Appear className="flex flex-col items-center gap-2 text-center">
           <h2
             ref={heading}
             tabIndex={-1}
@@ -79,7 +80,7 @@ export function SuccessMoment({ title, note, onDone }: SuccessMomentProps) {
             {title}
           </h2>
           <p className="text-15 text-ink-2">{note}</p>
-        </div>
+        </Appear>
       </div>
     </div>
   );

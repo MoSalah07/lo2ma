@@ -2,10 +2,12 @@ import { cva } from 'class-variance-authority';
 import type { ComponentProps } from 'react';
 import { cn } from '@/lib/cn';
 import { focusRing } from './focus';
+import { pressable } from './press';
 
 const chipVariants = cva(
   [
-    'inline-flex h-11 shrink-0 items-center justify-center gap-1.5 rounded-full px-4 text-14 transition-colors',
+    'inline-flex h-11 shrink-0 items-center justify-center gap-1.5 rounded-full px-4 text-14',
+    pressable,
     focusRing,
   ],
   {
