@@ -15,3 +15,12 @@ export const intlLocales: Record<Locale, string> = {
   ar: 'ar-EG-u-nu-latn',
   en: 'en-US',
 };
+
+/**
+ * Language and region for search engines (hreflang) and link previews (og:locale): both versions serve people in
+ * Egypt, which tells Google which country the site is for.
+ */
+export const regionTags: Record<Locale, string> = {
+  ar: 'ar-EG',
+  en: 'en-EG',
+};

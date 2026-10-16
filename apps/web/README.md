@@ -127,6 +127,31 @@ primitives in the brand colors. `LazyScene` (`src/components/three/lazy-scene.ts
   scene stops drawing while it is scrolled out of view.
 - The scenes are decorative: they are hidden from screen readers and all the important text stays in HTML.
 
+## Search engines and AI assistants
+
+Everything lives in `src/lib/seo/` and is built from the same messages and tokens as the pages, so it never drifts
+from what people read.
+
+- **Only the landing page is listed**, in Arabic and English (`publicPaths` in `site.ts`). Every other screen is
+  the app itself and gets `noindex` from the locale layout, so a new screen stays out of search results unless it
+  asks. The sitemap lists exactly `publicPaths`, and a page can use `publicPageMetadata` only for one of them.
+- **Every listed page** has a canonical address, the same page in the other language by region (`ar-EG`, `en-EG`,
+  and `x-default` to Arabic), a large link preview per language (`public/og/<locale>.jpg`), and Google's large
+  image and full snippet.
+- **Structured data** (JSON-LD, typed with `schema-dts`): the organization, the website and the web app as one
+  linked graph, written from the landing page's own text (`homeGraph`, `<JsonLd>`).
+- **AI assistants.** `robots.txt` welcomes the AI crawlers by name, both the ones that search for an answer
+  (OAI-SearchBot, Claude-SearchBot, PerplexityBot) and the ones that train models (GPTBot, ClaudeBot,
+  Google-Extended, CCBot). `/llms.txt` gives the site in plain Markdown, in English and Arabic, from the same
+  messages as the page. ChatGPT search and Copilot draw on Bing's index and Gemini on Google's, so being listed
+  in both (see the deployment steps) matters most.
+- **Previews never compete with production.** Canonical links always point to the production domain, and a
+  Vercel preview answers `Disallow: /` in `robots.txt`.
+- **Lighthouse's SEO score** is 100 on the landing page. The app screens lose its "blocked from indexing" check on
+  purpose: they are `noindex`.
+- **The pictures** (the preview cards and the app icons) are drawn by Chrome from the tokens, the messages and
+  the brand mark: `npm run images`. Chrome shapes Arabic correctly, which `next/og` does not fully do yet.
+
 ## Conventions
 
 ESLint enforces most of these, with zero warnings allowed.
@@ -173,12 +198,16 @@ Run from the repo root.
 | `npm run lighthouse -w @lo2ma/web`  | Lighthouse on the production build                                    |
 | `npm run screenshots -w @lo2ma/web` | retakes `docs/screenshots/` from the production build                 |
 | `npm run models -w @lo2ma/web`      | downloads the 3D food models and compresses them into `public/models` |
+| `npm run images -w @lo2ma/web`      | redraws the link preview cards and the app icons                      |
 
 ### Environment variables
 
-| Variable                  | Default    | Effect                                                              |
-| ------------------------- | ---------- | ------------------------------------------------------------------- |
-| `NEXT_PUBLIC_API_MOCKING` | (mocks on) | `disabled` sends `/api/*` to a real backend instead of the mock API |
+| Variable                   | Default                      | Effect                                                                |
+| -------------------------- | ---------------------------- | --------------------------------------------------------------------- |
+| `NEXT_PUBLIC_API_MOCKING`  | (mocks on)                   | `disabled` sends `/api/*` to a real backend instead of the mock API   |
+| `SITE_URL`                 | the Vercel production domain | the site's address for canonical links, the sitemap and link previews |
+| `GOOGLE_SITE_VERIFICATION` | (none)                       | the code Google Search Console gives, as a meta tag                   |
+| `BING_SITE_VERIFICATION`   | (none)                       | the code Bing Webmaster Tools gives, as a meta tag                    |
 
 ## Troubleshooting
 
@@ -202,3 +231,12 @@ The demo needs no backend and no environment variables: the mock API runs in the
 5. Use Node.js 22 or newer.
 
 Each push to `main` then deploys again.
+
+To be found once it is live:
+
+1. If the site has its own domain, set `SITE_URL` to it. Without it, the Vercel production domain is
+   used.
+2. Add the site to [Google Search Console](https://search.google.com/search-console) and
+   [Bing Webmaster Tools](https://www.bing.com/webmasters), put their codes in `GOOGLE_SITE_VERIFICATION` and
+   `BING_SITE_VERIFICATION`, redeploy, verify, and submit `/sitemap.xml` in both. Bing's index feeds ChatGPT
+   search and Copilot, and Google's feeds Gemini and AI Overviews.

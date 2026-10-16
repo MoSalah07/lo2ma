@@ -36,7 +36,8 @@ const next = spawn(
   process.execPath,
   ['../../node_modules/next/dist/bin/next', 'start', '-p', String(port)],
   {
-    env: { ...process.env, NEXT_TELEMETRY_DISABLED: '1' },
+    // The site's own address is this server, as it is in production, so the canonical link audits true.
+    env: { ...process.env, NEXT_TELEMETRY_DISABLED: '1', SITE_URL: base },
     stdio: 'ignore',
   },
 );
