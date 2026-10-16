@@ -44,11 +44,11 @@ export function Bowl(props: GroupProps) {
     <group {...props}>
       <mesh rotation={[Math.PI, 0, 0]}>
         <sphereGeometry args={[1, 8, 4, 0, Math.PI * 2, 0, Math.PI / 2]} />
-        <meshStandardMaterial color={sceneColors.pink} flatShading side={DoubleSide} />
+        <meshStandardMaterial color={sceneColors.highlight} flatShading side={DoubleSide} />
       </mesh>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.02, 0]}>
         <circleGeometry args={[0.98, 8]} />
-        <meshStandardMaterial color={sceneColors.lilac} flatShading />
+        <meshStandardMaterial color={sceneColors.accent} flatShading />
       </mesh>
     </group>
   );
@@ -59,7 +59,7 @@ export function Pill(props: GroupProps) {
     <group {...props}>
       <mesh rotation={[0, 0, Math.PI / 2]}>
         <capsuleGeometry args={[0.36, 0.8, 2, 8]} />
-        <meshStandardMaterial color={sceneColors.lilac} flatShading />
+        <meshStandardMaterial color={sceneColors.accent} flatShading />
       </mesh>
     </group>
   );

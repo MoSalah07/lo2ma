@@ -16,7 +16,7 @@ import { useOrders } from './api';
 const statusTone: Record<OrderStatus, BadgeProps['tone']> = {
   sent: 'tint',
   accepted: 'tint',
-  preparing: 'lilac',
+  preparing: 'accent',
   onTheWay: 'inverse',
   delivered: 'good',
 };

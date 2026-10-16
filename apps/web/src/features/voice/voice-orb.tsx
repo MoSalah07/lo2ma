@@ -11,7 +11,7 @@ interface VoiceOrbProps {
   onTap?: () => void;
 }
 
-/** The call's picture in brand shapes: lilac, a tint ring, the brand-colored core and a pink tile. Tap it to talk. */
+/** The call's picture in brand shapes: an accent ring, a tint ring, the brand-colored core and a golden tile. Tap it to talk. */
 export function VoiceOrb({ level, speaking, label, onTap }: VoiceOrbProps) {
   return (
     <button
@@ -24,7 +24,7 @@ export function VoiceOrb({ level, speaking, label, onTap }: VoiceOrbProps) {
         focusRing,
       )}
     >
-      <span aria-hidden className="absolute inset-0 rounded-full bg-lilac" />
+      <span aria-hidden className="absolute inset-0 rounded-full bg-accent" />
       <span aria-hidden className="absolute inset-5.5 rounded-full ring-10 ring-tint ring-inset" />
       <span
         aria-hidden
@@ -36,7 +36,7 @@ export function VoiceOrb({ level, speaking, label, onTap }: VoiceOrbProps) {
       />
       <span
         aria-hidden
-        className="absolute end-7.5 top-8.5 size-14.5 -rotate-14 rounded-22 bg-pink"
+        className="absolute end-7.5 top-8.5 size-14.5 -rotate-14 rounded-22 bg-scene-highlight"
       />
     </button>
   );

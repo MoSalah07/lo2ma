@@ -6,8 +6,8 @@ import { Section, SectionTitle } from './section';
 
 const rules: { key: 'noAiPay' | 'calorieSource' | 'fullBill'; icon: LucideIcon; tile: string }[] = [
   { key: 'noAiPay', icon: ShieldCheck, tile: 'bg-tint text-on-tint' },
-  { key: 'calorieSource', icon: Flame, tile: 'bg-lilac text-on-lilac' },
-  { key: 'fullBill', icon: ReceiptText, tile: 'bg-pink text-on-pink' },
+  { key: 'calorieSource', icon: Flame, tile: 'bg-accent text-on-accent' },
+  { key: 'fullBill', icon: ReceiptText, tile: 'bg-highlight text-on-highlight' },
 ];
 
 /** The product rules a visitor might doubt: the AI can't pay, calories have a source, the bill is complete. */

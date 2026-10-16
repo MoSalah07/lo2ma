@@ -13,7 +13,7 @@ export function CalorieLine({ text, estimateLabel, className }: CalorieLineProps
   return (
     <span className={cn('inline-flex items-center gap-2', className)}>
       <span>{text}</span>
-      {estimateLabel && <Badge tone="lilac">{estimateLabel}</Badge>}
+      {estimateLabel && <Badge tone="accent">{estimateLabel}</Badge>}
     </span>
   );
 }

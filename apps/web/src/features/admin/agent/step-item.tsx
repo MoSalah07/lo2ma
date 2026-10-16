@@ -16,9 +16,9 @@ import { cn } from '@/lib/cn';
 
 const looks: Record<AgentStep['kind'], { icon: LucideIcon; className: string }> = {
   user: { icon: User, className: 'bg-surface-2 text-ink-2' },
-  understand: { icon: Sparkles, className: 'bg-lilac text-on-lilac' },
+  understand: { icon: Sparkles, className: 'bg-accent text-on-accent' },
   tool: { icon: Wrench, className: 'bg-tint text-on-tint' },
-  reply: { icon: MessageSquare, className: 'bg-lilac text-on-lilac' },
+  reply: { icon: MessageSquare, className: 'bg-accent text-on-accent' },
   confirmed: { icon: CircleCheck, className: 'bg-good text-on-good' },
 };
 

@@ -6,7 +6,7 @@ import { Badge, type BadgeProps } from '@/components/ui/badge';
 
 const tones: Record<AdminOrderStatus, BadgeProps['tone']> = {
   new: 'tint',
-  preparing: 'lilac',
+  preparing: 'accent',
   onTheWay: 'inverse',
   delivered: 'good',
   late: 'warn',

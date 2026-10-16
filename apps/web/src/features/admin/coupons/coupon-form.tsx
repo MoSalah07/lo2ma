@@ -243,7 +243,7 @@ export function CouponForm() {
         <div className="flex flex-col gap-2 rounded-18 bg-surface-2 p-3.5">
           <span className="text-12 text-muted">{t('coupons.preview')}</span>
           {(code || previewReady) && (
-            <Badge tone="pink" size="md" className="h-8 gap-2 self-start px-3 text-13">
+            <Badge tone="highlight" size="md" className="h-8 gap-2 self-start px-3 text-13">
               <TicketPercent aria-hidden className="size-4" />
               {code && <bdi dir="ltr">{code.toUpperCase()}</bdi>}
               {code && previewReady && <span aria-hidden>·</span>}

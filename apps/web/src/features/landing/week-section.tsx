@@ -27,7 +27,7 @@ export function WeekSection() {
     <Section>
       <Card className="grid items-center gap-7 rounded-32 p-5 md:p-10 lg:grid-cols-2 lg:gap-14 lg:p-14">
         <div className="flex flex-col items-start gap-4">
-          <Eyebrow tone="pink">{t('plan.title')}</Eyebrow>
+          <Eyebrow tone="highlight">{t('plan.title')}</Eyebrow>
           <SectionTitle>{t('landing.week.title')}</SectionTitle>
           <p className="text-15 leading-loose text-pretty text-ink-2">
             {t('landing.week.body', { time: formatTime(PLAN_CHANGE_CUTOFF) })}

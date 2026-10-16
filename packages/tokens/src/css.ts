@@ -2,6 +2,7 @@ import { colors, type ColorName } from './colors.ts';
 import { containers, layoutSpacing, safeOffsets } from './layout.ts';
 import { kebab } from './names.ts';
 import { radius } from './radius.ts';
+import { sceneColors } from './scene.ts';
 import { shadows, type ShadowName } from './shadows.ts';
 import type { Theme } from './theme.ts';
 import { fontFallback, fontSizes, fontVariable, lineHeights } from './typography.ts';
@@ -40,6 +41,10 @@ function tailwindTheme(): string {
   return block('@theme inline', [
     '--color-*: initial;',
     ...colorNames.map((name) => `--color-${kebab(name)}: var(${colorVar(name)});`),
+    // The 3D materials, the same in both themes, so a scene's still picture matches the scene (bg-scene-highlight).
+    ...Object.entries(sceneColors).map(
+      ([name, value]) => `--color-scene-${kebab(name)}: ${value};`,
+    ),
     '--shadow-*: initial;',
     ...shadowNames.map((name) => `--shadow-${kebab(name)}: var(${shadowVar(name)});`),
     '--radius-*: initial;',

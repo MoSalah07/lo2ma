@@ -9,10 +9,10 @@ export const sceneColors = {
   brand: colors.dark.primary,
   /** The bag's side and handle: jade 11 (the light theme's primary). */
   deep: colors.light.primary,
-  /** The bowl: pink 7. */
-  pink: '#E7ACD0',
-  /** The pill and the inside of the bowl: violet 7. */
-  lilac: '#C2B5F5',
+  /** The bowl: amber 7. */
+  highlight: '#E9C162',
+  /** The pill and the inside of the bowl: teal 7. */
+  accent: '#83CDC1',
   /** The ring (the break-time clock): jade 6. */
   tint: '#ACDEC8',
 } as const;

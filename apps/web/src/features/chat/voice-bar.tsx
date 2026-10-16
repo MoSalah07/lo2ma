@@ -56,7 +56,7 @@ export function RecordingBar({ seconds, levels, onCancel, onStop }: RecordingBar
     <div className={barShell}>
       <IconButton label={t('cancel')} icon={X} variant="subtle" onClick={onCancel} />
       <span className="inline-flex shrink-0 items-center gap-1.5 text-15 font-semibold tabular-nums">
-        <span aria-hidden className="size-2 rounded-full bg-on-pink" />
+        <span aria-hidden className="size-2 rounded-full bg-on-danger" />
         {formatCountdown(seconds)}
       </span>
       <Waveform levels={levels} />

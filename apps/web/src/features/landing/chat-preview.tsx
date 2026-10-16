@@ -37,13 +37,13 @@ export function ChatPreview() {
           </span>
         </div>
         <div className="flex flex-wrap gap-1.5">
-          <Badge tone="lilac" className="h-6.5 px-2.5 font-medium">
+          <Badge tone="accent" className="h-6.5 px-2.5 font-medium">
             {t('landing.preview.calories', {
               calories: formatCalories(sampleMeal.kcal, locale, { approximate: true }),
               source: t('common.aiEstimate'),
             })}
           </Badge>
-          <Badge tone="pink" className="h-6.5 px-2.5 font-medium">
+          <Badge tone="highlight" className="h-6.5 px-2.5 font-medium">
             {t('common.bestValue')}
           </Badge>
         </div>

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { colors, type ColorName } from './colors.ts';
 import { buildTokensCss, colorVar, shadowVar } from './css.ts';
+import { sceneColors } from './scene.ts';
 import { shadows, type ShadowName } from './shadows.ts';
 
 const css = buildTokensCss();
@@ -54,6 +55,12 @@ describe('buildTokensCss', () => {
     expect(theme).toContain('--container-app: 30rem;');
     expect(theme).toContain('--container-site: 80rem;');
     expect(theme).toContain('--container-form: 27.5rem;');
+  });
+
+  it('gives the 3D materials utilities too, so still pictures match the scenes', () => {
+    const theme = buildTokensCss().split('@theme inline')[1] ?? '';
+    expect(theme).toContain(`--color-scene-highlight: ${sceneColors.highlight};`);
+    expect(theme).toContain(`--color-scene-brand: ${sceneColors.brand};`);
     expect(theme).toContain('--spacing-gutter: 1.25rem;');
     expect(theme).toContain('--spacing-stack: 1rem;');
   });
