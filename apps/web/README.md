@@ -182,11 +182,12 @@ Run from the repo root.
 
 ## Troubleshooting
 
-**A hydration error or "Encountered a script tag" in development.** Check your browser extensions first.
-Translators, grammar checkers and the like edit the page before React hydrates it, so React finds HTML it
-didn't render, rebuilds the page in the browser, and then warns about the theme's script on the way. Open the
-app in a private window or a profile without extensions. The end-to-end tests run in a clean browser and fail on
-any console error, so a mismatch that comes from our own code doesn't get past them.
+**A hydration error in development.** Check your browser extensions first. Some insert their own elements into
+the page before React hydrates it (a translator that puts its tooltip first in `<body>` is a common one), so React
+finds HTML it didn't render and rebuilds the page in the browser. Open the app in a private window or a profile
+without extensions. The theme's script is marked as data when React rebuilds the page, so it never adds a second
+warning. The end-to-end tests run in a clean browser and fail on any console error, so a mismatch that comes
+from our own code doesn't get past them.
 
 ## Deploying to Vercel
 
