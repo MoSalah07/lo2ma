@@ -35,6 +35,10 @@ export default defineConfig([
   globalIgnores([
     '**/.next/**',
     '**/coverage/**',
+    // Playwright's reports and traces: generated, and ignored by git too.
+    '**/playwright-report/**',
+    '**/test-results/**',
+    '**/blob-report/**',
     '**/next-env.d.ts',
     'apps/web/public/mockServiceWorker.js',
   ]),
