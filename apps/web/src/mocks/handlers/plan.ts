@@ -1,14 +1,18 @@
 import {
-  addMinutes,
-  ARRIVAL_BUFFER_MINUTES,
+  arrivalTimeFor,
+  canChangePlanDay,
   PLAN_CHANGE_CUTOFF,
+  planChangeDeadline,
+  planSendTimeFor,
   SHARED_DELIVERY_FEE,
+  weeklyPlanTotal,
   type PlanDay,
   type UserPrefs,
   type WeeklyPlan,
   type Workday,
 } from '@lo2ma/core';
 import { http, HttpResponse } from 'msw';
+import { isOver, withProgress } from '../engine/plan-progress';
 import { suggestMeals } from '../engine/suggest';
 import { readDb, writeDb } from '../store';
 import { fail, route } from './respond';
@@ -42,12 +46,12 @@ function usedIn(days: readonly PlanDay[]): Used {
   };
 }
 
-/** Picks one meal for a day: within the per-day food budget, from a place and dish not used yet. */
-function pickMeal(prefs: UserPrefs, used: Used) {
+/** Picks one meal for a day: within the food budget, from a place and dish not used yet. */
+function pickMeal(prefs: UserPrefs, used: Used, foodMax = prefs.budget - SHARED_DELIVERY_FEE) {
   return suggestMeals(
     {
       budget: Number.MAX_SAFE_INTEGER,
-      foodMax: prefs.budget - SHARED_DELIVERY_FEE,
+      foodMax,
       exclusions: prefs.exclusions,
       caloriesMax: prefs.calories.mode === 'any' ? undefined : prefs.calories.kcal,
       skipRestaurants: used.restaurants,
@@ -57,19 +61,23 @@ function pickMeal(prefs: UserPrefs, used: Used) {
   )[0];
 }
 
-function summarize(prefs: UserPrefs, days: PlanDay[], confirmed = false): WeeklyPlan {
-  const food = days.reduce((sum, day) => sum + day.suggestion.bill.food, 0);
+const foodsOf = (days: readonly PlanDay[]) => days.map((day) => day.suggestion.bill.food);
+
+/** A draft follows the latest preferences: the budget, the break time and the calorie limit. */
+function summarize(prefs: UserPrefs, days: PlanDay[]): WeeklyPlan {
+  const arrivalTime = arrivalTimeFor(prefs.breakTime);
   return {
     id: `plan-${days[0]?.date ?? 'empty'}`,
     days,
     budget: prefs.budget * WORKDAYS.length,
-    total: food + SHARED_DELIVERY_FEE * days.length,
+    total: weeklyPlanTotal(foodsOf(days)),
     sharedDeliveryFee: SHARED_DELIVERY_FEE,
     mealCalorieLimit: prefs.calories.mode === 'any' ? undefined : prefs.calories.kcal,
     breakTime: prefs.breakTime,
-    arrivalTime: addMinutes(prefs.breakTime, -ARRIVAL_BUFFER_MINUTES),
+    arrivalTime,
+    sendTime: planSendTimeFor(arrivalTime),
     changeCutoff: PLAN_CHANGE_CUTOFF,
-    confirmed,
+    confirmed: false,
   };
 }
 
@@ -77,40 +85,83 @@ function buildPlan(prefs: UserPrefs): WeeklyPlan {
   const days: PlanDay[] = [];
   for (const { date, weekday } of nextWeek()) {
     const suggestion = pickMeal(prefs, usedIn(days));
-    if (suggestion) days.push({ date, weekday, suggestion });
+    if (suggestion) days.push({ date, weekday, suggestion, canChange: true });
   }
   return summarize(prefs, days);
 }
 
+const deadlineOf = (plan: WeeklyPlan) => planChangeDeadline(plan.sendTime, plan.changeCutoff);
+
+/** A draft can be confirmed only while every one of its days can still be planned. */
+const isOpen = (plan: WeeklyPlan) =>
+  plan.days.every((day) => canChangePlanDay(day.date, new Date(), deadlineOf(plan)));
+
+/** Plans saved by an older version of the demo miss the newer fields. */
+function upgrade(saved: WeeklyPlan): WeeklyPlan {
+  const { sendTime, paidTotal } = saved as Partial<WeeklyPlan>;
+  return {
+    ...saved,
+    sendTime: sendTime ?? planSendTimeFor(saved.arrivalTime),
+    paidTotal: paidTotal ?? saved.total,
+  };
+}
+
+/**
+ * The plan to show. A paid week keeps its own times and amount until it is over. A draft follows the
+ * latest preferences, and is planned again once one of its days can no longer be.
+ */
+function currentPlan(prefs: UserPrefs, saved: WeeklyPlan | null): WeeklyPlan {
+  if (saved?.confirmed && !isOver(saved)) return upgrade(saved);
+  if (saved && !saved.confirmed) {
+    const draft = summarize(prefs, saved.days);
+    if (isOpen(draft)) return draft;
+  }
+  return buildPlan(prefs);
+}
+
+/** Saves the plan and answers with it as the clock has moved it. */
+function respondWith(plan: WeeklyPlan) {
+  writeDb((state) => ({ ...state, plan }));
+  return HttpResponse.json(withProgress(plan));
+}
+
 export const planHandlers = [
   http.get(route('/plan'), () => {
-    const db = readDb();
-    if (!db.prefs) return fail(404, 'not_onboarded');
-    const plan = db.plan ?? buildPlan(db.prefs);
-    writeDb((state) => ({ ...state, plan }));
-    return HttpResponse.json(plan);
+    const { prefs, plan } = readDb();
+    if (!prefs) return fail(404, 'not_onboarded');
+    return respondWith(currentPlan(prefs, plan));
   }),
 
   http.post(route('/plan/days/:date/swap'), ({ params }) => {
-    const { prefs, plan } = readDb();
-    if (!prefs || !plan) return fail(404, 'plan_not_found');
-    const used = usedIn(plan.days);
-    const days = plan.days.map((day) => {
-      if (day.date !== params.date) return day;
-      const suggestion = pickMeal(prefs, used);
-      return suggestion ? { ...day, suggestion } : day;
-    });
-    const next = summarize(prefs, days);
-    writeDb((state) => ({ ...state, plan: next }));
-    return HttpResponse.json(next);
+    const { prefs, plan: saved } = readDb();
+    if (!prefs || !saved) return fail(404, 'plan_not_found');
+    const plan = currentPlan(prefs, saved);
+    const date = String(params.date);
+    const day = plan.days.find((item) => item.date === date);
+    if (!day) return fail(404, 'day_not_found');
+    if (!canChangePlanDay(date, new Date(), deadlineOf(plan))) return fail(409, 'day_locked');
+
+    // A paid day is only swapped for a meal that costs the same or less.
+    const foodMax = plan.confirmed ? day.suggestion.bill.food : undefined;
+    const suggestion = pickMeal(prefs, usedIn(plan.days), foodMax);
+    const days = plan.days.map((item) =>
+      item.date === date && suggestion ? { ...item, suggestion } : item,
+    );
+    return respondWith(
+      plan.confirmed
+        ? { ...plan, days, total: weeklyPlanTotal(foodsOf(days)) }
+        : summarize(prefs, days),
+    );
   }),
 
   http.post(route('/plan/confirm'), () => {
-    const { prefs, plan, session } = readDb();
+    const { prefs, plan: saved, session } = readDb();
     if (!session) return fail(401, 'auth_required');
-    if (!prefs || !plan) return fail(404, 'plan_not_found');
-    const next = summarize(prefs, plan.days, true);
-    writeDb((state) => ({ ...state, plan: next }));
-    return HttpResponse.json(next);
+    if (!prefs || !saved) return fail(404, 'plan_not_found');
+    if (saved.confirmed) return respondWith(upgrade(saved));
+
+    const draft = summarize(prefs, saved.days);
+    if (!isOpen(draft)) return fail(409, 'plan_expired');
+    return respondWith({ ...draft, confirmed: true, paidTotal: draft.total });
   }),
 ];

@@ -17,6 +17,8 @@ const light = {
   onPrimary: '#FFFFFF',
   /** Brand-colored text and icons on bg or surface (links, «غيّر»). */
   primaryInk: '#2238C9',
+  /** Text on a white (onPrimary) button that sits on a primary surface. The same in both themes. */
+  primaryDeep: '#2238C9',
   tint: '#E3E7FF',
   onTint: '#2238C9',
   lilac: '#E9E3FF',
@@ -50,6 +52,7 @@ const dark: Record<ColorName, string> = {
   primary: '#4A63FF',
   onPrimary: '#FFFFFF',
   primaryInk: '#9DAEFF',
+  primaryDeep: '#2238C9',
   tint: '#232A55',
   onTint: '#C3CCFF',
   lilac: '#2D2550',

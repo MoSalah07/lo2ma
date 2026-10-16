@@ -14,6 +14,7 @@
   --lq-primary: #3452FF;
   --lq-on-primary: #FFFFFF;
   --lq-primary-ink: #2238C9;
+  --lq-primary-deep: #2238C9;
   --lq-tint: #E3E7FF;
   --lq-on-tint: #2238C9;
   --lq-lilac: #E9E3FF;
@@ -51,6 +52,7 @@
   --lq-primary: #4A63FF;
   --lq-on-primary: #FFFFFF;
   --lq-primary-ink: #9DAEFF;
+  --lq-primary-deep: #2238C9;
   --lq-tint: #232A55;
   --lq-on-tint: #C3CCFF;
   --lq-lilac: #2D2550;
@@ -88,6 +90,7 @@
   --color-primary: var(--lq-primary);
   --color-on-primary: var(--lq-on-primary);
   --color-primary-ink: var(--lq-primary-ink);
+  --color-primary-deep: var(--lq-primary-deep);
   --color-tint: var(--lq-tint);
   --color-on-tint: var(--lq-on-tint);
   --color-lilac: var(--lq-lilac);
@@ -140,6 +143,7 @@
   --text-32: 2rem;
   --text-34: 2.125rem;
   --text-44: 2.75rem;
+  --text-56: 3.5rem;
   --leading-heading: 1.3;
   --leading-body: 1.6;
   --leading-loose: 1.7;

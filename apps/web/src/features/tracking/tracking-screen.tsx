@@ -5,7 +5,7 @@ import {
   formatMoney,
   formatTime,
   minutesBetween,
-  orderSteps,
+  orderProgress,
 } from '@lo2ma/core';
 import { Phone, UserRound } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
@@ -32,7 +32,7 @@ export function TrackingScreen({ id }: { id: string }) {
   if (!order.data) return <ErrorMessage message={t('common.notFound')} />;
 
   const { suggestion, status } = order.data;
-  const progress = orderSteps.indexOf(status) / (orderSteps.length - 1);
+  const progress = orderProgress(status);
   const early = minutesBetween(order.data.arrivalTime, order.data.breakTime);
 
   return (

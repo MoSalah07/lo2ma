@@ -1,6 +1,7 @@
 export { assertPiasters, formatMoney, fromPounds, type Piasters } from './money.ts';
 export { formatCalories } from './calories.ts';
-export { addMinutes, formatTime, minutesBetween, TIME_24H } from './time.ts';
+export { addMinutes, formatTime, minutesBetween, TIME_24H, timeOf } from './time.ts';
+export { orderProgress, planDayProgress } from './orders.ts';
 export { formatList, formatNumber } from './number.ts';
 export {
   dayOfMonth,
@@ -22,11 +23,18 @@ export {
 } from './phone.ts';
 export {
   ARRIVAL_BUFFER_MINUTES,
+  arrivalTimeFor,
   BREAK_TIMES,
   BUDGET_STEP,
+  canChangePlanDay,
   meetsMinimumOrder,
   MIN_ORDER,
   PLAN_CHANGE_CUTOFF,
+  PLAN_SEND_LEAD_MINUTES,
+  planChangeDeadline,
+  planDayBill,
+  planSendTimeFor,
+  weeklyPlanTotal,
   SERVICE_FEE,
   SHARED_DELIVERY_FEE,
 } from './rules.ts';

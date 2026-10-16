@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { addMinutes, formatTime, minutesBetween } from './time.ts';
+import { addMinutes, formatTime, minutesBetween, timeOf } from './time.ts';
+
+describe('timeOf', () => {
+  it('reads the local time of day as "HH:mm"', () => {
+    expect(timeOf(new Date(2026, 9, 20, 9, 5))).toBe('09:05');
+    expect(timeOf(new Date(2026, 9, 20, 13, 30))).toBe('13:30');
+  });
+});
 
 describe('addMinutes', () => {
   it('moves the arrival 15 minutes before the break', () => {

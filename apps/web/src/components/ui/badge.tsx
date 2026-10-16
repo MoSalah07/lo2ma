@@ -15,8 +15,8 @@ const badgeVariantsBase = cva(
         good: 'bg-good text-on-good',
         warn: 'bg-warn text-on-warn',
         danger: 'bg-danger text-on-danger',
-        /** On a primary-colored surface, such as the tracking card. */
-        onPrimary: 'bg-on-primary/20 text-on-primary',
+        /** On a primary-colored surface, such as the tracking card. Solid, so white text keeps 4.5:1. */
+        onPrimary: 'bg-primary-deep text-on-primary',
       },
       size: {
         sm: 'h-5.5 px-2.5 text-11',

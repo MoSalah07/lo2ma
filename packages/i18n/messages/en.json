@@ -21,7 +21,9 @@
     "retry": "Try again",
     "notFound": "We couldn't find this page.",
     "backHome": "Back home",
-    "signIn": "Sign in"
+    "signIn": "Sign in",
+    "darkMode": "Dark mode",
+    "lightMode": "Light mode"
   },
   "nav": {
     "label": "Menu",
@@ -167,8 +169,16 @@
     "sharedDelivery": "Delivery shared with coworkers: {amount} a day",
     "confirm": "Confirm plan & pay {amount}",
     "cutoff": "Change any day until {time} AM that day",
-    "confirmed": "Plan confirmed. We'll order for you every day on time.",
     "swapping": "Swapping…",
+    "deliveredCount": "{count, plural, =0 {No days delivered yet} one {# of {total} days delivered} other {# of {total} days delivered}}",
+    "deliveryShort": "Shared delivery: {amount} a day",
+    "today": "Today · {weekday} {day}",
+    "todayEta": "Arrives {time} · {beforeBreak}",
+    "track": "Track",
+    "ordersAt": "Ordering at {time} · {price}",
+    "deliveredAt": "Delivered {time}",
+    "dayLocked": "This day is locked and can't be changed anymore.",
+    "expired": "This plan ran out of time, so we made you a new one.",
     "needsOnboarding": "Set your preferences first so we can build your plan."
   },
   "auth": {
@@ -227,13 +237,75 @@
     "empty": "No orders yet.",
     "startChat": "Order from the chat"
   },
+  "landing": {
+    "eyebrow": "For office workers in Egypt",
+    "title": "Lunch on budget, delivered before your break",
+    "subtitle": "Say how much you have or how many calories you want. Lo2ma searches the restaurants around your office and suggests 3 options with the full bill. Nothing is ordered until you confirm and pay.",
+    "ctaNote": "No sign-up needed. You sign in only to pay.",
+    "preview": {
+      "label": "An example from the chat",
+      "user": "I have 150, no chicken please",
+      "agent": "I found 3 options near your office. This one is the best value:",
+      "meal": "Large koshari + rice pudding",
+      "restaurant": "Beit El Koshari",
+      "meta": "{restaurant} · arrives {time}",
+      "calories": "{calories} · {source}"
+    },
+    "how": {
+      "title": "3 steps to lunch",
+      "say": {
+        "title": "Say what you have",
+        "body": "A budget like “I have 200”, a calorie target like “under 600 kcal”, and what you don't eat."
+      },
+      "pick": {
+        "title": "Pick from 3",
+        "body": "Every suggestion shows the full bill with delivery, the calories and their source, and the arrival time."
+      },
+      "pay": {
+        "title": "Confirm and pay",
+        "body": "The order goes to the restaurant only after you pay, and you track it until it arrives before your break."
+      }
+    },
+    "week": {
+      "title": "Plan the whole week's lunches in one go",
+      "body": "Sunday to Thursday on one budget. Lo2ma orders each day on time, and you can change any day until {time} AM that day.",
+      "arrives": "Arrives {when}",
+      "onePayment": "One payment for the whole week",
+      "dayMeta": "{price} · arrives {time}",
+      "meals": {
+        "sun": "Large koshari + salad",
+        "mon": "Foul, taameya & eggs + bread",
+        "tue": "Beef shawarma + salad",
+        "wed": "Tuna salad + baladi bread",
+        "thu": "Grilled kofta + rice"
+      }
+    },
+    "rules": {
+      "title": "Rules we don't break",
+      "noAiPay": {
+        "title": "The AI never pays",
+        "body": "Lo2ma only suggests. Only you can confirm and pay."
+      },
+      "calorieSource": {
+        "title": "Calories with their source",
+        "body": "Every calorie number says where it comes from: the restaurant or an AI estimate."
+      },
+      "fullBill": {
+        "title": "The full bill up front",
+        "body": "See the food, delivery and service before you confirm. Minimum order: {amount} on food."
+      }
+    },
+    "end": {
+      "title": "Hungry? Say how much you have.",
+      "body": "Lo2ma does the rest, and you decide."
+    },
+    "demoNote": "Demo: the restaurants and orders aren't real."
+  },
   "admin": {
     "badge": "Admin",
     "who": "Lo2ma admin",
     "initial": "A",
     "signOut": "Sign out",
-    "darkMode": "Dark mode",
-    "lightMode": "Light mode",
     "nav": {
       "label": "Admin menu",
       "overview": "Overview",

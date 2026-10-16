@@ -20,6 +20,9 @@ const buttonVariantsBase = cva(
         outline: 'bg-surface text-ink ring-1 ring-line ring-inset hover:bg-surface-2',
         ghost: 'text-ink ring-1 ring-line ring-inset hover:bg-surface-2',
         link: 'text-primary-ink hover:underline disabled:bg-transparent aria-disabled:bg-transparent',
+        /** A white button on a primary surface (the landing's last band, today's plan card). */
+        onPrimary:
+          'bg-on-primary text-primary-deep hover:bg-on-primary/90 focus-visible:outline-on-primary',
       },
       size: {
         lg: 'h-14 px-6 text-16',

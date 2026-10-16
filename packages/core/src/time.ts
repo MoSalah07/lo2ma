@@ -24,6 +24,11 @@ export function formatTime(time: string): string {
   return `${hours}:${String(minutes % 60).padStart(2, '0')}`;
 }
 
+/** The time of day of `date` on the user's own clock, as "HH:mm". */
+export function timeOf(date: Date = new Date()): string {
+  return fromMinutes(date.getHours() * 60 + date.getMinutes());
+}
+
 /** "13:30" + -15 → "13:15". Wraps around midnight. */
 export function addMinutes(time: string, minutes: number): string {
   return fromMinutes(toMinutes(time) + minutes);

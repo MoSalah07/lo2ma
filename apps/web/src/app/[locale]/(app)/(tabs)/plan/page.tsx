@@ -10,7 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function PlanPage() {
   return (
-    <ClientMessages namespaces={['common', 'plan', 'weekdays', 'onboarding', 'auth']}>
+    <ClientMessages namespaces={['common', 'plan', 'weekdays', 'onboarding', 'auth', 'tracking']}>
       <PlanScreen />
     </ClientMessages>
   );

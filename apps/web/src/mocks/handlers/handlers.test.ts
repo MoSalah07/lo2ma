@@ -9,6 +9,7 @@ import {
   chatEventSchema,
   couponSchema,
   orderSchema,
+  planDayBill,
   SHARED_DELIVERY_FEE,
   weeklyPlanSchema,
   type ChatEvent,
@@ -16,7 +17,8 @@ import {
   type UserPrefs,
 } from '@lo2ma/core';
 import { setupServer } from 'msw/node';
-import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
+import { z } from 'zod';
 import { readSseEvents } from '@/lib/sse';
 import { resetDb } from '../store';
 import { handlers } from './index';
@@ -164,6 +166,104 @@ describe('weekly plan', () => {
       await (await call(`/plan/days/${sunday?.date}/swap`, { method: 'POST' })).json(),
     );
     expect(swapped.days[0]?.suggestion.restaurant.id).not.toBe(sunday?.suggestion.restaurant.id);
+  });
+});
+
+describe('confirmed plan', () => {
+  // Only Date is faked, so MSW's own timers keep running.
+  const setNow = (iso: string) => {
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(new Date(iso));
+  };
+  afterEach(() => vi.useRealTimers());
+
+  /** Plans and pays on Thursday 15 October, so the plan covers Sunday 18 to Thursday 22. */
+  async function confirmNextWeek() {
+    setNow('2026-10-15T10:00:00');
+    await call('/prefs', { method: 'PUT', body: prefs });
+    await call('/plan');
+    await signIn();
+    await call('/plan/confirm', { method: 'POST' });
+  }
+
+  it('moves each day along with the clock and sends its order', async () => {
+    await confirmNextWeek();
+    setNow('2026-10-20T12:50:00'); // Tuesday, while lunch is being prepared.
+
+    const plan = weeklyPlanSchema.parse(await (await call('/plan')).json());
+    expect(plan.sendTime).toBe('12:30');
+    expect(plan.days.map((day) => day.status)).toEqual([
+      'delivered',
+      'delivered',
+      'preparing',
+      'scheduled',
+      'scheduled',
+    ]);
+    expect(plan.days.map((day) => day.canChange)).toEqual([false, false, false, true, true]);
+
+    const today = plan.days[2];
+    const order = orderSchema.parse(await (await call(`/orders/${today?.orderId}`)).json());
+    expect(order.status).toBe('preparing');
+    expect(order.suggestion.id).toBe(today?.suggestion.id);
+    // The plan's own price: the food plus the shared delivery, as paid.
+    expect(order.suggestion.bill).toEqual(planDayBill(today?.suggestion.bill.food ?? 0));
+
+    const orders = z.array(orderSchema).parse(await (await call('/orders')).json());
+    expect(orders.map((item) => item.id)).toEqual(['PL-20261020', 'PL-20261019', 'PL-20261018']);
+  });
+
+  it('swaps a paid day for one that costs no more, and refuses one after the cutoff', async () => {
+    await confirmNextWeek();
+    setNow('2026-10-20T11:45:00'); // Tuesday, past the 11:30 cutoff.
+    const plan = weeklyPlanSchema.parse(await (await call('/plan')).json());
+
+    const locked = await call(`/plan/days/${plan.days[2]?.date}/swap`, { method: 'POST' });
+    expect(locked.status).toBe(409);
+    expect(await locked.json()).toEqual({ code: 'day_locked' });
+
+    const wednesday = plan.days[3];
+    const swapped = weeklyPlanSchema.parse(
+      await (await call(`/plan/days/${wednesday?.date}/swap`, { method: 'POST' })).json(),
+    );
+    expect(swapped.confirmed).toBe(true);
+    expect(swapped.paidTotal).toBe(plan.paidTotal);
+    expect(swapped.days[3]?.suggestion.bill.food).toBeLessThanOrEqual(
+      wednesday?.suggestion.bill.food ?? 0,
+    );
+  });
+
+  it('keeps the paid week as it was when the preferences change', async () => {
+    await confirmNextWeek();
+    await call('/prefs', { method: 'PUT', body: { ...prefs, breakTime: '14:00' } });
+    setNow('2026-10-20T12:50:00');
+
+    const plan = weeklyPlanSchema.parse(await (await call('/plan')).json());
+    expect(plan.breakTime).toBe('13:30');
+    expect(plan.days[2]?.status).toBe('preparing');
+  });
+
+  it('plans the next week once the paid one is over', async () => {
+    await confirmNextWeek();
+    setNow('2026-10-23T10:00:00'); // Friday, after the last planned day.
+
+    const plan = weeklyPlanSchema.parse(await (await call('/plan')).json());
+    expect(plan.confirmed).toBe(false);
+    expect(plan.days[0]?.date).toBe('2026-10-25');
+  });
+
+  it('refuses a draft whose days have started, and plans a fresh week instead', async () => {
+    setNow('2026-10-15T10:00:00');
+    await call('/prefs', { method: 'PUT', body: prefs });
+    await call('/plan');
+    await signIn();
+    setNow('2026-10-19T15:00:00'); // Monday afternoon: Sunday and Monday are gone.
+
+    const late = await call('/plan/confirm', { method: 'POST' });
+    expect(late.status).toBe(409);
+    expect(await late.json()).toEqual({ code: 'plan_expired' });
+
+    const plan = weeklyPlanSchema.parse(await (await call('/plan')).json());
+    expect(plan.days[0]?.date).toBe('2026-10-25');
   });
 });
 

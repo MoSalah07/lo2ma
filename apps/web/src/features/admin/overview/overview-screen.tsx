@@ -13,6 +13,7 @@ import { ChevronRight } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { ErrorMessage, LoadingBlocks } from '@/components/status-message';
+import { ThemeToggle } from '@/components/theme-toggle';
 import { buttonVariants } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { segmentedItem, segmentedRoot } from '@/components/ui/segmented';
@@ -20,7 +21,6 @@ import { Link } from '@/i18n/navigation';
 import { useOverview } from '../api';
 import { OrdersTable } from '../orders-table';
 import { PageHeader } from '../page-header';
-import { ThemeToggle } from '../theme-toggle';
 import { KpiTile } from './kpi-tile';
 import { OrdersChart } from './orders-chart';
 import { SlotsCard } from './slots-card';
@@ -32,6 +32,7 @@ const upIsGood: Record<Kpi, boolean> = { orders: true, revenue: true, onTime: tr
 
 export function OverviewScreen() {
   const t = useTranslations('admin');
+  const tCommon = useTranslations('common');
   const tFormat = useTranslations('format');
   const tWeekdays = useTranslations('weekdays');
   const locale = useLocale();
@@ -88,7 +89,10 @@ export function OverviewScreen() {
                 </button>
               ))}
             </div>
-            <ThemeToggle />
+            <ThemeToggle
+              labels={{ dark: tCommon('darkMode'), light: tCommon('lightMode') }}
+              className="size-12"
+            />
           </>
         }
       />

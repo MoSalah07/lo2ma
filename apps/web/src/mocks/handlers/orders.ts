@@ -1,12 +1,13 @@
 import {
-  addMinutes,
-  ARRIVAL_BUFFER_MINUTES,
+  arrivalTimeFor,
   createOrderSchema,
   orderSteps,
   type Order,
   type OrderStatus,
 } from '@lo2ma/core';
 import { http, HttpResponse } from 'msw';
+import { courierPhoneAt, timelineFor } from '../engine/order-timeline';
+import { planOrders } from '../engine/plan-progress';
 import { suggestionFromId } from '../engine/suggest';
 import { readDb, writeDb } from '../store';
 import { fail, readBody, route } from './respond';
@@ -14,27 +15,20 @@ import { fail, readBody, route } from './respond';
 /** The demo moves an order one step every few seconds, so the tracking screen can be watched end to end. */
 const SECONDS_PER_STEP = 8;
 
-/** Minutes before arrival at which each step is expected. */
-const STEP_OFFSETS: Record<OrderStatus, number> = {
-  sent: -45,
-  accepted: -44,
-  preparing: -35,
-  onTheWay: -20,
-  delivered: 0,
-};
-
 function statusAt(createdAt: number, now: number): OrderStatus {
   const step = Math.floor((now - createdAt) / 1000 / SECONDS_PER_STEP);
   return orderSteps[Math.min(step, orderSteps.length - 1)] ?? 'sent';
 }
 
-/** A demo number; the courier's real number arrives with the restaurant integration. */
-const DEMO_COURIER_PHONE = '+201000000000';
-
 function withLiveStatus({ createdAt, ...order }: Order & { createdAt: number }): Order {
   const status = statusAt(createdAt, Date.now());
-  const courierAssigned = orderSteps.indexOf(status) >= orderSteps.indexOf('onTheWay');
-  return { ...order, status, courierPhone: courierAssigned ? DEMO_COURIER_PHONE : undefined };
+  return { ...order, status, courierPhone: courierPhoneAt(status) };
+}
+
+/** One-off orders first, then the ones the weekly plan has sent. */
+function allOrders(): Order[] {
+  const db = readDb();
+  return [...db.orders.map(withLiveStatus), ...planOrders(db.plan)];
 }
 
 export const orderHandlers = [
@@ -51,15 +45,12 @@ export const orderHandlers = [
     if (!suggestion) return fail(404, 'suggestion_not_found');
 
     const breakTime = db.prefs?.breakTime ?? '13:30';
-    const arrivalTime = addMinutes(breakTime, -ARRIVAL_BUFFER_MINUTES);
+    const arrivalTime = arrivalTimeFor(breakTime);
     const order = {
       id: `LQ-${10482 + db.orders.length}`,
       suggestion,
       status: 'sent' as const,
-      timeline: orderSteps.map((status) => ({
-        status,
-        at: addMinutes(arrivalTime, STEP_OFFSETS[status]),
-      })),
+      timeline: timelineFor(arrivalTime),
       breakTime,
       arrivalTime,
       onTime: true,
@@ -71,10 +62,10 @@ export const orderHandlers = [
     return HttpResponse.json(withLiveStatus(order), { status: 201 });
   }),
 
-  http.get(route('/orders'), () => HttpResponse.json(readDb().orders.map(withLiveStatus))),
+  http.get(route('/orders'), () => HttpResponse.json(allOrders())),
 
   http.get(route('/orders/:id'), ({ params }) => {
-    const order = readDb().orders.find((item) => item.id === params.id);
-    return order ? HttpResponse.json(withLiveStatus(order)) : fail(404, 'order_not_found');
+    const order = allOrders().find((item) => item.id === params.id);
+    return order ? HttpResponse.json(order) : fail(404, 'order_not_found');
   }),
 ];

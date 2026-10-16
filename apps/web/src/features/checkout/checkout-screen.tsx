@@ -1,8 +1,8 @@
 'use client';
 
 import {
-  addMinutes,
   ARRIVAL_BUFFER_MINUTES,
+  arrivalTimeFor,
   formatMoney,
   formatNumber,
   formatTime,
@@ -44,7 +44,7 @@ export function CheckoutScreen({ id }: { id: string }) {
 
   const meal = suggestion.data;
   const breakTime = prefs.data?.breakTime ?? DEFAULT_BREAK;
-  const arrival = addMinutes(breakTime, -ARRIVAL_BUFFER_MINUTES);
+  const arrival = arrivalTimeFor(breakTime);
 
   function pay() {
     createOrder.mutate(
