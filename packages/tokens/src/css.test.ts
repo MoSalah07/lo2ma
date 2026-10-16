@@ -57,6 +57,14 @@ describe('buildTokensCss', () => {
     expect(theme).toContain('--container-form: 27.5rem;');
   });
 
+  it('replaces the default curves with the motion tokens, and sets the default transition from them', () => {
+    const theme = buildTokensCss().split('@theme inline')[1] ?? '';
+    expect(theme).toContain('--ease-*: initial;');
+    expect(theme).toContain('--ease-enter: cubic-bezier(0.05, 0.7, 0.1, 1);');
+    expect(theme).toContain('--default-transition-duration: 150ms;');
+    expect(theme).toContain('--default-transition-timing-function: cubic-bezier(0.2, 0, 0, 1);');
+  });
+
   it('gives the 3D materials utilities too, so still pictures match the scenes', () => {
     const theme = buildTokensCss().split('@theme inline')[1] ?? '';
     expect(theme).toContain(`--color-scene-highlight: ${sceneColors.highlight};`);
