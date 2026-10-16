@@ -20,10 +20,17 @@
     "error": "Something went wrong. Try again.",
     "retry": "Try again",
     "notFound": "We couldn't find this page.",
+    "notFoundBody": "The link may be old, or someone took this bite first.",
     "backHome": "Back home",
     "signIn": "Sign in",
     "darkMode": "Dark mode",
     "lightMode": "Light mode"
+  },
+  "success": {
+    "order": "Sent to the restaurant!",
+    "orderNext": "Taking you to tracking…",
+    "plan": "Your plan is confirmed!",
+    "planNext": "We'll order for you every day on time."
   },
   "nav": {
     "label": "Menu",
@@ -31,15 +38,6 @@
     "plan": "Plan",
     "orders": "Orders",
     "account": "Account"
-  },
-  "format": {
-    "money": "EGP {amount}",
-    "calories": "{kcal} kcal",
-    "caloriesApprox": "~{kcal} kcal",
-    "distanceKm": "{km} km",
-    "quantity": "×{count}",
-    "percent": "{value}%",
-    "currency": "EGP"
   },
   "weekdays": {
     "sun": "Sun",
@@ -99,7 +97,40 @@
     },
     "inputLabel": "Type your message",
     "placeholder": "Tell me what you feel like…",
+    "placeholderVoice": "Type or talk…",
+    "voice": {
+      "start": "Talk instead of typing",
+      "cancel": "Cancel recording",
+      "stop": "Done",
+      "listening": "Listening… take your time. You'll review it before it's sent.",
+      "transcribing": "Writing down what you said…",
+      "review": "Written from your voice. Fix any word before you send.",
+      "denied": "Lo2ma needs the microphone to hear you. Allow it in your browser settings, or just type.",
+      "missed": "I couldn't catch that. Try again or type.",
+      "call": "Call Lo2ma"
+    },
     "thinking": "Looking…"
+  },
+  "voiceMode": {
+    "title": "A call with Lo2ma",
+    "phase": {
+      "connecting": "Getting ready…",
+      "listening": "Listening",
+      "thinking": "Thinking…",
+      "speaking": "Speaking",
+      "muted": "Microphone off"
+    },
+    "hint": "Talk, then tap the orb or pause for a second.",
+    "done": "I'm done talking",
+    "interrupt": "Stop the reply",
+    "minimize": "Back to the chat",
+    "keyboard": "Back to typing",
+    "mute": "Mute the microphone",
+    "unmute": "Unmute the microphone",
+    "end": "End the call",
+    "payNote": "Lo2ma never pays for you. Only you can confirm and pay.",
+    "mealMeta": "{restaurant} · {price}",
+    "unsupported": "This browser can't do voice calls. You can type, or use the mic in the chat."
   },
   "bill": {
     "title": "Bill",

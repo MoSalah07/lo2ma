@@ -1,0 +1,9 @@
+{
+  "money": "EGP {amount}",
+  "calories": "{kcal} kcal",
+  "caloriesApprox": "~{kcal} kcal",
+  "distanceKm": "{km} km",
+  "quantity": "×{count}",
+  "percent": "{value}%",
+  "currency": "EGP"
+}

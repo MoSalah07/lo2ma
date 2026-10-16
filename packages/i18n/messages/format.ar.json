@@ -1,0 +1,9 @@
+{
+  "money": "{amount} ج",
+  "calories": "{kcal} سعر",
+  "caloriesApprox": "حوالي {kcal} سعر",
+  "distanceKm": "{km} كم",
+  "quantity": "×{count}",
+  "percent": "{value}%",
+  "currency": "ج"
+}
