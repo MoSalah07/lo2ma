@@ -1,4 +1,4 @@
-export { assertPiasters, formatMoney, fromPounds, type Piasters } from './money.ts';
+export { assertPiasters, CURRENCY_CODE, formatMoney, fromPounds, type Piasters } from './money.ts';
 export { formatCalories } from './calories.ts';
 export { addMinutes, formatTime, minutesBetween, TIME_24H, timeOf } from './time.ts';
 export { orderProgress, planDayProgress } from './orders.ts';

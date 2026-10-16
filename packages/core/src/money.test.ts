@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatMoney, fromPounds } from './money.ts';
+import { CURRENCY_CODE, formatMoney, fromPounds } from './money.ts';
 
 describe('formatMoney', () => {
   it.each([
@@ -27,5 +27,11 @@ describe('fromPounds', () => {
   it('avoids floating point drift when amounts are added', () => {
     expect(0.1 + 0.2).not.toBe(0.3);
     expect(fromPounds(0.1) + fromPounds(0.2)).toBe(fromPounds(0.3));
+  });
+});
+
+describe('CURRENCY_CODE', () => {
+  it('is the Egyptian pound, as ISO 4217 names it', () => {
+    expect(CURRENCY_CODE).toBe('EGP');
   });
 });

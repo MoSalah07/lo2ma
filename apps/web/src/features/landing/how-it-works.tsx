@@ -1,18 +1,20 @@
 import { formatNumber } from '@lo2ma/core';
+import type { StaticImageData } from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import { Sequence, SequenceItem } from '@/components/motion/entrance';
 import { cn } from '@/lib/cn';
+import { stepKeys, type StepKey } from './facts';
 import koshariSauces from './photos/koshari-sauces.jpg';
 import koshariSpoon from './photos/koshari-spoon.jpg';
 import taameya from './photos/taameya.jpg';
 import { alwaysDark, Section, SectionTitle } from './section';
 import { NearbyImage } from './nearby-image';
 
-const steps = [
-  { key: 'say', photo: koshariSpoon },
-  { key: 'pick', photo: koshariSauces },
-  { key: 'pay', photo: taameya },
-] as const;
+const photos: Record<StepKey, StaticImageData> = {
+  say: koshariSpoon,
+  pick: koshariSauces,
+  pay: taameya,
+};
 
 export function HowItWorks() {
   const t = useTranslations('landing.how');
@@ -22,7 +24,7 @@ export function HowItWorks() {
     <Section className="flex flex-col gap-7">
       <SectionTitle>{t('title')}</SectionTitle>
       <Sequence as="ol" trigger="scroll" className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {steps.map(({ key, photo }, index) => (
+        {stepKeys.map((key, index) => (
           <li key={key}>
             <SequenceItem
               className={cn(
@@ -31,7 +33,7 @@ export function HowItWorks() {
               )}
             >
               <NearbyImage
-                src={photo}
+                src={photos[key]}
                 sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                 className="object-cover"
               />

@@ -332,6 +332,17 @@
     },
     "demoNote": "Demo: the restaurants and orders aren't real."
   },
+  "seo": {
+    "title": "Lo2ma · Lunch on budget, delivered before your break",
+    "description": "An AI lunch agent for office workers in Egypt: say your budget or calories, and Lo2ma picks lunch near your office with the full bill, before your break.",
+    "imageAlt": "A bowl of koshari next to an example chat with Lo2ma",
+    "country": "Egypt",
+    "llms": {
+      "pages": "Pages",
+      "home": "Home page in English",
+      "language": "In English"
+    }
+  },
   "admin": {
     "badge": "Admin",
     "who": "Lo2ma admin",

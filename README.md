@@ -134,6 +134,9 @@ Every dependency is pinned to an exact version.
   both themes, and reduced motion respected (the 3D falls back to a still picture).
 - **Fast where it matters.** Server Components by default, client code only on interactive leaves, messages kept
   on the server, and three.js loaded lazily only on capable devices.
+- **Found by search engines and AI assistants.** Canonical and hreflang links, link previews in both languages,
+  JSON-LD structured data, a sitemap, a robots.txt that welcomes AI crawlers, and an `llms.txt`, all generated
+  from the same messages as the pages.
 - **Tested.** About 700 unit tests across the packages and the app, the mock API contract pinned by its own
   tests, and Playwright journeys that run in Arabic and English, light and dark (100 runs), with an axe
   accessibility scan on every screen.
@@ -158,6 +161,7 @@ npm run dev          # http://localhost:3000 opens the Arabic app at /ar
 | `npm run e2e -w @lo2ma/web`         | Playwright journeys on the production build (build first) |
 | `npm run lighthouse -w @lo2ma/web`  | Lighthouse as a phone on the production build             |
 | `npm run screenshots -w @lo2ma/web` | retakes the images in this README                         |
+| `npm run images -w @lo2ma/web`      | redraws the link preview cards and the app icons          |
 | `npm run build -w @lo2ma/tokens`    | regenerates the CSS from the design tokens                |
 
 The end-to-end tests and the screenshot script use the Chrome that is already installed, so nothing is downloaded.

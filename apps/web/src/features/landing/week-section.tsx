@@ -1,14 +1,9 @@
-import {
-  ARRIVAL_BUFFER_MINUTES,
-  formatMoney,
-  formatTime,
-  PLAN_CHANGE_CUTOFF,
-  SHARED_DELIVERY_FEE,
-} from '@lo2ma/core';
+import { ARRIVAL_BUFFER_MINUTES, formatMoney, SHARED_DELIVERY_FEE } from '@lo2ma/core';
 import { Check } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { Card } from '@/components/ui/card';
 import { Eyebrow } from './eyebrow';
+import { landingValues } from './facts';
 import iftarTable from './photos/iftar-table.jpg';
 import { Section, SectionTitle } from './section';
 import { WeekPreview } from './week-preview';
@@ -32,7 +27,7 @@ export function WeekSection() {
           <Eyebrow tone="highlight">{t('plan.title')}</Eyebrow>
           <SectionTitle>{t('landing.week.title')}</SectionTitle>
           <p className="text-15 leading-loose text-pretty text-ink-2">
-            {t('landing.week.body', { time: formatTime(PLAN_CHANGE_CUTOFF) })}
+            {t('landing.week.body', landingValues(locale))}
           </p>
           <ul className="flex flex-col gap-2.5">
             {points.map((point) => (
