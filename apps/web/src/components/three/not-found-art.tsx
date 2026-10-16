@@ -2,17 +2,25 @@
 
 import { directions } from '@lo2ma/i18n/locales';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { useLocale } from 'next-intl';
 import { LazyScene } from './lazy-scene';
+import bowl from './stills/wooden_bowl_02.png';
+import lime from './stills/food_lime_01.png';
+import onion from './stills/yellow_onion.png';
 
-/** The still 404 picture: a bitten green bite over a golden bowl. */
+/** The still 404 picture: the same bowl, lime and onion as the 3D scene, photographed. */
 function NotFoundStill() {
   return (
-    <div aria-hidden className="absolute inset-0 flex flex-col items-center justify-end gap-2 pb-6">
-      <span className="relative size-32 overflow-hidden rounded-full bg-scene-brand">
-        <span className="absolute -end-4 -top-4 size-14 rounded-full bg-bg" />
-      </span>
-      <span className="h-20 w-56 rounded-b-full bg-scene-highlight" />
+    <div aria-hidden className="absolute inset-0">
+      <Image src={bowl} alt="" sizes="16rem" className="absolute inset-x-6 top-14 w-auto" />
+      <Image
+        src={lime}
+        alt=""
+        sizes="5rem"
+        className="absolute start-1 bottom-10 w-16 -rotate-24"
+      />
+      <Image src={onion} alt="" sizes="5rem" className="absolute end-2 bottom-8 w-18 rotate-12" />
     </div>
   );
 }

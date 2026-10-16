@@ -1,81 +1,85 @@
 'use client';
 
+import { ContactShadows } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { useRef, type ComponentType } from 'react';
+import { useRef } from 'react';
 import type { Group } from 'three';
+import { easeOutBack, easeOutBounce, stepProgress } from './easing';
+import { Food, preloadFood, type FoodName } from './food';
 import type { SceneProps } from './lazy-scene';
-import { Bag, Bite, Bowl, Pill, Ring } from './low-poly';
 import { SceneCanvas } from './scene-canvas';
 
-const clamp = (value: number) => Math.min(Math.max(value, 0), 1);
-const easeOutCubic = (t: number) => 1 - (1 - t) ** 3;
-/** Overshoots a little, then settles: the pieces "pop" out of the bag. */
-const easeOutBack = (t: number) => 1 + 2.7 * (t - 1) ** 3 + 1.7 * (t - 1) ** 2;
-
-const BAG_Y = 0.35;
-
-/** Where each piece lands after it pops out of the bag («end» side first, mirrored in Arabic). */
-const pieces: {
-  Shape: ComponentType<{ scale?: number }>;
-  to: [number, number, number];
-  scale: number;
-}[] = [
-  { Shape: Bite, to: [-0.85, 1.7, 0], scale: 0.45 },
-  { Shape: Ring, to: [0.9, 1.85, -0.3], scale: 0.38 },
-  { Shape: Pill, to: [0.95, -0.95, 0.2], scale: 0.38 },
-  { Shape: Bowl, to: [-0.95, -1.05, 0], scale: 0.42 },
-  { Shape: Bite, to: [0.5, 2.25, -0.6], scale: 0.24 },
+/** Where each ingredient comes to rest in the bowl (x on the «end» side when positive), and its size. */
+const ingredients: { name: FoodName; rest: [number, number, number]; size: number }[] = [
+  { name: 'bread', rest: [-0.35, -0.35, 0.1], size: 0.95 },
+  { name: 'pomegranate', rest: [0.45, -0.3, 0.15], size: 0.6 },
+  { name: 'lime', rest: [0.05, -0.15, 0.45], size: 0.42 },
+  { name: 'onion', rest: [-0.6, -0.1, -0.2], size: 0.45 },
+  { name: 'lemon', rest: [0.6, -0.05, -0.3], size: 0.36 },
 ];
+preloadFood('bowl', ...ingredients.map((ingredient) => ingredient.name));
 
-function Burst({ side }: { side: number }) {
-  const bag = useRef<Group>(null);
-  const flying = useRef<(Group | null)[]>([]);
+/** 0–350 ms: the bowl rises into place. Then each ingredient falls in this long after the previous one. */
+const BOWL_SECONDS = 0.35;
+const FALL_SECONDS = 0.6;
+const FALL_GAP = 0.11;
+const DROP_HEIGHT = 3.6;
+
+function LunchInTheBowl({ side }: { side: number }) {
+  const bowl = useRef<Group>(null);
+  const falling = useRef<(Group | null)[]>([]);
 
   useFrame((state) => {
-    const t = state.clock.elapsedTime;
-    // 0–300 ms: the bag rises from below.
-    const rise = easeOutCubic(clamp(t / 0.3));
-    if (bag.current) {
-      bag.current.position.y = -3.6 + (BAG_Y + 3.6) * rise;
-      bag.current.rotation.z = (1 - rise) * 0.35 * side;
-      bag.current.rotation.y = t * 0.4;
+    const time = state.clock.elapsedTime;
+    const risen = easeOutBack(stepProgress(time, 0, BOWL_SECONDS));
+    if (bowl.current) {
+      bowl.current.position.y = -0.85 - (1 - risen) * 2.5;
+      bowl.current.rotation.y = time * 0.25;
     }
-    // 400–800 ms: the pieces burst out of it, then settle and turn slowly.
-    const burst = easeOutBack(clamp((t - 0.4) / 0.4));
-    flying.current.forEach((group, index) => {
-      const piece = pieces[index];
-      if (!group || !piece) return;
-      const [x, y, z] = piece.to;
-      group.position.set(x * side * burst, BAG_Y + (y - BAG_Y) * burst, z);
-      group.scale.setScalar(Math.max(piece.scale * burst, 0.001));
-      group.rotation.y = t * 0.6 + index;
+    falling.current.forEach((group, index) => {
+      const ingredient = ingredients[index];
+      if (!group || !ingredient) return;
+      const progress = stepProgress(time, BOWL_SECONDS * 0.6 + index * FALL_GAP, FALL_SECONDS);
+      const [x, y, z] = ingredient.rest;
+      group.visible = progress > 0;
+      group.position.set(x * side, y + (1 - easeOutBounce(progress)) * DROP_HEIGHT, z);
+      group.rotation.set(progress * 2.5 + index, progress * 1.5, 0);
     });
   });
 
   return (
     <>
-      <group ref={bag}>
-        <Bag scale={1.1} />
+      <group ref={bowl} rotation={[0.42, 0, 0]}>
+        <Food name="bowl" size={2.4} />
       </group>
-      {pieces.map(({ Shape }, index) => (
+      {ingredients.map((ingredient, index) => (
         <group
-          key={index}
+          key={ingredient.name}
+          visible={false}
           ref={(group) => {
-            flying.current[index] = group;
+            falling.current[index] = group;
           }}
         >
-          <Shape />
+          <Food name={ingredient.name} size={ingredient.size} />
         </group>
       ))}
+      <ContactShadows
+        position={[0, -1.6, 0]}
+        scale={7}
+        blur={2.6}
+        far={3}
+        opacity={0.35}
+        resolution={256}
+      />
     </>
   );
 }
 
-/** The moment an order is paid or a plan confirmed: a bag pops up and lunch bursts out of it. */
+/** The moment an order is paid or a plan confirmed: lunch falls into its bowl. */
 export default function SuccessScene({ onDecline, rtl }: SceneProps) {
   return (
-    <SceneCanvas onDecline={onDecline} distance={7}>
-      <Burst side={rtl ? -1 : 1} />
+    <SceneCanvas onDecline={onDecline} distance={6.2}>
+      <LunchInTheBowl side={rtl ? -1 : 1} />
     </SceneCanvas>
   );
 }

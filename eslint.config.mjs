@@ -74,7 +74,14 @@ export default defineConfig([
         ...inStrings(arbitraryValue, TOKENS),
         ...inStrings(namedWidth, LAYOUT),
         {
-          selector: 'JSXAttribute[name.name=/^(aria-label|title|alt|placeholder)$/] > Literal',
+          // An empty alt is not text: it marks a decorative image, so screen readers skip it.
+          selector: 'JSXAttribute[name.name=/^(aria-label|title|alt)$/] > Literal[value=/.+/]',
+          message: TEXT,
+        },
+        {
+          // next/image's placeholder is a loading mode ("blur"), not a prompt.
+          selector:
+            "JSXOpeningElement[name.name!='Image'] > JSXAttribute[name.name='placeholder'] > Literal",
           message: TEXT,
         },
       ],
