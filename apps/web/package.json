@@ -11,6 +11,7 @@
     "typecheck": "next typegen && tsc --noEmit",
     "e2e": "playwright test",
     "lighthouse": "node scripts/lighthouse.mjs",
+    "models": "node scripts/models.mjs",
     "screenshots": "node scripts/screenshots.mjs"
   },
   "dependencies": {
@@ -39,6 +40,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",
+    "@gltf-transform/cli": "4.5.1",
     "@playwright/test": "1.64.1",
     "@tailwindcss/postcss": "4.3.3",
     "@testing-library/dom": "10.4.2",

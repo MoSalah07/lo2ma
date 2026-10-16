@@ -2,6 +2,7 @@
 node_modules/
 
 # Builds
+.models-cache/
 .next/
 out/
 dist/
