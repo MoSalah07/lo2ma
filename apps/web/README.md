@@ -162,14 +162,15 @@ ESLint enforces most of these, with zero warnings allowed.
 
 Run from the repo root.
 
-| Command                             | What it does                                                    |
-| ----------------------------------- | --------------------------------------------------------------- |
-| `npm run dev`                       | development server                                              |
-| `npm run build`                     | production build                                                |
-| `npm run check`                     | typecheck, lint, unit tests and format check for the whole repo |
-| `npm run e2e -w @lo2ma/web`         | Playwright on the production build (run `npm run build` first)  |
-| `npm run lighthouse -w @lo2ma/web`  | Lighthouse on the production build                              |
-| `npm run screenshots -w @lo2ma/web` | retakes `docs/screenshots/` from the production build           |
+| Command                             | What it does                                                          |
+| ----------------------------------- | --------------------------------------------------------------------- |
+| `npm run dev`                       | development server                                                    |
+| `npm run build`                     | production build                                                      |
+| `npm run check`                     | typecheck, lint, unit tests and format check for the whole repo       |
+| `npm run e2e -w @lo2ma/web`         | Playwright on the production build (run `npm run build` first)        |
+| `npm run lighthouse -w @lo2ma/web`  | Lighthouse on the production build                                    |
+| `npm run screenshots -w @lo2ma/web` | retakes `docs/screenshots/` from the production build                 |
+| `npm run models -w @lo2ma/web`      | downloads the 3D food models and compresses them into `public/models` |
 
 ### Environment variables
 
