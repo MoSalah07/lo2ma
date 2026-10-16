@@ -92,9 +92,9 @@ try {
     { locale: 'ar', scheme: 'light', device: desktop },
     async ({ page, path, snap }) => {
       await page.goto(path(''));
-      // The hero's 3D starts on the first interaction.
+      // The hero's 3D starts on the first interaction, then its models load and rise in.
       await page.mouse.move(900, 400);
-      await page.waitForTimeout(3_000);
+      await page.waitForTimeout(6_000);
       await snap('landing-ar');
     },
   );

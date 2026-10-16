@@ -25,7 +25,7 @@ Every path below lives under the locale, for example `/ar/chat` or `/en/chat`.
 
 | Path                      | Screen                                                                                    |
 | ------------------------- | ----------------------------------------------------------------------------------------- |
-| `/`                       | Landing page, with a low-poly 3D scene behind a chat preview                              |
+| `/`                       | Landing page: a koshari photo with real ingredients floating around it in 3D              |
 | `/onboarding`             | First run: workplace, break time, daily budget, calorie limit and foods to avoid          |
 | `/chat`                   | The chat: replies stream in word by word, then the meal cards with their bills            |
 | `/voice`                  | A voice call with live captions; the meal is picked with a button                         |
@@ -41,7 +41,7 @@ Every path below lives under the locale, for example `/ar/chat` or `/en/chat`.
 | `/admin/coupons`          | Coupons, with the minimum order enforced                                                  |
 | `/admin/agent`            | The agent log: every step of every conversation, and who confirmed the order              |
 
-Any other path shows a localized 404 page with its own 3D scene. After paying or confirming a week, a short
+Any other path shows a localized 404 page: an empty copper pot, in 3D. After paying or confirming a week, a short
 celebration plays before the next screen.
 
 ## Folder structure
@@ -117,8 +117,11 @@ scripts/               Lighthouse and README screenshots
 
 ## 3D
 
-The landing page, the 404 page and the celebration after paying use React Three Fiber scenes built from low-poly
-primitives in the brand colors. `LazyScene` (`src/components/three/lazy-scene.tsx`) decides where they run:
+The landing page, the 404 page and the celebration after paying use React Three Fiber scenes of real, scanned food
+from Poly Haven (CC0), compressed with gltf-transform (`npm run models`). `SceneCanvas` lights them like a food
+shoot and renders them with Khronos PBR Neutral tone mapping, which keeps their colors as scanned. The landing's
+pieces are sized and placed from what the camera sees at their depth (`visibleHalf`), so none is cut off on any
+screen. `LazyScene` (`src/components/three/lazy-scene.tsx`) decides where the scenes run:
 
 - The library is loaded with `next/dynamic` and `ssr: false`, so it never enters the chat or checkout bundles.
 - A still picture shows on the server, with reduced motion, on devices without WebGL 2 or with little memory, and

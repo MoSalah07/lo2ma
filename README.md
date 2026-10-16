@@ -21,7 +21,7 @@ so each one arrives before your break. Nothing is ordered until you confirm and 
   </tr>
 </table>
 
-<p align="center"><img src="docs/screenshots/landing-ar.jpg" width="860" alt="The landing page in Arabic, with a low-poly 3D scene behind a chat preview" /></p>
+<p align="center"><img src="docs/screenshots/landing-ar.jpg" width="860" alt="The landing page in Arabic: a bowl of koshari with real ingredients floating around it in 3D, and a chat preview" /></p>
 
 ## Contents
 
