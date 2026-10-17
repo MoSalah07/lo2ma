@@ -157,7 +157,19 @@
     "dontKnow": "Don't know your numbers?",
     "save": "Save goal",
     "summary": "Goal: {calories} · {protein} protein",
-    "change": "Change"
+    "change": "Change",
+    "status": {
+      "inGoal": "Fits your goal",
+      "lowProtein": "Less protein",
+      "under": "Lighter than your goal",
+      "over": "Above your goal"
+    },
+    "ofGoal": "{value} of {goal}",
+    "mealLine": "{calories} · {protein} protein",
+    "macrosLine": "Carbs {carbs} · Fat {fat}",
+    "carbs": "Carbs",
+    "fat": "Fat",
+    "closeness": "How close to your goal"
   },
   "onboarding": {
     "title": "Let's set up your lunch",
@@ -239,10 +251,22 @@
     "meta": "{restaurant} · {duration} · {distance}",
     "vegetarian": "Vegetarian",
     "without": "No {item}",
-    "calorieNote": "Estimated from ingredients; may vary by ±15%.",
+    "calorieNote": "Worked out from the ingredients; the real number is {range}.",
     "items": "Items",
     "continue": "Continue to pay · {amount}",
-    "notFound": "This suggestion doesn't exist. Go back to the chat and pick again."
+    "notFound": "This suggestion doesn't exist. Go back to the chat and pick again.",
+    "macros": "Protein {protein} · Carbs {carbs} · Fat {fat}",
+    "how": "How we worked it out",
+    "howIntro": "The restaurant doesn't publish these calories, so we estimated them from the ingredients. These are typical amounts; the real number is {range}.",
+    "colFood": "Ingredient",
+    "colAmount": "Amount",
+    "colKcal": "Calories",
+    "colProtein": "Protein",
+    "total": "Total",
+    "published": "From the restaurant",
+    "sources": "Values per ingredient from USDA and Egypt's National Nutrition Institute.",
+    "report": "Dish looked different? Tell us",
+    "reported": "Thanks, we'll review this dish."
   },
   "payment": {
     "card": "Card •••• {last4}",

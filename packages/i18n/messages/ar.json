@@ -157,7 +157,19 @@
     "dontKnow": "مش عارف رقمك؟",
     "save": "احفظ الهدف",
     "summary": "هدفك: {calories} · {protein} بروتين",
-    "change": "غيّر"
+    "change": "غيّر",
+    "status": {
+      "inGoal": "في هدفك",
+      "lowProtein": "بروتين أقل",
+      "under": "أخف من هدفك",
+      "over": "أعلى من هدفك"
+    },
+    "ofGoal": "{value} من {goal}",
+    "mealLine": "{calories} · {protein} بروتين",
+    "macrosLine": "كارب {carbs} · دهون {fat}",
+    "carbs": "كارب",
+    "fat": "دهون",
+    "closeness": "قد إيه قريبة من هدفك"
   },
   "onboarding": {
     "title": "خلّينا نظبطلك الغدا",
@@ -239,10 +251,22 @@
     "meta": "{restaurant} · {duration} · {distance}",
     "vegetarian": "نباتي",
     "without": "من غير {item}",
-    "calorieNote": "محسوبة من المكونات، وممكن تفرق ±15%.",
+    "calorieNote": "محسوبة من المكونات، والحقيقي {range}.",
     "items": "الأصناف",
     "continue": "كمّل للدفع · {amount}",
-    "notFound": "الاقتراح ده مش موجود. ارجع للشات واختار تاني."
+    "notFound": "الاقتراح ده مش موجود. ارجع للشات واختار تاني.",
+    "macros": "بروتين {protein} · كارب {carbs} · دهون {fat}",
+    "how": "حسبناها ازاي",
+    "howIntro": "المطعم مش معلن السعرات دي، فقدّرناها من المكونات. الأرقام متوسط، والحقيقي {range}.",
+    "colFood": "المكوّن",
+    "colAmount": "الكمية",
+    "colKcal": "السعرات",
+    "colProtein": "البروتين",
+    "total": "الإجمالي",
+    "published": "الرقم من المطعم",
+    "sources": "قيم كل مكوّن من USDA والمعهد القومي للتغذية.",
+    "report": "الطبق جالك مختلف؟ قولّنا",
+    "reported": "شكرًا، هنراجع الطبق ده."
   },
   "payment": {
     "card": "كارت •••• {last4}",

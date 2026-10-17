@@ -20,6 +20,11 @@ export const calorieOptions: CaloriePref[] = [
   { mode: 'under', kcal: 500 },
 ];
 
+/** The goal behind a calorie preference, or undefined outside «وضع الفورمة». */
+export function fitTargetOf(pref: CaloriePref | undefined): FitTarget | undefined {
+  return pref?.mode === 'fit' ? { kcal: pref.kcal, protein: pref.protein } : undefined;
+}
+
 /** Where «أنا عارف رقمي» starts for someone who never set a fit goal. */
 export const defaultFitTarget: FitTarget = { kcal: 700, protein: 40 };
 

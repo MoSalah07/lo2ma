@@ -1,9 +1,8 @@
 'use client';
 
-import { formatCalories, formatMoney, formatNumber } from '@lo2ma/core';
+import { formatMoney, formatNumber } from '@lo2ma/core';
 import { useLocale, useTranslations } from 'next-intl';
 import { BottomAction } from '@/components/bottom-action';
-import { CalorieLine } from '@/components/calorie-line';
 import { MealIcon } from '@/components/meal-icon';
 import { ErrorMessage, LoadingBlocks } from '@/components/status-message';
 import { Badge } from '@/components/ui/badge';
@@ -11,10 +10,12 @@ import { Screen } from '@/components/screen';
 import { Card } from '@/components/ui/card';
 import { SignedInButton } from '@/features/auth/signed-in-button';
 import { usePrefs } from '@/features/prefs/api';
+import { fitTargetOf } from '@/features/prefs/options';
 import { useRouter } from '@/i18n/navigation';
 import { avoidedIn, isVegetarianMeal, mealName } from '@/lib/meal';
 import { useSuggestion } from './api';
 import { BillCard } from './bill-card';
+import { MealNutrition } from './meal-nutrition';
 import { PickSummary } from './pick-summary';
 
 export function MealScreen({ id }: { id: string }) {
@@ -30,7 +31,6 @@ export function MealScreen({ id }: { id: string }) {
 
   const meal = suggestion.data;
   const checkout = `/checkout/${meal.id}`;
-  const estimated = meal.kcalSource === 'ai';
 
   return (
     <>
@@ -64,14 +64,7 @@ export function MealScreen({ id }: { id: string }) {
           ))}
         </div>
 
-        <Card className="flex flex-col gap-1 rounded-card px-4 py-3">
-          <CalorieLine
-            className="text-body-md font-bold"
-            text={formatCalories(meal.kcal, locale, { approximate: estimated })}
-            estimateLabel={estimated ? t('common.aiEstimate') : undefined}
-          />
-          {estimated && <p className="text-caption text-muted">{t('meal.calorieNote')}</p>}
-        </Card>
+        <MealNutrition meal={meal} goal={fitTargetOf(prefs.data?.calories)} />
 
         <section className="flex flex-col gap-2">
           <h2 className="text-label-md text-ink-2">{t('meal.items')}</h2>

@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react';
 import { Appear, Sequence, SequenceItem } from '@/components/motion/entrance';
 import { Screen } from '@/components/screen';
 import { usePrefs } from '@/features/prefs/api';
+import { fitTargetOf } from '@/features/prefs/options';
 import { ChatBubble } from './chat-bubble';
 import { ChatHeader } from './chat-header';
 import { Composer } from './composer';
@@ -18,6 +19,7 @@ export function ChatScreen() {
   const { messages, busy, send } = useChat();
   const endRef = useRef<HTMLDivElement>(null);
   const avatar = t('common.brandInitial');
+  const goal = fitTargetOf(prefs.data?.calories);
 
   // Keep the newest words in view while the reply streams in.
   const lastText = messages.at(-1)?.text;
@@ -45,11 +47,11 @@ export function ChatScreen() {
               {first && (
                 <Sequence className="flex flex-col gap-stack">
                   <SequenceItem>
-                    <MealCard suggestion={first} budget={message.budget} />
+                    <MealCard suggestion={first} budget={message.budget} goal={goal} />
                   </SequenceItem>
                   {others.map((suggestion) => (
                     <SequenceItem key={suggestion.id}>
-                      <MealRow suggestion={suggestion} />
+                      <MealRow suggestion={suggestion} goal={goal} />
                     </SequenceItem>
                   ))}
                 </Sequence>
