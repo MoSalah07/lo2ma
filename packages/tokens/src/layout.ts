@@ -35,6 +35,11 @@ export const layoutSpacing = {
   'clear-action': 176,
   'clear-composer': 272,
   'clear-nav-action': 256,
+  /**
+   * The height of a full-screen panel (the location picker) once the screen is wider than a phone: it becomes a
+   * card in the middle instead, and shrinks with a short window.
+   */
+  dialog: 640,
 } as const;
 
 /** Distances from the bottom edge, in px, that also clear the phone's home indicator (the safe area). */

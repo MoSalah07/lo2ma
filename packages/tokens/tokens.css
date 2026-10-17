@@ -167,6 +167,7 @@
   --container-site: 80rem;
   --container-admin: 90rem;
   --container-form: 27.5rem;
+  --breakpoint-app: 30rem;
   --spacing-gutter: 1.25rem;
   --spacing-bar: 0.75rem;
   --spacing-gutter-md: 2rem;
@@ -180,6 +181,7 @@
   --spacing-clear-action: 11rem;
   --spacing-clear-composer: 17rem;
   --spacing-clear-nav-action: 16rem;
+  --spacing-dialog: 40rem;
   --spacing-nav-end: calc(0.875rem + env(safe-area-inset-bottom));
   --spacing-screen-end: calc(1.375rem + env(safe-area-inset-bottom));
   --spacing-above-nav: calc(5.75rem + env(safe-area-inset-bottom));

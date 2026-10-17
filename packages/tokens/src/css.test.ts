@@ -71,6 +71,7 @@ describe('buildTokensCss', () => {
     expect(theme).toContain(`--color-scene-brand: ${sceneColors.brand};`);
     expect(theme).toContain('--spacing-gutter: 1.25rem;');
     expect(theme).toContain('--spacing-stack: 1rem;');
+    expect(theme).toContain('--breakpoint-app: 30rem;');
   });
 
   it('adds the safe area to every distance from the bottom edge', () => {

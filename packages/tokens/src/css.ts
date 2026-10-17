@@ -62,6 +62,8 @@ function tailwindTheme(): string {
     `--default-transition-timing-function: ${cubicBezier('standard')};`,
     '--container-*: initial;',
     ...Object.entries(containers).map(([name, px]) => `--container-${name}: ${rem(px)};`),
+    // From this width the app's column no longer fills the screen (app:), so a full-screen panel becomes a card.
+    `--breakpoint-app: ${rem(containers.app)};`,
     ...Object.entries(layoutSpacing).map(([name, px]) => `--spacing-${name}: ${rem(px)};`),
     ...Object.entries(safeOffsets).map(
       ([name, px]) => `--spacing-${name}: calc(${rem(px)} + env(safe-area-inset-bottom));`,

@@ -63,6 +63,7 @@ export function LocationPicker({ open, onOpenChange, value, onConfirm }: Locatio
             </Dialog.Overlay>
             <Picker
               value={value}
+              onClose={() => onOpenChange(false)}
               onConfirm={(workplace) => {
                 onConfirm(workplace);
                 onOpenChange(false);
@@ -78,9 +79,11 @@ export function LocationPicker({ open, onOpenChange, value, onConfirm }: Locatio
 /** The picker's insides, mounted on each opening so it always starts from the saved workplace. */
 function Picker({
   value,
+  onClose,
   onConfirm,
 }: {
   value: Workplace;
+  onClose: () => void;
   onConfirm: (workplace: Workplace) => void;
 }) {
   const t = useTranslations();
@@ -119,158 +122,166 @@ function Picker({
         initial="hidden"
         animate="shown"
         exit="hidden"
-        className="fixed inset-0 z-50 mx-auto flex max-w-app flex-col bg-bg"
+        // Full screen on a phone. Wider than the app's column, a card in the middle; a press around it closes it.
+        className="fixed inset-0 z-50 flex justify-center app:items-center app:p-8"
+        onPointerDown={(event) => {
+          if (event.target === event.currentTarget) onClose();
+        }}
       >
-        <div className="relative flex-1 overflow-hidden">
-          {mapAvailable ? (
-            <MapView
-              ref={map}
-              // The point chosen so far: «my location» or a search can land before the map has loaded.
-              initialCenter={center}
-              colors={mapColors[resolvedTheme === 'dark' ? 'dark' : 'light']}
-              locale={locale}
-              label={t('location.mapLabel')}
-              bottomInset={SHEET_OVERLAP}
-              onMoveStart={() => setMoving(true)}
-              onMoveEnd={(point) => {
-                setMoving(false);
-                setCenter(point);
-              }}
-              onUnavailable={() => setMapAvailable(false)}
-            />
-          ) : (
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-gutter pb-8 text-center">
-              <MapPinOff aria-hidden className="size-8 text-muted" />
-              <p className="max-w-80 text-14 leading-body text-ink-2">
-                {t('location.mapUnavailable')}
-              </p>
-            </div>
-          )}
-          {mapAvailable && <CenterPin lifted={moving} className="bottom-8" />}
-
-          <div className="absolute inset-x-0 top-0 flex items-start gap-2 px-bar pt-bar">
-            <Dialog.Close asChild>
-              <IconButton label={t('common.close')} icon={X} className="shadow-card" />
-            </Dialog.Close>
-            <PlaceSearch
-              open={searchOpen}
-              onOpenChange={setSearchOpen}
-              onPick={(found: Place) => goTo(found.point)}
-            />
-          </div>
-
-          <div className="absolute end-bar bottom-12 flex flex-col gap-2">
-            {mapAvailable && (
-              <>
-                <IconButton
-                  label={t('location.zoomIn')}
-                  icon={Plus}
-                  className="shadow-card"
-                  onClick={() => map.current?.zoomBy(1)}
-                />
-                <IconButton
-                  label={t('location.zoomOut')}
-                  icon={Minus}
-                  className="shadow-card"
-                  onClick={() => map.current?.zoomBy(-1)}
-                />
-              </>
-            )}
-            <IconButton
-              label={
-                geolocation.status === 'locating'
-                  ? t('location.locating')
-                  : t('location.useMyLocation')
-              }
-              icon={LocateFixed}
-              variant="primary"
-              className="shadow-card"
-              aria-busy={geolocation.status === 'locating'}
-              disabled={geolocation.status === 'locating'}
-              onClick={() => geolocation.locate(goTo)}
-            />
-          </div>
-        </div>
-
-        <section className="relative z-10 -mt-8 flex flex-col gap-4 rounded-t-32 bg-surface px-gutter pt-6 pb-screen-end shadow-sheet">
-          <div className="flex flex-col gap-1">
-            <Dialog.Title className="text-22 leading-heading font-extrabold">
-              {t('location.title')}
-            </Dialog.Title>
-            <Dialog.Description className="text-13 text-muted">
-              {t('location.pinHint')}
-            </Dialog.Description>
-          </div>
-
-          <div aria-live="polite" className="flex min-h-14 flex-col justify-center gap-1.5">
-            {lookup.isError && !moving ? (
-              <div className="flex items-center justify-between gap-3">
-                <p className="text-14 text-ink-2">{t('common.error')}</p>
-                <Button variant="tonal" size="sm" onClick={() => void lookup.refetch()}>
-                  {t('common.retry')}
-                </Button>
-              </div>
-            ) : resolving ? (
-              <>
-                <span className="sr-only">{t('location.resolving')}</span>
-                <Skeleton className="h-5 w-3/5" />
-                <Skeleton className="h-4 w-2/5" />
-              </>
-            ) : (
-              <>
-                <bdi className="text-17 leading-heading font-bold">{place.name[locale]}</bdi>
-                <span className="text-13 text-muted">{place.area[locale]}</span>
-              </>
-            )}
-          </div>
-
-          {!resolving && outside && (
-            <Notice>
-              <Badge tone="warn" size="md" className="self-start">
-                {t('location.outsideArea')}
-              </Badge>
-              {t('location.outsideAreaBody')}
-            </Notice>
-          )}
-          {(geolocation.status === 'denied' || geolocation.status === 'unavailable') && (
-            <Notice role="alert">
-              {geolocation.status === 'denied'
-                ? t('location.permissionDenied')
-                : t('location.positionUnavailable')}
-            </Notice>
-          )}
-
-          <Field label={t('location.detailsLabel')} hint={t('location.detailsHint')}>
-            {(control) => (
-              <Input
-                {...control}
-                value={details}
-                maxLength={WORKPLACE_DETAILS_MAX}
-                placeholder={t('location.detailsPlaceholder')}
-                autoComplete="off"
-                onChange={(event) => setDetails(event.target.value)}
+        <div className="flex size-full max-w-app flex-col overflow-hidden bg-bg app:h-dialog app:max-h-full app:rounded-32 app:shadow-sheet">
+          <div className="relative flex-1 overflow-hidden">
+            {mapAvailable ? (
+              <MapView
+                ref={map}
+                // The point chosen so far: «my location» or a search can land before the map has loaded.
+                initialCenter={center}
+                colors={mapColors[resolvedTheme === 'dark' ? 'dark' : 'light']}
+                locale={locale}
+                label={t('location.mapLabel')}
+                bottomInset={SHEET_OVERLAP}
+                onMoveStart={() => setMoving(true)}
+                onMoveEnd={(point) => {
+                  setMoving(false);
+                  setCenter(point);
+                }}
+                onUnavailable={() => setMapAvailable(false)}
               />
+            ) : (
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-gutter pb-8 text-center">
+                <MapPinOff aria-hidden className="size-8 text-muted" />
+                <p className="max-w-80 text-14 leading-body text-ink-2">
+                  {t('location.mapUnavailable')}
+                </p>
+              </div>
             )}
-          </Field>
+            {mapAvailable && (
+              <CenterPin lifted={moving} hint={t('location.pinHint')} className="bottom-8" />
+            )}
 
-          <Button
-            block
-            disabled={resolving || outside}
-            onClick={() => place && onConfirm(workplaceAt(place, center, details))}
-          >
-            {t('location.confirm')}
-          </Button>
+            <div className="absolute inset-x-0 top-0 flex items-start gap-2 px-bar pt-bar">
+              <Dialog.Close asChild>
+                <IconButton label={t('common.close')} icon={X} className="shadow-card" />
+              </Dialog.Close>
+              <PlaceSearch
+                open={searchOpen}
+                onOpenChange={setSearchOpen}
+                onPick={(found: Place) => goTo(found.point)}
+              />
+            </div>
 
-          <p className="text-11 text-muted">
-            {t.rich('location.mapCredits', {
-              osm: (chunks) => (
-                <Credit href="https://www.openstreetmap.org/copyright">{chunks}</Credit>
-              ),
-              omt: (chunks) => <Credit href="https://openmaptiles.org/">{chunks}</Credit>,
-              ofm: (chunks) => <Credit href="https://openfreemap.org/">{chunks}</Credit>,
-            })}
-          </p>
-        </section>
+            <div className="absolute end-bar bottom-12 flex flex-col gap-2">
+              {mapAvailable && (
+                <>
+                  <IconButton
+                    label={t('location.zoomIn')}
+                    icon={Plus}
+                    className="shadow-card"
+                    onClick={() => map.current?.zoomBy(1)}
+                  />
+                  <IconButton
+                    label={t('location.zoomOut')}
+                    icon={Minus}
+                    className="shadow-card"
+                    onClick={() => map.current?.zoomBy(-1)}
+                  />
+                </>
+              )}
+              <IconButton
+                label={
+                  geolocation.status === 'locating'
+                    ? t('location.locating')
+                    : t('location.useMyLocation')
+                }
+                icon={LocateFixed}
+                variant="primary"
+                className="shadow-card"
+                aria-busy={geolocation.status === 'locating'}
+                disabled={geolocation.status === 'locating'}
+                onClick={() => geolocation.locate(goTo)}
+              />
+            </div>
+          </div>
+
+          <section className="relative z-10 -mt-8 flex flex-col gap-3 rounded-t-28 bg-surface px-gutter pt-5 pb-screen-end shadow-sheet">
+            <div className="flex flex-col gap-1">
+              <Dialog.Title className="text-12 font-semibold text-muted">
+                {t('location.title')}
+              </Dialog.Title>
+              {/* Shown over the pin; here for screen readers, who don't see the pin. */}
+              <Dialog.Description className="sr-only">{t('location.pinHint')}</Dialog.Description>
+              <div aria-live="polite" className="flex min-h-11 flex-col justify-center gap-1">
+                {lookup.isError && !moving ? (
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="text-13 text-ink-2">{t('common.error')}</p>
+                    <Button variant="tonal" size="sm" onClick={() => void lookup.refetch()}>
+                      {t('common.retry')}
+                    </Button>
+                  </div>
+                ) : resolving ? (
+                  <>
+                    <span className="sr-only">{t('location.resolving')}</span>
+                    <Skeleton className="h-5 w-3/5" />
+                    <Skeleton className="h-3.5 w-2/5" />
+                  </>
+                ) : (
+                  <>
+                    <bdi className="text-16 leading-heading font-bold">{place.name[locale]}</bdi>
+                    <span className="text-12 text-muted">{place.area[locale]}</span>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {!resolving && outside && (
+              <Notice>
+                <Badge tone="warn" className="self-start">
+                  {t('location.outsideArea')}
+                </Badge>
+                {t('location.outsideAreaBody')}
+              </Notice>
+            )}
+            {(geolocation.status === 'denied' || geolocation.status === 'unavailable') && (
+              <Notice role="alert">
+                {geolocation.status === 'denied'
+                  ? t('location.permissionDenied')
+                  : t('location.positionUnavailable')}
+              </Notice>
+            )}
+
+            <Field label={t('location.detailsLabel')}>
+              {(control) => (
+                <Input
+                  {...control}
+                  className="h-11 text-14"
+                  value={details}
+                  maxLength={WORKPLACE_DETAILS_MAX}
+                  placeholder={t('location.detailsPlaceholder')}
+                  autoComplete="off"
+                  onChange={(event) => setDetails(event.target.value)}
+                />
+              )}
+            </Field>
+
+            <Button
+              block
+              size="md"
+              disabled={resolving || outside}
+              onClick={() => place && onConfirm(workplaceAt(place, center, details))}
+            >
+              {t('location.confirm')}
+            </Button>
+
+            <p className="text-11 text-muted">
+              {t.rich('location.mapCredits', {
+                osm: (chunks) => (
+                  <Credit href="https://www.openstreetmap.org/copyright">{chunks}</Credit>
+                ),
+                omt: (chunks) => <Credit href="https://openmaptiles.org/">{chunks}</Credit>,
+                ofm: (chunks) => <Credit href="https://openfreemap.org/">{chunks}</Credit>,
+              })}
+            </p>
+          </section>
+        </div>
       </m.div>
     </Dialog.Content>
   );
@@ -281,7 +292,7 @@ function Notice({ role, children }: { role?: 'alert'; children: ReactNode }) {
   return (
     <div
       role={role}
-      className="flex flex-col gap-2 rounded-20 bg-warn px-4 py-3 text-13 text-on-warn"
+      className="flex flex-col gap-1.5 rounded-16 bg-warn px-3.5 py-2.5 text-12 leading-body text-on-warn"
     >
       {children}
     </div>

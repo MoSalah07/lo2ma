@@ -100,7 +100,7 @@ export function PlaceSearch({ open, onOpenChange, onPick }: PlaceSearchProps) {
         onBlur={() => onOpenChange(false)}
         onKeyDown={onKeyDown}
         className={cn(
-          'h-11 w-full rounded-full bg-surface ps-12 pe-4 text-15 text-ink shadow-card ring-1 ring-line ring-inset placeholder:text-muted',
+          'h-11 w-full rounded-full bg-surface ps-12 pe-4 text-14 text-ink shadow-card ring-1 ring-line ring-inset placeholder:text-muted',
           focusRing,
         )}
       />
@@ -125,7 +125,7 @@ export function PlaceSearch({ open, onOpenChange, onPick }: PlaceSearchProps) {
               >
                 <MapPin aria-hidden className="size-5 shrink-0 text-primary" />
                 <span className="flex min-w-0 flex-col">
-                  <bdi className="truncate text-15 font-medium">{place.name[locale]}</bdi>
+                  <bdi className="truncate text-14 font-medium">{place.name[locale]}</bdi>
                   <span className="truncate text-12 text-muted">{place.area[locale]}</span>
                 </span>
               </li>
