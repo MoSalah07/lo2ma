@@ -41,6 +41,8 @@ export default defineConfig([
     '**/blob-report/**',
     '**/next-env.d.ts',
     'apps/web/public/mockServiceWorker.js',
+    // Copied from node_modules before dev and build (scripts/vendor.mjs).
+    'apps/web/public/vendor/**',
   ]),
 
   ...nextVitals,

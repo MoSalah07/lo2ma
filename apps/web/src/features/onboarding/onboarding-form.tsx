@@ -7,6 +7,7 @@ import {
   formatMoney,
   formatTime,
   userPrefsSchema,
+  workplaceAt,
   type UserPrefs,
 } from '@lo2ma/core';
 import { X } from 'lucide-react';
@@ -19,7 +20,8 @@ import { BudgetStepper } from '@/components/budget-stepper';
 import { ErrorMessage, LoadingBlocks } from '@/components/status-message';
 import { Button } from '@/components/ui/button';
 import { Chip } from '@/components/ui/chip';
-import { usePrefs, useSavePrefs, useWorkplaces } from '@/features/prefs/api';
+import { useSuggestedPlaces } from '@/features/location/api';
+import { usePrefs, useSavePrefs } from '@/features/prefs/api';
 import {
   budgetLimits,
   calorieOptions,
@@ -29,7 +31,7 @@ import {
   useCalorieLabel,
 } from '@/features/prefs/options';
 import { useRouter } from '@/i18n/navigation';
-import { WorkplacePicker } from './workplace-picker';
+import { WorkplaceField } from './workplace-field';
 
 function Group({
   legend,
@@ -65,9 +67,9 @@ function OnboardingIntro() {
 /** Loads the saved preferences (or sensible defaults) and only then shows the form's fields. */
 export function OnboardingForm() {
   const prefs = usePrefs();
-  const workplaces = useWorkplaces();
+  const suggested = useSuggestedPlaces();
 
-  if (prefs.isPending || workplaces.isPending) {
+  if (prefs.isPending || suggested.isPending) {
     return (
       <Screen clear="action" className="pt-2">
         <OnboardingIntro />
@@ -75,9 +77,11 @@ export function OnboardingForm() {
       </Screen>
     );
   }
-  const fallback = workplaces.data?.[0];
-  const initial = prefs.data ?? (fallback ? defaultPrefs(fallback) : undefined);
-  if (!initial) return <ErrorMessage onRetry={() => void workplaces.refetch()} />;
+  // A new user starts at the most popular workplace and moves the pin from there.
+  const popular = suggested.data?.[0];
+  const initial =
+    prefs.data ?? (popular ? defaultPrefs(workplaceAt(popular, popular.point)) : undefined);
+  if (!initial) return <ErrorMessage onRetry={() => void suggested.refetch()} />;
 
   return <PrefsForm initial={initial} />;
 }
@@ -112,7 +116,7 @@ function PrefsForm({ initial }: { initial: UserPrefs }) {
             control={form.control}
             name="workplace"
             render={({ field }) => (
-              <WorkplacePicker
+              <WorkplaceField
                 value={field.value}
                 onChange={field.onChange}
                 labelId={workplaceLabelId}

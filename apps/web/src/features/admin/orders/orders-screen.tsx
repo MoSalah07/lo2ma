@@ -20,7 +20,7 @@ import { setUrlParams, useUrlParam } from '@/lib/use-url-params';
 import { fetchOrdersForExport, useAdminOrders, useCompanies } from '../api';
 import { OrdersTable } from '../orders-table';
 import { PageHeader } from '../page-header';
-import { useDebounced } from '../use-debounced';
+import { useDebounced } from '@/lib/use-debounced';
 import { downloadFile, toCsv } from './orders-csv';
 import { OrdersFilters } from './orders-filters';
 import { Pagination } from './pagination';

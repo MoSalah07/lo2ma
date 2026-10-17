@@ -19,6 +19,7 @@ import { preloadSuccessScene, SuccessMoment } from '@/components/success-moment'
 import { Card } from '@/components/ui/card';
 import { Field, Input } from '@/components/ui/field';
 import { SignedInButton } from '@/features/auth/signed-in-button';
+import { WorkplaceSummary } from '@/features/location/workplace-summary';
 import { useSuggestion } from '@/features/meal/api';
 import { PickSummary } from '@/features/meal/pick-summary';
 import { useCreateOrder } from '@/features/orders/api';
@@ -92,9 +93,9 @@ export function CheckoutScreen({ id }: { id: string }) {
             <h2 className="text-13 font-semibold text-ink-2">{t('checkout.deliveryTitle')}</h2>
             <Card className="flex flex-col gap-3 p-4">
               {prefs.data && (
-                <p className="flex items-center gap-2.5 text-14 font-medium">
+                <p className="flex items-center gap-2.5">
                   <MapPin aria-hidden className="size-4.5 shrink-0 text-primary-ink" />
-                  {prefs.data.workplace.name[locale]}
+                  <WorkplaceSummary workplace={prefs.data.workplace} />
                 </p>
               )}
               <p className="flex items-center gap-2.5 text-13 text-ink-2">

@@ -69,6 +69,31 @@
       "dairy": "ألبان"
     }
   },
+  "location": {
+    "title": "مكان شغلك",
+    "pinHint": "حرّك الخريطة لحد ما الدبوس ييجي على باب شغلك.",
+    "searchLabel": "دوّر على مكان",
+    "searchPlaceholder": "مبنى، شركة، أو منطقة",
+    "results": "نتايج البحث",
+    "suggested": "أماكن شغل مشهورة",
+    "noResults": "مش لاقيين «{query}». جرّب اسم المنطقة.",
+    "resolving": "بنشوف المكان ده فين…",
+    "useMyLocation": "استخدم مكاني الحالي",
+    "locating": "بنحدد مكانك…",
+    "permissionDenied": "مش مسموح لنا نعرف مكانك. اسمح بالموقع من إعدادات المتصفح، أو حرّك الخريطة.",
+    "positionUnavailable": "مش قادرين نحدد مكانك دلوقتي. حرّك الخريطة أو دوّر على المكان.",
+    "outsideArea": "لسه مش بنوصّل هنا",
+    "outsideAreaBody": "لقمة بتوصّل في القاهرة الكبرى بس دلوقتي.",
+    "detailsLabel": "تفاصيل للمندوب",
+    "detailsPlaceholder": "المبنى، الدور، أو علامة مميزة",
+    "detailsHint": "اختياري",
+    "confirm": "أكّد المكان",
+    "mapLabel": "خريطة لاختيار مكان شغلك",
+    "mapUnavailable": "الخريطة مش شغالة على الجهاز ده. دوّر على المكان أو استخدم مكانك الحالي.",
+    "mapCredits": "بيانات الخريطة © <osm>OpenStreetMap</osm> · <omt>OpenMapTiles</omt> · <ofm>OpenFreeMap</ofm>",
+    "zoomIn": "قرّب",
+    "zoomOut": "بعّد"
+  },
   "onboarding": {
     "title": "خلّينا نظبطلك الغدا",
     "subtitle": "4 حاجات بس عشان نختارلك صح.",
@@ -79,7 +104,6 @@
     "removeExclusion": "شيل {item}",
     "start": "يلا نبدأ",
     "changeLater": "تقدر تغيّر ده بعدين من حسابي",
-    "chooseWorkplace": "اختار مكان شغلك",
     "saveError": "ماقدرناش نحفظ. جرّب تاني."
   },
   "chat": {

@@ -1,6 +1,7 @@
 export * from './common.ts';
 export * from './food.ts';
 export * from './suggestion.ts';
+export * from './location.ts';
 export * from './prefs.ts';
 export * from './order.ts';
 export * from './plan.ts';

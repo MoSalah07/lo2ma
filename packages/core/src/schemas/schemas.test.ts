@@ -55,8 +55,10 @@ describe('suggestionSchema', () => {
 describe('userPrefsSchema', () => {
   const prefs = {
     workplace: {
-      id: 'w1',
       name: { ar: 'القرية الذكية · مبنى B2', en: 'Smart Village · Building B2' },
+      area: { ar: 'أبو رواش، الجيزة', en: 'Abu Rawash, Giza' },
+      point: { lat: 30.0717, lng: 31.0167 },
+      details: 'الدور التالت',
     },
     breakTime: '13:30',
     budget: 15000,
@@ -70,6 +72,24 @@ describe('userPrefsSchema', () => {
 
   it('refuses a budget under the minimum order', () => {
     expect(userPrefsSchema.safeParse({ ...prefs, budget: 9000 }).success).toBe(false);
+  });
+
+  it('needs the workplace on the map, not only its name', () => {
+    const { name, area, details } = prefs.workplace;
+    const unplaced = { name, area, details };
+    expect(userPrefsSchema.safeParse({ ...prefs, workplace: unplaced }).success).toBe(false);
+  });
+
+  it('refuses a point off the earth, and courier notes longer than the limit', () => {
+    const at = (point: object) => ({ ...prefs, workplace: { ...prefs.workplace, point } });
+    expect(userPrefsSchema.safeParse(at({ lat: 91, lng: 31 })).success).toBe(false);
+    const long = { ...prefs, workplace: { ...prefs.workplace, details: 'x'.repeat(121) } };
+    expect(userPrefsSchema.safeParse(long).success).toBe(false);
+  });
+
+  it('trims the courier notes', () => {
+    const padded = { ...prefs, workplace: { ...prefs.workplace, details: '  الدور التالت  ' } };
+    expect(userPrefsSchema.parse(padded).workplace.details).toBe('الدور التالت');
   });
 
   it('refuses a break time that is not HH:mm', () => {

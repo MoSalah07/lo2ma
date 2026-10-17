@@ -38,28 +38,35 @@ behavior, so the FastAPI service has to return the same shapes, statuses and err
 - An error is a non-2xx status with a JSON body `{ "code": "…" }`. The apps turn the code into a message.
 - The chat reply is a stream of server-sent events: `token` (words), `suggestions` (the meal cards, with the
   budget used), then `done`, or `error` with a code.
+- A workplace is a point on the map (`lat`, `lng`), its name and district in both languages, and the user's notes
+  for the courier. `PUT /prefs` refuses a point outside the service area (`SERVICE_AREA` in `packages/core`, Greater
+  Cairo for now) with `422 outside_service_area`. Search should fold Arabic the way people type it (no diacritics,
+  every alef alike, ى as ي, ة as ه); a real geocoder (Photon or Nominatim on OpenStreetMap) can stand behind
+  `/places`.
 - **The agent never confirms or pays.** It has no tool for either. Orders are created only by the user's own
   request to `POST /orders` or `POST /plan/confirm`.
 
 **Customer endpoints**
 
-| Method and path               | Purpose                                                              |
-| ----------------------------- | -------------------------------------------------------------------- |
-| `POST /auth/otp`              | send a one-time code to a phone number or an email                   |
-| `POST /auth/verify`           | check the code and start a session                                   |
-| `GET /auth/session`           | the signed-in user, if any                                           |
-| `POST /auth/sign-out`         | end the session                                                      |
-| `GET /workplaces`             | the offices to choose from during onboarding                         |
-| `GET /prefs`, `PUT /prefs`    | workplace, break time, budget, calorie limit, foods to avoid         |
-| `POST /chat`                  | a message to the agent; the reply streams back as server-sent events |
-| `POST /chat/transcribe`       | multipart `audio` + `locale` → the words that were said              |
-| `GET /suggestions/:id`        | one suggested meal with its dishes, bill and calories                |
-| `GET /payment-methods`        | the ways to pay                                                      |
-| `GET /orders`, `POST /orders` | the user's orders; create one from a suggestion (the pay button)     |
-| `GET /orders/:id`             | one order and its timeline                                           |
-| `GET /plan`                   | next week's plan, or the confirmed week with each day's status       |
-| `POST /plan/days/:date/swap`  | another meal for one day, before its cut-off                         |
-| `POST /plan/confirm`          | confirm and pay the whole week                                       |
+| Method and path                 | Purpose                                                                             |
+| ------------------------------- | ----------------------------------------------------------------------------------- |
+| `POST /auth/otp`                | send a one-time code to a phone number or an email                                  |
+| `POST /auth/verify`             | check the code and start a session                                                  |
+| `GET /auth/session`             | the signed-in user, if any                                                          |
+| `POST /auth/sign-out`           | end the session                                                                     |
+| `GET /places/suggested`         | popular workplaces, shown before anything is typed                                  |
+| `GET /places/search?q=`         | places whose name or district matches, in Arabic or English                         |
+| `GET /places/reverse?lat=&lng=` | what is at a map point (a building or a district), and whether Lo2ma delivers there |
+| `GET /prefs`, `PUT /prefs`      | workplace, break time, budget, calorie limit, foods to avoid                        |
+| `POST /chat`                    | a message to the agent; the reply streams back as server-sent events                |
+| `POST /chat/transcribe`         | multipart `audio` + `locale` → the words that were said                             |
+| `GET /suggestions/:id`          | one suggested meal with its dishes, bill and calories                               |
+| `GET /payment-methods`          | the ways to pay                                                                     |
+| `GET /orders`, `POST /orders`   | the user's orders; create one from a suggestion (the pay button)                    |
+| `GET /orders/:id`               | one order and its timeline                                                          |
+| `GET /plan`                     | next week's plan, or the confirmed week with each day's status                      |
+| `POST /plan/days/:date/swap`    | another meal for one day, before its cut-off                                        |
+| `POST /plan/confirm`            | confirm and pay the whole week                                                      |
 
 **Admin endpoints** (a separate session: password, then an authenticator code)
 
@@ -76,11 +83,11 @@ behavior, so the FastAPI service has to return the same shapes, statuses and err
 **Error codes the apps already handle**
 
 `400` `invalid_request` · `invalid_message` · `invalid_prefs` · `invalid_order` · `invalid_code` ·
-`invalid_audio` · `invalid_query` · `invalid_coupon` · `invalid_challenge` · `invalid_destination` ·
+`invalid_audio` · `invalid_query` · `invalid_point` · `invalid_coupon` · `invalid_challenge` · `invalid_destination` ·
 `unknown_company` · `ends_in_past` — `401` `auth_required` · `signed_out` · `admin_required` ·
 `invalid_credentials` — `404` `not_found` · `not_onboarded` · `suggestion_not_found` · `order_not_found` ·
 `plan_not_found` · `day_not_found` — `409` `day_locked` · `plan_expired` · `duplicate_code` —
-`413` `audio_too_large` — `422` `no_speech`
+`413` `audio_too_large` — `422` `no_speech` · `outside_service_area`
 
 ## The agent
 

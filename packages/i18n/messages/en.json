@@ -69,6 +69,31 @@
       "dairy": "Dairy"
     }
   },
+  "location": {
+    "title": "Your workplace",
+    "pinHint": "Move the map until the pin is on your office door.",
+    "searchLabel": "Search for a place",
+    "searchPlaceholder": "Building, company or area",
+    "results": "Search results",
+    "suggested": "Popular workplaces",
+    "noResults": "No place called “{query}”. Try the area's name.",
+    "resolving": "Finding this place…",
+    "useMyLocation": "Use my current location",
+    "locating": "Finding you…",
+    "permissionDenied": "We can't see your location. Allow it in your browser settings, or move the map.",
+    "positionUnavailable": "We can't find your location right now. Move the map or search for the place.",
+    "outsideArea": "We don't deliver here yet",
+    "outsideAreaBody": "Lo2ma delivers in Greater Cairo for now.",
+    "detailsLabel": "Notes for the courier",
+    "detailsPlaceholder": "Building, floor or a landmark",
+    "detailsHint": "Optional",
+    "confirm": "Confirm this place",
+    "mapLabel": "Map to choose your workplace",
+    "mapUnavailable": "The map can't run on this device. Search for the place or use your current location.",
+    "mapCredits": "Map data © <osm>OpenStreetMap</osm> · <omt>OpenMapTiles</omt> · <ofm>OpenFreeMap</ofm>",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out"
+  },
   "onboarding": {
     "title": "Let's set up your lunch",
     "subtitle": "Just 4 things so we pick right.",
@@ -79,7 +104,6 @@
     "removeExclusion": "Remove {item}",
     "start": "Let's go",
     "changeLater": "You can change this later in Account",
-    "chooseWorkplace": "Choose your workplace",
     "saveError": "We couldn't save. Try again."
   },
   "chat": {

@@ -12,6 +12,7 @@ the contract: its handlers are what the FastAPI service has to implement, and th
 - [Text, languages and right to left](#text-languages-and-right-to-left)
 - [Design system and layout](#design-system-and-layout)
 - [Voice](#voice)
+- [Choosing a location](#choosing-a-location)
 - [3D](#3d)
 - [Conventions](#conventions)
 - [Testing](#testing)
@@ -26,7 +27,7 @@ Every path below lives under the locale, for example `/ar/chat` or `/en/chat`.
 | Path                      | Screen                                                                                    |
 | ------------------------- | ----------------------------------------------------------------------------------------- |
 | `/`                       | Landing page: a koshari photo with real ingredients floating around it in 3D              |
-| `/onboarding`             | First run: workplace, break time, daily budget, calorie limit and foods to avoid          |
+| `/onboarding`             | First run: workplace on a map, break time, daily budget, calorie limit and foods to avoid |
 | `/chat`                   | The chat: replies stream in word by word, then the meal cards with their bills            |
 | `/voice`                  | A voice call with live captions; the meal is picked with a button                         |
 | `/meals/[id]`             | A suggestion in detail: the dishes, the bill, the calories and their source               |
@@ -114,6 +115,23 @@ scripts/               Lighthouse and README screenshots
   speech-to-text, the agent, Egyptian text-to-speech) replaces the browser's voice later; the screen only sees a
   small state machine (`src/features/voice/session.ts`), so it stays the same.
 - Neither can confirm or pay.
+
+## Choosing a location
+
+The workplace is picked on a real map, the way delivery apps do it (`src/features/location`):
+
+- **The map moves under a fixed pin.** When it stops, `GET /places/reverse` names what is under the pin (a
+  building, or else the district) and says whether Lo2ma delivers there; outside the service area the confirm
+  button stays off. A search over the map finds buildings and districts in either language, and «my location»
+  asks the browser, only when tapped. The user can add notes for the courier.
+- **MapLibre GL JS with OpenFreeMap**: free OpenStreetMap vector tiles, no key, no limits. The style is our own
+  (`map-style.ts`), built from the map colors in `packages/tokens`, so the map changes with the theme and names
+  places in the page's language. MapLibre shapes Arabic itself.
+- **Loaded only when the picker opens** (`next/dynamic`), and preloaded when the field is hovered or focused, so
+  onboarding stays light. MapLibre's web worker is copied into `public/vendor/` before `dev` and `build`
+  (`scripts/vendor.mjs`), under its version, so it loads from our own origin.
+- **No map, no dead end.** Without WebGL the picker says so, and the search and «my location» still choose the
+  point. The end-to-end tests serve empty tiles, so they never depend on the network.
 
 ## 3D
 

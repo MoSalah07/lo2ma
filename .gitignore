@@ -3,6 +3,8 @@ node_modules/
 
 # Builds
 .models-cache/
+# Copied from node_modules before dev and build (apps/web/scripts/vendor.mjs)
+apps/web/public/vendor/
 .next/
 out/
 dist/

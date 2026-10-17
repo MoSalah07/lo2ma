@@ -46,7 +46,9 @@ test('a guest sets up lunch, signs in at checkout, pays and tracks the order', a
   // A short celebration, then the order's page.
   await expect(page.getByRole('heading', { name: t.success.order })).toBeFocused();
 
-  await expect(page).toHaveURL(new RegExp(`/${appLocale}/orders/LQ-`));
+  // The celebration holds for 1.6 s on purpose, and its 3D is drawn in software in headless Chrome, so with the
+  // other journeys running alongside, the move to the order can take longer than the default 5 s.
+  await expect(page).toHaveURL(new RegExp(`/${appLocale}/orders/LQ-`), { timeout: 15_000 });
   await expect(page.getByRole('heading', { name: t.tracking.title })).toBeVisible();
   await expect(page.getByText(t.tracking.steps.sent)).toBeVisible();
   await snap('5-tracking');

@@ -12,7 +12,7 @@ import { setUrlParams, useUrlParam } from '@/lib/use-url-params';
 import { useConversation, useConversations } from '../api';
 import { PageHeader } from '../page-header';
 import { SearchBox } from '../search-box';
-import { useDebounced } from '../use-debounced';
+import { useDebounced } from '@/lib/use-debounced';
 import { ConversationDetail } from './conversation-detail';
 import { OutcomeBadge } from './outcome-badge';
 

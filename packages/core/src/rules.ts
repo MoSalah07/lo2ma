@@ -39,6 +39,18 @@ export const VOICE_MIN_SECONDS = 1;
  */
 export const VOICE_MAX_BYTES = 4 * 1024 * 1024;
 
+/**
+ * Where Lo2ma delivers for now: Greater Cairo, as a circle around Tahrir Square wide enough for Smart Village,
+ * Sheikh Zayed, 6th of October and New Cairo. Further out (the New Capital, Alexandria) is «not yet».
+ */
+export const SERVICE_AREA = {
+  center: { lat: 30.0444, lng: 31.2357 },
+  radiusMeters: 35_000,
+} as const;
+
+/** The most a user can write for the courier about their workplace (building, floor, a landmark). */
+export const WORKPLACE_DETAILS_MAX = 120;
+
 /** When lunch should arrive for a break: "13:30" → "13:15". */
 export function arrivalTimeFor(breakTime: string): string {
   return addMinutes(breakTime, -ARRIVAL_BUFFER_MINUTES);

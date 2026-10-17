@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "predev": "node scripts/vendor.mjs",
     "dev": "cross-env NEXT_TELEMETRY_DISABLED=1 next dev",
+    "prebuild": "node scripts/vendor.mjs",
     "build": "cross-env NEXT_TELEMETRY_DISABLED=1 next build",
     "start": "cross-env NEXT_TELEMETRY_DISABLED=1 next start",
     "test": "vitest run",
@@ -27,6 +29,7 @@
     "clsx": "2.1.1",
     "input-otp": "1.5.0",
     "lucide-react": "1.57.0",
+    "maplibre-gl": "6.14.0",
     "motion": "14.3.0",
     "next": "16.4.0",
     "next-intl": "4.14.9",
@@ -43,6 +46,7 @@
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",
     "@gltf-transform/cli": "4.5.1",
+    "@maplibre/maplibre-gl-style-spec": "26.4.4",
     "@playwright/test": "1.64.1",
     "@tailwindcss/postcss": "4.3.3",
     "@testing-library/dom": "10.4.2",

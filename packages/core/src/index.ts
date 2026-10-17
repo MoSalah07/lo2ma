@@ -38,9 +38,12 @@ export {
   VOICE_MAX_SECONDS,
   VOICE_MIN_SECONDS,
   weeklyPlanTotal,
+  SERVICE_AREA,
   SERVICE_FEE,
   SHARED_DELIVERY_FEE,
+  WORKPLACE_DETAILS_MAX,
 } from './rules.ts';
+export { distanceMeters, isInServiceArea, roundPoint, workplaceAt } from './geo.ts';
 export { calculateBill, type Bill, type BillInput, type BillItem } from './bill.ts';
 export { budgetUsage, type BudgetUsage } from './budget.ts';
 export * from './schemas/index.ts';

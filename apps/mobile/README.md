@@ -33,6 +33,10 @@ The monorepo's packages were written for this from the start: plain TypeScript, 
 - **Voice** uses the native microphone and audio session, against the same transcription endpoint and, later,
   the same voice-call pipeline.
 - **Payments** stay a button the user presses; the agent can't confirm or pay on mobile either.
+- **The map** for choosing a workplace uses MapLibre Native (`@maplibre/maplibre-react-native`) with the same
+  OpenFreeMap tiles and the same map colors from `packages/tokens`, so it looks like the web picker. The pin,
+  the search and the service area come from the same `/places` endpoints and the same rules in `packages/core`.
+  The device's own location API replaces the browser's.
 
 ## Release
 

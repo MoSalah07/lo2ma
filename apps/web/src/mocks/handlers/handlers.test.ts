@@ -9,20 +9,23 @@ import {
   chatEventSchema,
   couponSchema,
   orderSchema,
+  placeSchema,
   planDayBill,
+  pointLookupSchema,
   SHARED_DELIVERY_FEE,
   transcriptionSchema,
   VOICE_MAX_BYTES,
   weeklyPlanSchema,
   type ChatEvent,
   type CreateCoupon,
+  userPrefsSchema,
   type UserPrefs,
 } from '@lo2ma/core';
 import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import { z } from 'zod';
 import { readSseEvents } from '@/lib/sse';
-import { resetDb } from '../store';
+import { resetDb, writeDb } from '../store';
 import { handlers } from './index';
 
 // These tests pin the API contract that FastAPI must follow in phase 2.
@@ -40,8 +43,10 @@ const call = (path: string, init?: { method?: string; body?: unknown }) =>
 
 const prefs: UserPrefs = {
   workplace: {
-    id: 'sv-b2',
     name: { ar: 'القرية الذكية · مبنى B2', en: 'Smart Village · Building B2' },
+    area: { ar: 'طريق مصر إسكندرية الصحراوي، الجيزة', en: 'Cairo–Alex Desert Road, Giza' },
+    point: { lat: 30.0712, lng: 31.0175 },
+    details: '',
   },
   breakTime: '13:30',
   budget: 15000,
@@ -55,6 +60,70 @@ async function signIn() {
     body: { channel: 'phone', destination: '1012345678', code: '482193' },
   });
 }
+
+describe('places', () => {
+  const places = z.array(placeSchema);
+
+  it('suggests popular workplaces, Smart Village first', async () => {
+    const suggested = places.parse(await (await call('/places/suggested')).json());
+    expect(suggested.length).toBeGreaterThan(3);
+    expect(suggested[0]?.name.en).toContain('Smart Village');
+  });
+
+  it('finds places the way people type them, in either language', async () => {
+    const search = async (q: string) =>
+      places.parse(await (await call(`/places/search?${new URLSearchParams({ q })}`)).json());
+    // No hamza, ه for ة, and the building in Latin letters: still B7.
+    expect((await search('القريه الذكيه b7')).map(({ id }) => id)).toEqual(['sv-b7']);
+    expect(await search('smart village')).toHaveLength(3);
+    expect(await search('  ')).toEqual([]);
+    expect(await search('Alexandria')).toEqual([]);
+  });
+
+  it('names what is under a pin, and says whether Lo2ma delivers there', async () => {
+    const at = async (lat: number, lng: number) =>
+      pointLookupSchema.parse(await (await call(`/places/reverse?lat=${lat}&lng=${lng}`)).json());
+    expect(await at(30.07125, 31.01752)).toMatchObject({
+      name: { en: 'Smart Village · Building B2' },
+      inServiceArea: true,
+    });
+    // Off any building: the nearest district.
+    expect((await at(30.065, 31.225)).name.en).toBe('Zamalek');
+    expect((await at(30.011, 31.74)).inServiceArea).toBe(false);
+  });
+
+  it('refuses a point that is not one', async () => {
+    const response = await call('/places/reverse?lat=95&lng=31');
+    expect(response.status).toBe(400);
+    expect(await response.json()).toEqual({ code: 'invalid_point' });
+  });
+});
+
+describe('preferences', () => {
+  it('refuses a workplace Lo2ma does not deliver to yet', async () => {
+    const newCapital = { ...prefs.workplace, point: { lat: 30.011, lng: 31.74 } };
+    const response = await call('/prefs', {
+      method: 'PUT',
+      body: { ...prefs, workplace: newCapital },
+    });
+    expect(response.status).toBe(422);
+    expect(await response.json()).toEqual({ code: 'outside_service_area' });
+  });
+
+  it('brings back preferences saved before workplaces had a map point', async () => {
+    const oldWorkplace = { id: 'sv-b7', name: { ar: 'مبنى B7', en: 'Building B7' } };
+    writeDb((db) => ({
+      ...db,
+      prefs: { ...prefs, workplace: oldWorkplace } as unknown as UserPrefs,
+    }));
+    const saved = userPrefsSchema.parse(await (await call('/prefs')).json());
+    expect(saved.workplace).toMatchObject({
+      name: { en: 'Smart Village · Building B7' },
+      point: { lat: 30.0722, lng: 31.016 },
+    });
+    expect(saved.budget).toBe(prefs.budget);
+  });
+});
 
 describe('POST /api/chat/transcribe', () => {
   /** A voice message as the browser sends it: multipart, with the audio file and the page language. */
