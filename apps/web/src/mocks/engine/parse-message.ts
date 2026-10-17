@@ -1,4 +1,4 @@
-import { fromPounds, type Ingredient, type Piasters } from '@lo2ma/core';
+import { fromPounds, toLatinDigits, type Ingredient, type Piasters } from '@lo2ma/core';
 
 // A stand-in for the LLM until phase 3: reads a budget, calories and foods to avoid from one message.
 
@@ -7,6 +7,8 @@ export interface ParsedMessage {
   caloriesMax?: number;
   exclusions: Ingredient[];
   wantsLighter: boolean;
+  /** «بروتين أعلى»: in fit mode, the most protein first. */
+  wantsProtein: boolean;
   wantsCheaper: boolean;
   wantsPlan: boolean;
 }
@@ -21,16 +23,13 @@ const INGREDIENT_WORDS: Record<Ingredient, RegExp> = {
 
 const NEGATION = /(مش|من غير|بدون|بلاش|ماعدا|no|without|not|don'?t|avoid)[\s\S]{0,20}$/i;
 const CALORIE_UNIT = /^\s*(سعر|سعرة|كالوري|kcal|cal|calories)/i;
-const ARABIC_INDIC = /[٠-٩]/g;
-
-const toLatinDigits = (text: string) =>
-  text.replace(ARABIC_INDIC, (digit) => String(digit.charCodeAt(0) - 0x0660));
 
 export function parseMessage(raw: string): ParsedMessage {
   const text = toLatinDigits(raw);
   const result: ParsedMessage = {
     exclusions: [],
-    wantsLighter: /أخف|خفيف|light/i.test(text),
+    wantsLighter: /أخف|خفيف|light|سعرات أقل|أقل سعرات|(fewer|less|lower) cal/i.test(text),
+    wantsProtein: /بروتين|protein/i.test(text),
     wantsCheaper: /أرخص|cheaper|cheap/i.test(text),
     wantsPlan: /خطة|الأسبوع|week|plan/i.test(text),
   };

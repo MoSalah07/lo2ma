@@ -8,9 +8,12 @@ import {
 import { delay, http, HttpResponse } from 'msw';
 import { parseMessage } from '../engine/parse-message';
 import { replyText } from '../engine/reply';
-import { suggestMeals } from '../engine/suggest';
+import { calorieFilter, suggestMeals } from '../engine/suggest';
 import { readDb, writeDb } from '../store';
 import { fail, readBody, route } from './respond';
+
+/** «سعرات أقل» in fit mode looks for meals this share of the goal. */
+const LIGHTER = 0.85;
 
 /** What the demo "hears" in any voice message. */
 const DEMO_TRANSCRIPTS = { ar: 'معايا 150 ومش عايز فراخ', en: 'I have 150, no chicken please' };
@@ -44,22 +47,33 @@ export const chatHandlers = [
     const exclusions = [
       ...new Set<Ingredient>([...(db.prefs?.exclusions ?? []), ...parsed.exclusions]),
     ];
-    const preferredKcal = db.prefs?.calories.mode === 'any' ? undefined : db.prefs?.calories.kcal;
+    const saved = calorieFilter(db.prefs?.calories);
+    // «سعرات أقل» lowers a fit goal; without one, «حاجة أخف» asks for 600 or less.
+    const fit =
+      saved.fit && parsed.wantsLighter
+        ? { ...saved.fit, kcal: Math.round(saved.fit.kcal * LIGHTER) }
+        : saved.fit;
 
     const suggestions = budget
       ? suggestMeals({
           budget,
           exclusions,
-          caloriesMax: parsed.caloriesMax ?? (parsed.wantsLighter ? 600 : preferredKcal),
+          caloriesMax:
+            parsed.caloriesMax ?? (parsed.wantsLighter && !fit ? 600 : saved.caloriesMax),
+          fit,
+          proteinFirst: parsed.wantsProtein,
           below: parsed.wantsCheaper ? (db.lastCheapest ?? undefined) : undefined,
         })
       : [];
     writeDb((state) => ({
       ...state,
-      lastCheapest: suggestions[0]?.bill.total ?? state.lastCheapest,
+      // A fit goal lists the closest meal first, so «أرخص من كده» measures from the cheapest one shown.
+      lastCheapest: suggestions.length
+        ? Math.min(...suggestions.map((meal) => meal.bill.total))
+        : state.lastCheapest,
     }));
 
-    const text = replyText(body.locale, suggestions.length, budget === undefined);
+    const text = replyText(body.locale, suggestions.length, budget === undefined, Boolean(fit));
     const stream = streamReply(text, [{ type: 'suggestions', suggestions, budget }]);
     return new HttpResponse(stream, {
       headers: { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache' },

@@ -13,7 +13,7 @@ import {
 } from '@lo2ma/core';
 import { http, HttpResponse } from 'msw';
 import { isOver, withProgress } from '../engine/plan-progress';
-import { suggestMeals } from '../engine/suggest';
+import { calorieFilter, suggestMeals } from '../engine/suggest';
 import { readDb, writeDb } from '../store';
 import { fail, route } from './respond';
 
@@ -53,7 +53,7 @@ function pickMeal(prefs: UserPrefs, used: Used, foodMax = prefs.budget - SHARED_
       budget: Number.MAX_SAFE_INTEGER,
       foodMax,
       exclusions: prefs.exclusions,
-      caloriesMax: prefs.calories.mode === 'any' ? undefined : prefs.calories.kcal,
+      ...calorieFilter(prefs.calories),
       skipRestaurants: used.restaurants,
       skipDishes: used.dishes,
     },
@@ -72,7 +72,8 @@ function summarize(prefs: UserPrefs, days: PlanDay[]): WeeklyPlan {
     budget: prefs.budget * WORKDAYS.length,
     total: weeklyPlanTotal(foodsOf(days)),
     sharedDeliveryFee: SHARED_DELIVERY_FEE,
-    mealCalorieLimit: prefs.calories.mode === 'any' ? undefined : prefs.calories.kcal,
+    // A fit goal isn't a limit; the plan screen shows the week's average against it instead.
+    mealCalorieLimit: calorieFilter(prefs.calories).caloriesMax,
     breakTime: prefs.breakTime,
     arrivalTime,
     sendTime: planSendTimeFor(arrivalTime),

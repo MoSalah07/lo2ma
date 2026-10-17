@@ -1,8 +1,12 @@
 import {
   calculateBill,
+  compareForFit,
+  mealFit,
   mealNutrition,
   meetsMinimumOrder,
   SERVICE_FEE,
+  type CaloriePref,
+  type FitTarget,
   type Ingredient,
   type MenuItem,
   type Piasters,
@@ -22,9 +26,22 @@ export interface SuggestOptions {
   skipRestaurants?: ReadonlySet<string>;
   /** Main dishes to skip (by English name), so a weekly plan doesn't repeat a dish from another place. */
   skipDishes?: ReadonlySet<string>;
+  /** «وضع الفورمة»: nothing over the goal, and the meals closest to it first. */
+  fit?: FitTarget;
+  /** «بروتين أعلى»: within the goal, the most protein first. */
+  proteinFirst?: boolean;
 }
 
 type Dish = (typeof menu)[number];
+
+/** What a saved calorie preference asks of the suggestions: a limit, or a fit goal. */
+export function calorieFilter(
+  pref: CaloriePref | undefined,
+): Pick<SuggestOptions, 'caloriesMax' | 'fit'> {
+  if (!pref || pref.mode === 'any') return {};
+  if (pref.mode === 'fit') return { fit: { kcal: pref.kcal, protein: pref.protein } };
+  return { caloriesMax: pref.kcal };
+}
 
 const allowed = (dish: MenuItem, exclusions: readonly Ingredient[]) =>
   dish.contains.every((ingredient) => !exclusions.includes(ingredient));
@@ -65,10 +82,15 @@ export function suggestionFromId(id: string): Suggestion | null {
 
 /**
  * Up to `limit` meals within the budget, cheapest first. Each restaurant offers its fullest meal that fits:
- * a main with a side when the money allows, otherwise the main alone.
+ * a main with a side when the money allows, otherwise the main alone. With a fit goal, each restaurant offers the
+ * meal closest to it instead, never one over it, and the closest come first.
  */
 export function suggestMeals(options: SuggestOptions, limit = 3): Suggestion[] {
   const picks: Suggestion[] = [];
+  // A stable sort that keeps the usual order when there is no fit goal.
+  const fitOrder = options.fit
+    ? compareForFit(options.fit, { proteinFirst: options.proteinFirst })
+    : () => 0;
 
   for (const restaurant of restaurants) {
     if (options.skipRestaurants?.has(restaurant.id)) continue;
@@ -88,17 +110,26 @@ export function suggestMeals(options: SuggestOptions, limit = 3): Suggestion[] {
         if (meal.bill.total > options.budget) return false;
         if (options.below !== undefined && meal.bill.total >= options.below) return false;
         if (options.foodMax !== undefined && meal.bill.food > options.foodMax) return false;
+        if (options.fit && mealFit(options.fit, meal) === 'over') return false;
         return options.caloriesMax === undefined || meal.kcal <= options.caloriesMax;
       })
-      .sort((a, b) => b.items.length - a.items.length || a.bill.total - b.bill.total);
+      .sort((a, b) => b.items.length - a.items.length || a.bill.total - b.bill.total)
+      .sort(fitOrder);
 
     if (fits[0]) picks.push(fits[0]);
   }
 
-  return picks
+  const chosen = picks
     .sort(
       (a, b) => a.bill.total - b.bill.total || a.restaurant.distanceKm - b.restaurant.distanceKm,
     )
-    .slice(0, limit)
-    .map((meal, index) => ({ ...meal, bestValue: index === 0 }));
+    .sort(fitOrder)
+    .slice(0, limit);
+  // «الأوفر» is the cheapest meal shown, which a fit goal may not list first.
+  const cheapest = chosen.reduce(
+    (best, meal, index) =>
+      meal.bill.total < (chosen[best]?.bill.total ?? Infinity) ? index : best,
+    0,
+  );
+  return chosen.map((meal, index) => ({ ...meal, bestValue: index === cheapest }));
 }
