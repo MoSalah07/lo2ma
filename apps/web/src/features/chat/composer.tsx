@@ -20,7 +20,7 @@ interface ComposerProps {
   onSend: (text: string) => void;
 }
 
-const hint = 'flex items-center gap-1.5 px-2.5 text-12 leading-body text-muted';
+const hint = 'flex items-center gap-1.5 px-2.5 text-caption leading-body text-muted';
 
 /**
  * Quick replies and the floating message box, pinned above the tab bar. The user can also talk: the
@@ -103,21 +103,21 @@ export function Composer({ busy, onSend }: ComposerProps) {
           <Chip
             disabled={busy}
             onClick={() => onSend(t('quickReplies.cheaper'))}
-            className="text-13"
+            className="text-body-sm"
           >
             {t('quickReplies.cheaper')}
           </Chip>
           <Chip
             disabled={busy}
             onClick={() => onSend(t('quickReplies.lighter'))}
-            className="text-13"
+            className="text-body-sm"
           >
             {t('quickReplies.lighter')}
           </Chip>
           <Link
             href="/plan"
             className={cn(
-              'inline-flex h-11 shrink-0 items-center rounded-full bg-surface px-4 text-13 font-medium ring-1 ring-line ring-inset',
+              'inline-flex h-11 shrink-0 items-center rounded-full bg-surface px-4 text-body-sm font-medium ring-1 ring-line ring-inset',
               focusRing,
             )}
           >
@@ -171,7 +171,7 @@ export function Composer({ busy, onSend }: ComposerProps) {
             placeholder={voice.supported ? t('placeholderVoice') : t('placeholder')}
             autoComplete="off"
             maxLength={500}
-            className="h-11 min-w-0 flex-1 bg-transparent text-15 text-ink outline-none placeholder:text-muted"
+            className="h-11 min-w-0 flex-1 bg-transparent text-body-md text-ink outline-none placeholder:text-muted"
           />
           {voice.supported && !text.trim() ? (
             <>

@@ -14,8 +14,8 @@ export async function NotFoundScreen({ locale }: { locale: Locale }) {
     <main className="mx-auto flex min-h-dvh w-full max-w-app flex-col items-center justify-center gap-7 px-gutter text-center">
       <NotFoundArt />
       <div className="flex flex-col items-center gap-2.5">
-        <h1 className="text-26 leading-heading font-extrabold">{t('notFound')}</h1>
-        <p className="text-15 leading-body text-ink-2">{t('notFoundBody')}</p>
+        <h1 className="text-headline-sm">{t('notFound')}</h1>
+        <p className="text-body-md text-ink-2">{t('notFoundBody')}</p>
       </div>
       <Link href="/" locale={locale} className={buttonVariants()}>
         {t('backHome')}

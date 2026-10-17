@@ -22,19 +22,19 @@ import { cn } from '@/lib/cn';
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="flex flex-col gap-2">
-      <h2 className="px-1 text-13 font-semibold text-ink-2">{title}</h2>
+      <h2 className="px-1 text-label-md text-ink-2">{title}</h2>
       <Card className="divide-y divide-divider rounded-22 px-4">{children}</Card>
     </section>
   );
 }
 
-const prefRow = cn('flex h-13 w-full items-center gap-2.5 text-14', focusRing);
+const prefRow = cn('flex h-13 w-full items-center gap-2.5 text-body-md', focusRing);
 
 function PrefRowContent({ label, value }: { label: string; value: string }) {
   return (
     <>
       <span className="flex-1 text-start font-medium">{label}</span>
-      <bdi className="truncate text-13 text-muted">{value}</bdi>
+      <bdi className="truncate text-body-sm text-muted">{value}</bdi>
       <ChevronRight aria-hidden className="size-4 shrink-0 text-muted rtl:rotate-180" />
     </>
   );
@@ -71,7 +71,7 @@ function WorkplaceRow({ prefs }: { prefs: UserPrefs }) {
 function SettingRow({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="flex min-h-16 flex-wrap items-center justify-between gap-2.5 py-2">
-      <span className="text-14 font-medium">{label}</span>
+      <span className="text-body-md font-medium">{label}</span>
       {children}
     </div>
   );
@@ -99,14 +99,14 @@ export function AccountScreen() {
           <Card className="flex items-center gap-3 p-3">
             <span
               aria-hidden
-              className="flex size-13 shrink-0 items-center justify-center rounded-full bg-tint text-20 font-bold text-on-tint"
+              className="flex size-13 shrink-0 items-center justify-center rounded-full bg-tint text-title-lg font-bold text-on-tint"
             >
               {(user.name || t('common.brand')).charAt(0)}
             </span>
             <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-              <span className="text-16 font-bold">{user.name || t('account.noName')}</span>
+              <span className="text-title-md">{user.name || t('account.noName')}</span>
               {contact && (
-                <bdi dir="ltr" className="text-start text-13 text-muted">
+                <bdi dir="ltr" className="text-start text-body-sm text-muted">
                   {contact}
                 </bdi>
               )}
@@ -117,7 +117,7 @@ export function AccountScreen() {
           </Card>
         ) : (
           <Card className="flex flex-col items-start gap-3 p-4">
-            <p className="text-14 leading-body text-ink-2">{t('account.guest')}</p>
+            <p className="text-body-md text-ink-2">{t('account.guest')}</p>
             <Link href="/sign-in?next=/account" className={buttonVariants({ size: 'sm' })}>
               {t('common.signIn')}
             </Link>
@@ -143,7 +143,7 @@ export function AccountScreen() {
         <Section title={t('account.paymentAndApp')}>
           {card && (
             <SettingRow label={t('account.paymentMethods')}>
-              <span className="text-13 text-muted">
+              <span className="text-body-sm text-muted">
                 {t('payment.card', { last4: card.last4 ?? '' })}
               </span>
             </SettingRow>
@@ -173,7 +173,7 @@ export function AccountScreen() {
           <Button
             variant="ghost"
             size="md"
-            className="text-14 text-ink-2"
+            className="text-body-md text-ink-2"
             disabled={signOut.isPending}
             onClick={() => signOut.mutate(undefined, { onSuccess: () => router.replace('/') })}
           >

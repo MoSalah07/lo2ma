@@ -47,7 +47,7 @@ export function AdminSidebar() {
                   href={href}
                   aria-current={current ? 'page' : undefined}
                   className={cn(
-                    'flex h-11 items-center gap-2.5 rounded-full px-3 text-14 whitespace-nowrap transition-colors',
+                    'flex h-11 items-center gap-2.5 rounded-full px-3 text-body-md whitespace-nowrap transition-colors',
                     current
                       ? 'bg-tint font-semibold text-on-tint'
                       : 'font-medium text-ink-2 hover:bg-surface-2',
@@ -65,14 +65,14 @@ export function AdminSidebar() {
         <div className="flex items-center gap-2.5 border-t border-divider px-1 pt-3">
           <span
             aria-hidden
-            className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-tint text-14 font-bold text-on-tint"
+            className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-tint text-title-sm text-on-tint"
           >
             {t('initial')}
           </span>
           <div className="flex min-w-0 flex-1 flex-col gap-px">
-            <span className="text-13 font-semibold">{t('who')}</span>
+            <span className="text-label-md">{t('who')}</span>
             {session.data && (
-              <bdi dir="ltr" className="truncate text-start text-12 text-muted">
+              <bdi dir="ltr" className="truncate text-start text-caption text-muted">
                 {session.data.email}
               </bdi>
             )}

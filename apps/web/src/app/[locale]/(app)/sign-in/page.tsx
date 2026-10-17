@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { ClientMessages } from '@/components/client-messages';
 import { SignInForm } from '@/features/auth/sign-in-form';
 import { safeNext } from '@/features/auth/verify-url';
+import { Wordmark } from '@/components/wordmark';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('auth');
@@ -17,11 +18,8 @@ export default async function SignInPage({ searchParams }: PageProps<'/[locale]/
   return (
     <main className="flex flex-1 flex-col">
       <div className="flex flex-col gap-3.5 px-gutter pt-14">
-        <div className="flex items-baseline gap-2">
-          <span className="text-44 leading-none font-extrabold">{t('brand')}</span>
-          <span aria-hidden className="size-3 rounded-full bg-primary" />
-        </div>
-        <p className="text-17 leading-body font-medium text-ink-2">{t('tagline')}</p>
+        <Wordmark name={t('brand')} size="xl" />
+        <p className="text-body-lg font-medium text-ink-2">{t('tagline')}</p>
       </div>
       <ClientMessages namespaces={['common', 'auth']}>
         <SignInForm

@@ -35,7 +35,7 @@ export function PhoneField({
             surface === 'surface' ? 'bg-surface' : 'bg-bg',
           )}
         >
-          <span className="text-15 font-semibold text-ink-2">{EGYPT_DIAL_CODE}</span>
+          <span className="text-body-md font-semibold text-ink-2">{EGYPT_DIAL_CODE}</span>
           <span aria-hidden className="h-6 w-px bg-line" />
           <input
             {...control}
@@ -46,7 +46,7 @@ export function PhoneField({
             value={value}
             onChange={(event) => onChange(event.target.value)}
             className={cn(
-              'h-11 min-w-0 flex-1 bg-transparent text-16 text-ink outline-none placeholder:text-muted',
+              'h-11 min-w-0 flex-1 bg-transparent text-body-lg text-ink outline-none placeholder:text-muted',
               focusRing,
             )}
           />

@@ -28,7 +28,7 @@ export function EndCta() {
         />
         <div className="flex max-w-140 flex-col gap-2">
           <SectionTitle>{t('landing.end.title')}</SectionTitle>
-          <p className="text-15 leading-loose text-ink-2">{t('landing.end.body')}</p>
+          <p className="text-body-lg leading-loose text-ink-2">{t('landing.end.body')}</p>
         </div>
         <StartLink>{t('onboarding.start')}</StartLink>
       </div>

@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 /** The small pill above a landing heading. */
 export function Eyebrow({ tone, children }: { tone: 'accent' | 'highlight'; children: ReactNode }) {
   return (
-    <Badge tone={tone} className="h-7.5 px-3.5 text-13 font-medium">
+    <Badge tone={tone} className="h-7.5 px-3.5 text-body-sm font-medium">
       {children}
     </Badge>
   );

@@ -35,7 +35,7 @@ export function VoiceScreen() {
           <ChevronDown aria-hidden className="size-5" />
         </Link>
         {!problem && (
-          <span className="inline-flex h-8 items-center gap-1.5 rounded-full bg-tint px-3 text-13 font-semibold text-on-tint">
+          <span className="inline-flex h-8 items-center gap-1.5 rounded-full bg-tint px-3 text-label-md text-on-tint">
             <span aria-hidden className="size-2 rounded-full bg-primary" />
             {t(`voiceMode.phase.${call.muted ? 'muted' : phase}`)}
           </span>
@@ -72,13 +72,13 @@ export function VoiceScreen() {
               aria-busy={phase === 'thinking'}
               className="flex flex-col items-center gap-3"
             >
-              <p className="text-14 leading-body text-muted">{before ?? t('chat.greeting')}</p>
-              {now && <p className="text-20 leading-body font-bold text-balance">{now}</p>}
+              <p className="text-body-md text-muted">{before ?? t('chat.greeting')}</p>
+              {now && <p className="text-title-lg leading-body font-bold text-balance">{now}</p>}
             </div>
             {!now && hint && (
               <p
                 role={call.failed ? 'alert' : undefined}
-                className="text-20 leading-body font-bold text-balance"
+                className="text-title-lg leading-body font-bold text-balance"
               >
                 {hint}
               </p>
@@ -113,7 +113,7 @@ export function VoiceScreen() {
                 <X aria-hidden className="size-6" />
               </Link>
             </div>
-            <p className="text-12 text-muted">{t('voiceMode.payNote')}</p>
+            <p className="text-caption text-muted">{t('voiceMode.payNote')}</p>
           </div>
         </>
       )}

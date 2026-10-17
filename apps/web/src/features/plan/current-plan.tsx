@@ -61,7 +61,7 @@ export function CurrentPlan({ plan }: { plan: WeeklyPlan }) {
           </li>
         ))}
       </Sequence>
-      <p className="px-1 text-12 text-muted">
+      <p className="px-1 text-caption text-muted">
         {t('plan.cutoff', { time: formatTime(plan.changeCutoff) })}
       </p>
       {swap.isError && <ErrorMessage message={errorText(swap.error)} />}

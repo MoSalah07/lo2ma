@@ -25,7 +25,7 @@ export function Field({ label, hint, error, className, children }: FieldProps) {
 
   return (
     <div className={cn('flex flex-col gap-2', className)}>
-      <label htmlFor={id} className="text-13 font-semibold text-ink-2">
+      <label htmlFor={id} className="text-label-md text-ink-2">
         {label}
       </label>
       {children({
@@ -34,7 +34,7 @@ export function Field({ label, hint, error, className, children }: FieldProps) {
         'aria-invalid': error ? true : undefined,
       })}
       {message && (
-        <p id={messageId} className={cn('text-12', error ? 'text-on-danger' : 'text-muted')}>
+        <p id={messageId} className={cn('text-caption', error ? 'text-on-danger' : 'text-muted')}>
           {message}
         </p>
       )}
@@ -43,7 +43,7 @@ export function Field({ label, hint, error, className, children }: FieldProps) {
 }
 
 export const inputClass = cn(
-  'h-12 w-full rounded-16 bg-surface-2 px-4 text-15 text-ink placeholder:text-muted',
+  'h-12 w-full rounded-16 bg-surface-2 px-4 text-body-md text-ink placeholder:text-muted',
   'aria-invalid:ring-2 aria-invalid:ring-on-danger',
   focusRing,
 );

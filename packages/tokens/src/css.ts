@@ -6,7 +6,7 @@ import { radius } from './radius.ts';
 import { sceneColors } from './scene.ts';
 import { shadows, type ShadowName } from './shadows.ts';
 import type { Theme } from './theme.ts';
-import { fontFallback, fontSizes, fontVariable, lineHeights } from './typography.ts';
+import { fontFallback, fontVariable, lineHeights, textRoles, type TextRole } from './typography.ts';
 
 const HEADER =
   '/* Generated from packages/tokens/src by `npm run build -w @lo2ma/tokens`. Do not edit by hand. */';
@@ -50,8 +50,10 @@ function tailwindTheme(): string {
     ...shadowNames.map((name) => `--shadow-${kebab(name)}: var(${shadowVar(name)});`),
     '--radius-*: initial;',
     ...radius.map((px) => `--radius-${px}: ${px}px;`),
+    // Text roles: text-title-lg sets the size, the line height and the weight in one class. A screen can still
+    // change the weight (font-bold) or the line height (leading-body) on top.
     '--text-*: initial;',
-    ...fontSizes.map((px) => `--text-${px}: ${px / 16}rem;`),
+    ...Object.entries(textRoles).flatMap(([name, role]) => textRole(name, role)),
     ...Object.entries(lineHeights).map(([name, value]) => `--leading-${name}: ${value};`),
     `--font-sans: var(${fontVariable}), ${fontFallback};`,
     // Motion: only our curves exist (ease-standard, ease-enter, ease-exit), and every transition-* utility
@@ -69,6 +71,15 @@ function tailwindTheme(): string {
       ([name, px]) => `--spacing-${name}: calc(${rem(px)} + env(safe-area-inset-bottom));`,
     ),
   ]);
+}
+
+/** The Tailwind theme variables of one text role: --text-<name> and its line height and weight. */
+function textRole(name: string, { size, lineHeight, weight }: TextRole): string[] {
+  return [
+    `--text-${name}: ${rem(size)};`,
+    `--text-${name}--line-height: ${lineHeight};`,
+    ...(weight === undefined ? [] : [`--text-${name}--font-weight: ${weight};`]),
+  ];
 }
 
 export function buildTokensCss(): string {

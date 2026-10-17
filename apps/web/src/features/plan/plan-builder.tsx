@@ -71,7 +71,7 @@ export function PlanBuilder({ plan }: { plan: WeeklyPlan }) {
           ))}
         </Sequence>
 
-        <p className="flex items-center gap-2 px-1 text-12 text-muted">
+        <p className="flex items-center gap-2 px-1 text-caption text-muted">
           <UsersRound aria-hidden className="size-4 shrink-0" />
           {t('plan.sharedDelivery', { amount: formatMoney(plan.sharedDeliveryFee, locale) })}
         </p>
@@ -88,7 +88,7 @@ export function PlanBuilder({ plan }: { plan: WeeklyPlan }) {
         >
           {t('plan.confirm', { amount: formatMoney(plan.total, locale) })}
         </SignedInButton>
-        <p className="text-center text-11 text-muted">
+        <p className="text-center text-caption-sm text-muted">
           {t('plan.cutoff', { time: formatTime(plan.changeCutoff) })}
         </p>
       </BottomAction>

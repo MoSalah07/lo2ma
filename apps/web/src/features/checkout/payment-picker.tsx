@@ -19,9 +19,7 @@ export function PaymentPicker({ value, onChange }: PaymentPickerProps) {
 
   return (
     <fieldset className="flex flex-col gap-2">
-      <legend className="pb-2 text-13 font-semibold text-ink-2">
-        {t('checkout.paymentTitle')}
-      </legend>
+      <legend className="pb-2 text-label-md text-ink-2">{t('checkout.paymentTitle')}</legend>
       <Card className="rounded-24 px-4 py-1">
         {methods.isPending && <Skeleton className="my-3 h-12" />}
         <div className="divide-y divide-divider">
@@ -32,7 +30,7 @@ export function PaymentPicker({ value, onChange }: PaymentPickerProps) {
                 <span className="flex size-9.5 shrink-0 items-center justify-center rounded-12 bg-surface-2">
                   <Icon aria-hidden className="size-5" />
                 </span>
-                <span className="flex-1 text-14 font-semibold">
+                <span className="flex-1 text-label-lg">
                   {option.method === 'card'
                     ? t('payment.card', { last4: option.last4 ?? '' })
                     : t('payment.wallet')}

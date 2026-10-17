@@ -29,8 +29,8 @@ export function RulesSection() {
               <span className={cn('flex size-11 items-center justify-center rounded-16', tile)}>
                 <Icon aria-hidden className="size-5" />
               </span>
-              <h3 className="text-18 leading-heading font-bold">{t(`${key}.title`)}</h3>
-              <p className="text-15 leading-loose text-ink-2">
+              <h3 className="text-title-md leading-heading">{t(`${key}.title`)}</h3>
+              <p className="text-body-lg leading-loose text-ink-2">
                 {t(`${key}.body`, landingValues(locale))}
               </p>
             </li>

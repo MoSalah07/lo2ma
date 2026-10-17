@@ -28,14 +28,14 @@ function WithUnit({ unit, children }: { unit: string; children: ReactNode }) {
   return (
     <div className="flex h-12 items-center gap-1.5 rounded-16 bg-surface-2 pe-3.5">
       {children}
-      <span aria-hidden className="text-13 text-muted">
+      <span aria-hidden className="text-body-sm text-muted">
         {unit}
       </span>
     </div>
   );
 }
 
-const unitInput = 'h-11 min-w-0 flex-1 bg-transparent px-3.5 text-14';
+const unitInput = 'h-11 min-w-0 flex-1 bg-transparent px-3.5 text-body-md';
 
 /** The «كوبون جديد» panel: every rule the API checks is checked here first, in the admin's language. */
 export function CouponForm() {
@@ -87,7 +87,7 @@ export function CouponForm() {
 
   return (
     <Card className="flex flex-col gap-4 rounded-26 p-5">
-      <h2 id="new-coupon" tabIndex={-1} className="text-18 font-bold outline-none">
+      <h2 id="new-coupon" tabIndex={-1} className="text-title-md outline-none">
         {t('coupons.new')}
       </h2>
 
@@ -101,7 +101,7 @@ export function CouponForm() {
                 dir="ltr"
                 autoCapitalize="characters"
                 spellCheck={false}
-                className="min-w-0 flex-1 font-mono text-14 font-semibold uppercase"
+                className="min-w-0 flex-1 font-mono text-label-lg uppercase"
               />
               <Button
                 variant="tonal"
@@ -116,7 +116,7 @@ export function CouponForm() {
         </Field>
 
         <div role="group" aria-labelledby="coupon-type" className="flex flex-col gap-2">
-          <span id="coupon-type" className="text-13 font-semibold text-ink-2">
+          <span id="coupon-type" className="text-label-md text-ink-2">
             {t('coupons.type')}
           </span>
           <div className="grid grid-cols-2 gap-0.5 rounded-full bg-surface-2 p-0.5">
@@ -181,9 +181,9 @@ export function CouponForm() {
         </Field>
 
         <fieldset className="flex flex-col gap-0.5">
-          <legend className="pb-1.5 text-13 font-semibold text-ink-2">{t('coupons.who')}</legend>
+          <legend className="pb-1.5 text-label-md text-ink-2">{t('coupons.who')}</legend>
           {(['all', 'company', 'new'] as const).map((option) => (
-            <label key={option} className="flex h-11 items-center gap-2.5 text-14">
+            <label key={option} className="flex h-11 items-center gap-2.5 text-body-md">
               <input
                 type="radio"
                 value={option}
@@ -200,7 +200,11 @@ export function CouponForm() {
         {audience === 'company' && (
           <Field label={t('table.company')} error={errorText(errors.companyId?.message)}>
             {(field) => (
-              <select {...field} {...register('companyId')} className={cn(inputClass, 'text-14')}>
+              <select
+                {...field}
+                {...register('companyId')}
+                className={cn(inputClass, 'text-body-md')}
+              >
                 <option value="" />
                 {companies.data?.map((company) => (
                   <option key={company.id} value={company.id}>
@@ -219,7 +223,12 @@ export function CouponForm() {
             error={errorText(errors.limit?.message)}
           >
             {(field) => (
-              <Input {...field} {...register('limit')} inputMode="numeric" className="text-14" />
+              <Input
+                {...field}
+                {...register('limit')}
+                inputMode="numeric"
+                className="text-body-md"
+              />
             )}
           </Field>
           <Field label={t('coupons.perCustomer')} error={errorText(errors.perCustomer?.message)}>
@@ -228,7 +237,7 @@ export function CouponForm() {
                 {...field}
                 {...register('perCustomer')}
                 inputMode="numeric"
-                className="text-14"
+                className="text-body-md"
               />
             )}
           </Field>
@@ -236,14 +245,20 @@ export function CouponForm() {
 
         <Field label={t('coupons.endsOn')} error={errorText(errors.endsOn?.message)}>
           {(field) => (
-            <Input {...field} {...register('endsOn')} type="date" min={today} className="text-14" />
+            <Input
+              {...field}
+              {...register('endsOn')}
+              type="date"
+              min={today}
+              className="text-body-md"
+            />
           )}
         </Field>
 
         <div className="flex flex-col gap-2 rounded-18 bg-surface-2 p-3.5">
-          <span className="text-12 text-muted">{t('coupons.preview')}</span>
+          <span className="text-caption text-muted">{t('coupons.preview')}</span>
           {(code || previewReady) && (
-            <Badge tone="highlight" size="md" className="h-8 gap-2 self-start px-3 text-13">
+            <Badge tone="highlight" size="md" className="h-8 gap-2 self-start px-3 text-body-sm">
               <TicketPercent aria-hidden className="size-4" />
               {code && <bdi dir="ltr">{code.toUpperCase()}</bdi>}
               {code && previewReady && <span aria-hidden>·</span>}
@@ -270,7 +285,7 @@ export function CouponForm() {
             {t('coupons.cancel')}
           </Button>
         </div>
-        <p role="status" className="min-h-5 text-13 text-on-good">
+        <p role="status" className="min-h-5 text-body-sm text-on-good">
           {savedCode && t('coupons.saved', { code: savedCode })}
         </p>
       </form>

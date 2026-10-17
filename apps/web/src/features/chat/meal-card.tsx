@@ -38,10 +38,10 @@ export function MealCard({ suggestion, budget }: MealCardProps) {
       <div className="flex items-center gap-3">
         <MealIcon />
         <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-          <h3 className="text-15 font-bold">
+          <h3 className="text-body-md font-bold">
             <bdi>{mealName(suggestion, locale)}</bdi>
           </h3>
-          <span className="text-12 text-muted">
+          <span className="text-caption text-muted">
             {t('chat.mealMeta', {
               restaurant: restaurant.name[locale],
               duration: t('common.minutes', { count: restaurant.etaMinutes }),
@@ -49,14 +49,12 @@ export function MealCard({ suggestion, budget }: MealCardProps) {
           </span>
         </div>
         <div className="flex shrink-0 flex-col items-end gap-1">
-          <span className="text-20 leading-none font-extrabold">
-            {formatMoney(bill.total, locale)}
-          </span>
+          <span className="text-title-lg leading-none">{formatMoney(bill.total, locale)}</span>
           {suggestion.bestValue && <Badge tone="highlight">{t('common.bestValue')}</Badge>}
         </div>
       </div>
 
-      <p className="text-12 text-muted">
+      <p className="text-caption text-muted">
         {t('bill.breakdown', {
           food: formatNumber(pounds(bill.food), locale),
           delivery: formatNumber(pounds(bill.delivery), locale),
@@ -75,7 +73,7 @@ export function MealCard({ suggestion, budget }: MealCardProps) {
       )}
 
       <CalorieLine
-        className="text-12 text-ink-2"
+        className="text-caption text-ink-2"
         text={formatCalories(suggestion.kcal, locale, {
           approximate: suggestion.kcalSource === 'ai',
         })}
@@ -94,7 +92,11 @@ export function MealCard({ suggestion, budget }: MealCardProps) {
         </SignedInButton>
         <Link
           href={`/meals/${suggestion.id}`}
-          className={buttonVariants({ variant: 'tonal', size: 'md', className: 'px-4.5 text-14' })}
+          className={buttonVariants({
+            variant: 'tonal',
+            size: 'md',
+            className: 'px-4.5 text-body-md',
+          })}
         >
           {t('common.details')}
         </Link>

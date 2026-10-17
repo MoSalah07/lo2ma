@@ -26,10 +26,10 @@ export function ConversationDetail({ conversation }: { conversation: AgentConver
     <>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-col gap-0.5">
-          <h2 id="conversation" className="text-18 font-bold">
+          <h2 id="conversation" className="text-title-md">
             {t('conversationWith', { name: customer ?? t('guest') })}
           </h2>
-          <span className="text-12 text-muted">
+          <span className="text-caption text-muted">
             {t('meta', {
               time: formatTime(conversation.startedAt),
               steps: t('steps', { count: steps.length }),
@@ -55,8 +55,8 @@ export function ConversationDetail({ conversation }: { conversation: AgentConver
       <dl className="grid grid-cols-2 gap-2.5 md:grid-cols-4">
         {stats.map((stat) => (
           <div key={stat.label} className="flex flex-col gap-1 rounded-18 bg-surface-2 px-3.5 py-3">
-            <dt className="text-12 text-muted">{stat.label}</dt>
-            <dd className="truncate text-16 font-bold">{stat.value}</dd>
+            <dt className="text-caption text-muted">{stat.label}</dt>
+            <dd className="truncate text-title-md">{stat.value}</dd>
           </div>
         ))}
       </dl>

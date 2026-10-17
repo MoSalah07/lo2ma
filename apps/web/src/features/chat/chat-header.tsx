@@ -4,21 +4,22 @@ import { formatMoney, formatNumber, type UserPrefs } from '@lo2ma/core';
 import { MapPin } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { focusRing } from '@/components/ui/focus';
+import { Wordmark } from '@/components/wordmark';
 import { WithLocationPicker } from '@/features/location/with-location-picker';
 import { useSavePrefs } from '@/features/prefs/api';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/cn';
 
 const chip = cn(
-  'inline-flex h-11 max-w-3/5 items-center gap-1.5 rounded-full bg-surface px-3.5 text-13 font-medium ring-1 ring-line ring-inset',
+  'inline-flex h-11 max-w-3/5 items-center gap-1.5 rounded-full bg-surface px-3.5 text-body-sm font-medium ring-1 ring-line ring-inset',
   focusRing,
 );
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col gap-0.5 rounded-18 bg-surface px-3.5 py-2.5">
-      <span className="text-12 text-muted">{label}</span>
-      <span className="text-18 font-bold">{value}</span>
+      <span className="text-caption text-muted">{label}</span>
+      <span className="text-title-md">{value}</span>
     </div>
   );
 }
@@ -36,10 +37,7 @@ export function ChatHeader({ prefs }: { prefs: UserPrefs | null | undefined }) {
   return (
     <header className="flex flex-col gap-3.5 px-gutter pt-gutter pb-3">
       <div className="flex items-center justify-between gap-3">
-        <div className="flex items-baseline gap-1.5">
-          <span className="text-26 leading-none font-extrabold">{t('common.brand')}</span>
-          <span aria-hidden className="size-2 rounded-full bg-primary" />
-        </div>
+        <Wordmark name={t('common.brand')} />
         {prefs ? (
           <WithLocationPicker
             value={prefs.workplace}

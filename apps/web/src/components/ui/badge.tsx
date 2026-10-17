@@ -19,8 +19,8 @@ const badgeVariantsBase = cva(
         onPrimary: 'bg-primary-deep text-on-primary',
       },
       size: {
-        sm: 'h-5.5 px-2.5 text-11',
-        md: 'h-7 px-3 text-12',
+        sm: 'h-5.5 px-2.5 text-caption-sm',
+        md: 'h-7 px-3 text-caption',
       },
     },
     defaultVariants: { tone: 'neutral', size: 'sm' },

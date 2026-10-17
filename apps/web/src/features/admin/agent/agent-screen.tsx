@@ -56,7 +56,7 @@ export function AgentScreen() {
                 key={option}
                 pressed={filter === option}
                 onClick={() => setUrlParams({ filter: option === 'all' ? undefined : option })}
-                className="px-3.5 text-13 font-semibold"
+                className="px-3.5 text-label-md"
               >
                 {t(`filters.${option}`)}
               </Chip>
@@ -66,7 +66,7 @@ export function AgentScreen() {
           {list.isError && <ErrorMessage onRetry={() => void list.refetch()} />}
           {list.isPending && <LoadingBlocks />}
           {list.data?.length === 0 && (
-            <p className="py-6 text-center text-14 text-muted">{t('empty')}</p>
+            <p className="py-6 text-center text-body-md text-muted">{t('empty')}</p>
           )}
           <ul className="flex flex-col gap-1">
             {list.data?.map((item) => {
@@ -85,16 +85,18 @@ export function AgentScreen() {
                       focusRing,
                     )}
                   >
-                    <span className="flex justify-between gap-2 text-13">
+                    <span className="flex justify-between gap-2 text-body-sm">
                       <bdi className="font-bold">{item.customer ?? t('guest')}</bdi>
                       <span className="text-muted tabular-nums">{formatTime(item.startedAt)}</span>
                     </span>
-                    <span dir="auto" className="truncate text-start text-13 text-ink-2">
+                    <span dir="auto" className="truncate text-start text-body-sm text-ink-2">
                       {item.firstMessage}
                     </span>
                     <span className="flex items-center justify-between gap-2">
                       <OutcomeBadge outcome={item.outcome} />
-                      <span className="text-12 text-muted">{formatMoney(item.cost, locale)}</span>
+                      <span className="text-caption text-muted">
+                        {formatMoney(item.cost, locale)}
+                      </span>
                     </span>
                   </button>
                 </li>

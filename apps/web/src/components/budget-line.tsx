@@ -17,9 +17,9 @@ export function BudgetLine({ label, remaining, ratio, size = 'sm' }: BudgetLineP
   const large = size === 'lg';
   return (
     <div className={cn('flex flex-col', large ? 'gap-2.5' : 'gap-1.5')}>
-      <div className={cn('flex justify-between gap-2 text-12', large && 'items-baseline')}>
+      <div className={cn('flex justify-between gap-2 text-caption', large && 'items-baseline')}>
         <span className="text-muted">{label}</span>
-        <span className={large ? 'text-16 font-bold' : 'font-semibold'}>{remaining}</span>
+        <span className={large ? 'text-title-md' : 'font-semibold'}>{remaining}</span>
       </div>
       <Meter value={ratio} label={label} />
     </div>

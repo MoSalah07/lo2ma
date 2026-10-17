@@ -72,14 +72,10 @@ export function SuccessMoment({ title, note, onDone }: SuccessMomentProps) {
           />
         </div>
         <Appear className="flex flex-col items-center gap-2 text-center">
-          <h2
-            ref={heading}
-            tabIndex={-1}
-            className="text-28 leading-heading font-extrabold outline-none"
-          >
+          <h2 ref={heading} tabIndex={-1} className="text-headline-sm outline-none">
             {title}
           </h2>
-          <p className="text-15 text-ink-2">{note}</p>
+          <p className="text-body-md text-ink-2">{note}</p>
         </Appear>
       </div>
     </div>

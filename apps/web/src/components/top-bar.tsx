@@ -26,7 +26,7 @@ export function TopBar({ title, leading, trailing }: TopBarProps) {
       ) : (
         <span aria-hidden className="size-11" />
       )}
-      {title && <h1 className="truncate text-16 font-bold">{title}</h1>}
+      {title && <h1 className="truncate text-title-md">{title}</h1>}
       {trailing ?? <span aria-hidden className="size-11" />}
     </header>
   );

@@ -55,11 +55,9 @@ export function Sheet({
                 <span aria-hidden className="mx-auto h-1.5 w-10 rounded-full bg-line" />
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex flex-col gap-1">
-                    <Dialog.Title className="text-22 leading-heading font-extrabold">
-                      {title}
-                    </Dialog.Title>
+                    <Dialog.Title className="text-title-lg">{title}</Dialog.Title>
                     {description && (
-                      <Dialog.Description className="text-14 leading-body text-muted">
+                      <Dialog.Description className="text-body-md text-muted">
                         {description}
                       </Dialog.Description>
                     )}

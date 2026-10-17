@@ -63,8 +63,8 @@ export function AdminSignInForm({ next }: { next: string }) {
         className="flex flex-col gap-6"
       >
         <div className="flex flex-col gap-1.5">
-          <h1 className="text-26 leading-heading font-extrabold">{t('codeTitle')}</h1>
-          <p className="text-14 leading-body text-muted">{t('codeHint')}</p>
+          <h1 className="text-headline-sm">{t('codeTitle')}</h1>
+          <p className="text-body-md text-muted">{t('codeHint')}</p>
         </div>
         <div className="flex flex-col gap-2">
           <OtpInput
@@ -79,7 +79,7 @@ export function AdminSignInForm({ next }: { next: string }) {
             invalid={wrongCode}
           />
           {wrongCode && (
-            <p role="alert" className="text-12 text-on-danger">
+            <p role="alert" className="text-caption text-on-danger">
               {t('invalidCode')}
             </p>
           )}
@@ -104,8 +104,8 @@ export function AdminSignInForm({ next }: { next: string }) {
   return (
     <>
       <div className="flex flex-col gap-1.5">
-        <h1 className="text-26 leading-heading font-extrabold">{t('title')}</h1>
-        <p className="text-14 leading-body text-muted">{t('subtitle')}</p>
+        <h1 className="text-headline-sm">{t('title')}</h1>
+        <p className="text-body-md text-muted">{t('subtitle')}</p>
       </div>
 
       <form onSubmit={submitPassword} noValidate className="flex flex-col gap-4">
@@ -150,7 +150,7 @@ export function AdminSignInForm({ next }: { next: string }) {
         </Button>
       </form>
 
-      <p className="flex items-start gap-2.5 rounded-16 bg-surface-2 px-3.5 py-3 text-12 leading-body text-ink-2">
+      <p className="flex items-start gap-2.5 rounded-16 bg-surface-2 px-3.5 py-3 text-caption leading-body text-ink-2">
         <ShieldCheck aria-hidden className="mt-0.5 size-4.5 shrink-0" />
         {t('twofa')}
       </p>

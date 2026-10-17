@@ -1,14 +1,14 @@
-import { colorClassNames, fontSizes, lineHeights, radius, shadowClassNames } from '@lo2ma/tokens';
+import { colorClassNames, lineHeights, radius, shadowClassNames, textRoles } from '@lo2ma/tokens';
 import { clsx, type ClassValue } from 'clsx';
 import { extendTailwindMerge } from 'tailwind-merge';
 
-// tailwind-merge must know our token names. Without this it can't tell that text-15 is a size and text-ink
+// tailwind-merge must know our token names. Without this it can't tell that text-body-md is a size and text-ink
 // is a color, so it would drop one of them.
 const twMerge = extendTailwindMerge({
   extend: {
     theme: {
       color: colorClassNames,
-      text: fontSizes.map(String),
+      text: Object.keys(textRoles),
       radius: radius.map(String),
       shadow: shadowClassNames,
       leading: Object.keys(lineHeights),

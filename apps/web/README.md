@@ -96,7 +96,14 @@ scripts/               Lighthouse and README screenshots
 
 - Colors, radii, spacing, type and shadows come from `packages/tokens`, which generates the Tailwind theme.
   Tailwind's default colors, radii, font sizes and shadows are turned off, so only the semantic utilities exist:
-  `bg-surface`, `text-ink`, `text-15`, `rounded-26`, `shadow-card`.
+  `bg-surface`, `text-ink`, `text-body-md`, `rounded-26`, `shadow-card`.
+- **Text comes in roles**, named after Material 3's type scale (`packages/tokens/src/typography.ts`): `display-*`
+  for the landing's main heading, `headline-*` for screen titles and big numbers, `title-*` for sheets, sections
+  and cards, `body-*`, `label-*` and `caption`. One class sets the size, the line height and the weight
+  (`text-title-lg`); a screen can still change the weight or the line height on top. Changing a role in that file
+  changes every screen, and ESLint refuses a raw size like `text-15`.
+- **Wider than the app's column** (the `app:` breakpoint, 480 px), a full-screen panel becomes a card in the middle,
+  at most `h-dialog` (640 px) tall: the location picker does this.
 - Layout is tokens too. Widths: `max-w-app` (480, the app screens, bars and sheets), `max-w-site` (1280, the
   landing page), `max-w-admin` (1440) and `max-w-form` (440, a lone form card). Every screen uses one side gutter
   (`px-gutter`, 20) through `<Screen>` and `<ScreenHeader>` (`src/components/screen.tsx`), so no page sets its own

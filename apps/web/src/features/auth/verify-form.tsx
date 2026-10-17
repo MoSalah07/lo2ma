@@ -66,8 +66,8 @@ export function VerifyForm({ channel, destination, next }: VerifyFormProps) {
       className="flex flex-col gap-7 px-gutter pt-gutter"
     >
       <div className="flex flex-col gap-2.5">
-        <h1 className="text-28 leading-heading font-extrabold">{t('auth.otp.title')}</h1>
-        <p className="text-15 leading-loose text-muted">
+        <h1 className="text-headline-sm">{t('auth.otp.title')}</h1>
+        <p className="text-body-md leading-loose text-muted">
           {t.rich('auth.otp.sentTo', {
             destination: shown,
             number: (chunks) => (
@@ -99,7 +99,7 @@ export function VerifyForm({ channel, destination, next }: VerifyFormProps) {
         />
         <p
           role={wrongCode ? 'alert' : undefined}
-          className={wrongCode ? 'text-12 text-on-danger' : 'text-12 text-muted'}
+          className={wrongCode ? 'text-caption text-on-danger' : 'text-caption text-muted'}
         >
           {wrongCode
             ? t('auth.otp.invalidCode')
@@ -109,7 +109,7 @@ export function VerifyForm({ channel, destination, next }: VerifyFormProps) {
         </p>
       </div>
 
-      <div className="flex items-center gap-1.5 text-14">
+      <div className="flex items-center gap-1.5 text-body-md">
         <span className="text-muted">{t('auth.otp.noCode')}</span>
         <Button
           variant="link"

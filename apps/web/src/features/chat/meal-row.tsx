@@ -21,17 +21,17 @@ export function MealRow({ suggestion }: { suggestion: Suggestion }) {
       )}
     >
       <span className="flex min-w-0 flex-col gap-0.5">
-        <span className="truncate text-14 font-semibold">
+        <span className="truncate text-label-lg">
           <bdi>{mealName(suggestion, locale)}</bdi>
         </span>
-        <span className="text-12 text-muted">
+        <span className="text-caption text-muted">
           {t('chat.mealMeta', {
             restaurant: suggestion.restaurant.name[locale],
             duration: t('common.minutes', { count: suggestion.restaurant.etaMinutes }),
           })}
         </span>
       </span>
-      <span className="shrink-0 text-16 font-extrabold">
+      <span className="shrink-0 text-title-md font-extrabold">
         {formatMoney(suggestion.bill.total, locale)}
       </span>
     </Link>

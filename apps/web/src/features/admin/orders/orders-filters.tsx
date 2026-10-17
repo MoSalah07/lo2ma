@@ -8,7 +8,7 @@ import { focusRing } from '@/components/ui/focus';
 import { cn } from '@/lib/cn';
 import { SearchBox } from '../search-box';
 
-const pill = cn('h-12 rounded-full bg-surface-2 px-4 text-13 font-medium text-ink', focusRing);
+const pill = cn('h-12 rounded-full bg-surface-2 px-4 text-body-sm font-medium text-ink', focusRing);
 
 interface OrdersFiltersProps {
   search: string;

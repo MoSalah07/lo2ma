@@ -82,7 +82,7 @@ export function OrdersTable({ orders, labelledBy, label }: OrdersTableProps) {
         </tbody>
       </table>
       {orders.length === 0 && (
-        <p className="px-3 py-8 text-center text-14 text-muted">{t('empty')}</p>
+        <p className="px-3 py-8 text-center text-body-md text-muted">{t('empty')}</p>
       )}
     </div>
   );

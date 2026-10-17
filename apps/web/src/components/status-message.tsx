@@ -24,7 +24,7 @@ export function ErrorMessage({ onRetry, message }: { onRetry?: () => void; messa
   return (
     <Appear>
       <div role="alert" className="flex flex-col items-center gap-3 py-8 text-center">
-        <p className="text-15 text-ink-2">{message ?? t('error')}</p>
+        <p className="text-body-md text-ink-2">{message ?? t('error')}</p>
         {onRetry && (
           <Button variant="tonal" size="sm" onClick={onRetry}>
             {t('retry')}

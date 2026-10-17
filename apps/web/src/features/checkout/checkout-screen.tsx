@@ -71,16 +71,16 @@ export function CheckoutScreen({ id }: { id: string }) {
             <div className="flex items-center gap-3">
               <MealIcon />
               <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                <span className="text-15 font-bold">
+                <span className="text-body-md font-bold">
                   <bdi>{mealName(meal, locale)}</bdi>
                 </span>
-                <span className="text-12 text-muted">{meal.restaurant.name[locale]}</span>
+                <span className="text-caption text-muted">{meal.restaurant.name[locale]}</span>
               </div>
-              <span className="shrink-0 text-18 font-extrabold">
+              <span className="shrink-0 text-title-md font-extrabold">
                 {formatMoney(meal.bill.total, locale)}
               </span>
             </div>
-            <p className="text-12 text-muted">
+            <p className="text-caption text-muted">
               {t('bill.breakdown', {
                 food: formatNumber(pounds(meal.bill.food), locale),
                 delivery: formatNumber(pounds(meal.bill.delivery), locale),
@@ -90,7 +90,7 @@ export function CheckoutScreen({ id }: { id: string }) {
           </Card>
 
           <section className="flex flex-col gap-2">
-            <h2 className="text-13 font-semibold text-ink-2">{t('checkout.deliveryTitle')}</h2>
+            <h2 className="text-label-md text-ink-2">{t('checkout.deliveryTitle')}</h2>
             <Card className="flex flex-col gap-3 p-4">
               {prefs.data && (
                 <p className="flex items-center gap-2.5">
@@ -98,7 +98,7 @@ export function CheckoutScreen({ id }: { id: string }) {
                   <WorkplaceSummary workplace={prefs.data.workplace} />
                 </p>
               )}
-              <p className="flex items-center gap-2.5 text-13 text-ink-2">
+              <p className="flex items-center gap-2.5 text-body-sm text-ink-2">
                 <Clock aria-hidden className="size-4.5 shrink-0 text-primary-ink" />
                 {t('checkout.eta', {
                   time: formatTime(arrival),
@@ -122,7 +122,7 @@ export function CheckoutScreen({ id }: { id: string }) {
 
           <PaymentPicker value={method} onChange={setMethod} />
 
-          <p className="flex items-center gap-2.5 rounded-18 bg-good px-3.5 py-3 text-13 leading-body font-medium text-on-good">
+          <p className="flex items-center gap-2.5 rounded-18 bg-good px-3.5 py-3 text-body-sm font-medium text-on-good">
             <Lock aria-hidden className="size-4.5 shrink-0" />
             {t('checkout.safety', { action: t('checkout.confirm') })}
           </p>
@@ -142,7 +142,7 @@ export function CheckoutScreen({ id }: { id: string }) {
               ? t('checkout.paying')
               : t('checkout.confirmAmount', { amount: formatMoney(meal.bill.total, locale) })}
           </SignedInButton>
-          <p className="text-center text-11 text-muted">
+          <p className="text-center text-caption-sm text-muted">
             {t.rich('checkout.terms', {
               terms: (chunks) => <span className="underline">{chunks}</span>,
             })}

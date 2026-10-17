@@ -23,15 +23,15 @@ export function OrdersChart({ daily }: OrdersChartProps) {
   return (
     <Card className="flex flex-col gap-4 rounded-26 p-5">
       <div className="flex flex-col gap-0.5">
-        <h2 id="orders-chart" className="text-16 font-bold">
+        <h2 id="orders-chart" className="text-title-md">
           {t('overview.chartTitle')}
         </h2>
-        <span className="text-12 text-muted">{t('overview.chartSub')}</span>
+        <span className="text-caption text-muted">{t('overview.chartSub')}</span>
       </div>
 
       <div aria-hidden className="flex flex-col gap-2">
         <div className="flex h-55 gap-2">
-          <div className="flex w-7 shrink-0 -translate-y-1.5 flex-col justify-between text-11 text-muted tabular-nums">
+          <div className="flex w-7 shrink-0 -translate-y-1.5 flex-col justify-between text-caption-sm text-muted tabular-nums">
             {ticks.map((tick) => (
               <span key={tick}>{formatNumber(tick, locale)}</span>
             ))}
@@ -51,7 +51,7 @@ export function OrdersChart({ daily }: OrdersChartProps) {
                   className="group relative flex h-full flex-1 flex-col items-center justify-end gap-1"
                 >
                   {index === last && (
-                    <span className="text-12 font-bold tabular-nums">
+                    <span className="text-caption font-bold tabular-nums">
                       {formatNumber(day.orders, locale)}
                     </span>
                   )}
@@ -60,7 +60,7 @@ export function OrdersChart({ daily }: OrdersChartProps) {
                     style={{ height: shareOf(day.orders, top) }}
                   >
                     <div className="pointer-events-none absolute inset-x-0 bottom-full mb-2 flex justify-center opacity-0 transition-opacity group-hover:opacity-100">
-                      <span className="rounded-12 bg-inverse px-2.5 py-1.5 text-12 font-semibold whitespace-nowrap text-on-inverse">
+                      <span className="rounded-12 bg-inverse px-2.5 py-1.5 text-caption font-semibold whitespace-nowrap text-on-inverse">
                         {t('overview.barTip', {
                           date: formatDayMonth(day.date, locale),
                           orders: t('orderCount', { count: day.orders }),
@@ -73,7 +73,7 @@ export function OrdersChart({ daily }: OrdersChartProps) {
             </div>
           </div>
         </div>
-        <div className="flex gap-2 text-11 text-muted">
+        <div className="flex gap-2 text-caption-sm text-muted">
           <span className="w-7 shrink-0" />
           <div className="flex flex-1">
             {daily.map((day, index) => (

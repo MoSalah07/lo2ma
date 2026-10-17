@@ -20,7 +20,7 @@ export function Section({ className, ...props }: ComponentProps<'section'>) {
 export function SectionTitle({ className, children, ...props }: ComponentProps<'h2'>) {
   return (
     <h2
-      className={cn('text-26 leading-heading font-extrabold lg:text-30 xl:text-34', className)}
+      className={cn('text-headline-sm lg:text-headline-md xl:text-headline-lg', className)}
       {...props}
     >
       {children}

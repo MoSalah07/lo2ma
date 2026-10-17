@@ -43,7 +43,7 @@ export function Pagination({ page, pageCount, onChange }: PaginationProps) {
             aria-current={item === page ? 'page' : undefined}
             onClick={() => onChange(item)}
             className={cn(
-              'inline-flex size-11 items-center justify-center rounded-full text-13 tabular-nums transition-colors',
+              'inline-flex size-11 items-center justify-center rounded-full text-body-sm tabular-nums transition-colors',
               item === page
                 ? 'bg-inverse font-semibold text-on-inverse'
                 : 'text-ink hover:bg-surface-2',

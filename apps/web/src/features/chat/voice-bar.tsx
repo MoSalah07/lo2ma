@@ -55,7 +55,7 @@ export function RecordingBar({ seconds, levels, onCancel, onStop }: RecordingBar
   return (
     <div className={barShell}>
       <IconButton label={t('cancel')} icon={X} variant="subtle" onClick={onCancel} />
-      <span className="inline-flex shrink-0 items-center gap-1.5 text-15 font-semibold tabular-nums">
+      <span className="inline-flex shrink-0 items-center gap-1.5 text-body-md font-semibold tabular-nums">
         <span aria-hidden className="size-2 rounded-full bg-on-danger" />
         {formatCountdown(seconds)}
       </span>
@@ -75,7 +75,7 @@ export function TranscribingBar({ onCancel }: { onCancel: () => void }) {
         aria-hidden
         className="size-4.5 shrink-0 animate-spin text-primary motion-reduce:animate-none"
       />
-      <span className="text-15 text-ink-2">{t('transcribing')}</span>
+      <span className="text-body-md text-ink-2">{t('transcribing')}</span>
     </div>
   );
 }

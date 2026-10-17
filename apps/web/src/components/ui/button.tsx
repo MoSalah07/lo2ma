@@ -27,9 +27,9 @@ const buttonVariantsBase = cva(
           'bg-on-primary text-primary-deep hover:bg-tint hover:text-on-tint focus-visible:outline-on-primary',
       },
       size: {
-        lg: 'h-14 px-6 text-16',
-        md: 'h-12 px-5 text-15',
-        sm: 'h-11 px-4 text-13',
+        lg: 'h-14 px-6 text-body-lg',
+        md: 'h-12 px-5 text-body-md',
+        sm: 'h-11 px-4 text-body-sm',
       },
       block: { true: 'w-full' },
     },

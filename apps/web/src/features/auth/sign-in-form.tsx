@@ -54,8 +54,8 @@ export function SignInForm({ initialChannel, next }: SignInFormProps) {
     <form onSubmit={submit} noValidate className="flex flex-1 flex-col">
       <div className="flex flex-1 flex-col gap-5 px-gutter pt-9">
         <div className="flex flex-col gap-1.5">
-          <h1 className="text-26 leading-heading font-extrabold">{t('title')}</h1>
-          <p className="text-14 leading-body text-muted">{t('subtitle')}</p>
+          <h1 className="text-headline-sm">{t('title')}</h1>
+          <p className="text-body-md text-muted">{t('subtitle')}</p>
         </div>
 
         <div role="group" className="grid grid-cols-2 gap-1 rounded-26 bg-divider p-1">
@@ -63,7 +63,7 @@ export function SignInForm({ initialChannel, next }: SignInFormProps) {
             type="button"
             aria-pressed={channel === 'phone'}
             onClick={() => switchTo('phone')}
-            className={segmentedItem({ active: channel === 'phone', className: 'text-14' })}
+            className={segmentedItem({ active: channel === 'phone', className: 'text-body-md' })}
           >
             {t('byPhone')}
           </button>
@@ -71,7 +71,7 @@ export function SignInForm({ initialChannel, next }: SignInFormProps) {
             type="button"
             aria-pressed={channel === 'email'}
             onClick={() => switchTo('email')}
-            className={segmentedItem({ active: channel === 'email', className: 'text-14' })}
+            className={segmentedItem({ active: channel === 'email', className: 'text-body-md' })}
           >
             {t('byEmail')}
           </button>
@@ -107,7 +107,7 @@ export function SignInForm({ initialChannel, next }: SignInFormProps) {
         <Button type="submit" block disabled={requestOtp.isPending}>
           {t('sendCode')}
         </Button>
-        <div aria-hidden className="flex items-center gap-3 text-12 text-muted">
+        <div aria-hidden className="flex items-center gap-3 text-caption text-muted">
           <span className="h-px flex-1 bg-line" />
           {tCommon('or')}
           <span className="h-px flex-1 bg-line" />
@@ -119,9 +119,9 @@ export function SignInForm({ initialChannel, next }: SignInFormProps) {
           >
             {t('guest')}
           </Link>
-          <p className="text-center text-12 text-muted">{t('guestNote')}</p>
+          <p className="text-center text-caption text-muted">{t('guestNote')}</p>
         </div>
-        <p className="text-center text-12 leading-loose text-muted">
+        <p className="text-center text-caption leading-loose text-muted">
           {t.rich('terms', {
             terms: (chunks) => <strong className="font-semibold text-primary-ink">{chunks}</strong>,
             privacy: (chunks) => (

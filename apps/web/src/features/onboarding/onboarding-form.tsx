@@ -45,8 +45,8 @@ function Group({
   return (
     <fieldset className="flex flex-col gap-2">
       <div className="flex items-baseline justify-between gap-2">
-        <legend className="text-13 font-semibold text-ink-2">{legend}</legend>
-        {aside && <span className="text-12 text-muted">{aside}</span>}
+        <legend className="text-label-md text-ink-2">{legend}</legend>
+        {aside && <span className="text-caption text-muted">{aside}</span>}
       </div>
       {children}
     </fieldset>
@@ -58,8 +58,8 @@ function OnboardingIntro() {
   const t = useTranslations('onboarding');
   return (
     <div className="flex flex-col gap-1.5">
-      <h1 className="text-28 leading-heading font-extrabold">{t('title')}</h1>
-      <p className="text-15 text-muted">{t('subtitle')}</p>
+      <h1 className="text-headline-sm">{t('title')}</h1>
+      <p className="text-body-md text-muted">{t('subtitle')}</p>
     </div>
   );
 }
@@ -109,7 +109,7 @@ function PrefsForm({ initial }: { initial: UserPrefs }) {
         <OnboardingIntro />
 
         <div className="flex flex-col gap-2">
-          <span id={workplaceLabelId} className="text-13 font-semibold text-ink-2">
+          <span id={workplaceLabelId} className="text-label-md text-ink-2">
             {t('prefs.workplace')}
           </span>
           <Controller
@@ -225,7 +225,7 @@ function PrefsForm({ initial }: { initial: UserPrefs }) {
         <Button type="submit" block disabled={save.isPending}>
           {t('onboarding.start')}
         </Button>
-        <p className="text-center text-12 text-muted">{t('onboarding.changeLater')}</p>
+        <p className="text-center text-caption text-muted">{t('onboarding.changeLater')}</p>
       </BottomAction>
     </form>
   );

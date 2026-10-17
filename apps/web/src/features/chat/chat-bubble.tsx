@@ -13,7 +13,7 @@ interface ChatBubbleProps {
 export function ChatBubble({ from, avatar, busy = false, children }: ChatBubbleProps) {
   if (from === 'user') {
     return (
-      <p className="max-w-4/5 self-end rounded-22 bg-inverse px-4 py-2.5 text-15 leading-body text-on-inverse">
+      <p className="max-w-4/5 self-end rounded-22 bg-inverse px-4 py-2.5 text-body-md text-on-inverse">
         {children}
       </p>
     );
@@ -23,11 +23,13 @@ export function ChatBubble({ from, avatar, busy = false, children }: ChatBubbleP
     <div className="flex items-start gap-2.5" aria-busy={busy}>
       <span
         aria-hidden
-        className="flex size-7.5 shrink-0 items-center justify-center rounded-full bg-primary text-14 font-bold text-on-primary"
+        className="flex size-7.5 shrink-0 items-center justify-center rounded-full bg-primary text-title-sm text-on-primary"
       >
         {avatar}
       </span>
-      <div className={cn('min-w-0 flex-1 pt-0.5 text-15 leading-loose text-ink-2')}>{children}</div>
+      <div className={cn('min-w-0 flex-1 pt-0.5 text-body-md leading-loose text-ink-2')}>
+        {children}
+      </div>
     </div>
   );
 }

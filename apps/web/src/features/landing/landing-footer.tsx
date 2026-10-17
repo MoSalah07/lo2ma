@@ -12,8 +12,8 @@ export function LandingFooter() {
         'flex flex-wrap items-center justify-between gap-x-4 gap-y-2 pt-stack pb-section',
       )}
     >
-      <span className="text-16 font-extrabold">{t('common.brand')}</span>
-      <p className="text-13 text-muted">{t('landing.demoNote')}</p>
+      <span className="text-title-md font-extrabold">{t('common.brand')}</span>
+      <p className="text-body-sm text-muted">{t('landing.demoNote')}</p>
     </footer>
   );
 }

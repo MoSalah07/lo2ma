@@ -6,5 +6,11 @@ export { containers, layoutSpacing, safeOffsets } from './layout.ts';
 export { sceneColors, sceneLights } from './scene.ts';
 export { mapColors, type MapColorName, type MapColors } from './map.ts';
 export { cubicBezier, durations, easings, staggerGap, travel, type Easing } from './motion.ts';
-export { fontSizes, fontVariable, lineHeights } from './typography.ts';
+export {
+  fontVariable,
+  lineHeights,
+  textRoles,
+  type TextRole,
+  type TextRoleName,
+} from './typography.ts';
 export { colorClassNames, shadowClassNames } from './names.ts';

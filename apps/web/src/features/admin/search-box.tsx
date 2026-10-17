@@ -32,7 +32,7 @@ export function SearchBox({ label, placeholder, value, onChange, className }: Se
         value={value}
         placeholder={placeholder}
         onChange={(event) => onChange(event.target.value)}
-        className="h-11 min-w-0 flex-1 bg-transparent text-14 text-ink outline-none placeholder:text-muted"
+        className="h-11 min-w-0 flex-1 bg-transparent text-body-md text-ink outline-none placeholder:text-muted"
       />
     </div>
   );

@@ -19,13 +19,13 @@ export function SlotsCard({ slots, batch }: SlotsCardProps) {
   return (
     <Card className="flex flex-col gap-4.5 rounded-26 p-5">
       <div className="flex flex-col gap-0.5">
-        <h2 className="text-16 font-bold">{t('overview.slotsTitle')}</h2>
-        <span className="text-12 text-muted">{t('overview.slotsSub')}</span>
+        <h2 className="text-title-md">{t('overview.slotsTitle')}</h2>
+        <span className="text-caption text-muted">{t('overview.slotsSub')}</span>
       </div>
       <ul className="flex flex-col gap-3.5">
         {slots.map((slot) => (
           <li key={slot.breakTime} className="flex items-center gap-3">
-            <span className="w-10 shrink-0 text-13 font-semibold tabular-nums">
+            <span className="w-10 shrink-0 text-label-md tabular-nums">
               {formatTime(slot.breakTime)}
             </span>
             <div aria-hidden className="h-5 min-w-0 flex-1">
@@ -34,13 +34,13 @@ export function SlotsCard({ slots, batch }: SlotsCardProps) {
                 style={{ width: shareOf(slot.orders, busiest) }}
               />
             </div>
-            <span className="w-24 shrink-0 text-13 text-ink-2">
+            <span className="w-24 shrink-0 text-body-sm text-ink-2">
               {t('orderCount', { count: slot.orders })}
             </span>
           </li>
         ))}
       </ul>
-      <p className="flex items-center gap-2.5 rounded-16 bg-surface-2 px-3.5 py-3 text-13 leading-normal text-ink-2">
+      <p className="flex items-center gap-2.5 rounded-16 bg-surface-2 px-3.5 py-3 text-body-sm leading-normal text-ink-2">
         <Truck aria-hidden className="size-4.5 shrink-0" />
         {t('overview.batch', {
           orders: t('orderCount', { count: batch.orders }),

@@ -18,10 +18,10 @@ export function WeekSummary({ plan }: { plan: WeeklyPlan }) {
   return (
     <Card className="flex flex-col gap-2.5 p-4">
       <div className="flex items-baseline justify-between gap-2">
-        <span className="text-12 text-muted">
+        <span className="text-caption text-muted">
           {t('tracking.paid', { amount: formatMoney(plan.paidTotal ?? plan.total, locale) })}
         </span>
-        <span className="text-13 font-semibold">
+        <span className="text-label-md">
           {t('plan.deliveredCount', {
             count: delivered,
             total: formatNumber(plan.days.length, locale),

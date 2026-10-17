@@ -33,7 +33,7 @@ export function WorkplaceField({ value, onChange, labelId }: WorkplaceFieldProps
         >
           <MapPin aria-hidden className="size-5 shrink-0 text-primary" />
           <WorkplaceSummary workplace={value} id={`${labelId}-value`} className="flex-1" />
-          <span className="text-13 font-semibold text-primary-ink">{t('common.change')}</span>
+          <span className="text-label-md text-primary-ink">{t('common.change')}</span>
         </button>
       )}
     </WithLocationPicker>

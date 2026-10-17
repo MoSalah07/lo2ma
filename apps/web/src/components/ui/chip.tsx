@@ -6,7 +6,7 @@ import { pressable } from './press';
 
 const chipVariants = cva(
   [
-    'inline-flex h-11 shrink-0 items-center justify-center gap-1.5 rounded-full px-4 text-14',
+    'inline-flex h-11 shrink-0 items-center justify-center gap-1.5 rounded-full px-4 text-body-md',
     pressable,
     focusRing,
   ],

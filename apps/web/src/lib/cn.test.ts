@@ -3,11 +3,12 @@ import { cn } from './cn';
 
 describe('cn', () => {
   it('keeps a font size and a text color together', () => {
-    expect(cn('text-15', 'text-ink')).toBe('text-15 text-ink');
+    expect(cn('text-body-md', 'text-ink')).toBe('text-body-md text-ink');
+    expect(cn('text-ink-2', 'text-title-lg')).toBe('text-ink-2 text-title-lg');
   });
 
   it('lets the later class win within the same group', () => {
-    expect(cn('text-15', 'text-17')).toBe('text-17');
+    expect(cn('text-body-md', 'text-title-md')).toBe('text-title-md');
     expect(cn('bg-surface', 'bg-primary')).toBe('bg-primary');
     expect(cn('rounded-26', 'rounded-full')).toBe('rounded-full');
     expect(cn('shadow-card', 'shadow-float')).toBe('shadow-float');

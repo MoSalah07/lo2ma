@@ -19,11 +19,11 @@ export function KpiTile({ label, value, change, directionLabel, direction, good 
   const Arrow = direction === 'down' ? TrendingDown : TrendingUp;
   return (
     <Card className="flex flex-col gap-2 px-5 py-4.5">
-      <span className="text-13 text-muted">{label}</span>
-      <span className="text-30 leading-tight font-extrabold tabular-nums">{value}</span>
+      <span className="text-body-sm text-muted">{label}</span>
+      <span className="text-headline-md leading-tight tabular-nums">{value}</span>
       <span
         className={cn(
-          'inline-flex items-center gap-1 text-12 font-semibold',
+          'inline-flex items-center gap-1 text-caption font-semibold',
           direction === 'flat' ? 'text-muted' : good ? 'text-on-good' : 'text-on-danger',
         )}
       >

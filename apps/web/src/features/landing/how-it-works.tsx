@@ -44,12 +44,12 @@ export function HowItWorks() {
               {/* The list already numbers the steps for screen readers. */}
               <span
                 aria-hidden
-                className="flex size-11 items-center justify-center rounded-full bg-primary text-18 font-bold text-on-primary"
+                className="flex size-11 items-center justify-center rounded-full bg-primary text-title-md text-on-primary"
               >
                 {formatNumber(index + 1, locale)}
               </span>
-              <h3 className="text-22 leading-heading font-bold">{t(`${key}.title`)}</h3>
-              <p className="text-15 leading-loose text-ink-2">{t(`${key}.body`)}</p>
+              <h3 className="text-title-lg font-bold">{t(`${key}.title`)}</h3>
+              <p className="text-body-lg leading-loose text-ink-2">{t(`${key}.body`)}</p>
             </SequenceItem>
           </li>
         ))}

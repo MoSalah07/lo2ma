@@ -23,7 +23,7 @@ const looks: Record<AgentStep['kind'], { icon: LucideIcon; className: string }> 
 };
 
 const code =
-  'rounded-14 bg-surface-2 px-3.5 py-3 font-mono text-12 leading-body whitespace-pre-wrap';
+  'rounded-14 bg-surface-2 px-3.5 py-3 font-mono text-caption leading-body whitespace-pre-wrap';
 
 /** JSON on one line with a space after each separator, the way the design shows the parsed request. */
 const compactJson = (value: unknown) => JSON.stringify(value, null, 1).replace(/\n\s*/g, ' ');
@@ -63,7 +63,7 @@ export function StepItem({ step, last }: StepItemProps) {
       body = (
         <p
           dir="auto"
-          className="self-start rounded-18 bg-inverse px-3.5 py-2.5 text-14 text-on-inverse"
+          className="self-start rounded-18 bg-inverse px-3.5 py-2.5 text-body-md text-on-inverse"
         >
           {step.text}
         </p>
@@ -95,7 +95,7 @@ export function StepItem({ step, last }: StepItemProps) {
               {step.call}
             </pre>
           )}
-          <p className="text-13 text-ink-2">
+          <p className="text-body-sm text-ink-2">
             {t(`toolResults.${step.tool}`, { count: step.results })}
           </p>
         </>
@@ -105,7 +105,7 @@ export function StepItem({ step, last }: StepItemProps) {
       title = t('stepTitles.reply');
       meta = usage(step.tokens, step.ms);
       body = (
-        <p dir="auto" className="rounded-18 bg-surface-2 px-3.5 py-2.5 text-14 leading-body">
+        <p dir="auto" className="rounded-18 bg-surface-2 px-3.5 py-2.5 text-body-md">
           {step.text}
         </p>
       );
@@ -115,14 +115,14 @@ export function StepItem({ step, last }: StepItemProps) {
       meta = clock(step.at);
       body = (
         <>
-          <p className="text-13 text-ink-2">
+          <p className="text-body-sm text-ink-2">
             {t.rich('confirmedBody', {
               id: `#${step.orderId}`,
               total: formatMoney(step.total, locale),
               order: (chunks) => <bdi dir="ltr">{chunks}</bdi>,
             })}
           </p>
-          <p className="flex items-center gap-2 self-start rounded-14 bg-good px-3 py-2 text-12 leading-body font-semibold text-on-good">
+          <p className="flex items-center gap-2 self-start rounded-14 bg-good px-3 py-2 text-caption leading-body font-semibold text-on-good">
             <ShieldCheck aria-hidden className="size-4 shrink-0" />
             {t('safety')}
           </p>
@@ -143,8 +143,8 @@ export function StepItem({ step, last }: StepItemProps) {
       </div>
       <div className={cn('flex min-w-0 flex-1 flex-col gap-2', !last && 'pb-4.5')}>
         <div className="flex min-h-8 items-center justify-between gap-2">
-          <h3 className="text-14 font-bold">{title}</h3>
-          <span className="flex gap-1 text-12 text-muted">{meta}</span>
+          <h3 className="text-title-sm">{title}</h3>
+          <span className="flex gap-1 text-caption text-muted">{meta}</span>
         </div>
         {body}
       </div>

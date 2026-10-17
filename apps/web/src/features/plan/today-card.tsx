@@ -31,7 +31,7 @@ export function TodayCard({ day, status, plan }: TodayCardProps) {
   return (
     <div className="flex flex-col gap-2 rounded-24 bg-primary px-4 py-3.5 text-on-primary">
       <div className="flex items-center justify-between gap-2">
-        <span className="text-12 font-medium">
+        <span className="text-caption font-medium">
           {t('plan.today', {
             weekday: t(`weekdays.${day.weekday}`),
             day: dayOfMonth(day.date),
@@ -41,12 +41,12 @@ export function TodayCard({ day, status, plan }: TodayCardProps) {
           {t(`tracking.steps.${status}`)}
         </Badge>
       </div>
-      <span className="text-17 leading-heading font-bold">
+      <span className="text-title-md leading-heading">
         <bdi>{mealName(day.suggestion, locale)}</bdi>
       </span>
       <Meter value={orderProgress(status)} label={t('tracking.title')} tone="onPrimary" />
       <div className="flex items-center justify-between gap-2 pt-0.5">
-        <span className="text-13 font-medium">
+        <span className="text-body-sm font-medium">
           {t('plan.todayEta', {
             time: formatTime(plan.arrivalTime),
             beforeBreak: t('common.beforeBreak', {

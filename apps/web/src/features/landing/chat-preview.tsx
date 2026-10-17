@@ -15,24 +15,24 @@ export function ChatPreview() {
       aria-label={t('landing.preview.label')}
       className="relative flex w-full max-w-85 flex-col gap-2.5"
     >
-      <p className="max-w-4/5 self-end rounded-22 bg-primary px-4 py-3 text-14 leading-body text-on-primary">
+      <p className="max-w-4/5 self-end rounded-22 bg-primary px-4 py-3 text-body-md text-on-primary">
         {t('landing.preview.user')}
       </p>
-      <p className="max-w-9/10 self-start rounded-22 bg-surface px-4 py-3 text-14 leading-body shadow-card">
+      <p className="max-w-9/10 self-start rounded-22 bg-surface px-4 py-3 text-body-md shadow-card">
         {t('landing.preview.agent')}
       </p>
       <Card className="flex flex-col gap-3 rounded-26 p-4">
         <div className="flex items-start justify-between gap-3">
           <div className="flex min-w-0 flex-col gap-1">
-            <span className="text-16 font-bold">{t('landing.preview.meal')}</span>
-            <span className="text-12 text-muted">
+            <span className="text-title-md">{t('landing.preview.meal')}</span>
+            <span className="text-caption text-muted">
               {t('landing.preview.meta', {
                 restaurant: t('landing.preview.restaurant'),
                 time: arrival,
               })}
             </span>
           </div>
-          <span className="text-17 font-bold whitespace-nowrap">
+          <span className="text-title-md whitespace-nowrap">
             {formatMoney(sampleMeal.total, locale)}
           </span>
         </div>

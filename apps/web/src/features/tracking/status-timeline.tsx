@@ -39,13 +39,13 @@ export function StatusTimeline({ order }: { order: Order }) {
               <div className="flex flex-1 items-start justify-between gap-2 pt-1">
                 <span
                   className={cn(
-                    'text-14',
+                    'text-body-md',
                     active ? 'font-bold' : done ? 'font-semibold' : 'font-medium text-muted',
                   )}
                 >
                   {t(`steps.${step.status}`)}
                 </span>
-                <span className="text-12 text-muted">
+                <span className="text-caption text-muted">
                   {done ? formatTime(step.at) : t('around', { time: formatTime(step.at) })}
                 </span>
               </div>

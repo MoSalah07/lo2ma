@@ -37,10 +37,10 @@ export function MealScreen({ id }: { id: string }) {
       <Screen clear="action">
         <MealIcon size="hero" />
         <div className="flex flex-col gap-1.5">
-          <h2 className="text-22 leading-heading font-extrabold">
+          <h2 className="text-title-lg">
             <bdi>{mealName(meal, locale)}</bdi>
           </h2>
-          <p className="text-13 text-muted">
+          <p className="text-body-sm text-muted">
             {t('meal.meta', {
               restaurant: meal.restaurant.name[locale],
               duration: t('common.minutes', { count: meal.restaurant.etaMinutes }),
@@ -66,19 +66,22 @@ export function MealScreen({ id }: { id: string }) {
 
         <Card className="flex flex-col gap-1 rounded-20 px-4 py-3">
           <CalorieLine
-            className="text-15 font-bold"
+            className="text-body-md font-bold"
             text={formatCalories(meal.kcal, locale, { approximate: estimated })}
             estimateLabel={estimated ? t('common.aiEstimate') : undefined}
           />
-          {estimated && <p className="text-12 text-muted">{t('meal.calorieNote')}</p>}
+          {estimated && <p className="text-caption text-muted">{t('meal.calorieNote')}</p>}
         </Card>
 
         <section className="flex flex-col gap-2">
-          <h2 className="text-13 font-semibold text-ink-2">{t('meal.items')}</h2>
+          <h2 className="text-label-md text-ink-2">{t('meal.items')}</h2>
           <Card className="rounded-22 px-4">
             <ul className="divide-y divide-divider">
               {meal.items.map((item) => (
-                <li key={item.id} className="flex h-12 items-center justify-between gap-3 text-14">
+                <li
+                  key={item.id}
+                  className="flex h-12 items-center justify-between gap-3 text-body-md"
+                >
                   <span className="font-medium">
                     {item.name[locale]}{' '}
                     <bdi dir="ltr" className="text-muted">

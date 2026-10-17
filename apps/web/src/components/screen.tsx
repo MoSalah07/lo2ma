@@ -42,7 +42,7 @@ interface ScreenHeaderProps {
 export function ScreenHeader({ title, children }: ScreenHeaderProps) {
   return (
     <header className="flex items-center justify-between gap-3 px-gutter pt-gutter pb-3">
-      <h1 className="text-26 leading-heading font-extrabold">{title}</h1>
+      <h1 className="text-headline-sm">{title}</h1>
       {children}
     </header>
   );

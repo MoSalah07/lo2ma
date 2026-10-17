@@ -5,11 +5,11 @@ import { cn } from '@/lib/cn';
 /** Scrolls sideways on narrow screens instead of squeezing the columns. */
 export const tableScroll = 'overflow-x-auto';
 
-export const tableClass = 'w-full border-collapse text-13';
+export const tableClass = 'w-full border-collapse text-body-sm';
 
 export const headCell = (align: 'start' | 'end' = 'start') =>
   cn(
-    'h-11 border-b border-divider px-3 text-12 font-medium whitespace-nowrap text-muted',
+    'h-11 border-b border-divider px-3 text-caption font-medium whitespace-nowrap text-muted',
     align === 'end' ? 'text-end' : 'text-start',
   );
 

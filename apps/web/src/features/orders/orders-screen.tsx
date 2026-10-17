@@ -36,7 +36,7 @@ export function OrdersScreen() {
         {orders.isError && <ErrorMessage onRetry={() => void orders.refetch()} />}
         {orders.data?.length === 0 && (
           <div className="flex flex-col items-center gap-4 py-10 text-center">
-            <p className="text-15 text-ink-2">{t('orders.empty')}</p>
+            <p className="text-body-md text-ink-2">{t('orders.empty')}</p>
             <Link href="/chat" className={buttonVariants({ size: 'md' })}>
               {t('orders.startChat')}
             </Link>
@@ -55,13 +55,16 @@ export function OrdersScreen() {
                 >
                   <MealIcon size="sm" />
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-                    <span className="truncate text-14 font-semibold">
+                    <span className="truncate text-label-lg">
                       <bdi>{mealName(order.suggestion, locale)}</bdi>
                     </span>
-                    <bdi dir="ltr" className="text-start text-12 text-muted">{`#${order.id}`}</bdi>
+                    <bdi
+                      dir="ltr"
+                      className="text-start text-caption text-muted"
+                    >{`#${order.id}`}</bdi>
                   </span>
                   <span className="flex shrink-0 flex-col items-end gap-1">
-                    <span className="text-15 font-extrabold">
+                    <span className="text-body-md font-extrabold">
                       {formatMoney(order.suggestion.bill.total, locale)}
                     </span>
                     <Badge tone={statusTone[order.status]}>

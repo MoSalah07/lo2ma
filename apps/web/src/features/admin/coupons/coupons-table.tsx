@@ -60,7 +60,7 @@ export function CouponsTable({ coupons }: { coupons: Coupon[] }) {
             return (
               <tr key={coupon.code} className={rowClass}>
                 <td className={bodyCell()}>
-                  <bdi dir="ltr" className="font-mono text-13 font-bold tracking-wide">
+                  <bdi dir="ltr" className="font-mono text-body-sm font-bold tracking-wide">
                     {coupon.code}
                   </bdi>
                 </td>
@@ -71,7 +71,7 @@ export function CouponsTable({ coupons }: { coupons: Coupon[] }) {
                         ? tFormat('percent', { value: number(discount.value) })
                         : money(discount.value)}
                     </span>
-                    <span className="text-12 text-muted">
+                    <span className="text-caption text-muted">
                       {discount.type === 'percent'
                         ? t('upTo', { amount: money(discount.cap) })
                         : t('fixed')}
@@ -89,7 +89,7 @@ export function CouponsTable({ coupons }: { coupons: Coupon[] }) {
                 </td>
                 <td className={bodyCell()}>
                   <div className="flex w-30 flex-col gap-1.5">
-                    <span className="text-12 tabular-nums">{usage}</span>
+                    <span className="text-caption tabular-nums">{usage}</span>
                     {limit !== null && <Meter value={used / limit} label={usage} />}
                   </div>
                 </td>

@@ -100,13 +100,13 @@ export function PlaceSearch({ open, onOpenChange, onPick }: PlaceSearchProps) {
         onBlur={() => onOpenChange(false)}
         onKeyDown={onKeyDown}
         className={cn(
-          'h-11 w-full rounded-full bg-surface ps-12 pe-4 text-14 text-ink shadow-card ring-1 ring-line ring-inset placeholder:text-muted',
+          'h-11 w-full rounded-full bg-surface ps-12 pe-4 text-body-md text-ink shadow-card ring-1 ring-line ring-inset placeholder:text-muted',
           focusRing,
         )}
       />
       {showing && (
         <div className="absolute inset-x-0 top-full mt-2 flex flex-col rounded-24 bg-surface p-2 shadow-sheet">
-          <p id={`${id}-heading`} className="px-3 pt-1 pb-2 text-12 font-semibold text-muted">
+          <p id={`${id}-heading`} className="px-3 pt-1 pb-2 text-caption font-semibold text-muted">
             {searching ? t('results') : t('suggested')}
           </p>
           <ul id={`${id}-list`} role="listbox" aria-labelledby={`${id}-heading`}>
@@ -125,14 +125,14 @@ export function PlaceSearch({ open, onOpenChange, onPick }: PlaceSearchProps) {
               >
                 <MapPin aria-hidden className="size-5 shrink-0 text-primary" />
                 <span className="flex min-w-0 flex-col">
-                  <bdi className="truncate text-14 font-medium">{place.name[locale]}</bdi>
-                  <span className="truncate text-12 text-muted">{place.area[locale]}</span>
+                  <bdi className="truncate text-body-md font-medium">{place.name[locale]}</bdi>
+                  <span className="truncate text-caption text-muted">{place.area[locale]}</span>
                 </span>
               </li>
             ))}
           </ul>
           {searching && !search.isFetching && options.length === 0 && (
-            <p role="status" className="px-3 py-3 text-14 text-muted">
+            <p role="status" className="px-3 py-3 text-body-md text-muted">
               {t('noResults', { query: typed })}
             </p>
           )}

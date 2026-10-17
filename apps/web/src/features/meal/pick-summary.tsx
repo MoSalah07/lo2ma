@@ -13,12 +13,14 @@ export function PickSummary({ suggestion }: { suggestion: Suggestion }) {
     <div className="flex items-center gap-3 rounded-20 bg-surface-2 p-3">
       <MealIcon size="sm" />
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <span className="text-12 text-muted">{t('yourPick')}</span>
-        <span className="truncate text-14 font-semibold">
+        <span className="text-caption text-muted">{t('yourPick')}</span>
+        <span className="truncate text-label-lg">
           <bdi>{mealName(suggestion, locale)}</bdi>
         </span>
       </div>
-      <span className="text-16 font-extrabold">{formatMoney(suggestion.bill.total, locale)}</span>
+      <span className="text-title-md font-extrabold">
+        {formatMoney(suggestion.bill.total, locale)}
+      </span>
     </div>
   );
 }

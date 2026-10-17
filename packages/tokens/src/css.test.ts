@@ -45,7 +45,13 @@ describe('buildTokensCss', () => {
   });
 
   it('writes font sizes in rem and radii in px', () => {
-    expect(css).toContain('--text-15: 0.9375rem;');
+    expect(css).toContain('--text-body-md: 0.875rem;');
+    expect(css).toContain('--text-title-lg--line-height: 1.3;');
+    expect(css).toContain('--text-title-lg--font-weight: 800;');
+    // Body text keeps the weight it inherits.
+    expect(css).not.toContain('--text-body-md--font-weight');
+    // Only roles: a raw size like text-15 no longer exists.
+    expect(css).not.toMatch(/--text-\d+:/);
     expect(css).toContain('--radius-26: 26px;');
   });
 

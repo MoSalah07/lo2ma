@@ -41,7 +41,7 @@ export function CenterPin({ lifted, hint, className }: CenterPinProps) {
         // Over the pin's head with a gap, and gone while the map moves.
         <span
           className={cn(
-            '-translate-y-20 rounded-full bg-inverse px-3 py-1.5 text-center text-12 font-medium whitespace-nowrap text-on-inverse shadow-card',
+            '-translate-y-20 rounded-full bg-inverse px-3 py-1.5 text-center text-caption font-medium whitespace-nowrap text-on-inverse shadow-card',
             lift,
             lifted && 'opacity-0',
           )}

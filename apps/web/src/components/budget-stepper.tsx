@@ -35,7 +35,7 @@ export function BudgetStepper({
         disabled={value - step < min}
         onClick={() => onChange(Math.max(min, value - step))}
       />
-      <output aria-live="polite" className="text-26 font-extrabold">
+      <output aria-live="polite" className="text-headline-sm">
         {format(value)}
       </output>
       <IconButton

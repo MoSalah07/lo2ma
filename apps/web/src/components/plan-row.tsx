@@ -37,14 +37,16 @@ export function PlanRow({
           large ? 'size-13' : 'size-12',
         )}
       >
-        <span className="text-11 text-muted">{weekday}</span>
-        <span className={cn('leading-tight font-bold', large ? 'text-18' : 'text-16')}>{day}</span>
+        <span className="text-caption-sm text-muted">{weekday}</span>
+        <span className={cn('leading-tight font-bold', large ? 'text-title-md' : 'text-body-lg')}>
+          {day}
+        </span>
       </div>
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <span className={cn('truncate text-14 font-semibold', done && 'text-ink-2')}>
+        <span className={cn('truncate text-label-lg', done && 'text-ink-2')}>
           <bdi>{meal}</bdi>
         </span>
-        <span className="text-12 text-muted">{meta}</span>
+        <span className="text-caption text-muted">{meta}</span>
       </div>
       {children}
     </Card>

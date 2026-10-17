@@ -16,8 +16,8 @@ export function WorkplaceSummary({
   const below = [workplace.area[locale], workplace.details].filter(Boolean).join(' · ');
   return (
     <span id={id} className={cn('flex min-w-0 flex-col text-start', className)}>
-      <bdi className="truncate text-15 font-medium">{workplace.name[locale]}</bdi>
-      <span className="truncate text-12 text-muted">{below}</span>
+      <bdi className="truncate text-body-md font-medium">{workplace.name[locale]}</bdi>
+      <span className="truncate text-caption text-muted">{below}</span>
     </span>
   );
 }

@@ -15,10 +15,10 @@ export function VoiceMeal({ suggestion }: { suggestion: Suggestion }) {
   return (
     <Card className="flex w-full items-center gap-3 rounded-24 p-3 ps-4 text-start">
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <span className="truncate text-15 font-bold">
+        <span className="truncate text-body-md font-bold">
           <bdi>{mealName(suggestion, locale)}</bdi>
         </span>
-        <span className="text-12 text-muted">
+        <span className="text-caption text-muted">
           {t('voiceMode.mealMeta', {
             restaurant: suggestion.restaurant.name[locale],
             price: formatMoney(suggestion.bill.total, locale),

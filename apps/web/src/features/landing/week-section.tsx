@@ -26,12 +26,12 @@ export function WeekSection() {
         <div className="flex flex-col items-start gap-4">
           <Eyebrow tone="highlight">{t('plan.title')}</Eyebrow>
           <SectionTitle>{t('landing.week.title')}</SectionTitle>
-          <p className="text-15 leading-loose text-pretty text-ink-2">
+          <p className="text-body-lg leading-loose text-pretty text-ink-2">
             {t('landing.week.body', landingValues(locale))}
           </p>
           <ul className="flex flex-col gap-2.5">
             {points.map((point) => (
-              <li key={point} className="flex items-center gap-2.5 text-15 font-medium">
+              <li key={point} className="flex items-center gap-2.5 text-body-md font-medium">
                 <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-good text-on-good">
                   <Check aria-hidden className="size-3.5" strokeWidth={3} />
                 </span>

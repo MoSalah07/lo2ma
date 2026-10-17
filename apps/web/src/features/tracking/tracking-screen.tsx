@@ -43,7 +43,7 @@ export function TrackingScreen({ id }: { id: string }) {
         className="flex flex-col gap-1.5 rounded-28 bg-primary p-5 text-on-primary"
       >
         <div className="flex items-center justify-between gap-2">
-          <span className="truncate text-12 font-medium">
+          <span className="truncate text-caption font-medium">
             <bdi>{`${suggestion.restaurant.name[locale]} · ${mealName(suggestion, locale)}`}</bdi>
           </span>
           {order.data.onTime && (
@@ -52,12 +52,12 @@ export function TrackingScreen({ id }: { id: string }) {
             </Badge>
           )}
         </div>
-        <p className="text-34 leading-heading font-extrabold">
+        <p className="text-headline-lg">
           {status === 'delivered'
             ? t('tracking.delivered')
             : t('tracking.arrives', { time: formatTime(order.data.arrivalTime) })}
         </p>
-        <p className="text-14 font-medium">
+        <p className="text-body-md font-medium">
           {t('common.beforeBreak', { minutes: early > 0 ? early : ARRIVAL_BUFFER_MINUTES })}
         </p>
         <Meter value={progress} label={t('tracking.title')} tone="onPrimary" className="mt-2.5" />
@@ -70,8 +70,8 @@ export function TrackingScreen({ id }: { id: string }) {
           <UserRound aria-hidden className="size-5" />
         </span>
         <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-          <span className="text-14 font-semibold">{t('tracking.courier')}</span>
-          <span className="text-12 text-muted">{t('tracking.courierNote')}</span>
+          <span className="text-label-lg">{t('tracking.courier')}</span>
+          <span className="text-caption text-muted">{t('tracking.courierNote')}</span>
         </div>
         {order.data.courierPhone ? (
           <a
@@ -86,11 +86,11 @@ export function TrackingScreen({ id }: { id: string }) {
 
       <a
         href={HELP_EMAIL}
-        className={cn(buttonVariants({ variant: 'ghost', size: 'md' }), 'text-14')}
+        className={cn(buttonVariants({ variant: 'ghost', size: 'md' }), 'text-body-md')}
       >
         {t('tracking.help')}
       </a>
-      <p className="text-center text-12 text-muted">
+      <p className="text-center text-caption text-muted">
         {t('tracking.paid', { amount: formatMoney(suggestion.bill.total, locale) })}
       </p>
     </Screen>

@@ -28,7 +28,7 @@ export function LandingHeader() {
           lang={other}
           hrefLang={other}
           className={cn(
-            'inline-flex h-11 items-center rounded-full px-3.5 text-14 font-medium text-ink-2 transition-colors hover:text-ink',
+            'inline-flex h-11 items-center rounded-full px-3.5 text-body-md font-medium text-ink-2 transition-colors hover:text-ink',
             focusRing,
           )}
         >
@@ -36,7 +36,7 @@ export function LandingHeader() {
         </Link>
         <Link
           href="/sign-in"
-          className={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'px-4.5 text-14')}
+          className={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'px-4.5 text-body-md')}
         >
           {t('common.signIn')}
         </Link>

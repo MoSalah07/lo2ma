@@ -137,7 +137,7 @@ export function OrdersScreen() {
                 key={status}
                 pressed={pressed}
                 onClick={() => filter({ status: status === 'all' ? undefined : status })}
-                className="px-3.5 text-13 font-semibold"
+                className="px-3.5 text-label-md"
               >
                 {status === 'all' ? t('orders.all') : t(`status.${status}`)}
                 {data && (
@@ -161,7 +161,7 @@ export function OrdersScreen() {
           <OrdersTable orders={data.items} label={t('orders.title')} />
           {data.total > 0 && (
             <div className="flex flex-wrap items-center justify-between gap-3 border-t border-divider p-3">
-              <span className="text-13 text-muted tabular-nums">
+              <span className="text-body-sm text-muted tabular-nums">
                 {t('orders.pageInfo', {
                   from: formatNumber(from, locale),
                   to: formatNumber(to, locale),

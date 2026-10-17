@@ -15,6 +15,9 @@ const physicalClass = [
 const rawColor = String.raw`#[0-9a-fA-F]{3,8}\b|\b(rgba?|hsla?|oklch)\(`;
 const arbitraryValue = String.raw`(^|[\s:!])(bg|text|border|ring|fill|stroke|from|via|to|shadow|rounded|outline|decoration|divide|caret|accent)-\[`;
 
+// Text sizes are roles from @lo2ma/tokens (text-body-md, text-title-lg…); a raw size like text-15 doesn't exist.
+const rawTextSize = String.raw`(^|[\s:!])text-\d+($|\s)`;
+
 // Page widths come from @lo2ma/tokens. Tailwind's named widths are switched off, so they would silently do nothing.
 const namedWidth = String.raw`(^|[\s:!])(max-w|min-w|w)-(3xs|2xs|xs|sm|md|lg|xl|[2-7]xl|prose|screen-\w+)($|\s)`;
 
@@ -26,7 +29,9 @@ const inStrings = (pattern, message) => [
 const RTL =
   'Use logical classes (ms- me- ps- pe- start- end- text-start border-s rounded-s), see Conventions in apps/web/README.md.';
 const TOKENS =
-  'Use a design token class (bg-surface, text-15, rounded-26…), not a raw value. See Conventions in apps/web/README.md.';
+  'Use a design token class (bg-surface, text-body-md, rounded-26…), not a raw value. See Conventions in apps/web/README.md.';
+const TYPE =
+  'Use a text role (text-body-md, text-title-lg, text-label-md…) from packages/tokens/src/typography.ts. See Conventions in apps/web/README.md.';
 const TEXT = 'User-facing text comes from @lo2ma/i18n (useTranslations / getTranslations).';
 const LAYOUT =
   'Page widths are layout tokens (max-w-app, max-w-site, max-w-admin); screens use <Screen> for gutter and spacing. See Conventions in apps/web/README.md.';
@@ -75,6 +80,7 @@ export default defineConfig([
         ...inStrings(rawColor, TOKENS),
         ...inStrings(arbitraryValue, TOKENS),
         ...inStrings(namedWidth, LAYOUT),
+        ...inStrings(rawTextSize, TYPE),
         {
           // An empty alt is not text: it marks a decorative image, so screen readers skip it.
           selector: 'JSXAttribute[name.name=/^(aria-label|title|alt)$/] > Literal[value=/.+/]',

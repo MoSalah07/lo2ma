@@ -149,9 +149,7 @@ function Picker({
             ) : (
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-gutter pb-8 text-center">
                 <MapPinOff aria-hidden className="size-8 text-muted" />
-                <p className="max-w-80 text-14 leading-body text-ink-2">
-                  {t('location.mapUnavailable')}
-                </p>
+                <p className="max-w-80 text-body-md text-ink-2">{t('location.mapUnavailable')}</p>
               </div>
             )}
             {mapAvailable && (
@@ -204,7 +202,7 @@ function Picker({
 
           <section className="relative z-10 -mt-8 flex flex-col gap-3 rounded-t-28 bg-surface px-gutter pt-5 pb-screen-end shadow-sheet">
             <div className="flex flex-col gap-1">
-              <Dialog.Title className="text-12 font-semibold text-muted">
+              <Dialog.Title className="text-caption font-semibold text-muted">
                 {t('location.title')}
               </Dialog.Title>
               {/* Shown over the pin; here for screen readers, who don't see the pin. */}
@@ -212,7 +210,7 @@ function Picker({
               <div aria-live="polite" className="flex min-h-11 flex-col justify-center gap-1">
                 {lookup.isError && !moving ? (
                   <div className="flex items-center justify-between gap-3">
-                    <p className="text-13 text-ink-2">{t('common.error')}</p>
+                    <p className="text-body-sm text-ink-2">{t('common.error')}</p>
                     <Button variant="tonal" size="sm" onClick={() => void lookup.refetch()}>
                       {t('common.retry')}
                     </Button>
@@ -225,8 +223,8 @@ function Picker({
                   </>
                 ) : (
                   <>
-                    <bdi className="text-16 leading-heading font-bold">{place.name[locale]}</bdi>
-                    <span className="text-12 text-muted">{place.area[locale]}</span>
+                    <bdi className="text-title-md leading-heading">{place.name[locale]}</bdi>
+                    <span className="text-caption text-muted">{place.area[locale]}</span>
                   </>
                 )}
               </div>
@@ -252,7 +250,7 @@ function Picker({
               {(control) => (
                 <Input
                   {...control}
-                  className="h-11 text-14"
+                  className="h-11 text-body-md"
                   value={details}
                   maxLength={WORKPLACE_DETAILS_MAX}
                   placeholder={t('location.detailsPlaceholder')}
@@ -271,7 +269,7 @@ function Picker({
               {t('location.confirm')}
             </Button>
 
-            <p className="text-11 text-muted">
+            <p className="text-caption-sm text-muted">
               {t.rich('location.mapCredits', {
                 osm: (chunks) => (
                   <Credit href="https://www.openstreetmap.org/copyright">{chunks}</Credit>
@@ -292,7 +290,7 @@ function Notice({ role, children }: { role?: 'alert'; children: ReactNode }) {
   return (
     <div
       role={role}
-      className="flex flex-col gap-1.5 rounded-16 bg-warn px-3.5 py-2.5 text-12 leading-body text-on-warn"
+      className="flex flex-col gap-1.5 rounded-16 bg-warn px-3.5 py-2.5 text-caption leading-body text-on-warn"
     >
       {children}
     </div>
