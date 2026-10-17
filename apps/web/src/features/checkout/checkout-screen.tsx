@@ -16,14 +16,17 @@ import { MealIcon } from '@/components/meal-icon';
 import { ErrorMessage, LoadingBlocks } from '@/components/status-message';
 import { Screen } from '@/components/screen';
 import { preloadSuccessScene, SuccessMoment } from '@/components/success-moment';
+import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Field, Input } from '@/components/ui/field';
 import { SignedInButton } from '@/features/auth/signed-in-button';
+import { FitLine } from '@/features/fit/fit-match';
 import { WorkplaceSummary } from '@/features/location/workplace-summary';
 import { useSuggestion } from '@/features/meal/api';
 import { PickSummary } from '@/features/meal/pick-summary';
 import { useCreateOrder } from '@/features/orders/api';
 import { usePrefs } from '@/features/prefs/api';
+import { fitTargetOf } from '@/features/prefs/options';
 import { useRouter } from '@/i18n/navigation';
 import { mealName, pounds } from '@/lib/meal';
 import { PaymentPicker } from './payment-picker';
@@ -51,6 +54,7 @@ export function CheckoutScreen({ id }: { id: string }) {
 
   const meal = suggestion.data;
   const breakTime = prefs.data?.breakTime ?? DEFAULT_BREAK;
+  const goal = fitTargetOf(prefs.data?.calories);
   const arrival = arrivalTimeFor(breakTime);
 
   function pay() {
@@ -87,6 +91,12 @@ export function CheckoutScreen({ id }: { id: string }) {
                 service: formatNumber(pounds(meal.bill.service), locale),
               })}
             </p>
+            {goal && (
+              <div className="flex flex-wrap items-center gap-1.5 border-t border-divider pt-2.5">
+                <FitLine meal={meal} goal={goal} />
+                {meal.kcalSource === 'ai' && <Badge tone="accent">{t('common.aiEstimate')}</Badge>}
+              </div>
+            )}
           </Card>
 
           <section className="flex flex-col gap-2">

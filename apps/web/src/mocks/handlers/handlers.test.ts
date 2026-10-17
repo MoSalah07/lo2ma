@@ -9,6 +9,7 @@ import {
   chatEventSchema,
   couponSchema,
   mealBreakdownSchema,
+  mealFit,
   orderSchema,
   placeSchema,
   planDayBill,
@@ -201,6 +202,28 @@ describe('POST /api/chat', () => {
       for await (const event of readSseEvents(response.body, chatEventSchema)) events.push(event);
     const text = events.flatMap((event) => (event.type === 'token' ? [event.text] : [])).join('');
     expect(text).toContain('budget');
+  });
+
+  it('matches the meals to a fit goal, never over it', async () => {
+    const goal = { kcal: 780, protein: 57 };
+    await call('/prefs', {
+      method: 'PUT',
+      body: { ...prefs, calories: { mode: 'fit', goal: 'cut', ...goal } },
+    });
+    const response = await call('/chat', {
+      method: 'POST',
+      body: { message: 'معايا 250، عايز حاجة بروتين أعلى', locale: 'ar' },
+    });
+    const events: ChatEvent[] = [];
+    if (response.body)
+      for await (const event of readSseEvents(response.body, chatEventSchema)) events.push(event);
+
+    const text = events.flatMap((event) => (event.type === 'token' ? [event.text] : [])).join('');
+    expect(text).toContain('قريبة من هدفك');
+    const found = events.find((event) => event.type === 'suggestions');
+    const meals = found?.type === 'suggestions' ? found.suggestions : [];
+    expect(meals.length).toBeGreaterThan(0);
+    for (const meal of meals) expect(mealFit(goal, meal)).not.toBe('over');
   });
 });
 

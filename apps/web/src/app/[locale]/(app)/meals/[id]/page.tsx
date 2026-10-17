@@ -19,7 +19,7 @@ export default async function MealPage({ params }: PageProps<'/[locale]/meals/[i
         leading={{ href: '/chat', label: t('common.back'), icon: 'back' }}
       />
       <main>
-        <ClientMessages namespaces={['common', 'meal', 'bill', 'format', 'prefs', 'auth']}>
+        <ClientMessages namespaces={['common', 'meal', 'bill', 'format', 'prefs', 'auth', 'fit']}>
           <MealScreen id={decodeURIComponent(id)} />
         </ClientMessages>
       </main>

@@ -1,14 +1,15 @@
 'use client';
 
-import { formatMoney, type Suggestion } from '@lo2ma/core';
+import { formatMoney, type FitTarget, type Suggestion } from '@lo2ma/core';
 import { useLocale, useTranslations } from 'next-intl';
 import { focusRing } from '@/components/ui/focus';
+import { FitLine } from '@/features/fit/fit-match';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/cn';
 import { mealName } from '@/lib/meal';
 
-/** A runner-up suggestion: one tappable line that opens its details. */
-export function MealRow({ suggestion }: { suggestion: Suggestion }) {
+/** A runner-up suggestion: one tappable line that opens its details. In «وضع الفورمة» it says how it fits. */
+export function MealRow({ suggestion, goal }: { suggestion: Suggestion; goal?: FitTarget }) {
   const t = useTranslations();
   const locale = useLocale();
 
@@ -30,6 +31,11 @@ export function MealRow({ suggestion }: { suggestion: Suggestion }) {
             duration: t('common.minutes', { count: suggestion.restaurant.etaMinutes }),
           })}
         </span>
+        {goal && (
+          <span className="pt-0.5">
+            <FitLine meal={suggestion} goal={goal} />
+          </span>
+        )}
       </span>
       <span className="shrink-0 text-title-md font-extrabold">
         {formatMoney(suggestion.bill.total, locale)}

@@ -7,10 +7,11 @@ import {
   formatNumber,
   type UserPrefs,
 } from '@lo2ma/core';
-import { MapPin } from 'lucide-react';
+import { Dumbbell, MapPin } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { focusRing } from '@/components/ui/focus';
 import { Wordmark } from '@/components/wordmark';
+import { WithFitGoal } from '@/features/fit/with-fit-goal';
 import { WithLocationPicker } from '@/features/location/with-location-picker';
 import { useSavePrefs } from '@/features/prefs/api';
 import { Link } from '@/i18n/navigation';
@@ -69,13 +70,33 @@ export function ChatHeader({ prefs }: { prefs: UserPrefs | null | undefined }) {
         <div className="grid grid-cols-2 gap-2.5">
           <Stat label={t('chat.todayBudget')} value={formatMoney(prefs.budget, locale)} />
           {calories?.mode === 'fit' ? (
-            <Stat
-              label={t('chat.lunchGoal')}
-              value={t('chat.lunchGoalValue', {
-                calories: formatCalories(calories.kcal, locale),
-                protein: formatGrams(calories.protein, locale),
-              })}
-            />
+            // The goal opens «وضع الفورمة» right here, like the workplace opens the map.
+            <WithFitGoal
+              value={calories}
+              onConfirm={(pref) => save.mutate({ ...prefs, calories: pref })}
+            >
+              {(trigger) => (
+                <button
+                  type="button"
+                  {...trigger}
+                  className={cn(
+                    'flex flex-col gap-0.5 rounded-card bg-tint px-3.5 py-2.5 text-start text-on-tint',
+                    focusRing,
+                  )}
+                >
+                  <span className="flex items-center gap-1 text-caption">
+                    <Dumbbell aria-hidden className="size-3.5 shrink-0" />
+                    {t('chat.lunchGoal')}
+                  </span>
+                  <span className="text-title-md">
+                    {t('chat.lunchGoalValue', {
+                      calories: formatCalories(calories.kcal, locale),
+                      protein: formatGrams(calories.protein, locale),
+                    })}
+                  </span>
+                </button>
+              )}
+            </WithFitGoal>
           ) : (
             <Stat
               label={t('chat.mealCalories')}

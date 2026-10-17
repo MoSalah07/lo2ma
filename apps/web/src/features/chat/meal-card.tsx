@@ -5,6 +5,7 @@ import {
   formatCalories,
   formatMoney,
   formatNumber,
+  type FitTarget,
   type Suggestion,
 } from '@lo2ma/core';
 import { useLocale, useTranslations } from 'next-intl';
@@ -15,6 +16,7 @@ import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { SignedInButton } from '@/features/auth/signed-in-button';
+import { FitMatch } from '@/features/fit/fit-match';
 import { PickSummary } from '@/features/meal/pick-summary';
 import { Link, useRouter } from '@/i18n/navigation';
 import { mealName, pounds } from '@/lib/meal';
@@ -22,10 +24,12 @@ import { mealName, pounds } from '@/lib/meal';
 interface MealCardProps {
   suggestion: Suggestion;
   budget?: number;
+  /** In «وضع الفورمة», the calories line becomes the meal against the goal. */
+  goal?: FitTarget;
 }
 
 /** The main suggestion in the chat: what, where, the bill, how much budget is left and the calories. */
-export function MealCard({ suggestion, budget }: MealCardProps) {
+export function MealCard({ suggestion, budget, goal }: MealCardProps) {
   const t = useTranslations();
   const locale = useLocale();
   const router = useRouter();
@@ -72,13 +76,17 @@ export function MealCard({ suggestion, budget }: MealCardProps) {
         />
       )}
 
-      <CalorieLine
-        className="text-caption text-ink-2"
-        text={formatCalories(suggestion.kcal, locale, {
-          approximate: suggestion.kcalSource === 'ai',
-        })}
-        estimateLabel={suggestion.kcalSource === 'ai' ? t('common.aiEstimate') : undefined}
-      />
+      {goal ? (
+        <FitMatch meal={suggestion} goal={goal} className="rounded-control bg-surface-2 p-3" />
+      ) : (
+        <CalorieLine
+          className="text-caption text-ink-2"
+          text={formatCalories(suggestion.kcal, locale, {
+            approximate: suggestion.kcalSource === 'ai',
+          })}
+          estimateLabel={suggestion.kcalSource === 'ai' ? t('common.aiEstimate') : undefined}
+        />
+      )}
 
       <div className="flex gap-2">
         <SignedInButton

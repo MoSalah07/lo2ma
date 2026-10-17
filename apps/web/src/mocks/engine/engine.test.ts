@@ -1,4 +1,4 @@
-import { MIN_ORDER } from '@lo2ma/core';
+import { compareForFit, mealFit, MIN_ORDER } from '@lo2ma/core';
 import { describe, expect, it } from 'vitest';
 import { menu, restaurants } from '../data/restaurants';
 import { parseMessage } from './parse-message';
@@ -42,6 +42,42 @@ describe('parseMessage', () => {
     expect(parseMessage('حاجة أخف').wantsLighter).toBe(true);
     expect(parseMessage('أرخص من كده').wantsCheaper).toBe(true);
     expect(parseMessage('اعملي خطة الأسبوع').wantsPlan).toBe(true);
+  });
+
+  it('reads the fit mode chips in both languages', () => {
+    expect(parseMessage('بروتين أعلى').wantsProtein).toBe(true);
+    expect(parseMessage('More protein').wantsProtein).toBe(true);
+    expect(parseMessage('سعرات أقل').wantsLighter).toBe(true);
+    expect(parseMessage('Fewer calories').wantsLighter).toBe(true);
+    expect(parseMessage('أقل من 600 سعر')).toMatchObject({ wantsLighter: false, caloriesMax: 600 });
+  });
+});
+
+describe('suggestMeals with a fit goal', () => {
+  const goal = { kcal: 780, protein: 57 };
+  const meals = suggestMeals({ budget: 25000, exclusions: ['chicken'], fit: goal });
+
+  it('never offers a meal over the goal, counting estimates by their highest number', () => {
+    expect(meals).toHaveLength(3);
+    for (const meal of meals) expect(mealFit(goal, meal)).not.toBe('over');
+  });
+
+  it('lists the meals closest to the goal first, and marks the cheapest as best value', () => {
+    expect([...meals].sort(compareForFit(goal))).toEqual(meals);
+    const cheapest = Math.min(...meals.map((meal) => meal.bill.total));
+    expect(meals.filter((meal) => meal.bestValue).map((meal) => meal.bill.total)).toEqual([
+      cheapest,
+    ]);
+  });
+
+  it('puts the most protein first when asked', () => {
+    const protein = suggestMeals({
+      budget: 25000,
+      exclusions: ['chicken'],
+      fit: goal,
+      proteinFirst: true,
+    });
+    expect([...protein].sort(compareForFit(goal, { proteinFirst: true }))).toEqual(protein);
   });
 });
 
