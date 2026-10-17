@@ -1,5 +1,6 @@
 import {
   calculateBill,
+  mealNutrition,
   meetsMinimumOrder,
   SERVICE_FEE,
   type Ingredient,
@@ -44,8 +45,7 @@ export function buildSuggestion(dishes: readonly Dish[], bestValue = false): Sug
     restaurant,
     items,
     bill: calculateBill({ items, delivery: restaurant.deliveryFee, service: SERVICE_FEE }),
-    kcal: items.reduce((sum, item) => sum + item.kcal, 0),
-    kcalSource: items.some((item) => item.kcalSource === 'ai') ? 'ai' : 'restaurant',
+    ...mealNutrition(items),
     bestValue,
   };
 }

@@ -1,4 +1,5 @@
 import { fromPounds, type MenuItem, type Restaurant } from '@lo2ma/core';
+import { estimateDish } from '../engine/estimate';
 import { dishesByCuisine, type Cuisine } from './dishes';
 
 interface RestaurantSeed {
@@ -303,16 +304,23 @@ export const restaurants: Restaurant[] = seeds.map((seed, index) => ({
 
 export const menu: (MenuItem & { role: 'main' | 'side' })[] = seeds.flatMap((seed, index) => {
   const restaurantId = restaurants[index]?.id ?? '';
-  return dishesByCuisine[seed.cuisine].map((template, dishIndex) => ({
-    id: `${restaurantId}-m${dishIndex + 1}`,
-    restaurantId,
-    name: template.name,
-    price: fromPounds(Math.max(10, roundTo5(template.price * seed.priceFactor))),
-    kcal: template.kcal,
-    kcalSource: seed.publishesCalories ? 'restaurant' : 'ai',
-    contains: template.contains,
-    role: template.role,
-  }));
+  return dishesByCuisine[seed.cuisine].map((template, dishIndex) => {
+    const { kcalRange, macros } = estimateDish(template.recipe, template.kcal);
+    return {
+      id: `${restaurantId}-m${dishIndex + 1}`,
+      restaurantId,
+      name: template.name,
+      price: fromPounds(Math.max(10, roundTo5(template.price * seed.priceFactor))),
+      kcal: template.kcal,
+      // A place that publishes its calories publishes the macros with them, and they are exact.
+      ...(seed.publishesCalories
+        ? { kcalSource: 'restaurant' as const }
+        : { kcalSource: 'ai' as const, kcalRange }),
+      macros,
+      contains: template.contains,
+      role: template.role,
+    };
+  });
 });
 
 export const restaurantById = new Map(restaurants.map((restaurant) => [restaurant.id, restaurant]));
