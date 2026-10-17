@@ -62,7 +62,7 @@ export function ChatScreen() {
         {/* Keeps the newest card above the message box and tab bar when scrolled into view. */}
         <div ref={endRef} className="scroll-mb-60" />
       </Screen>
-      <Composer busy={busy} onSend={(text) => void send(text)} />
+      <Composer busy={busy} onSend={(text) => void send(text)} fit={Boolean(goal)} />
     </>
   );
 }

@@ -1,5 +1,13 @@
-import { formatCalories, formatMoney, formatTime, type WeeklyPlan } from '@lo2ma/core';
-import { UsersRound } from 'lucide-react';
+import {
+  averageMeal,
+  formatCalories,
+  formatGrams,
+  formatMoney,
+  formatTime,
+  type PlanDay,
+  type WeeklyPlan,
+} from '@lo2ma/core';
+import { Dumbbell, UsersRound } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 import { BottomAction } from '@/components/bottom-action';
@@ -11,6 +19,8 @@ import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Sequence, SequenceItem } from '@/components/motion/entrance';
 import { SignedInButton } from '@/features/auth/signed-in-button';
+import { usePrefs } from '@/features/prefs/api';
+import { fitTargetOf } from '@/features/prefs/options';
 import { useConfirmPlan, usePlanErrorText, useSwapDay } from './api';
 import { DayCard } from './day-card';
 
@@ -24,6 +34,20 @@ export function PlanBuilder({ plan }: { plan: WeeklyPlan }) {
   const swap = useSwapDay();
   const confirm = useConfirmPlan();
   const errorText = usePlanErrorText();
+  const goal = fitTargetOf(usePrefs().data?.calories);
+  const average = goal ? averageMeal(plan.days.map((day) => day.suggestion)) : null;
+
+  /** In «وضع الفورمة» a day's line adds the protein. */
+  const fitMeta = ({ suggestion }: PlanDay) =>
+    goal
+      ? t('plan.dayMetaFit', {
+          price: formatMoney(suggestion.bill.food, locale),
+          calories: formatCalories(suggestion.kcal, locale, {
+            approximate: suggestion.kcalSource === 'ai',
+          }),
+          protein: formatGrams(suggestion.macros.protein, locale),
+        })
+      : undefined;
 
   // The celebration's 3D loads while the user looks over the week, so confirming never waits for it.
   useEffect(() => preloadSuccessScene(), []);
@@ -42,6 +66,15 @@ export function PlanBuilder({ plan }: { plan: WeeklyPlan }) {
             ratio={plan.total / plan.budget}
           />
           <div className="flex flex-wrap gap-1.5">
+            {average && (
+              <Badge tone="tint" className="h-6.5 px-2.5">
+                <Dumbbell aria-hidden className="size-3" />
+                {t('plan.fitAverage', {
+                  calories: formatCalories(average.kcal, locale),
+                  protein: formatGrams(average.protein, locale),
+                })}
+              </Badge>
+            )}
             {plan.mealCalorieLimit && (
               <Badge className="h-6.5 px-2.5 font-medium">
                 {t('plan.mealLimit', { calories: formatCalories(plan.mealCalorieLimit, locale) })}
@@ -62,6 +95,7 @@ export function PlanBuilder({ plan }: { plan: WeeklyPlan }) {
               <SequenceItem>
                 <DayCard
                   day={day}
+                  meta={fitMeta(day)}
                   onSwap={() => swap.mutate(day.date)}
                   swapping={swap.isPending && swap.variables === day.date}
                   disabled={swap.isPending || !day.canChange}

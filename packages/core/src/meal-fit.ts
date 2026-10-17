@@ -42,3 +42,18 @@ export function compareForFit(target: FitTarget, { proteinFirst = false } = {}) 
     return byFit || (proteinFirst ? byProtein || byGap : byGap || byProtein);
   };
 }
+
+/** The meals' calories and protein on average: a week's plan against a fit goal. Null for no meals. */
+export function averageMeal(
+  meals: readonly MealNumbers[],
+): { kcal: number; protein: number } | null {
+  if (meals.length === 0) return null;
+  const total = meals.reduce(
+    (sum, meal) => ({ kcal: sum.kcal + meal.kcal, protein: sum.protein + meal.macros.protein }),
+    { kcal: 0, protein: 0 },
+  );
+  return {
+    kcal: Math.round(total.kcal / meals.length),
+    protein: Math.round(total.protein / meals.length),
+  };
+}

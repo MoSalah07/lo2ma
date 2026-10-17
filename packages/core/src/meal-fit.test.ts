@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { compareForFit, mealFit, type MealNumbers } from './meal-fit.ts';
+import { averageMeal, compareForFit, mealFit, type MealNumbers } from './meal-fit.ts';
 
 /** The canvas example's goal. */
 const goal = { kcal: 780, protein: 57 };
@@ -49,5 +49,18 @@ describe('compareForFit', () => {
       lean,
       onTheDot,
     ]);
+  });
+});
+
+describe('averageMeal', () => {
+  it('averages calories and protein over the week, rounded', () => {
+    expect(averageMeal([meal(740, 54), meal(720, 55), meal(761, 42)])).toEqual({
+      kcal: 740,
+      protein: 50,
+    });
+  });
+
+  it('has no average without meals', () => {
+    expect(averageMeal([])).toBeNull();
   });
 });

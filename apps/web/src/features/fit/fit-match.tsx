@@ -35,6 +35,29 @@ export function FitBadge({ meal, goal }: { meal: MealNumbers; goal: FitTarget })
   );
 }
 
+/** One line for a meal in a list or a summary: the verdict, then its calories and protein. */
+export function FitLine({
+  meal,
+  goal,
+}: {
+  meal: MealNumbers & { kcalSource: CalorieSource };
+  goal: FitTarget;
+}) {
+  const t = useTranslations('fit');
+  const locale = useLocale();
+  return (
+    <span className="flex flex-wrap items-center gap-1.5">
+      <FitBadge meal={meal} goal={goal} />
+      <span className="text-caption text-ink-2">
+        {t('mealLine', {
+          calories: formatCalories(meal.kcal, locale, { approximate: meal.kcalSource === 'ai' }),
+          protein: formatGrams(meal.macros.protein, locale),
+        })}
+      </span>
+    </span>
+  );
+}
+
 interface FitMatchProps {
   meal: MealNumbers & { kcalSource: CalorieSource };
   goal: FitTarget;

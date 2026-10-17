@@ -13,6 +13,7 @@ export {
   type FitCalculation,
 } from './fit.ts';
 export {
+  averageMeal,
   compareForFit,
   FIT_PROTEIN_SHARE,
   FIT_TOLERANCE,

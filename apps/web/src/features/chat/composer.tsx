@@ -18,16 +18,24 @@ import { RecordingBar, TranscribingBar } from './voice-bar';
 interface ComposerProps {
   busy: boolean;
   onSend: (text: string) => void;
+  /** «وضع الفورمة»: the chips ask for more protein or fewer calories instead of something lighter. */
+  fit?: boolean;
 }
 
 const hint = 'flex items-center gap-1.5 px-2.5 text-caption leading-body text-muted';
+
+const repliesFor = {
+  fit: ['moreProtein', 'fewerCalories', 'cheaper'],
+  default: ['cheaper', 'lighter'],
+} as const;
 
 /**
  * Quick replies and the floating message box, pinned above the tab bar. The user can also talk: the
  * recording is written down into the box, and nothing is sent until they check it and press send.
  */
-export function Composer({ busy, onSend }: ComposerProps) {
+export function Composer({ busy, onSend, fit = false }: ComposerProps) {
   const t = useTranslations('chat');
+  const quickReplies = repliesFor[fit ? 'fit' : 'default'];
   const tCommon = useTranslations('common');
   const locale = useLocale();
   const [text, setText] = useState('');
@@ -100,20 +108,16 @@ export function Composer({ busy, onSend }: ComposerProps) {
     <div className="fixed inset-x-0 bottom-above-nav z-10 mx-auto flex max-w-app flex-col gap-2.5 bg-linear-to-b from-bg/0 via-bg/95 via-30% to-bg/95 px-bar pt-4 pb-1">
       {!voice.recording && !transcribing && !problem && !fromVoice && (
         <div className="flex gap-2 overflow-x-auto px-1 scrollbar-none">
-          <Chip
-            disabled={busy}
-            onClick={() => onSend(t('quickReplies.cheaper'))}
-            className="text-body-sm"
-          >
-            {t('quickReplies.cheaper')}
-          </Chip>
-          <Chip
-            disabled={busy}
-            onClick={() => onSend(t('quickReplies.lighter'))}
-            className="text-body-sm"
-          >
-            {t('quickReplies.lighter')}
-          </Chip>
+          {quickReplies.map((reply) => (
+            <Chip
+              key={reply}
+              disabled={busy}
+              onClick={() => onSend(t(`quickReplies.${reply}`))}
+              className="text-body-sm"
+            >
+              {t(`quickReplies.${reply}`)}
+            </Chip>
+          ))}
           <Link
             href="/plan"
             className={cn(

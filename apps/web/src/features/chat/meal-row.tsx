@@ -1,15 +1,9 @@
 'use client';
 
-import {
-  formatCalories,
-  formatGrams,
-  formatMoney,
-  type FitTarget,
-  type Suggestion,
-} from '@lo2ma/core';
+import { formatMoney, type FitTarget, type Suggestion } from '@lo2ma/core';
 import { useLocale, useTranslations } from 'next-intl';
 import { focusRing } from '@/components/ui/focus';
-import { FitBadge } from '@/features/fit/fit-match';
+import { FitLine } from '@/features/fit/fit-match';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/cn';
 import { mealName } from '@/lib/meal';
@@ -38,16 +32,8 @@ export function MealRow({ suggestion, goal }: { suggestion: Suggestion; goal?: F
           })}
         </span>
         {goal && (
-          <span className="flex flex-wrap items-center gap-1.5 pt-0.5">
-            <FitBadge meal={suggestion} goal={goal} />
-            <span className="text-caption text-ink-2">
-              {t('fit.mealLine', {
-                calories: formatCalories(suggestion.kcal, locale, {
-                  approximate: suggestion.kcalSource === 'ai',
-                }),
-                protein: formatGrams(suggestion.macros.protein, locale),
-              })}
-            </span>
+          <span className="pt-0.5">
+            <FitLine meal={suggestion} goal={goal} />
           </span>
         )}
       </span>

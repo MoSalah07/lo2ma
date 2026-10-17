@@ -21,7 +21,7 @@ export default async function CheckoutPage({ params }: PageProps<'/[locale]/chec
       />
       <main>
         <ClientMessages
-          namespaces={['common', 'checkout', 'bill', 'payment', 'meal', 'auth', 'success']}
+          namespaces={['common', 'checkout', 'bill', 'payment', 'meal', 'auth', 'success', 'fit']}
         >
           <CheckoutScreen id={suggestionId} />
         </ClientMessages>

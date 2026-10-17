@@ -194,7 +194,9 @@
     "quickReplies": {
       "cheaper": "أرخص من كده",
       "lighter": "حاجة أخف",
-      "weeklyPlan": "خطة الأسبوع"
+      "weeklyPlan": "خطة الأسبوع",
+      "moreProtein": "بروتين أعلى",
+      "fewerCalories": "سعرات أقل"
     },
     "inputLabel": "اكتب رسالتك",
     "placeholder": "اكتب اللي نفسك فيه…",
@@ -325,7 +327,9 @@
     "deliveredAt": "وصل {time}",
     "dayLocked": "اليوم ده اتقفل، ومبقاش ينفع يتغيّر.",
     "expired": "الخطة دي فات وقتها، فعملنالك خطة جديدة.",
-    "needsOnboarding": "ظبط تفضيلاتك الأول عشان نعملك الخطة."
+    "needsOnboarding": "ظبط تفضيلاتك الأول عشان نعملك الخطة.",
+    "fitAverage": "متوسط اليوم: {calories} · {protein} بروتين",
+    "dayMetaFit": "{price} · {calories} · {protein} بروتين"
   },
   "auth": {
     "title": "سجّل دخولك",
