@@ -10,7 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function AccountPage() {
   return (
-    <ClientMessages namespaces={['common', 'account', 'prefs', 'payment', 'languages']}>
+    <ClientMessages namespaces={['common', 'account', 'prefs', 'payment', 'languages', 'location']}>
       <AccountScreen />
     </ClientMessages>
   );

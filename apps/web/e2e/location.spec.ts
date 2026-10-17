@@ -54,6 +54,34 @@ test('a workplace is found by search, placed on the map and confirmed with notes
   await expect(field).toContainText('Tower B');
 });
 
+test('the workplace at the top of the chat opens the map, and the new place is saved', async ({
+  page,
+  t,
+  path,
+  appLocale,
+}) => {
+  await page.goto(path('/onboarding'));
+  await page.getByRole('button', { name: t.onboarding.start }).click();
+  await expect(page).toHaveURL(path('/chat'));
+
+  const chip = page.getByRole('button', { name: new RegExp(t.prefs.workplace) });
+  await chip.click();
+  const picker = page.getByRole('dialog', { name: t.location.title });
+  await picker
+    .getByRole('combobox', { name: t.location.searchLabel })
+    .fill(appLocale === 'ar' ? 'فستيفال' : 'festival');
+  await picker.getByRole('option', { name: cfc }).click();
+  await expect(picker.getByText(cfc)).toBeVisible({ timeout: 15_000 });
+  await picker.getByRole('button', { name: t.location.confirm }).click();
+
+  await expect(picker).toBeHidden();
+  await expect(chip).toContainText(cfc);
+  await page.reload();
+  await expect(page.getByRole('button', { name: new RegExp(t.prefs.workplace) })).toContainText(
+    cfc,
+  );
+});
+
 test.describe('with the location allowed', () => {
   test.use({ permissions: ['geolocation'], geolocation: { latitude: 30.011, longitude: 31.74 } });
 

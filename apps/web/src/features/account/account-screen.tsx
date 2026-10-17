@@ -1,6 +1,6 @@
 'use client';
 
-import { formatList, formatMoney, formatTime, maskEgyptMobile } from '@lo2ma/core';
+import { formatList, formatMoney, formatTime, maskEgyptMobile, type UserPrefs } from '@lo2ma/core';
 import { locales } from '@lo2ma/i18n/locales';
 import { ChevronRight, LogOut } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
@@ -12,8 +12,9 @@ import { Screen, ScreenHeader } from '@/components/screen';
 import { Card } from '@/components/ui/card';
 import { focusRing } from '@/components/ui/focus';
 import { useSession, useSignOut } from '@/features/auth/api';
+import { WithLocationPicker } from '@/features/location/with-location-picker';
 import { usePaymentMethods } from '@/features/orders/api';
-import { usePrefs } from '@/features/prefs/api';
+import { usePrefs, useSavePrefs } from '@/features/prefs/api';
 import { useCalorieLabel } from '@/features/prefs/options';
 import { Link, useRouter } from '@/i18n/navigation';
 import { cn } from '@/lib/cn';
@@ -27,14 +28,43 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
   );
 }
 
+const prefRow = cn('flex h-13 w-full items-center gap-2.5 text-14', focusRing);
+
+function PrefRowContent({ label, value }: { label: string; value: string }) {
+  return (
+    <>
+      <span className="flex-1 text-start font-medium">{label}</span>
+      <bdi className="truncate text-13 text-muted">{value}</bdi>
+      <ChevronRight aria-hidden className="size-4 shrink-0 text-muted rtl:rotate-180" />
+    </>
+  );
+}
+
 /** A preference row that opens onboarding to change it. */
 function PrefRow({ label, value }: { label: string; value: string }) {
   return (
-    <Link href="/onboarding" className={cn('flex h-13 items-center gap-2.5 text-14', focusRing)}>
-      <span className="flex-1 font-medium">{label}</span>
-      <span className="truncate text-13 text-muted">{value}</span>
-      <ChevronRight aria-hidden className="size-4 shrink-0 text-muted rtl:rotate-180" />
+    <Link href="/onboarding" className={prefRow}>
+      <PrefRowContent label={label} value={value} />
     </Link>
+  );
+}
+
+/** The workplace opens the map right here, and the new place is saved with the other preferences. */
+function WorkplaceRow({ prefs }: { prefs: UserPrefs }) {
+  const t = useTranslations('prefs');
+  const locale = useLocale();
+  const save = useSavePrefs();
+  return (
+    <WithLocationPicker
+      value={prefs.workplace}
+      onConfirm={(workplace) => save.mutate({ ...prefs, workplace })}
+    >
+      {(trigger) => (
+        <button type="button" {...trigger} className={prefRow}>
+          <PrefRowContent label={t('workplace')} value={prefs.workplace.name[locale]} />
+        </button>
+      )}
+    </WithLocationPicker>
   );
 }
 
@@ -96,7 +126,7 @@ export function AccountScreen() {
 
         {prefs.data && (
           <Section title={t('account.lunchPrefs')}>
-            <PrefRow label={t('prefs.workplace')} value={prefs.data.workplace.name[locale]} />
+            <WorkplaceRow prefs={prefs.data} />
             <PrefRow label={t('prefs.breakTime')} value={formatTime(prefs.data.breakTime)} />
             <PrefRow label={t('prefs.budget')} value={formatMoney(prefs.data.budget, locale)} />
             <PrefRow label={t('prefs.calories')} value={calorieLabel(prefs.data.calories)} />

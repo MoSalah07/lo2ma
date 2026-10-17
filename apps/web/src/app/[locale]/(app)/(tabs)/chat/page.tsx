@@ -10,7 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function ChatPage() {
   return (
-    <ClientMessages namespaces={['common', 'chat', 'bill', 'format', 'prefs', 'auth']}>
+    <ClientMessages namespaces={['common', 'chat', 'bill', 'format', 'prefs', 'auth', 'location']}>
       <ChatScreen />
     </ClientMessages>
   );

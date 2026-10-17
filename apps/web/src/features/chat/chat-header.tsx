@@ -4,8 +4,15 @@ import { formatMoney, formatNumber, type UserPrefs } from '@lo2ma/core';
 import { MapPin } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { focusRing } from '@/components/ui/focus';
+import { WithLocationPicker } from '@/features/location/with-location-picker';
+import { useSavePrefs } from '@/features/prefs/api';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/cn';
+
+const chip = cn(
+  'inline-flex h-11 max-w-3/5 items-center gap-1.5 rounded-full bg-surface px-3.5 text-13 font-medium ring-1 ring-line ring-inset',
+  focusRing,
+);
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
@@ -16,10 +23,14 @@ function Stat({ label, value }: { label: string; value: string }) {
   );
 }
 
-/** Brand, workplace and today's limits. Without preferences it only shows the brand and a setup link. */
+/**
+ * Brand, workplace and today's limits. The workplace opens the map, like the address at the top of a delivery
+ * app. Without preferences it only shows the brand and a link to set them up.
+ */
 export function ChatHeader({ prefs }: { prefs: UserPrefs | null | undefined }) {
   const t = useTranslations();
   const locale = useLocale();
+  const save = useSavePrefs();
   const calories = prefs?.calories;
 
   return (
@@ -29,18 +40,26 @@ export function ChatHeader({ prefs }: { prefs: UserPrefs | null | undefined }) {
           <span className="text-26 leading-none font-extrabold">{t('common.brand')}</span>
           <span aria-hidden className="size-2 rounded-full bg-primary" />
         </div>
-        <Link
-          href="/onboarding"
-          className={cn(
-            'inline-flex h-11 max-w-3/5 items-center gap-1.5 rounded-full bg-surface px-3.5 text-13 font-medium ring-1 ring-line ring-inset',
-            focusRing,
-          )}
-        >
-          <MapPin aria-hidden className="size-4 shrink-0 text-primary" />
-          <span className="truncate">
-            {prefs ? prefs.workplace.name[locale] : t('prefs.workplace')}
-          </span>
-        </Link>
+        {prefs ? (
+          <WithLocationPicker
+            value={prefs.workplace}
+            onConfirm={(workplace) => save.mutate({ ...prefs, workplace })}
+          >
+            {(trigger) => (
+              <button type="button" {...trigger} className={chip}>
+                <MapPin aria-hidden className="size-4 shrink-0 text-primary" />
+                {/* Heard as «مكان الشغل، القرية الذكية…»: the name says what tapping it changes. */}
+                <span className="sr-only">{t('prefs.workplace')}</span>
+                <bdi className="truncate">{prefs.workplace.name[locale]}</bdi>
+              </button>
+            )}
+          </WithLocationPicker>
+        ) : (
+          <Link href="/onboarding" className={chip}>
+            <MapPin aria-hidden className="size-4 shrink-0 text-primary" />
+            <span className="truncate">{t('prefs.workplace')}</span>
+          </Link>
+        )}
       </div>
       {prefs && (
         <div className="grid grid-cols-2 gap-2.5">
