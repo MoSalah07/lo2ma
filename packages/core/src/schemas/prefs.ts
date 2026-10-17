@@ -1,14 +1,20 @@
 import { z } from 'zod';
 import { MIN_ORDER, WORKPLACE_DETAILS_MAX } from '../rules.ts';
 import { ingredientSchema, localizedTextSchema, piastersSchema, time24Schema } from './common.ts';
+import { fitGoalSchema, fitTargetSchema } from './fit.ts';
 import { geoPointSchema } from './location.ts';
 
 export const caloriePrefSchema = z.discriminatedUnion('mode', [
   z.object({ mode: z.literal('any') }),
   z.object({ mode: z.literal('around'), kcal: z.int().positive() }),
   z.object({ mode: z.literal('under'), kcal: z.int().positive() }),
+  // «وضع الفورمة»: a lunch goal in calories and protein. The goal is missing when the user typed the numbers.
+  z.object({ mode: z.literal('fit'), goal: fitGoalSchema.optional(), ...fitTargetSchema.shape }),
 ]);
 export type CaloriePref = z.infer<typeof caloriePrefSchema>;
+
+/** «وضع الفورمة» as a preference. */
+export type FitCaloriePref = Extract<CaloriePref, { mode: 'fit' }>;
 
 /** Where lunch goes: a point on the map, its name in both languages, and what the courier should know. */
 export const workplaceSchema = z.object({

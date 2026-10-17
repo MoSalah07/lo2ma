@@ -3,7 +3,7 @@
 import { Minus, Plus } from 'lucide-react';
 import { IconButton } from '@/components/ui/icon-button';
 
-interface BudgetStepperProps {
+interface StepperProps {
   value: number;
   onChange: (value: number) => void;
   min: number;
@@ -15,8 +15,8 @@ interface BudgetStepperProps {
   increaseLabel: string;
 }
 
-/** − 150 ج + : the budget picker from onboarding. The value is announced when it changes. */
-export function BudgetStepper({
+/** − 150 ج + : a number moved by steps (the budget, a lunch goal). The value is announced when it changes. */
+export function Stepper({
   value,
   onChange,
   min,
@@ -25,7 +25,7 @@ export function BudgetStepper({
   format,
   decreaseLabel,
   increaseLabel,
-}: BudgetStepperProps) {
+}: StepperProps) {
   return (
     <div className="flex h-16 items-center justify-between rounded-control bg-surface px-2.5 ring-1 ring-line ring-inset">
       <IconButton

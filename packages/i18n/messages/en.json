@@ -67,7 +67,8 @@
       "nuts": "Nuts",
       "beef": "Beef",
       "dairy": "Dairy"
-    }
+    },
+    "caloriesFit": "Fit · {calories} · {protein}"
   },
   "location": {
     "title": "Your workplace",
@@ -92,6 +93,71 @@
     "mapCredits": "Map data © <osm>OpenStreetMap</osm> · <omt>OpenMapTiles</omt> · <ofm>OpenFreeMap</ofm>",
     "zoomIn": "Zoom in",
     "zoomOut": "Zoom out"
+  },
+  "fit": {
+    "title": "Fit mode",
+    "subtitle": "Set a lunch goal and we'll find the meals closest to it.",
+    "method": "How to set your goal",
+    "calculate": "Work it out",
+    "manual": "I know my numbers",
+    "goal": "Your goal",
+    "goals": {
+      "cut": "Cut",
+      "keep": "Maintain",
+      "bulk": "Bulk"
+    },
+    "goalHints": {
+      "cut": "Lose fat",
+      "keep": "Keep your weight",
+      "bulk": "Build muscle"
+    },
+    "sex": "Sex",
+    "sexes": {
+      "male": "Male",
+      "female": "Female"
+    },
+    "age": "Age",
+    "heightCm": "Height (cm)",
+    "weightKg": "Weight (kg)",
+    "training": "Training days a week",
+    "trainingDays": {
+      "none": "None",
+      "light": "1–2",
+      "moderate": "3–4",
+      "heavy": "5+"
+    },
+    "outOfRange": "Enter a number from {min} to {max}",
+    "fillToSee": "Fill in the fields above and we'll work out your goal.",
+    "result": "Lunch goal",
+    "calories": "Calories",
+    "protein": "Protein",
+    "ofDay": "Out of {calories} a day; lunch is {share} of it.",
+    "raised": "We raised your day to {calories}: going lower needs a doctor.",
+    "how": "How we worked it out",
+    "steps": {
+      "rest": "Burned at rest",
+      "training": "With training",
+      "cut": "Cut: {share} less",
+      "keep": "Maintain: as is",
+      "bulk": "Bulk: {share} more",
+      "lunch": "Lunch share ({share})",
+      "protein": "Protein: {grams} per kg"
+    },
+    "minorTitle": "Cutting starts at {age}",
+    "minorBody": "Your body is still growing, so we won't cut your food. Pick Maintain or Bulk.",
+    "privacy": "Your weight and height stay on your phone. We only save the goal.",
+    "disclaimer": "A general estimate, not a substitute for a doctor or dietitian.",
+    "lunchCalories": "Lunch calories",
+    "lunchProtein": "Lunch protein",
+    "lessCalories": "Fewer calories",
+    "moreCalories": "More calories",
+    "lessProtein": "Less protein",
+    "moreProtein": "More protein",
+    "estimateNote": "When a dish's calories are an AI estimate, we count its highest likely number, so you stay within your goal.",
+    "dontKnow": "Don't know your numbers?",
+    "save": "Save goal",
+    "summary": "Goal: {calories} · {protein} protein",
+    "change": "Change"
   },
   "onboarding": {
     "title": "Let's set up your lunch",
@@ -132,7 +198,9 @@
       "missed": "I couldn't catch that. Try again or type.",
       "call": "Call Lo2ma"
     },
-    "thinking": "Looking…"
+    "thinking": "Looking…",
+    "lunchGoal": "Lunch goal",
+    "lunchGoalValue": "{calories} · {protein}"
   },
   "voiceMode": {
     "title": "A call with Lo2ma",

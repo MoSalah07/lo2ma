@@ -125,6 +125,22 @@ describe('preferences', () => {
     });
     expect(saved.budget).toBe(prefs.budget);
   });
+
+  it('stores a fit mode goal, and never a body profile', async () => {
+    const calories = { mode: 'fit', goal: 'cut', kcal: 780, protein: 57 } as const;
+    const body = { ...prefs, calories, weightKg: 82 };
+    expect((await call('/prefs', { method: 'PUT', body })).status).toBe(200);
+    const saved: unknown = await (await call('/prefs')).json();
+    expect(userPrefsSchema.parse(saved).calories).toEqual(calories);
+    expect(saved).not.toHaveProperty('weightKg');
+  });
+
+  it('refuses a fit goal outside what the steppers allow', async () => {
+    const calories = { mode: 'fit', kcal: 2400, protein: 57 };
+    const response = await call('/prefs', { method: 'PUT', body: { ...prefs, calories } });
+    expect(response.status).toBe(400);
+    expect(await response.json()).toEqual({ code: 'invalid_prefs' });
+  });
 });
 
 describe('POST /api/chat/transcribe', () => {

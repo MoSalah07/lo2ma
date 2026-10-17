@@ -1,9 +1,27 @@
 export { assertPiasters, CURRENCY_CODE, formatMoney, fromPounds, type Piasters } from './money.ts';
 export { formatCalorieRange, formatCalories } from './calories.ts';
+export {
+  calculateFit,
+  clampFitTarget,
+  FIT_DAILY_FLOOR,
+  FIT_MIN_CUT_AGE,
+  fitGoalAllowed,
+  GOAL_FACTORS,
+  LUNCH_SHARE,
+  PROTEIN_PER_KG,
+  TRAINING_FACTORS,
+  type FitCalculation,
+} from './fit.ts';
 export { formatGrams, mealNutrition, type MealNutrition, type Portion } from './nutrition.ts';
 export { addMinutes, formatTime, minutesBetween, TIME_24H, timeOf } from './time.ts';
 export { orderProgress, planDayProgress } from './orders.ts';
-export { formatList, formatNumber } from './number.ts';
+export {
+  formatList,
+  formatNumber,
+  formatPercent,
+  parseWholeNumber,
+  toLatinDigits,
+} from './number.ts';
 export {
   dayOfMonth,
   formatCountdown,

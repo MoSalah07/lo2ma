@@ -1,21 +1,27 @@
 import {
   BREAK_TIMES,
+  formatCalories,
+  formatGrams,
   formatNumber,
   fromPounds,
   ingredientSchema,
   MIN_ORDER,
   type CaloriePref,
+  type FitTarget,
   type UserPrefs,
 } from '@lo2ma/core';
 import type { Locale } from '@lo2ma/i18n';
 import { useLocale, useTranslations } from 'next-intl';
 
-/** The calorie choices onboarding offers. */
+/** The calorie choices onboarding offers. «وضع الفورمة» comes after them and opens its own screen. */
 export const calorieOptions: CaloriePref[] = [
   { mode: 'any' },
   { mode: 'around', kcal: 700 },
   { mode: 'under', kcal: 500 },
 ];
+
+/** Where «أنا عارف رقمي» starts for someone who never set a fit goal. */
+export const defaultFitTarget: FitTarget = { kcal: 700, protein: 40 };
 
 export const ingredients = ingredientSchema.options;
 
@@ -35,12 +41,18 @@ export function defaultPrefs(workplace: UserPrefs['workplace']): UserPrefs {
 export const sameCalories = (a: CaloriePref, b: CaloriePref) =>
   a.mode === b.mode && (a.mode === 'any' || (b.mode !== 'any' && a.kcal === b.kcal));
 
-/** «مش فارقة», «حوالي 700», «أقل من 500». */
+/** «مش فارقة», «حوالي 700», «أقل من 500», «فورمة · 780 سعر · 57 جم». */
 export function useCalorieLabel() {
   const t = useTranslations('prefs');
   const locale: Locale = useLocale();
   return (pref: CaloriePref) => {
     if (pref.mode === 'any') return t('caloriesAny');
+    if (pref.mode === 'fit') {
+      return t('caloriesFit', {
+        calories: formatCalories(pref.kcal, locale),
+        protein: formatGrams(pref.protein, locale),
+      });
+    }
     const kcal = formatNumber(pref.kcal, locale);
     return pref.mode === 'around' ? t('caloriesAround', { kcal }) : t('caloriesUnder', { kcal });
   };

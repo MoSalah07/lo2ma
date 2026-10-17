@@ -1,4 +1,4 @@
-const ARABIC_INDIC = /[٠-٩]/g;
+import { toLatinDigits } from './number.ts';
 
 /** Egypt's international dialing code, shown before the phone field. */
 export const EGYPT_DIAL_CODE = '+20';
@@ -12,9 +12,7 @@ const EGYPT_MOBILE = /^1[0125]\d{8}$/;
  * Accepts "010 1234 5678", "+20 10 1234 5678", "1012345678" and Arabic-Indic digits.
  */
 export function normalizeEgyptMobile(input: string): string | null {
-  const digits = input
-    .replace(ARABIC_INDIC, (digit) => String(digit.charCodeAt(0) - 0x0660))
-    .replace(/\D/g, '');
+  const digits = toLatinDigits(input).replace(/\D/g, '');
   const national = digits.replace(/^(0020|20)/, '').replace(/^0/, '');
   return EGYPT_MOBILE.test(national) ? national : null;
 }
