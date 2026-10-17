@@ -43,7 +43,9 @@ export function mealNutrition(portions: readonly Portion[]): MealNutrition {
     : { kcal: total.kcal, kcalSource: 'restaurant', macros };
 }
 
-/** «54 جم», "54 g": protein, carbs and fat. */
-export function formatGrams(grams: number, locale: Locale): string {
-  return fillTemplate(formats[locale].grams, { grams: formatNumber(Math.round(grams), locale) });
+/** «54 جم», "54 g": protein, carbs and fat. Whole grams unless asked for decimals («1.6 جم لكل كيلو»). */
+export function formatGrams(grams: number, locale: Locale, fractionDigits = 0): string {
+  return fillTemplate(formats[locale].grams, {
+    grams: formatNumber(fractionDigits ? grams : Math.round(grams), locale, fractionDigits),
+  });
 }

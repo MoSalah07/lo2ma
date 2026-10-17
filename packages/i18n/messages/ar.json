@@ -67,7 +67,8 @@
       "nuts": "مكسرات",
       "beef": "لحمة",
       "dairy": "ألبان"
-    }
+    },
+    "caloriesFit": "فورمة · {calories} · {protein}"
   },
   "location": {
     "title": "مكان شغلك",
@@ -92,6 +93,71 @@
     "mapCredits": "بيانات الخريطة © <osm>OpenStreetMap</osm> · <omt>OpenMapTiles</omt> · <ofm>OpenFreeMap</ofm>",
     "zoomIn": "قرّب",
     "zoomOut": "بعّد"
+  },
+  "fit": {
+    "title": "وضع الفورمة",
+    "subtitle": "حدد هدف الغدا، ولقمة تجيبلك الوجبات الأقرب ليه.",
+    "method": "طريقة تحديد الهدف",
+    "calculate": "احسبهولي",
+    "manual": "أنا عارف رقمي",
+    "goal": "هدفك",
+    "goals": {
+      "cut": "تنشيف",
+      "keep": "ثبات",
+      "bulk": "تضخيم"
+    },
+    "goalHints": {
+      "cut": "تخس دهون",
+      "keep": "تحافظ على وزنك",
+      "bulk": "تبني عضل"
+    },
+    "sex": "النوع",
+    "sexes": {
+      "male": "راجل",
+      "female": "ست"
+    },
+    "age": "السن",
+    "heightCm": "الطول (سم)",
+    "weightKg": "الوزن (كجم)",
+    "training": "بتتمرن كام يوم في الأسبوع؟",
+    "trainingDays": {
+      "none": "مفيش",
+      "light": "1 أو 2",
+      "moderate": "3 أو 4",
+      "heavy": "5 أو أكتر"
+    },
+    "outOfRange": "اكتب رقم من {min} لـ {max}",
+    "fillToSee": "كمّل الأرقام اللي فوق وهنحسبلك الهدف.",
+    "result": "هدف الغدا",
+    "calories": "السعرات",
+    "protein": "البروتين",
+    "ofDay": "من {calories} في اليوم، والغدا {share} منه.",
+    "raised": "رفعنا يومك لـ {calories}، لأن أقل من كده محتاج متابعة دكتور.",
+    "how": "ازاي حسبناها",
+    "steps": {
+      "rest": "جسمك بيحرق وانت مرتاح",
+      "training": "ومع التمرين",
+      "cut": "تنشيف: أقل {share}",
+      "keep": "ثبات: زي ما هو",
+      "bulk": "تضخيم: أكتر {share}",
+      "lunch": "نصيب الغدا ({share})",
+      "protein": "البروتين: {grams} لكل كيلو"
+    },
+    "minorTitle": "التنشيف من {age} سنة",
+    "minorBody": "جسمك لسه بيكبر، فمش هنقلل أكلك. اختار «ثبات» أو «تضخيم».",
+    "privacy": "الوزن والطول بيفضلوا على موبايلك. بنحفظ الهدف بس.",
+    "disclaimer": "ده تقدير عام، ومش بديل عن دكتور أو أخصائي تغذية.",
+    "lunchCalories": "سعرات الغدا",
+    "lunchProtein": "بروتين الغدا",
+    "lessCalories": "قلّل السعرات",
+    "moreCalories": "زوّد السعرات",
+    "lessProtein": "قلّل البروتين",
+    "moreProtein": "زوّد البروتين",
+    "estimateNote": "لو سعرات الطبق تقدير AI، بنحسبها بأعلى رقم متوقع، فمش هتعدّي هدفك.",
+    "dontKnow": "مش عارف رقمك؟",
+    "save": "احفظ الهدف",
+    "summary": "هدفك: {calories} · {protein} بروتين",
+    "change": "غيّر"
   },
   "onboarding": {
     "title": "خلّينا نظبطلك الغدا",
@@ -132,7 +198,9 @@
       "missed": "مسمعتش كويس. جرّب تاني أو اكتب.",
       "call": "كلّم لقمة"
     },
-    "thinking": "بدوّرلك…"
+    "thinking": "بدوّرلك…",
+    "lunchGoal": "هدف الغدا",
+    "lunchGoalValue": "{calories} · {protein}"
   },
   "voiceMode": {
     "title": "مكالمة مع لقمة",

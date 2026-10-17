@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { calculateFit, fitGoalAllowed } from './fit.ts';
+import { calculateFit, clampFitTarget, fitGoalAllowed } from './fit.ts';
 import { bodyProfileSchema, type BodyProfile } from './schemas/fit.ts';
 import { caloriePrefSchema } from './schemas/prefs.ts';
 
@@ -56,6 +56,14 @@ describe('calculateFit', () => {
       dailyKcal: 1270,
       raisedToFloor: false,
     });
+  });
+});
+
+describe('clampFitTarget', () => {
+  it('keeps a goal inside what the steppers and the server allow', () => {
+    expect(clampFitTarget({ kcal: 1620, protein: 150 })).toEqual({ kcal: 1500, protein: 120 });
+    expect(clampFitTarget({ kcal: 780, protein: 57 })).toEqual({ kcal: 780, protein: 57 });
+    expect(clampFitTarget({ kcal: 250, protein: 5 })).toEqual({ kcal: 300, protein: 10 });
   });
 });
 

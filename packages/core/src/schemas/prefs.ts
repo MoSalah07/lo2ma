@@ -13,6 +13,9 @@ export const caloriePrefSchema = z.discriminatedUnion('mode', [
 ]);
 export type CaloriePref = z.infer<typeof caloriePrefSchema>;
 
+/** «وضع الفورمة» as a preference. */
+export type FitCaloriePref = Extract<CaloriePref, { mode: 'fit' }>;
+
 /** Where lunch goes: a point on the map, its name in both languages, and what the courier should know. */
 export const workplaceSchema = z.object({
   name: localizedTextSchema,

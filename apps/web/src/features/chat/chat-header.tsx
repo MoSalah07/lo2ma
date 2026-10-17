@@ -1,6 +1,12 @@
 'use client';
 
-import { formatMoney, formatNumber, type UserPrefs } from '@lo2ma/core';
+import {
+  formatCalories,
+  formatGrams,
+  formatMoney,
+  formatNumber,
+  type UserPrefs,
+} from '@lo2ma/core';
 import { MapPin } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { focusRing } from '@/components/ui/focus';
@@ -62,14 +68,24 @@ export function ChatHeader({ prefs }: { prefs: UserPrefs | null | undefined }) {
       {prefs && (
         <div className="grid grid-cols-2 gap-2.5">
           <Stat label={t('chat.todayBudget')} value={formatMoney(prefs.budget, locale)} />
-          <Stat
-            label={t('chat.mealCalories')}
-            value={
-              calories && calories.mode !== 'any'
-                ? t('chat.caloriesOrLess', { kcal: formatNumber(calories.kcal, locale) })
-                : t('prefs.caloriesAny')
-            }
-          />
+          {calories?.mode === 'fit' ? (
+            <Stat
+              label={t('chat.lunchGoal')}
+              value={t('chat.lunchGoalValue', {
+                calories: formatCalories(calories.kcal, locale),
+                protein: formatGrams(calories.protein, locale),
+              })}
+            />
+          ) : (
+            <Stat
+              label={t('chat.mealCalories')}
+              value={
+                calories && calories.mode !== 'any'
+                  ? t('chat.caloriesOrLess', { kcal: formatNumber(calories.kcal, locale) })
+                  : t('prefs.caloriesAny')
+              }
+            />
+          )}
         </div>
       )}
     </header>

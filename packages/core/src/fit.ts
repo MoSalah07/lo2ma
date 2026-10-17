@@ -1,6 +1,12 @@
 // «وضع الفورمة»: works out a lunch goal (calories and protein) from a body profile. It runs on the phone, so the
-// weight and height never leave it; the server only gets the goal (FitGoal in schemas/fit.ts).
-import type { BodyProfile, FitGoal, FitTarget, TrainingDays } from './schemas/fit.ts';
+// weight and height never leave it; the server only gets the goal (FitTarget in schemas/fit.ts).
+import {
+  FIT_LUNCH_LIMITS,
+  type BodyProfile,
+  type FitGoal,
+  type FitTarget,
+  type TrainingDays,
+} from './schemas/fit.ts';
 
 /** Lunch is this share of the day's calories and protein: the main meal of an office day. */
 export const LUNCH_SHARE = 0.35;
@@ -67,5 +73,16 @@ export function calculateFit(profile: BodyProfile, goal: FitGoal): FitCalculatio
       kcal: roundTo10(dailyKcal * LUNCH_SHARE),
       protein: Math.round(dailyProtein * LUNCH_SHARE),
     },
+  };
+}
+
+const clamp = (value: number, { min, max }: { min: number; max: number }) =>
+  Math.min(max, Math.max(min, value));
+
+/** Keeps a goal inside the steppers' limits: a big bulk can work out above what the server stores. */
+export function clampFitTarget({ kcal, protein }: FitTarget): FitTarget {
+  return {
+    kcal: clamp(kcal, FIT_LUNCH_LIMITS.kcal),
+    protein: clamp(protein, FIT_LUNCH_LIMITS.protein),
   };
 }

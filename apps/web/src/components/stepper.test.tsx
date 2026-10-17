@@ -2,12 +2,12 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useState } from 'react';
 import { describe, expect, it } from 'vitest';
-import { BudgetStepper } from './budget-stepper';
+import { Stepper } from './stepper';
 
 function Harness({ initial }: { initial: number }) {
   const [value, setValue] = useState(initial);
   return (
-    <BudgetStepper
+    <Stepper
       value={value}
       onChange={setValue}
       min={10000}
@@ -20,7 +20,7 @@ function Harness({ initial }: { initial: number }) {
   );
 }
 
-describe('BudgetStepper', () => {
+describe('Stepper', () => {
   it('moves by one step each way and shows the new value', async () => {
     const user = userEvent.setup();
     render(<Harness initial={15000} />);

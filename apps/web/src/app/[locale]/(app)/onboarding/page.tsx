@@ -28,7 +28,7 @@ export default async function OnboardingPage() {
         }
       />
       <main>
-        <ClientMessages namespaces={['common', 'onboarding', 'prefs', 'location']}>
+        <ClientMessages namespaces={['common', 'onboarding', 'prefs', 'location', 'fit']}>
           <OnboardingForm />
         </ClientMessages>
       </main>

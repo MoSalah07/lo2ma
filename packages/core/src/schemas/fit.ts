@@ -24,12 +24,21 @@ export const fitTargetSchema = z.object({
 });
 export type FitTarget = z.infer<typeof fitTargetSchema>;
 
+/** What the calculator's number fields accept. */
+export const BODY_LIMITS = {
+  age: { min: 14, max: 90 },
+  heightCm: { min: 120, max: 230 },
+  weightKg: { min: 35, max: 250 },
+} as const;
+
+const within = ({ min, max }: { min: number; max: number }) => z.int().min(min).max(max);
+
 /** The calculator's form. It stays on the phone; only the goal it gives reaches the server. */
 export const bodyProfileSchema = z.object({
   sex: sexSchema,
-  age: z.int().min(14).max(90),
-  heightCm: z.int().min(120).max(230),
-  weightKg: z.int().min(35).max(250),
+  age: within(BODY_LIMITS.age),
+  heightCm: within(BODY_LIMITS.heightCm),
+  weightKg: within(BODY_LIMITS.weightKg),
   training: trainingDaysSchema,
 });
 export type BodyProfile = z.infer<typeof bodyProfileSchema>;

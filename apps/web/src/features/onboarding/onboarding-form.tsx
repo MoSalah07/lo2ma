@@ -4,22 +4,27 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
   BREAK_TIMES,
   BUDGET_STEP,
+  formatCalories,
+  formatGrams,
   formatMoney,
   formatTime,
   userPrefsSchema,
   workplaceAt,
   type UserPrefs,
 } from '@lo2ma/core';
-import { X } from 'lucide-react';
+import { ChevronRight, Dumbbell, X } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
-import { useId, type ReactNode } from 'react';
+import { useId } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Screen } from '@/components/screen';
 import { BottomAction } from '@/components/bottom-action';
-import { BudgetStepper } from '@/components/budget-stepper';
+import { Stepper } from '@/components/stepper';
 import { ErrorMessage, LoadingBlocks } from '@/components/status-message';
 import { Button } from '@/components/ui/button';
 import { Chip } from '@/components/ui/chip';
+import { focusRing } from '@/components/ui/focus';
+import { OptionGroup } from '@/components/ui/option-group';
+import { WithFitGoal } from '@/features/fit/with-fit-goal';
 import { useSuggestedPlaces } from '@/features/location/api';
 import { usePrefs, useSavePrefs } from '@/features/prefs/api';
 import {
@@ -31,27 +36,8 @@ import {
   useCalorieLabel,
 } from '@/features/prefs/options';
 import { useRouter } from '@/i18n/navigation';
+import { cn } from '@/lib/cn';
 import { WorkplaceField } from './workplace-field';
-
-function Group({
-  legend,
-  aside,
-  children,
-}: {
-  legend: string;
-  aside?: string;
-  children: ReactNode;
-}) {
-  return (
-    <fieldset className="flex flex-col gap-2">
-      <div className="flex items-baseline justify-between gap-2">
-        <legend className="text-label-md text-ink-2">{legend}</legend>
-        {aside && <span className="text-caption text-muted">{aside}</span>}
-      </div>
-      {children}
-    </fieldset>
-  );
-}
 
 /** The title and its line. They show at once, before the saved preferences arrive. */
 function OnboardingIntro() {
@@ -129,7 +115,7 @@ function PrefsForm({ initial }: { initial: UserPrefs }) {
           control={form.control}
           name="breakTime"
           render={({ field }) => (
-            <Group legend={t('prefs.breakTime')}>
+            <OptionGroup legend={t('prefs.breakTime')}>
               <div className="grid grid-cols-4 gap-2">
                 {BREAK_TIMES.map((time) => (
                   <Chip
@@ -141,7 +127,7 @@ function PrefsForm({ initial }: { initial: UserPrefs }) {
                   </Chip>
                 ))}
               </div>
-            </Group>
+            </OptionGroup>
           )}
         />
 
@@ -149,11 +135,11 @@ function PrefsForm({ initial }: { initial: UserPrefs }) {
           control={form.control}
           name="budget"
           render={({ field }) => (
-            <Group
+            <OptionGroup
               legend={t('prefs.budget')}
               aside={t('onboarding.minOrder', { amount: formatMoney(budgetLimits.min, locale) })}
             >
-              <BudgetStepper
+              <Stepper
                 value={field.value}
                 onChange={field.onChange}
                 min={budgetLimits.min}
@@ -163,7 +149,7 @@ function PrefsForm({ initial }: { initial: UserPrefs }) {
                 decreaseLabel={t('onboarding.decreaseBudget')}
                 increaseLabel={t('onboarding.increaseBudget')}
               />
-            </Group>
+            </OptionGroup>
           )}
         />
 
@@ -171,19 +157,48 @@ function PrefsForm({ initial }: { initial: UserPrefs }) {
           control={form.control}
           name="calories"
           render={({ field }) => (
-            <Group legend={t('prefs.calories')}>
-              <div className="flex flex-wrap gap-2">
-                {calorieOptions.map((option) => (
-                  <Chip
-                    key={option.mode}
-                    pressed={sameCalories(field.value, option)}
-                    onClick={() => field.onChange(option)}
-                  >
-                    {calorieLabel(option)}
-                  </Chip>
-                ))}
-              </div>
-            </Group>
+            <OptionGroup legend={t('prefs.calories')}>
+              <WithFitGoal value={field.value} onConfirm={field.onChange}>
+                {(trigger) => (
+                  <>
+                    <div className="flex flex-wrap gap-2">
+                      {calorieOptions.map((option) => (
+                        <Chip
+                          key={option.mode}
+                          pressed={sameCalories(field.value, option)}
+                          onClick={() => field.onChange(option)}
+                        >
+                          {calorieLabel(option)}
+                        </Chip>
+                      ))}
+                      <Chip {...trigger} pressed={field.value.mode === 'fit'}>
+                        <Dumbbell aria-hidden className="size-4" />
+                        {t('fit.title')}
+                      </Chip>
+                    </div>
+                    {field.value.mode === 'fit' && (
+                      <button
+                        type="button"
+                        {...trigger}
+                        className={cn(
+                          'flex min-h-13 items-center gap-2.5 rounded-control bg-tint px-3.5 text-on-tint',
+                          focusRing,
+                        )}
+                      >
+                        <span className="flex-1 text-start text-label-lg">
+                          {t('fit.summary', {
+                            calories: formatCalories(field.value.kcal, locale),
+                            protein: formatGrams(field.value.protein, locale),
+                          })}
+                        </span>
+                        <span className="text-label-md">{t('fit.change')}</span>
+                        <ChevronRight aria-hidden className="size-4 shrink-0 rtl:rotate-180" />
+                      </button>
+                    )}
+                  </>
+                )}
+              </WithFitGoal>
+            </OptionGroup>
           )}
         />
 
@@ -191,7 +206,7 @@ function PrefsForm({ initial }: { initial: UserPrefs }) {
           control={form.control}
           name="exclusions"
           render={({ field }) => (
-            <Group legend={t('onboarding.avoidQuestion')}>
+            <OptionGroup legend={t('onboarding.avoidQuestion')}>
               <div className="flex flex-wrap gap-2">
                 {ingredients.map((ingredient) => {
                   const avoided = field.value.includes(ingredient);
@@ -214,7 +229,7 @@ function PrefsForm({ initial }: { initial: UserPrefs }) {
                   );
                 })}
               </div>
-            </Group>
+            </OptionGroup>
           )}
         />
 

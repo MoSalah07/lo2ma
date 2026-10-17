@@ -53,4 +53,8 @@ describe('formatGrams', () => {
     expect(formatGrams(54, 'ar')).toBe('54 جم');
     expect(formatGrams(53.6, 'en')).toBe('54 g');
   });
+
+  it('keeps decimals when asked, for protein per kilogram', () => {
+    expect(formatGrams(1.6, 'ar', 1)).toBe('1.6 جم');
+  });
 });
