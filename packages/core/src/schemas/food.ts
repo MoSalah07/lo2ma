@@ -15,13 +15,32 @@ export type Restaurant = z.infer<typeof restaurantSchema>;
 export const calorieSourceSchema = z.enum(['restaurant', 'ai']);
 export type CalorieSource = z.infer<typeof calorieSourceSchema>;
 
+/** Grams of protein, carbohydrate and fat, rounded to whole grams. */
+export const macrosSchema = z.object({
+  protein: z.int().nonnegative(),
+  carbs: z.int().nonnegative(),
+  fat: z.int().nonnegative(),
+});
+export type Macros = z.infer<typeof macrosSchema>;
+
+/** The fewest and the most calories an estimate allows, since kitchens portion the same dish differently. */
+export const kcalRangeSchema = z
+  .object({ low: z.int().positive(), high: z.int().positive() })
+  .refine((range) => range.low <= range.high, { message: 'low is above high' });
+export type KcalRange = z.infer<typeof kcalRangeSchema>;
+
 export const menuItemSchema = z.object({
   id: z.string(),
   restaurantId: z.string(),
   name: localizedTextSchema,
   price: piastersSchema,
+  /** The typical number: the restaurant's own, or the middle of the estimate. */
   kcal: z.int().positive(),
   kcalSource: calorieSourceSchema,
+  /** Only for estimates. A number the restaurant publishes has no range. */
+  kcalRange: kcalRangeSchema.optional(),
+  /** Comes with the calories and from the same source. */
+  macros: macrosSchema,
   contains: z.array(ingredientSchema),
 });
 export type MenuItem = z.infer<typeof menuItemSchema>;

@@ -1,5 +1,6 @@
 import {
   calculateBill,
+  mealNutrition,
   meetsMinimumOrder,
   SERVICE_FEE,
   type Ingredient,
@@ -38,23 +39,28 @@ export function buildSuggestion(dishes: readonly Dish[], bestValue = false): Sug
   const restaurant = first && restaurantById.get(first.restaurantId);
   if (!first || !restaurant) return null;
 
-  const items = dishes.map(({ role, ...dish }) => ({ ...dish, quantity: 1 }));
+  const items = dishes.map(({ role, recipe, ...dish }) => ({ ...dish, quantity: 1 }));
   return {
     id: suggestionId(restaurant.id, dishes),
     restaurant,
     items,
     bill: calculateBill({ items, delivery: restaurant.deliveryFee, service: SERVICE_FEE }),
-    kcal: items.reduce((sum, item) => sum + item.kcal, 0),
-    kcalSource: items.some((item) => item.kcalSource === 'ai') ? 'ai' : 'restaurant',
+    ...mealNutrition(items),
     bestValue,
   };
 }
 
-export function suggestionFromId(id: string): Suggestion | null {
+/** The menu dishes a suggestion id names, or null when one of them doesn't exist. */
+export function dishesFromId(id: string): Dish[] | null {
   const [restaurantId, ...dishKeys] = id.split('.');
   const dishes = dishKeys.map((key) => menu.find((dish) => dish.id === `${restaurantId}-${key}`));
   if (!restaurantId || dishes.length === 0 || dishes.some((dish) => !dish)) return null;
-  return buildSuggestion(dishes as Dish[]);
+  return dishes as Dish[];
+}
+
+export function suggestionFromId(id: string): Suggestion | null {
+  const dishes = dishesFromId(id);
+  return dishes && buildSuggestion(dishes);
 }
 
 /**

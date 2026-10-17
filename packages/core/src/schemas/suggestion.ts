@@ -1,6 +1,12 @@
 import { z } from 'zod';
 import { piastersSchema } from './common.ts';
-import { calorieSourceSchema, menuItemSchema, restaurantSchema } from './food.ts';
+import {
+  calorieSourceSchema,
+  kcalRangeSchema,
+  macrosSchema,
+  menuItemSchema,
+  restaurantSchema,
+} from './food.ts';
 
 export const billSchema = z.object({
   food: piastersSchema,
@@ -18,6 +24,9 @@ export const suggestionSchema = z.object({
   kcal: z.int().positive(),
   /** "ai" when any dish's calories are an estimate. */
   kcalSource: calorieSourceSchema,
+  /** Present when kcalSource is "ai". The dishes the restaurant published count as exact. */
+  kcalRange: kcalRangeSchema.optional(),
+  macros: macrosSchema,
   bestValue: z.boolean(),
 });
 export type Suggestion = z.infer<typeof suggestionSchema>;

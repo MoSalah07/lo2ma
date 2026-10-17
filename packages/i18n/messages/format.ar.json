@@ -2,7 +2,9 @@
   "money": "{amount} ج",
   "calories": "{kcal} سعر",
   "caloriesApprox": "حوالي {kcal} سعر",
+  "caloriesRange": "بين {low} و{high} سعر",
   "distanceKm": "{km} كم",
+  "grams": "{grams} جم",
   "quantity": "×{count}",
   "percent": "{value}%",
   "currency": "ج"

@@ -1,5 +1,6 @@
 export { assertPiasters, CURRENCY_CODE, formatMoney, fromPounds, type Piasters } from './money.ts';
-export { formatCalories } from './calories.ts';
+export { formatCalorieRange, formatCalories } from './calories.ts';
+export { formatGrams, mealNutrition, type MealNutrition, type Portion } from './nutrition.ts';
 export { addMinutes, formatTime, minutesBetween, TIME_24H, timeOf } from './time.ts';
 export { orderProgress, planDayProgress } from './orders.ts';
 export { formatList, formatNumber } from './number.ts';

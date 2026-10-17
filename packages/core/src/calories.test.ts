@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatCalories } from './calories.ts';
+import { formatCalorieRange, formatCalories } from './calories.ts';
 
 describe('formatCalories', () => {
   it('formats a known value as in the plan screen', () => {
@@ -14,5 +14,12 @@ describe('formatCalories', () => {
 
   it('rounds and groups large values', () => {
     expect(formatCalories(1249.6, 'en')).toBe('1,250 kcal');
+  });
+});
+
+describe('formatCalorieRange', () => {
+  it("formats an estimate's range as in the meal screen", () => {
+    expect(formatCalorieRange({ low: 680, high: 810 }, 'ar')).toBe('بين 680 و810 سعر');
+    expect(formatCalorieRange({ low: 680, high: 1050 }, 'en')).toBe('680–1,050 kcal');
   });
 });

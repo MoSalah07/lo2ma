@@ -1,5 +1,6 @@
 import { fromPounds, type MenuItem, type Restaurant } from '@lo2ma/core';
-import { dishesByCuisine, type Cuisine } from './dishes';
+import { estimateDish } from '../engine/estimate';
+import { dishesByCuisine, type Cuisine, type DishTemplate } from './dishes';
 
 interface RestaurantSeed {
   ar: string;
@@ -301,18 +302,29 @@ export const restaurants: Restaurant[] = seeds.map((seed, index) => ({
   deliveryFee: fromPounds(seed.deliveryFee),
 }));
 
-export const menu: (MenuItem & { role: 'main' | 'side' })[] = seeds.flatMap((seed, index) => {
-  const restaurantId = restaurants[index]?.id ?? '';
-  return dishesByCuisine[seed.cuisine].map((template, dishIndex) => ({
-    id: `${restaurantId}-m${dishIndex + 1}`,
-    restaurantId,
-    name: template.name,
-    price: fromPounds(Math.max(10, roundTo5(template.price * seed.priceFactor))),
-    kcal: template.kcal,
-    kcalSource: seed.publishesCalories ? 'restaurant' : 'ai',
-    contains: template.contains,
-    role: template.role,
-  }));
-});
+/** The menu, with what only the server knows: a dish's role in a meal and its recipe. */
+export const menu: (MenuItem & Pick<DishTemplate, 'role' | 'recipe'>)[] = seeds.flatMap(
+  (seed, index) => {
+    const restaurantId = restaurants[index]?.id ?? '';
+    return dishesByCuisine[seed.cuisine].map((template, dishIndex) => {
+      const { kcalRange, macros } = estimateDish(template.recipe, template.kcal);
+      return {
+        id: `${restaurantId}-m${dishIndex + 1}`,
+        restaurantId,
+        name: template.name,
+        price: fromPounds(Math.max(10, roundTo5(template.price * seed.priceFactor))),
+        kcal: template.kcal,
+        // A place that publishes its calories publishes the macros with them, and they are exact.
+        ...(seed.publishesCalories
+          ? { kcalSource: 'restaurant' as const }
+          : { kcalSource: 'ai' as const, kcalRange }),
+        macros,
+        contains: template.contains,
+        role: template.role,
+        recipe: template.recipe,
+      };
+    });
+  },
+);
 
 export const restaurantById = new Map(restaurants.map((restaurant) => [restaurant.id, restaurant]));

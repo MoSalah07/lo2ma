@@ -8,11 +8,13 @@ import {
   agentConversationSummarySchema,
   chatEventSchema,
   couponSchema,
+  mealBreakdownSchema,
   orderSchema,
   placeSchema,
   planDayBill,
   pointLookupSchema,
   SHARED_DELIVERY_FEE,
+  suggestionSchema,
   transcriptionSchema,
   VOICE_MAX_BYTES,
   weeklyPlanSchema,
@@ -183,6 +185,50 @@ describe('POST /api/chat', () => {
       for await (const event of readSseEvents(response.body, chatEventSchema)) events.push(event);
     const text = events.flatMap((event) => (event.type === 'token' ? [event.text] : [])).join('');
     expect(text).toContain('budget');
+  });
+});
+
+describe('meal nutrition', () => {
+  it('sends the macros with every suggestion, and the range with estimates', async () => {
+    const meal = suggestionSchema.parse(await (await call('/suggestions/r01.m1.m4')).json());
+    expect(meal.kcalSource).toBe('ai');
+    expect(meal.kcalRange?.low).toBeLessThan(meal.kcal);
+    expect(meal.kcalRange?.high).toBeGreaterThan(meal.kcal);
+    expect(meal.macros.protein).toBeGreaterThan(0);
+  });
+
+  it('breaks an estimated meal down into the foods of each dish', async () => {
+    const response = await call('/suggestions/r01.m1.m4/nutrition');
+    expect(response.status).toBe(200);
+    const { dishes } = mealBreakdownSchema.parse(await response.json());
+    expect(dishes.map((dish) => dish.id)).toEqual(['r01-m1', 'r01-m4']);
+    for (const dish of dishes) {
+      expect(dish.lines.length).toBeGreaterThan(0);
+      const linesKcal = dish.lines.reduce((sum, line) => sum + line.kcal, 0);
+      expect(Math.abs(linesKcal - dish.kcal)).toBeLessThanOrEqual(5 * dish.lines.length);
+    }
+  });
+
+  it('keeps a dish the restaurant published whole, with no range', async () => {
+    const { dishes } = mealBreakdownSchema.parse(
+      await (await call('/suggestions/r03.m1/nutrition')).json(),
+    );
+    expect(dishes).toEqual([expect.objectContaining({ kcalSource: 'restaurant', lines: [] })]);
+    expect(dishes[0]?.kcalRange).toBeUndefined();
+  });
+
+  it('takes a report that the dish came different', async () => {
+    const report = (id: string) => call(`/suggestions/${id}/nutrition/report`, { method: 'POST' });
+    expect((await report('r01.m1')).status).toBe(202);
+    const missing = await report('r99.m1');
+    expect(missing.status).toBe(404);
+    expect(await missing.json()).toEqual({ code: 'suggestion_not_found' });
+  });
+
+  it('answers 404 for a meal that does not exist', async () => {
+    const response = await call('/suggestions/r99.m1/nutrition');
+    expect(response.status).toBe(404);
+    expect(await response.json()).toEqual({ code: 'suggestion_not_found' });
   });
 });
 

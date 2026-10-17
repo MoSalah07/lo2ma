@@ -27,6 +27,8 @@ const koshari: Suggestion = {
       price: 9500,
       kcal: 900,
       kcalSource: 'ai',
+      kcalRange: { low: 780, high: 1040 },
+      macros: { protein: 27, carbs: 160, fat: 18 },
       contains: [],
       quantity: 1,
     },
@@ -34,6 +36,8 @@ const koshari: Suggestion = {
   bill: { food: 9500, delivery: 2000, service: 1000, total: 12500 },
   kcal: 900,
   kcalSource: 'ai',
+  kcalRange: { low: 780, high: 1040 },
+  macros: { protein: 27, carbs: 160, fat: 18 },
   bestValue: true,
 };
 
@@ -49,6 +53,25 @@ describe('suggestionSchema', () => {
 
   it('needs at least one dish', () => {
     expect(suggestionSchema.safeParse({ ...koshari, items: [] }).success).toBe(false);
+  });
+
+  it('allows a published meal without a range', () => {
+    const { kcalRange: _, ...published } = koshari;
+    expect(suggestionSchema.safeParse({ ...published, kcalSource: 'restaurant' }).success).toBe(
+      true,
+    );
+  });
+
+  it('rejects a range whose low end is above its high end', () => {
+    const broken = { ...koshari, kcalRange: { low: 1040, high: 780 } };
+    expect(suggestionSchema.safeParse(broken).success).toBe(false);
+  });
+
+  it('needs whole, non-negative grams', () => {
+    const fractional = { ...koshari, macros: { ...koshari.macros, protein: 27.5 } };
+    const negative = { ...koshari, macros: { ...koshari.macros, fat: -1 } };
+    expect(suggestionSchema.safeParse(fractional).success).toBe(false);
+    expect(suggestionSchema.safeParse(negative).success).toBe(false);
   });
 });
 

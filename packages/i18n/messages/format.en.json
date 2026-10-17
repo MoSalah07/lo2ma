@@ -2,7 +2,9 @@
   "money": "EGP {amount}",
   "calories": "{kcal} kcal",
   "caloriesApprox": "~{kcal} kcal",
+  "caloriesRange": "{low}–{high} kcal",
   "distanceKm": "{km} km",
+  "grams": "{grams} g",
   "quantity": "×{count}",
   "percent": "{value}%",
   "currency": "EGP"
