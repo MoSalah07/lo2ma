@@ -6,10 +6,11 @@ const TILES = 'https://tiles.openfreemap.org';
 
 /**
  * The map's tiles and fonts come from OpenFreeMap. Here they are empty, so the journeys never wait on the network
- * or fail with it; the map still runs, moves and reports where it is.
+ * or fail with it; the map still runs, moves and reports where it is. The route is on the context, not the page:
+ * MapLibre fetches from its web worker, which a page route never sees.
  */
 async function emptyMap(page: Page) {
-  await page.route(`${TILES}/**`, (route) => {
+  await page.context().route(`${TILES}/**`, (route) => {
     if (new URL(route.request().url()).pathname === '/planet') {
       return route.fulfill({
         json: { tilejson: '3.0.0', tiles: [`${TILES}/planet/{z}/{x}/{y}.pbf`], maxzoom: 14 },

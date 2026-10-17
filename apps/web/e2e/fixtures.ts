@@ -18,7 +18,16 @@ const EXPECTED_ERROR = /^Failed to load resource: the server responded with a st
 export const test = base.extend<AppOptions & AppFixtures>({
   // Every journey fails on a browser error: an uncaught exception, a hydration mismatch or anything else React
   // reports as an error. They come from our code here, in a clean browser with no extensions.
+  //
+  // And no request leaves the test server: a test that quietly needs the internet fails here, every time, instead
+  // of failing now and then when the network does. A test that needs an outside service stubs it with a route on
+  // the context (registered later, so it runs first).
   page: async ({ page }, use) => {
+    const external: string[] = [];
+    await page.context().route(/^https?:\/\/(?!localhost[:/])/, (route) => {
+      external.push(route.request().url());
+      return route.abort();
+    });
     const errors: string[] = [];
     page.on('pageerror', (error) => errors.push(`uncaught: ${error.message}`));
     page.on('console', (message) => {
@@ -26,6 +35,7 @@ export const test = base.extend<AppOptions & AppFixtures>({
         errors.push(message.text());
     });
     await use(page);
+    expect(external, 'requests that left the test server').toEqual([]);
     expect(errors, 'errors in the browser console').toEqual([]);
   },
   appLocale: ['ar', { option: true }],
