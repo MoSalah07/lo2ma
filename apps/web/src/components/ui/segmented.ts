@@ -3,13 +3,13 @@ import { cva } from 'class-variance-authority';
 import { focusRing } from './focus';
 import { pressable } from './press';
 
-/** The pill track behind a segmented control (language, theme, discount type). */
-export const segmentedRoot = 'flex w-fit gap-0.5 rounded-full bg-surface-2 p-0.5';
+/** The track behind a segmented control (language, theme, discount type). */
+export const segmentedRoot = 'flex w-fit gap-0.5 rounded-control bg-surface-2 p-0.5';
 
 /** One option inside the track. The selected one is raised. */
 const segmentedItemBase = cva(
   [
-    'inline-flex h-11 items-center justify-center rounded-full px-3.5 text-label-md',
+    'hit inline-flex h-control-sm items-center justify-center rounded-control px-3.5 text-label-md',
     pressable,
     focusRing,
   ],

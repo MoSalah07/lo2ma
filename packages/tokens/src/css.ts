@@ -1,8 +1,8 @@
 import { colors, type ColorName } from './colors.ts';
-import { containers, layoutSpacing, safeOffsets } from './layout.ts';
+import { containers, controlSizes, layoutSpacing, safeOffsets } from './layout.ts';
 import { cubicBezier, durations, easings, type Easing } from './motion.ts';
 import { kebab } from './names.ts';
-import { radius } from './radius.ts';
+import { radii } from './radius.ts';
 import { sceneColors } from './scene.ts';
 import { shadows, type ShadowName } from './shadows.ts';
 import type { Theme } from './theme.ts';
@@ -49,7 +49,7 @@ function tailwindTheme(): string {
     '--shadow-*: initial;',
     ...shadowNames.map((name) => `--shadow-${kebab(name)}: var(${shadowVar(name)});`),
     '--radius-*: initial;',
-    ...radius.map((px) => `--radius-${px}: ${px}px;`),
+    ...Object.entries(radii).map(([name, px]) => `--radius-${name}: ${px}px;`),
     // Text roles: text-title-lg sets the size, the line height and the weight in one class. A screen can still
     // change the weight (font-bold) or the line height (leading-body) on top.
     '--text-*: initial;',
@@ -67,6 +67,7 @@ function tailwindTheme(): string {
     // From this width the app's column no longer fills the screen (app:), so a full-screen panel becomes a card.
     `--breakpoint-app: ${rem(containers.app)};`,
     ...Object.entries(layoutSpacing).map(([name, px]) => `--spacing-${name}: ${rem(px)};`),
+    ...Object.entries(controlSizes).map(([name, px]) => `--spacing-${name}: ${rem(px)};`),
     ...Object.entries(safeOffsets).map(
       ([name, px]) => `--spacing-${name}: calc(${rem(px)} + env(safe-area-inset-bottom));`,
     ),

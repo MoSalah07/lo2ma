@@ -35,7 +35,7 @@ export function VoiceScreen() {
           <ChevronDown aria-hidden className="size-5" />
         </Link>
         {!problem && (
-          <span className="inline-flex h-8 items-center gap-1.5 rounded-full bg-tint px-3 text-label-md text-on-tint">
+          <span className="inline-flex h-8 items-center gap-1.5 rounded-tag bg-tint px-3 text-label-md text-on-tint">
             <span aria-hidden className="size-2 rounded-full bg-primary" />
             {t(`voiceMode.phase.${call.muted ? 'muted' : phase}`)}
           </span>

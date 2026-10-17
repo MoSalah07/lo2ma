@@ -1,4 +1,4 @@
-import { colorClassNames, lineHeights, radius, shadowClassNames, textRoles } from '@lo2ma/tokens';
+import { colorClassNames, lineHeights, radii, shadowClassNames, textRoles } from '@lo2ma/tokens';
 import { clsx, type ClassValue } from 'clsx';
 import { extendTailwindMerge } from 'tailwind-merge';
 
@@ -9,7 +9,7 @@ const twMerge = extendTailwindMerge({
     theme: {
       color: colorClassNames,
       text: Object.keys(textRoles),
-      radius: radius.map(String),
+      radius: Object.keys(radii),
       shadow: shadowClassNames,
       leading: Object.keys(lineHeights),
     },

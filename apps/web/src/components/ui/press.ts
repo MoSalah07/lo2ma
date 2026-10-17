@@ -3,4 +3,4 @@
  * change with motion turned off; the movement doesn't.
  */
 export const pressable =
-  'transition active:scale-97 motion-reduce:transition-colors motion-reduce:active:scale-100';
+  'transition active:scale-98 motion-reduce:transition-colors motion-reduce:active:scale-100';

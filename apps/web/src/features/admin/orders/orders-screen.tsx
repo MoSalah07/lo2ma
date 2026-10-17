@@ -119,7 +119,7 @@ export function OrdersScreen() {
         }
       />
 
-      <Card className="flex flex-col gap-3.5 rounded-26 p-4">
+      <Card className="flex flex-col gap-3.5 rounded-card p-4">
         <OrdersFilters
           search={search}
           onSearch={setSearch}
@@ -156,7 +156,7 @@ export function OrdersScreen() {
       {data && (
         <Card
           aria-busy={orders.isPlaceholderData}
-          className="rounded-26 px-2 pt-2 transition-opacity aria-busy:opacity-60"
+          className="rounded-card px-2 pt-2 transition-opacity aria-busy:opacity-60"
         >
           <OrdersTable orders={data.items} label={t('orders.title')} />
           {data.total > 0 && (

@@ -117,7 +117,7 @@ export function Composer({ busy, onSend }: ComposerProps) {
           <Link
             href="/plan"
             className={cn(
-              'inline-flex h-11 shrink-0 items-center rounded-full bg-surface px-4 text-body-sm font-medium ring-1 ring-line ring-inset',
+              'hit inline-flex h-control-sm shrink-0 items-center rounded-control bg-surface px-3.5 text-body-sm font-medium ring-1 ring-line ring-inset',
               focusRing,
             )}
           >
@@ -152,7 +152,7 @@ export function Composer({ busy, onSend }: ComposerProps) {
         <form
           onSubmit={submit}
           className={cn(
-            'flex h-14 items-center gap-2 rounded-28 bg-surface ps-4.5 pe-1.5 shadow-float',
+            'flex h-14 items-center gap-2 rounded-panel bg-surface ps-4.5 pe-1.5 shadow-float',
             fromVoice && 'ring-1 ring-line',
           )}
         >

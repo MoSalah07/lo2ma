@@ -17,7 +17,7 @@ export function SlotsCard({ slots, batch }: SlotsCardProps) {
   const busiest = Math.max(0, ...slots.map((slot) => slot.orders));
 
   return (
-    <Card className="flex flex-col gap-4.5 rounded-26 p-5">
+    <Card className="flex flex-col gap-4.5 rounded-card p-5">
       <div className="flex flex-col gap-0.5">
         <h2 className="text-title-md">{t('overview.slotsTitle')}</h2>
         <span className="text-caption text-muted">{t('overview.slotsSub')}</span>
@@ -30,7 +30,7 @@ export function SlotsCard({ slots, batch }: SlotsCardProps) {
             </span>
             <div aria-hidden className="h-5 min-w-0 flex-1">
               <div
-                className="h-5 rounded-e-4 bg-primary"
+                className="h-5 rounded-e-tag bg-primary"
                 style={{ width: shareOf(slot.orders, busiest) }}
               />
             </div>
@@ -40,7 +40,7 @@ export function SlotsCard({ slots, batch }: SlotsCardProps) {
           </li>
         ))}
       </ul>
-      <p className="flex items-center gap-2.5 rounded-16 bg-surface-2 px-3.5 py-3 text-body-sm leading-normal text-ink-2">
+      <p className="flex items-center gap-2.5 rounded-card bg-surface-2 px-3.5 py-3 text-body-sm leading-normal text-ink-2">
         <Truck aria-hidden className="size-4.5 shrink-0" />
         {t('overview.batch', {
           orders: t('orderCount', { count: batch.orders }),

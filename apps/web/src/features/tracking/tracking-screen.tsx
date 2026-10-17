@@ -40,7 +40,7 @@ export function TrackingScreen({ id }: { id: string }) {
     <Screen>
       <section
         aria-live="polite"
-        className="flex flex-col gap-1.5 rounded-28 bg-primary p-5 text-on-primary"
+        className="flex flex-col gap-1.5 rounded-card bg-primary p-5 text-on-primary"
       >
         <div className="flex items-center justify-between gap-2">
           <span className="truncate text-caption font-medium">
@@ -65,7 +65,7 @@ export function TrackingScreen({ id }: { id: string }) {
 
       <StatusTimeline order={order.data} />
 
-      <Card className="flex items-center gap-3 rounded-22 px-3.5 py-3">
+      <Card className="flex items-center gap-3 rounded-card px-3.5 py-3">
         <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-tint text-primary-ink">
           <UserRound aria-hidden className="size-5" />
         </span>

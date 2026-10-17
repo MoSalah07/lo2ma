@@ -35,7 +35,7 @@ function Waveform({ levels }: { levels: number[] }) {
   );
 }
 
-const barShell = 'flex h-14 items-center gap-2.5 rounded-28 bg-surface px-1.5 shadow-float';
+const barShell = 'flex h-14 items-center gap-2.5 rounded-panel bg-surface px-1.5 shadow-float';
 
 interface RecordingBarProps {
   seconds: number;

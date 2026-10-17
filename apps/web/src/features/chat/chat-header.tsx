@@ -11,13 +11,13 @@ import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/cn';
 
 const chip = cn(
-  'inline-flex h-11 max-w-3/5 items-center gap-1.5 rounded-full bg-surface px-3.5 text-body-sm font-medium ring-1 ring-line ring-inset',
+  'inline-flex h-control-md max-w-3/5 items-center gap-1.5 rounded-control bg-surface px-3.5 text-body-sm font-medium ring-1 ring-line ring-inset',
   focusRing,
 );
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex flex-col gap-0.5 rounded-18 bg-surface px-3.5 py-2.5">
+    <div className="flex flex-col gap-0.5 rounded-card bg-surface px-3.5 py-2.5">
       <span className="text-caption text-muted">{label}</span>
       <span className="text-title-md">{value}</span>
     </div>

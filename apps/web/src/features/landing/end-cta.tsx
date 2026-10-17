@@ -14,7 +14,7 @@ export function EndCta() {
       <div
         className={cn(
           alwaysDark,
-          'relative isolate flex min-h-100 flex-col items-start justify-end gap-6 overflow-hidden rounded-32 p-7 md:justify-center md:p-12 lg:p-16',
+          'relative isolate flex min-h-100 flex-col items-start justify-end gap-6 overflow-hidden rounded-panel p-7 md:justify-center md:p-12 lg:p-16',
         )}
       >
         <NearbyImage

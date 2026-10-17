@@ -30,10 +30,10 @@ export function PlanRow({
 }: PlanRowProps) {
   const large = size === 'lg';
   return (
-    <Card className={cn('flex items-center gap-3 rounded-22 px-3', large ? 'py-2.5' : 'py-2')}>
+    <Card className={cn('flex items-center gap-3 rounded-card px-3', large ? 'py-2.5' : 'py-2')}>
       <div
         className={cn(
-          'flex shrink-0 flex-col items-center justify-center rounded-16 bg-surface-2',
+          'flex shrink-0 flex-col items-center justify-center rounded-control bg-surface-2',
           large ? 'size-13' : 'size-12',
         )}
       >

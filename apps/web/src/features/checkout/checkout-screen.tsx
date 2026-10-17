@@ -122,7 +122,7 @@ export function CheckoutScreen({ id }: { id: string }) {
 
           <PaymentPicker value={method} onChange={setMethod} />
 
-          <p className="flex items-center gap-2.5 rounded-18 bg-good px-3.5 py-3 text-body-sm font-medium text-on-good">
+          <p className="flex items-center gap-2.5 rounded-card bg-good px-3.5 py-3 text-body-sm font-medium text-on-good">
             <Lock aria-hidden className="size-4.5 shrink-0" />
             {t('checkout.safety', { action: t('checkout.confirm') })}
           </p>

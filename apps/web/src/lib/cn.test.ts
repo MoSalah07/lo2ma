@@ -10,7 +10,8 @@ describe('cn', () => {
   it('lets the later class win within the same group', () => {
     expect(cn('text-body-md', 'text-title-md')).toBe('text-title-md');
     expect(cn('bg-surface', 'bg-primary')).toBe('bg-primary');
-    expect(cn('rounded-26', 'rounded-full')).toBe('rounded-full');
+    expect(cn('rounded-card', 'rounded-full')).toBe('rounded-full');
+    expect(cn('rounded-control', 'shadow-card')).toBe('rounded-control shadow-card');
     expect(cn('shadow-card', 'shadow-float')).toBe('shadow-float');
     expect(cn('text-on-primary', 'text-ink-2')).toBe('text-ink-2');
   });

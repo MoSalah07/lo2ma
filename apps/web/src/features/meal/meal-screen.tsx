@@ -64,7 +64,7 @@ export function MealScreen({ id }: { id: string }) {
           ))}
         </div>
 
-        <Card className="flex flex-col gap-1 rounded-20 px-4 py-3">
+        <Card className="flex flex-col gap-1 rounded-card px-4 py-3">
           <CalorieLine
             className="text-body-md font-bold"
             text={formatCalories(meal.kcal, locale, { approximate: estimated })}
@@ -75,7 +75,7 @@ export function MealScreen({ id }: { id: string }) {
 
         <section className="flex flex-col gap-2">
           <h2 className="text-label-md text-ink-2">{t('meal.items')}</h2>
-          <Card className="rounded-22 px-4">
+          <Card className="rounded-card px-4">
             <ul className="divide-y divide-divider">
               {meal.items.map((item) => (
                 <li

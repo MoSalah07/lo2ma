@@ -17,7 +17,7 @@ function PlanHeader({ range }: { range?: string }) {
   return (
     <ScreenHeader title={t('title')}>
       {range && (
-        <span className="inline-flex h-8.5 items-center rounded-full bg-surface px-3 text-body-sm font-medium ring-1 ring-line ring-inset">
+        <span className="inline-flex h-8.5 items-center rounded-control bg-surface px-3 text-body-sm font-medium ring-1 ring-line ring-inset">
           {range}
         </span>
       )}

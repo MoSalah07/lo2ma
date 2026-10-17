@@ -58,7 +58,7 @@ export function SignInForm({ initialChannel, next }: SignInFormProps) {
           <p className="text-body-md text-muted">{t('subtitle')}</p>
         </div>
 
-        <div role="group" className="grid grid-cols-2 gap-1 rounded-26 bg-divider p-1">
+        <div role="group" className="grid grid-cols-2 gap-1 rounded-control bg-divider p-1">
           <button
             type="button"
             aria-pressed={channel === 'phone'}
@@ -96,7 +96,7 @@ export function SignInForm({ initialChannel, next }: SignInFormProps) {
                 inputMode="email"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
-                className="h-14 rounded-20 bg-surface text-start ring-1 ring-line ring-inset"
+                className="h-control-lg rounded-control bg-surface text-start ring-1 ring-line ring-inset"
               />
             )}
           </Field>

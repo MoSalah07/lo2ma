@@ -10,7 +10,7 @@ export function PickSummary({ suggestion }: { suggestion: Suggestion }) {
   const t = useTranslations('auth.gate');
   const locale = useLocale();
   return (
-    <div className="flex items-center gap-3 rounded-20 bg-surface-2 p-3">
+    <div className="flex items-center gap-3 rounded-card bg-surface-2 p-3">
       <MealIcon size="sm" />
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <span className="text-caption text-muted">{t('yourPick')}</span>

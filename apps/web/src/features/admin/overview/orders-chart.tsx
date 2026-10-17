@@ -21,7 +21,7 @@ export function OrdersChart({ daily }: OrdersChartProps) {
   const last = daily.length - 1;
 
   return (
-    <Card className="flex flex-col gap-4 rounded-26 p-5">
+    <Card className="flex flex-col gap-4 rounded-card p-5">
       <div className="flex flex-col gap-0.5">
         <h2 id="orders-chart" className="text-title-md">
           {t('overview.chartTitle')}
@@ -56,11 +56,11 @@ export function OrdersChart({ daily }: OrdersChartProps) {
                     </span>
                   )}
                   <div
-                    className="relative w-6 rounded-t-4 bg-primary transition-opacity group-hover:opacity-85"
+                    className="relative w-6 rounded-t-tag bg-primary transition-opacity group-hover:opacity-85"
                     style={{ height: shareOf(day.orders, top) }}
                   >
                     <div className="pointer-events-none absolute inset-x-0 bottom-full mb-2 flex justify-center opacity-0 transition-opacity group-hover:opacity-100">
-                      <span className="rounded-12 bg-inverse px-2.5 py-1.5 text-caption font-semibold whitespace-nowrap text-on-inverse">
+                      <span className="rounded-control bg-inverse px-2.5 py-1.5 text-caption font-semibold whitespace-nowrap text-on-inverse">
                         {t('overview.barTip', {
                           date: formatDayMonth(day.date, locale),
                           orders: t('orderCount', { count: day.orders }),

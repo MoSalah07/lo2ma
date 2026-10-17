@@ -29,7 +29,7 @@ export function PhoneField({
         <div
           dir="ltr"
           className={cn(
-            'flex h-14 items-center gap-3 rounded-20 px-4 ring-1 ring-line ring-inset',
+            'flex h-control-lg items-center gap-3 rounded-control px-4 ring-1 ring-line ring-inset',
             'focus-within:ring-2 focus-within:ring-primary',
             error && 'ring-2 ring-on-danger',
             surface === 'surface' ? 'bg-surface' : 'bg-bg',

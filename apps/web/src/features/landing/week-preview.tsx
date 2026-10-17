@@ -12,8 +12,8 @@ export function WeekPreview() {
   const arrival = formatTime(arrivalTimeFor(sampleWeek.breakTime));
 
   return (
-    <div className="flex flex-col gap-2 rounded-28 bg-bg p-3.5">
-      <Card className="rounded-22 px-4 py-3.5">
+    <div className="flex flex-col gap-2 rounded-card bg-bg p-3.5">
+      <Card className="rounded-card px-4 py-3.5">
         <BudgetLine
           size="lg"
           label={t('plan.weeklyBudget')}

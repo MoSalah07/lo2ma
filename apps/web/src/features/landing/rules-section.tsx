@@ -24,9 +24,11 @@ export function RulesSection() {
           return (
             <li
               key={key}
-              className="flex flex-col gap-3 rounded-28 bg-surface p-6 ring-1 ring-line ring-inset"
+              className="flex flex-col gap-3 rounded-card bg-surface p-6 ring-1 ring-line ring-inset"
             >
-              <span className={cn('flex size-11 items-center justify-center rounded-16', tile)}>
+              <span
+                className={cn('flex size-11 items-center justify-center rounded-control', tile)}
+              >
                 <Icon aria-hidden className="size-5" />
               </span>
               <h3 className="text-title-md leading-heading">{t(`${key}.title`)}</h3>

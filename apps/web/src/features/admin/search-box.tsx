@@ -18,7 +18,7 @@ export function SearchBox({ label, placeholder, value, onChange, className }: Se
   return (
     <div
       className={cn(
-        'flex h-12 items-center gap-2.5 rounded-full bg-surface-2 px-4 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-primary',
+        'flex h-control-md items-center gap-2.5 rounded-control bg-surface-2 px-3.5 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-primary',
         className,
       )}
     >

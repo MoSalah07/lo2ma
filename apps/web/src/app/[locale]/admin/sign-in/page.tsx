@@ -25,7 +25,7 @@ export default async function AdminSignInPage({
 
   return (
     <div className="flex min-h-dvh flex-col items-center justify-center gap-5 px-gutter py-section">
-      <main className="flex w-full max-w-form flex-col gap-6 rounded-28 bg-surface p-6 shadow-card sm:p-8">
+      <main className="flex w-full max-w-form flex-col gap-6 rounded-panel bg-surface p-6 shadow-card sm:p-8">
         <AdminBrand name={t('common.brand')} badge={t('admin.signIn.badge')} size="lg" />
         <AdminSignInForm next={adminNext(next)} />
       </main>

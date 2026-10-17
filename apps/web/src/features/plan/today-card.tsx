@@ -29,7 +29,7 @@ export function TodayCard({ day, status, plan }: TodayCardProps) {
   const locale = useLocale();
 
   return (
-    <div className="flex flex-col gap-2 rounded-24 bg-primary px-4 py-3.5 text-on-primary">
+    <div className="flex flex-col gap-2 rounded-card bg-primary px-4 py-3.5 text-on-primary">
       <div className="flex items-center justify-between gap-2">
         <span className="text-caption font-medium">
           {t('plan.today', {

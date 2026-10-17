@@ -23,7 +23,7 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="flex flex-col gap-2">
       <h2 className="px-1 text-label-md text-ink-2">{title}</h2>
-      <Card className="divide-y divide-divider rounded-22 px-4">{children}</Card>
+      <Card className="divide-y divide-divider rounded-card px-4">{children}</Card>
     </section>
   );
 }

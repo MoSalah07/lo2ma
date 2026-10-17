@@ -113,7 +113,7 @@ export function OverviewScreen() {
             <SlotsCard slots={data.slots} batch={data.batch} />
           </div>
 
-          <Card className="rounded-26 px-2 pt-2 pb-1">
+          <Card className="rounded-card px-2 pt-2 pb-1">
             <div className="flex items-center justify-between gap-3 px-3 pt-3 pb-2">
               <h2 id="recent-orders" className="text-title-md">
                 {t('overview.recent')}

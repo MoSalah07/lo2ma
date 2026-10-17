@@ -13,7 +13,7 @@ export function VoiceMeal({ suggestion }: { suggestion: Suggestion }) {
   const checkout = `/checkout/${suggestion.id}`;
 
   return (
-    <Card className="flex w-full items-center gap-3 rounded-24 p-3 ps-4 text-start">
+    <Card className="flex w-full items-center gap-3 rounded-card p-3 ps-4 text-start">
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <span className="truncate text-body-md font-bold">
           <bdi>{mealName(suggestion, locale)}</bdi>

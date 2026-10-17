@@ -2,9 +2,9 @@ import { Soup } from 'lucide-react';
 import { cn } from '@/lib/cn';
 
 const sizes = {
-  sm: { box: 'size-10 rounded-14', icon: 'size-5' },
-  md: { box: 'size-13 rounded-16', icon: 'size-6.5' },
-  hero: { box: 'h-30 w-full rounded-28', icon: 'size-15' },
+  sm: { box: 'size-10 rounded-control', icon: 'size-5' },
+  md: { box: 'size-13 rounded-control', icon: 'size-6.5' },
+  hero: { box: 'h-30 w-full rounded-card', icon: 'size-15' },
 } as const;
 
 /** The tinted bowl that stands in for a meal photo until restaurants send real ones. */

@@ -20,14 +20,14 @@ export function PaymentPicker({ value, onChange }: PaymentPickerProps) {
   return (
     <fieldset className="flex flex-col gap-2">
       <legend className="pb-2 text-label-md text-ink-2">{t('checkout.paymentTitle')}</legend>
-      <Card className="rounded-24 px-4 py-1">
+      <Card className="rounded-card px-4 py-1">
         {methods.isPending && <Skeleton className="my-3 h-12" />}
         <div className="divide-y divide-divider">
           {methods.data?.map((option) => {
             const Icon = option.method === 'card' ? CreditCard : Wallet;
             return (
               <label key={option.method} className="flex h-15 cursor-pointer items-center gap-3">
-                <span className="flex size-9.5 shrink-0 items-center justify-center rounded-12 bg-surface-2">
+                <span className="flex size-9.5 shrink-0 items-center justify-center rounded-control bg-surface-2">
                   <Icon aria-hidden className="size-5" />
                 </span>
                 <span className="flex-1 text-label-lg">

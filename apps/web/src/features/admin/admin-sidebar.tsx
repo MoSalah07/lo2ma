@@ -32,7 +32,7 @@ export function AdminSidebar() {
     <aside className="shrink-0 lg:sticky lg:top-6 lg:w-64">
       <nav
         aria-label={t('nav.label')}
-        className="flex flex-col gap-4 rounded-28 bg-surface p-4 shadow-card"
+        className="flex flex-col gap-4 rounded-panel bg-surface p-4 shadow-card"
       >
         <div className="px-2 pt-1">
           <AdminBrand name={tCommon('brand')} badge={t('badge')} />
@@ -47,7 +47,7 @@ export function AdminSidebar() {
                   href={href}
                   aria-current={current ? 'page' : undefined}
                   className={cn(
-                    'flex h-11 items-center gap-2.5 rounded-full px-3 text-body-md whitespace-nowrap transition-colors',
+                    'flex h-control-md items-center gap-2.5 rounded-control px-3 text-body-md whitespace-nowrap transition-colors',
                     current
                       ? 'bg-tint font-semibold text-on-tint'
                       : 'font-medium text-ink-2 hover:bg-surface-2',

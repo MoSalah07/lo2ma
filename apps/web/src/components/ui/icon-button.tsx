@@ -8,7 +8,7 @@ import { pressable } from './press';
 /** Also used for icon links (back, close): <Link className={iconButtonVariants()} aria-label={…}>. */
 const iconButtonVariantsBase = cva(
   [
-    'inline-flex size-11 shrink-0 items-center justify-center rounded-full',
+    'inline-flex size-control-md shrink-0 items-center justify-center rounded-control',
     pressable,
     'disabled:pointer-events-none disabled:opacity-50',
     focusRing,

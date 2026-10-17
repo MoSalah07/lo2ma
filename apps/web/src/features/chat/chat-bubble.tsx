@@ -13,7 +13,7 @@ interface ChatBubbleProps {
 export function ChatBubble({ from, avatar, busy = false, children }: ChatBubbleProps) {
   if (from === 'user') {
     return (
-      <p className="max-w-4/5 self-end rounded-22 bg-inverse px-4 py-2.5 text-body-md text-on-inverse">
+      <p className="max-w-4/5 self-end rounded-card bg-inverse px-4 py-2.5 text-body-md text-on-inverse">
         {children}
       </p>
     );

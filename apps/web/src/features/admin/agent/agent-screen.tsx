@@ -42,7 +42,7 @@ export function AgentScreen() {
         <Card
           role="region"
           aria-label={t('list')}
-          className="flex w-full min-w-0 flex-col gap-3 rounded-26 p-3.5 lg:w-80 lg:shrink-0"
+          className="flex w-full min-w-0 flex-col gap-3 rounded-card p-3.5 lg:w-80 lg:shrink-0"
         >
           <SearchBox
             label={t('search')}
@@ -78,7 +78,7 @@ export function AgentScreen() {
                     aria-current={current || undefined}
                     onClick={() => setUrlParams({ id: item.id }, 'push')}
                     className={cn(
-                      'flex w-full flex-col gap-1.5 rounded-18 p-3 text-start transition-colors',
+                      'flex w-full flex-col gap-1.5 rounded-card p-3 text-start transition-colors',
                       current
                         ? 'bg-surface shadow-float ring-1 ring-line ring-inset'
                         : 'hover:bg-surface-2',
@@ -105,7 +105,7 @@ export function AgentScreen() {
           </ul>
         </Card>
 
-        <Card className="flex w-full min-w-0 flex-1 flex-col gap-4.5 rounded-26 p-5">
+        <Card className="flex w-full min-w-0 flex-1 flex-col gap-4.5 rounded-card p-5">
           {conversation.isError && <ErrorMessage onRetry={() => void conversation.refetch()} />}
           {conversation.isLoading && <LoadingBlocks />}
           {conversation.data && <ConversationDetail conversation={conversation.data} />}

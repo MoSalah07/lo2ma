@@ -50,7 +50,7 @@ export function Sheet({
                 initial="hidden"
                 animate="shown"
                 exit="hidden"
-                className="fixed inset-x-0 bottom-0 z-50 mx-auto flex max-w-app flex-col gap-4 rounded-t-32 bg-surface px-gutter pt-2.5 pb-6 shadow-sheet"
+                className="fixed inset-x-0 bottom-0 z-50 mx-auto flex max-w-app flex-col gap-4 rounded-t-panel bg-surface px-gutter pt-2.5 pb-6 shadow-sheet"
               >
                 <span aria-hidden className="mx-auto h-1.5 w-10 rounded-full bg-line" />
                 <div className="flex items-start justify-between gap-3">

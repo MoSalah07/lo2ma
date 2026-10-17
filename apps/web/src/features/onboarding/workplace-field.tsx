@@ -27,7 +27,7 @@ export function WorkplaceField({ value, onChange, labelId }: WorkplaceFieldProps
           aria-describedby={`${labelId}-value`}
           {...trigger}
           className={cn(
-            'flex min-h-14 items-center gap-2.5 rounded-20 bg-surface px-4 py-2.5 ring-1 ring-line ring-inset',
+            'flex min-h-14 items-center gap-2.5 rounded-control bg-surface px-4 py-2.5 ring-1 ring-line ring-inset',
             focusRing,
           )}
         >

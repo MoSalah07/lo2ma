@@ -27,7 +27,7 @@ export function BudgetStepper({
   increaseLabel,
 }: BudgetStepperProps) {
   return (
-    <div className="flex h-16 items-center justify-between rounded-22 bg-surface px-2.5 ring-1 ring-line ring-inset">
+    <div className="flex h-16 items-center justify-between rounded-control bg-surface px-2.5 ring-1 ring-line ring-inset">
       <IconButton
         label={decreaseLabel}
         icon={Minus}

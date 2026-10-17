@@ -24,7 +24,7 @@ export function BillCard({ bill, budget }: { bill: Suggestion['bill']; budget?: 
   return (
     <section className="flex flex-col gap-2">
       <h2 className="text-label-md text-ink-2">{t('title')}</h2>
-      <Card className="flex flex-col gap-2 rounded-22 px-4 py-3.5">
+      <Card className="flex flex-col gap-2 rounded-card px-4 py-3.5">
         <dl className="flex flex-col gap-2">
           <Row label={t('food')} value={formatMoney(bill.food, locale)} />
           <Row label={t('delivery')} value={formatMoney(bill.delivery, locale)} />

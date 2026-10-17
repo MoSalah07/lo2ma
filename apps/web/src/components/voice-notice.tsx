@@ -13,7 +13,7 @@ export function VoiceNotice({ problem, children }: { problem: VoiceProblem; chil
       <p
         role="alert"
         className={cn(
-          'flex items-start gap-2.5 rounded-18 px-3.5 py-3 text-body-sm',
+          'flex items-start gap-2.5 rounded-card px-3.5 py-3 text-body-sm',
           problem === 'denied' ? 'bg-warn text-on-warn' : 'bg-surface text-ink-2 ring-1 ring-line',
         )}
       >

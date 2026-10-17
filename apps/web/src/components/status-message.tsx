@@ -12,7 +12,7 @@ export function LoadingBlocks({ count = 3 }: { count?: number }) {
     <div role="status" className="flex flex-col gap-3">
       <span className="sr-only">{t('loading')}</span>
       {Array.from({ length: count }, (_, index) => (
-        <Skeleton key={index} className="h-24 rounded-24" />
+        <Skeleton key={index} className="h-24 rounded-card" />
       ))}
     </div>
   );

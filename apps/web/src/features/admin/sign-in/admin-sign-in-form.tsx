@@ -125,7 +125,7 @@ export function AdminSignInForm({ next }: { next: string }) {
         </Field>
         <Field label={t('password')} error={wrongPassword ? t('invalid') : undefined}>
           {(control) => (
-            <div className="flex h-13 items-center gap-1 rounded-16 bg-surface-2 pe-1">
+            <div className="flex h-control-md items-center gap-1 rounded-control bg-surface-2 pe-1">
               <Input
                 {...control}
                 type={showPassword ? 'text' : 'password'}
@@ -150,7 +150,7 @@ export function AdminSignInForm({ next }: { next: string }) {
         </Button>
       </form>
 
-      <p className="flex items-start gap-2.5 rounded-16 bg-surface-2 px-3.5 py-3 text-caption leading-body text-ink-2">
+      <p className="flex items-start gap-2.5 rounded-card bg-surface-2 px-3.5 py-3 text-caption leading-body text-ink-2">
         <ShieldCheck aria-hidden className="mt-0.5 size-4.5 shrink-0" />
         {t('twofa')}
       </p>

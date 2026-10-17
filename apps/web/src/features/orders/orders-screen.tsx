@@ -49,7 +49,7 @@ export function OrdersScreen() {
                 <Link
                   href={`/orders/${order.id}`}
                   className={cn(
-                    'flex items-center gap-3 rounded-22 bg-surface px-3.5 py-3 shadow-card',
+                    'flex items-center gap-3 rounded-card bg-surface px-3.5 py-3 shadow-card',
                     focusRing,
                   )}
                 >

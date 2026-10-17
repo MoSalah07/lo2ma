@@ -100,12 +100,12 @@ export function PlaceSearch({ open, onOpenChange, onPick }: PlaceSearchProps) {
         onBlur={() => onOpenChange(false)}
         onKeyDown={onKeyDown}
         className={cn(
-          'h-11 w-full rounded-full bg-surface ps-12 pe-4 text-body-md text-ink shadow-card ring-1 ring-line ring-inset placeholder:text-muted',
+          'h-control-md w-full rounded-control bg-surface ps-12 pe-4 text-body-md text-ink shadow-card ring-1 ring-line ring-inset placeholder:text-muted',
           focusRing,
         )}
       />
       {showing && (
-        <div className="absolute inset-x-0 top-full mt-2 flex flex-col rounded-24 bg-surface p-2 shadow-sheet">
+        <div className="absolute inset-x-0 top-full mt-2 flex flex-col rounded-card bg-surface p-2 shadow-sheet">
           <p id={`${id}-heading`} className="px-3 pt-1 pb-2 text-caption font-semibold text-muted">
             {searching ? t('results') : t('suggested')}
           </p>
@@ -121,7 +121,7 @@ export function PlaceSearch({ open, onOpenChange, onPick }: PlaceSearchProps) {
                 aria-selected={index === active}
                 onMouseDown={(event) => event.preventDefault()}
                 onClick={() => pick(place)}
-                className="flex min-h-13 cursor-pointer items-center gap-3 rounded-16 px-3 py-2 hover:bg-surface-2 aria-selected:bg-surface-2"
+                className="flex min-h-13 cursor-pointer items-center gap-3 rounded-control px-3 py-2 hover:bg-surface-2 aria-selected:bg-surface-2"
               >
                 <MapPin aria-hidden className="size-5 shrink-0 text-primary" />
                 <span className="flex min-w-0 flex-col">

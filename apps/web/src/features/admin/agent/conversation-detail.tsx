@@ -54,7 +54,10 @@ export function ConversationDetail({ conversation }: { conversation: AgentConver
 
       <dl className="grid grid-cols-2 gap-2.5 md:grid-cols-4">
         {stats.map((stat) => (
-          <div key={stat.label} className="flex flex-col gap-1 rounded-18 bg-surface-2 px-3.5 py-3">
+          <div
+            key={stat.label}
+            className="flex flex-col gap-1 rounded-card bg-surface-2 px-3.5 py-3"
+          >
             <dt className="text-caption text-muted">{stat.label}</dt>
             <dd className="truncate text-title-md">{stat.value}</dd>
           </div>

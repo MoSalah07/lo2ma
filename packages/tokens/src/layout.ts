@@ -42,6 +42,17 @@ export const layoutSpacing = {
   dialog: 640,
 } as const;
 
+/**
+ * Heights of controls, in px. 44 is the smallest a finger can hit reliably, so a smaller control (control-sm)
+ * reaches it with an invisible hit area (the `hit` utilities in the web app).
+ */
+export const controlSizes = {
+  'control-sm': 36,
+  'control-md': 44,
+  'control-lg': 48,
+  hit: 44,
+} as const;
+
 /** Distances from the bottom edge, in px, that also clear the phone's home indicator (the safe area). */
 export const safeOffsets = {
   /** Under the tab bar. */

@@ -22,7 +22,7 @@ export function WeekSection() {
 
   return (
     <Section>
-      <Card className="grid items-center gap-7 rounded-32 p-5 md:p-10 lg:grid-cols-2 lg:gap-14 lg:p-14">
+      <Card className="grid items-center gap-7 rounded-panel p-5 md:p-10 lg:grid-cols-2 lg:gap-14 lg:p-14">
         <div className="flex flex-col items-start gap-4">
           <Eyebrow tone="highlight">{t('plan.title')}</Eyebrow>
           <SectionTitle>{t('landing.week.title')}</SectionTitle>
@@ -41,7 +41,7 @@ export function WeekSection() {
           </ul>
         </div>
         {/* A real table of Egyptian food behind the week, which stays plain, readable HTML. */}
-        <div className="relative isolate overflow-hidden rounded-28 p-4 md:p-8">
+        <div className="relative isolate overflow-hidden rounded-card p-4 md:p-8">
           <NearbyImage
             src={iftarTable}
             sizes="(min-width: 1024px) 40vw, 100vw"

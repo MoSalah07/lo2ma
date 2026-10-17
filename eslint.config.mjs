@@ -18,6 +18,9 @@ const arbitraryValue = String.raw`(^|[\s:!])(bg|text|border|ring|fill|stroke|fro
 // Text sizes are roles from @lo2ma/tokens (text-body-md, text-title-lg…); a raw size like text-15 doesn't exist.
 const rawTextSize = String.raw`(^|[\s:!])text-\d+($|\s)`;
 
+// Corners are roles from @lo2ma/tokens (rounded-control, rounded-card…); a raw radius like rounded-26 doesn't exist.
+const rawRadius = String.raw`(^|[\s:!])rounded(-[tbse]|-[se][se])?-\d+($|\s)`;
+
 // Page widths come from @lo2ma/tokens. Tailwind's named widths are switched off, so they would silently do nothing.
 const namedWidth = String.raw`(^|[\s:!])(max-w|min-w|w)-(3xs|2xs|xs|sm|md|lg|xl|[2-7]xl|prose|screen-\w+)($|\s)`;
 
@@ -30,6 +33,8 @@ const RTL =
   'Use logical classes (ms- me- ps- pe- start- end- text-start border-s rounded-s), see Conventions in apps/web/README.md.';
 const TOKENS =
   'Use a design token class (bg-surface, text-body-md, rounded-26…), not a raw value. See Conventions in apps/web/README.md.';
+const SHAPE =
+  'Use a corner role: rounded-tag, rounded-control, rounded-card, rounded-panel, or rounded-full for a circle. See Conventions in apps/web/README.md.';
 const TYPE =
   'Use a text role (text-body-md, text-title-lg, text-label-md…) from packages/tokens/src/typography.ts. See Conventions in apps/web/README.md.';
 const TEXT = 'User-facing text comes from @lo2ma/i18n (useTranslations / getTranslations).';
@@ -81,6 +86,7 @@ export default defineConfig([
         ...inStrings(arbitraryValue, TOKENS),
         ...inStrings(namedWidth, LAYOUT),
         ...inStrings(rawTextSize, TYPE),
+        ...inStrings(rawRadius, SHAPE),
         {
           // An empty alt is not text: it marks a decorative image, so screen readers skip it.
           selector: 'JSXAttribute[name.name=/^(aria-label|title|alt)$/] > Literal[value=/.+/]',

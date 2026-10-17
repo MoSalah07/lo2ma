@@ -102,6 +102,14 @@ scripts/               Lighthouse and README screenshots
   and cards, `body-*`, `label-*` and `caption`. One class sets the size, the line height and the weight
   (`text-title-lg`); a screen can still change the weight or the line height on top. Changing a role in that file
   changes every screen, and ESLint refuses a raw size like `text-15`.
+- **Corners are roles** (`packages/tokens/src/radius.ts`): `rounded-tag` (6, badges), `rounded-control` (12,
+  buttons, fields, chips), `rounded-card` (16, cards, notices, bubbles) and `rounded-panel` (24, sheets, dialogs,
+  floating bars). Circles use `rounded-full`. ESLint refuses a raw radius like `rounded-26`.
+- **Controls have three heights** (`h-control-sm/md/lg`: 36, 44, 48). One smaller than a fingertip adds `hit`, an
+  invisible 44 px tap area around it.
+- **Elevation is one hairline plus a soft shadow** (`shadow-card`, `shadow-float`, `shadow-glass`, `shadow-sheet`).
+  A filled button is raised by `shadow-button` and glows with `shadow-glow` under the pointer; a field shows a
+  brand-colored border and halo while you type.
 - **Wider than the app's column** (the `app:` breakpoint, 480 px), a full-screen panel becomes a card in the middle,
   at most `h-dialog` (640 px) tall: the location picker does this.
 - Layout is tokens too. Widths: `max-w-app` (480, the app screens, bars and sheets), `max-w-site` (1280, the

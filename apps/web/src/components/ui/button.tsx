@@ -7,17 +7,19 @@ import { pressable } from './press';
 /** Also used to style links that look like buttons: <Link className={buttonVariants({ … })}>. */
 const buttonVariantsBase = cva(
   [
-    'inline-flex items-center justify-center gap-2 rounded-full font-semibold',
+    'inline-flex items-center justify-center gap-2 rounded-control font-semibold',
     pressable,
-    'disabled:pointer-events-none disabled:bg-divider disabled:text-muted',
-    'aria-disabled:pointer-events-none aria-disabled:bg-divider aria-disabled:text-muted',
+    'disabled:pointer-events-none disabled:bg-divider disabled:text-muted disabled:shadow-none',
+    'aria-disabled:pointer-events-none aria-disabled:bg-divider aria-disabled:text-muted aria-disabled:shadow-none',
     focusRing,
   ],
   {
     variants: {
       // Hover changes only the fill, never the text, so contrast stays at 4.5:1 or better in both themes.
       variant: {
-        primary: 'bg-primary text-on-primary hover:bg-primary-hover',
+        // Raised by a highlight along its top edge, and glowing in the brand color under the pointer.
+        primary:
+          'bg-primary text-on-primary shadow-button hover:bg-primary-hover hover:shadow-glow',
         tonal: 'bg-tint text-on-tint hover:bg-tint/80',
         outline: 'bg-surface text-ink ring-1 ring-line ring-inset hover:bg-surface-2',
         ghost: 'text-ink ring-1 ring-line ring-inset hover:bg-surface-2',
@@ -27,9 +29,10 @@ const buttonVariantsBase = cva(
           'bg-on-primary text-primary-deep hover:bg-tint hover:text-on-tint focus-visible:outline-on-primary',
       },
       size: {
-        lg: 'h-14 px-6 text-body-lg',
-        md: 'h-12 px-5 text-body-md',
-        sm: 'h-11 px-4 text-body-sm',
+        lg: 'h-control-lg px-5 text-body-lg',
+        md: 'h-control-md px-4 text-body-md',
+        // Smaller than a fingertip, so it keeps a 44px tap around it.
+        sm: 'hit h-control-sm px-3.5 text-body-sm',
       },
       block: { true: 'w-full' },
     },

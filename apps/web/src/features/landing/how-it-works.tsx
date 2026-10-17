@@ -29,7 +29,7 @@ export function HowItWorks() {
             <SequenceItem
               className={cn(
                 alwaysDark,
-                'relative isolate flex h-full min-h-100 flex-col justify-end gap-3 overflow-hidden rounded-28 p-6',
+                'relative isolate flex h-full min-h-100 flex-col justify-end gap-3 overflow-hidden rounded-panel p-6',
               )}
             >
               <NearbyImage

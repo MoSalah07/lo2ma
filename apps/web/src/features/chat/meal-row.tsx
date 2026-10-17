@@ -16,7 +16,7 @@ export function MealRow({ suggestion }: { suggestion: Suggestion }) {
     <Link
       href={`/meals/${suggestion.id}`}
       className={cn(
-        'flex items-center justify-between gap-3 rounded-22 bg-surface px-4 py-3 shadow-card',
+        'flex items-center justify-between gap-3 rounded-card bg-surface px-4 py-3 shadow-card',
         focusRing,
       )}
     >

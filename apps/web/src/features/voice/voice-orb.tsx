@@ -36,7 +36,7 @@ export function VoiceOrb({ level, speaking, label, onTap }: VoiceOrbProps) {
       />
       <span
         aria-hidden
-        className="absolute end-7.5 top-8.5 size-14.5 -rotate-14 rounded-22 bg-scene-highlight"
+        className="absolute end-7.5 top-8.5 size-14.5 -rotate-14 rounded-card bg-scene-highlight"
       />
     </button>
   );

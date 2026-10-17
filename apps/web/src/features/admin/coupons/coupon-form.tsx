@@ -26,7 +26,7 @@ import {
 /** An input with a unit after it («%», «ج»), drawn as one field. */
 function WithUnit({ unit, children }: { unit: string; children: ReactNode }) {
   return (
-    <div className="flex h-12 items-center gap-1.5 rounded-16 bg-surface-2 pe-3.5">
+    <div className="flex h-control-md items-center gap-1.5 rounded-control bg-surface-2 pe-3.5">
       {children}
       <span aria-hidden className="text-body-sm text-muted">
         {unit}
@@ -86,7 +86,7 @@ export function CouponForm() {
   const previewReady = Number(value) > 0 && (type === 'amount' || Number(cap) > 0);
 
   return (
-    <Card className="flex flex-col gap-4 rounded-26 p-5">
+    <Card className="flex flex-col gap-4 rounded-card p-5">
       <h2 id="new-coupon" tabIndex={-1} className="text-title-md outline-none">
         {t('coupons.new')}
       </h2>
@@ -119,7 +119,7 @@ export function CouponForm() {
           <span id="coupon-type" className="text-label-md text-ink-2">
             {t('coupons.type')}
           </span>
-          <div className="grid grid-cols-2 gap-0.5 rounded-full bg-surface-2 p-0.5">
+          <div className="grid grid-cols-2 gap-0.5 rounded-control bg-surface-2 p-0.5">
             {(['percent', 'amount'] as const).map((option) => (
               <button
                 key={option}
@@ -255,7 +255,7 @@ export function CouponForm() {
           )}
         </Field>
 
-        <div className="flex flex-col gap-2 rounded-18 bg-surface-2 p-3.5">
+        <div className="flex flex-col gap-2 rounded-card bg-surface-2 p-3.5">
           <span className="text-caption text-muted">{t('coupons.preview')}</span>
           {(code || previewReady) && (
             <Badge tone="highlight" size="md" className="h-8 gap-2 self-start px-3 text-body-sm">

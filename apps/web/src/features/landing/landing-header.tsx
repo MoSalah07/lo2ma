@@ -17,7 +17,7 @@ export function LandingHeader() {
     <header
       className={cn(landingColumn, 'flex flex-wrap items-center justify-between gap-3 py-gutter')}
     >
-      <Link href="/" className={cn('inline-flex h-11 items-center rounded-12', focusRing)}>
+      <Link href="/" className={cn('inline-flex h-11 items-center rounded-control', focusRing)}>
         <Wordmark name={t('common.brand')} />
       </Link>
       <nav aria-label={t('nav.label')} className="flex flex-wrap items-center gap-2">
@@ -28,7 +28,7 @@ export function LandingHeader() {
           lang={other}
           hrefLang={other}
           className={cn(
-            'inline-flex h-11 items-center rounded-full px-3.5 text-body-md font-medium text-ink-2 transition-colors hover:text-ink',
+            'inline-flex h-control-md items-center rounded-control px-3.5 text-body-md font-medium text-ink-2 transition-colors hover:text-ink',
             focusRing,
           )}
         >

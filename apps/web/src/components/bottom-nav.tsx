@@ -28,7 +28,7 @@ export function BottomNav({ label, labels }: BottomNavProps) {
       aria-label={label}
       className="fixed inset-x-0 bottom-0 z-20 mx-auto max-w-app px-bar pt-2.5 pb-nav-end"
     >
-      <ul className="grid h-16 grid-cols-4 gap-1 rounded-32 bg-glass p-1.5 shadow-glass backdrop-blur-xl">
+      <ul className="grid h-16 grid-cols-4 gap-1 rounded-panel bg-glass p-1.5 shadow-glass backdrop-blur-xl">
         {tabs.map(({ key, href, icon: Icon }) => {
           const active = pathname === href || pathname.startsWith(`${href}/`);
           return (
@@ -37,7 +37,7 @@ export function BottomNav({ label, labels }: BottomNavProps) {
                 href={href}
                 aria-current={active ? 'page' : undefined}
                 className={cn(
-                  'flex h-full flex-col items-center justify-center gap-0.5 rounded-26 text-caption-sm',
+                  'flex h-full flex-col items-center justify-center gap-0.5 rounded-card text-caption-sm',
                   active ? 'bg-tint font-semibold text-on-tint' : 'font-medium text-muted',
                   focusRing,
                 )}

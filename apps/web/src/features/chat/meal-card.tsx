@@ -34,7 +34,7 @@ export function MealCard({ suggestion, budget }: MealCardProps) {
   const checkout = `/checkout/${suggestion.id}`;
 
   return (
-    <Card className="flex flex-col gap-3.5 rounded-26 p-4">
+    <Card className="flex flex-col gap-3.5 rounded-card p-4">
       <div className="flex items-center gap-3">
         <MealIcon />
         <div className="flex min-w-0 flex-1 flex-col gap-0.5">

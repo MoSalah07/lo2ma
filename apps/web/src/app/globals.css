@@ -1,6 +1,23 @@
 @import 'tailwindcss';
 @import '@lo2ma/tokens/tokens.css';
 
+/*
+ * A control drawn smaller than a fingertip (h-control-sm) still takes a 44px tap: an invisible area around it,
+ * centered, never smaller than the control. Physical left/top are fine here, since centering has no direction.
+ */
+@utility hit {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, var(--spacing-hit));
+    height: max(100%, var(--spacing-hit));
+    transform: translate(-50%, -50%);
+  }
+}
+
 @layer base {
   body {
     @apply bg-bg font-sans text-ink antialiased;

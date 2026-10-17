@@ -17,7 +17,7 @@ function Slot({ char, isActive, hasFakeCaret, invalid }: SlotProps & { invalid: 
   return (
     <div
       className={cn(
-        'flex h-15 flex-1 items-center justify-center rounded-18 bg-surface text-headline-sm font-bold ring-1 ring-line ring-inset',
+        'flex h-14 flex-1 items-center justify-center rounded-control bg-surface text-headline-sm font-bold ring-1 ring-line ring-inset transition-shadow',
         isActive && 'ring-2 ring-primary',
         invalid && 'ring-2 ring-on-danger',
       )}

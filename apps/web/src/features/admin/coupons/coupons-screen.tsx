@@ -28,7 +28,7 @@ export function CouponsScreen() {
         }
       />
       <div className="flex flex-col items-start gap-4 xl:flex-row">
-        <Card className="w-full min-w-0 flex-1 rounded-26 px-2 pt-2 pb-1">
+        <Card className="w-full min-w-0 flex-1 rounded-card px-2 pt-2 pb-1">
           {coupons.isError && <ErrorMessage onRetry={() => void coupons.refetch()} />}
           {coupons.isPending && <LoadingBlocks />}
           {coupons.data && <CouponsTable coupons={coupons.data} />}

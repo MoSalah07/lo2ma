@@ -23,7 +23,7 @@ const looks: Record<AgentStep['kind'], { icon: LucideIcon; className: string }> 
 };
 
 const code =
-  'rounded-14 bg-surface-2 px-3.5 py-3 font-mono text-caption leading-body whitespace-pre-wrap';
+  'rounded-control bg-surface-2 px-3.5 py-3 font-mono text-caption leading-body whitespace-pre-wrap';
 
 /** JSON on one line with a space after each separator, the way the design shows the parsed request. */
 const compactJson = (value: unknown) => JSON.stringify(value, null, 1).replace(/\n\s*/g, ' ');
@@ -63,7 +63,7 @@ export function StepItem({ step, last }: StepItemProps) {
       body = (
         <p
           dir="auto"
-          className="self-start rounded-18 bg-inverse px-3.5 py-2.5 text-body-md text-on-inverse"
+          className="self-start rounded-card bg-inverse px-3.5 py-2.5 text-body-md text-on-inverse"
         >
           {step.text}
         </p>
@@ -105,7 +105,7 @@ export function StepItem({ step, last }: StepItemProps) {
       title = t('stepTitles.reply');
       meta = usage(step.tokens, step.ms);
       body = (
-        <p dir="auto" className="rounded-18 bg-surface-2 px-3.5 py-2.5 text-body-md">
+        <p dir="auto" className="rounded-card bg-surface-2 px-3.5 py-2.5 text-body-md">
           {step.text}
         </p>
       );
@@ -122,7 +122,7 @@ export function StepItem({ step, last }: StepItemProps) {
               order: (chunks) => <bdi dir="ltr">{chunks}</bdi>,
             })}
           </p>
-          <p className="flex items-center gap-2 self-start rounded-14 bg-good px-3 py-2 text-caption leading-body font-semibold text-on-good">
+          <p className="flex items-center gap-2 self-start rounded-control bg-good px-3 py-2 text-caption leading-body font-semibold text-on-good">
             <ShieldCheck aria-hidden className="size-4 shrink-0" />
             {t('safety')}
           </p>

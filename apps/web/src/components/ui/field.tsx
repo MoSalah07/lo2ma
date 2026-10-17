@@ -1,6 +1,5 @@
 import { useId, type ComponentProps, type ReactNode } from 'react';
 import { cn } from '@/lib/cn';
-import { focusRing } from './focus';
 
 interface ControlProps {
   id: string;
@@ -42,10 +41,15 @@ export function Field({ label, hint, error, className, children }: FieldProps) {
   );
 }
 
+/**
+ * A text field: a hairline box that takes the brand color and a soft halo while you type in it. The halo is the
+ * focus indicator, so it shows on a click as well as on Tab.
+ */
 export const inputClass = cn(
-  'h-12 w-full rounded-16 bg-surface-2 px-4 text-body-md text-ink placeholder:text-muted',
-  'aria-invalid:ring-2 aria-invalid:ring-on-danger',
-  focusRing,
+  'h-control-md w-full rounded-control border border-line bg-surface px-3.5 text-body-md text-ink outline-none',
+  'transition-[border-color,box-shadow] placeholder:text-muted',
+  'focus:border-primary focus:ring-3 focus:ring-primary/20',
+  'aria-invalid:border-on-danger aria-invalid:ring-3 aria-invalid:ring-on-danger/15',
 );
 
 export function Input({ className, ...props }: ComponentProps<'input'>) {

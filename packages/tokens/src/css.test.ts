@@ -52,7 +52,11 @@ describe('buildTokensCss', () => {
     expect(css).not.toContain('--text-body-md--font-weight');
     // Only roles: a raw size like text-15 no longer exists.
     expect(css).not.toMatch(/--text-\d+:/);
-    expect(css).toContain('--radius-26: 26px;');
+    expect(css).toContain('--radius-control: 12px;');
+    expect(css).toContain('--radius-panel: 24px;');
+    expect(css).not.toMatch(/--radius-\d+:/);
+    expect(css).toContain('--spacing-control-md: 2.75rem;');
+    expect(css).toContain('--spacing-hit: 2.75rem;');
   });
 
   it("replaces Tailwind's container widths with the layout ones, and adds the layout spacing", () => {

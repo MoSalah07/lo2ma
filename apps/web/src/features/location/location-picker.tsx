@@ -128,7 +128,7 @@ function Picker({
           if (event.target === event.currentTarget) onClose();
         }}
       >
-        <div className="flex size-full max-w-app flex-col overflow-hidden bg-bg app:h-dialog app:max-h-full app:rounded-32 app:shadow-sheet">
+        <div className="flex size-full max-w-app flex-col overflow-hidden bg-bg app:h-dialog app:max-h-full app:rounded-panel app:shadow-sheet">
           <div className="relative flex-1 overflow-hidden">
             {mapAvailable ? (
               <MapView
@@ -200,7 +200,7 @@ function Picker({
             </div>
           </div>
 
-          <section className="relative z-10 -mt-8 flex flex-col gap-3 rounded-t-28 bg-surface px-gutter pt-5 pb-screen-end shadow-sheet">
+          <section className="relative z-10 -mt-8 flex flex-col gap-3 rounded-t-panel bg-surface px-gutter pt-5 pb-screen-end shadow-sheet">
             <div className="flex flex-col gap-1">
               <Dialog.Title className="text-caption font-semibold text-muted">
                 {t('location.title')}
@@ -290,7 +290,7 @@ function Notice({ role, children }: { role?: 'alert'; children: ReactNode }) {
   return (
     <div
       role={role}
-      className="flex flex-col gap-1.5 rounded-16 bg-warn px-3.5 py-2.5 text-caption leading-body text-on-warn"
+      className="flex flex-col gap-1.5 rounded-card bg-warn px-3.5 py-2.5 text-caption leading-body text-on-warn"
     >
       {children}
     </div>
