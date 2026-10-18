@@ -10,6 +10,7 @@
     "db:down": "docker compose down",
     "db:migrate": "uv run --locked alembic upgrade head",
     "db:seed": "uv run --locked python -m app.seed",
+    "admin:create": "uv run --locked python -m app.create_admin",
     "export:openapi": "uv run --locked python -m app.openapi",
     "typecheck": "uv run --locked pyright",
     "lint": "uv run --locked ruff check",

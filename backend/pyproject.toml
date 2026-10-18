@@ -8,12 +8,14 @@ readme = "README.md"
 requires-python = "==3.14.*"
 dependencies = [
     "alembic==1.20.0",
+    "argon2-cffi==25.1.0",
     "fastapi==0.143.3",
     "fastapi-cli==0.0.32",
     "geoalchemy2==0.20.0",
     "psycopg[binary]==3.3.6",
     "pydantic==2.14.1",
     "pydantic-settings==2.16.0",
+    "pyotp==2.10.0",
     "sqlalchemy[asyncio]==2.1.5",
     "starlette==1.8.0",
     "tzdata==2026.5",
@@ -65,8 +67,10 @@ ignore = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
-# pytest checks with plain assert.
-"tests/**" = ["S101"]
+# pytest checks with plain assert, and signs in with made-up passwords and secrets.
+"tests/**" = ["S101", "S105", "S106"]
+# A command-line tool prints its answer.
+"app/create_admin.py" = ["T201"]
 
 [tool.pyright]
 pythonVersion = "3.14"

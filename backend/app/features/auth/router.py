@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Response
 
 from app.core.db import SessionDep
-from app.core.errors import invalid_input
+from app.core.errors import SignedOutError, invalid_input
 from app.core.now import Now
 from app.core.settings import SettingsDep
 from app.features.auth import service
@@ -39,7 +39,7 @@ async def verify_code(
 @router.get("/session")
 async def read_session(user: MaybeUser) -> SessionUser:
     if user is None:
-        raise service.SignedOutError()
+        raise SignedOutError()
     return user
 
 

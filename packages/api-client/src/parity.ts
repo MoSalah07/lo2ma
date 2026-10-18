@@ -7,6 +7,10 @@
  * A new endpoint adds a line per schema it sends or receives.
  */
 import type {
+  adminChallengeSchema,
+  adminSignInSchema,
+  adminUserSchema,
+  adminVerifySchema,
   otpRequestSchema,
   otpVerifySchema,
   placeSchema,
@@ -33,4 +37,8 @@ export type Contract = [
   Expect<Same<z.infer<typeof otpRequestSchema>, Api['OtpRequest']>>,
   Expect<Same<z.infer<typeof otpVerifySchema>, Api['OtpVerify']>>,
   Expect<Same<z.infer<typeof sessionUserSchema>, Api['SessionUser']>>,
+  Expect<Same<z.infer<typeof adminSignInSchema>, Api['AdminSignIn']>>,
+  Expect<Same<z.infer<typeof adminChallengeSchema>, Api['AdminChallenge']>>,
+  Expect<Same<z.infer<typeof adminVerifySchema>, Api['AdminVerify']>>,
+  Expect<Same<z.infer<typeof adminUserSchema>, Api['AdminUser']>>,
 ];

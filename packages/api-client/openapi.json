@@ -5,6 +5,183 @@
     "version": "0.1.0"
   },
   "paths": {
+    "/api/admin/auth/sign-in": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Admin Sign In",
+        "operationId": "admin_sign_in",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminSignIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminChallenge"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-invalid-code": "invalid_credentials",
+        "x-invalid-status": 401
+      }
+    },
+    "/api/admin/auth/verify": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Admin Verify",
+        "operationId": "admin_verify",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminVerify"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminUser"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-invalid-code": "invalid_challenge",
+        "x-invalid-status": 400
+      }
+    },
+    "/api/admin/auth/session": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Read Admin Session",
+        "operationId": "read_admin_session",
+        "parameters": [
+          {
+            "name": "__Host-lo2ma_admin",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Admin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminUser"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/auth/sign-out": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Admin Sign Out",
+        "operationId": "admin_sign_out",
+        "parameters": [
+          {
+            "name": "__Host-lo2ma_admin",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Admin"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/auth/otp": {
       "post": {
         "tags": [
@@ -44,7 +221,8 @@
             }
           }
         },
-        "x-invalid-code": "invalid_destination"
+        "x-invalid-code": "invalid_destination",
+        "x-invalid-status": 400
       }
     },
     "/api/auth/verify": {
@@ -322,7 +500,8 @@
             }
           }
         },
-        "x-invalid-code": "invalid_point"
+        "x-invalid-code": "invalid_point",
+        "x-invalid-status": 400
       }
     },
     "/api/prefs": {
@@ -461,12 +640,91 @@
             }
           }
         },
-        "x-invalid-code": "invalid_prefs"
+        "x-invalid-code": "invalid_prefs",
+        "x-invalid-status": 400
       }
     }
   },
   "components": {
     "schemas": {
+      "AdminChallenge": {
+        "properties": {
+          "challenge": {
+            "type": "string",
+            "title": "Challenge"
+          }
+        },
+        "type": "object",
+        "required": [
+          "challenge"
+        ],
+        "title": "AdminChallenge",
+        "description": "What the password step hands back for the code step (adminChallengeSchema)."
+      },
+      "AdminSignIn": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Password"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "AdminSignIn",
+        "description": "The password step (adminSignInSchema)."
+      },
+      "AdminUser": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "email"
+        ],
+        "title": "AdminUser",
+        "description": "The signed-in admin (adminUserSchema)."
+      },
+      "AdminVerify": {
+        "properties": {
+          "challenge": {
+            "type": "string",
+            "title": "Challenge"
+          },
+          "code": {
+            "type": "string",
+            "pattern": "^[0-9]{6}$",
+            "title": "Code"
+          }
+        },
+        "type": "object",
+        "required": [
+          "challenge",
+          "code"
+        ],
+        "title": "AdminVerify",
+        "description": "The code step: the challenge and the authenticator's code (adminVerifySchema)."
+      },
       "AnyCalories": {
         "properties": {
           "mode": {

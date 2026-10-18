@@ -22,19 +22,22 @@ You need [uv](https://docs.astral.sh/uv/) 0.13.1 and Docker. uv installs Python 
 `uv.lock`, so nothing else is installed by hand. Copy `backend/.env.example` to `backend/.env` once. Then, from
 the repo root:
 
-| Command                          | What it does                                                                  |
-| -------------------------------- | ----------------------------------------------------------------------------- |
-| `npm run dev:api`                | starts the database, migrates it, then `fastapi dev` on http://localhost:8000 |
-| `npm run check`                  | the whole repo, the backend included: pyright, ruff, pytest                   |
-| `npm run test -w @lo2ma/backend` | only the backend's tests (`typecheck`, `lint`, `format` work too)             |
-| `npm run db:up` / `db:down`      | starts or stops the local database                                            |
-| `npm run db:migrate`             | `alembic upgrade head` on the development database                            |
-| `npm run db:seed`                | loads the demo data from `seed/` (again any time: rows update in place)       |
+| Command                                      | What it does                                                                  |
+| -------------------------------------------- | ----------------------------------------------------------------------------- |
+| `npm run dev:api`                            | starts the database, migrates it, then `fastapi dev` on http://localhost:8000 |
+| `npm run check`                              | the whole repo, the backend included: pyright, ruff, pytest                   |
+| `npm run test -w @lo2ma/backend`             | only the backend's tests (`typecheck`, `lint`, `format` work too)             |
+| `npm run db:up` / `db:down`                  | starts or stops the local database                                            |
+| `npm run db:migrate`                         | `alembic upgrade head` on the development database                            |
+| `npm run db:seed`                            | loads the demo data from `seed/` (again any time: rows update in place)       |
+| `npm run admin:create -- --email … --name …` | adds an admin: asks for a password, prints the authenticator link once        |
 
 `backend/package.json` only runs these tools through `uv run --locked`, which fails when `uv.lock` is out of date.
-Settings come from `LO2MA_*` environment variables or `backend/.env`. With `LO2MA_OTP_DEMO=true` (the
-example's value, refused in production) any six digits sign in except `000000`, as in the mock. Outside
-production every sign-in code is also written to the log, since no SMS or email provider is wired yet.
+Settings come from `LO2MA_*` environment variables or `backend/.env`. With `LO2MA_DEMO_SIGN_IN=true` (the
+example's value, refused in production) the sign-ins follow the mock's demo rules: any six digits sign a
+customer in except `000000`, and any `@lo2ma.test` email with a password of 8+ characters, then any code but
+`000000`, signs an admin in. Outside production every sign-in code is also written to the log, since no SMS or
+email provider is wired yet.
 
 Python stays on 3.14 for now: 3.15 is out, but PyYAML has no 3.15 wheels yet, and `fastapi-cli` needs it.
 
@@ -144,8 +147,9 @@ Two checks keep the two sides together:
 `413` `audio_too_large` — `422` `no_speech` · `outside_service_area` — `500` `internal_error`, with nothing
 about the error itself
 
-A malformed request is always `400`, never FastAPI's `422`: each route names its own code (such as
-`invalid_prefs`), and `invalid_request` covers the rest. An unknown path is `404` `not_found`.
+A malformed request is never FastAPI's `422`: each route names its own code (such as `invalid_prefs`), and
+`invalid_request` covers the rest. It is `400`, except the admin sign-in, where a malformed one is `401`
+`invalid_credentials` like a wrong password. An unknown path is `404` `not_found`.
 
 ## The agent
 

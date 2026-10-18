@@ -11,7 +11,7 @@ from sqlalchemy import delete, select
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.errors import DomainError, InvalidRequestError
+from app.core.errors import DomainError, InvalidCodeError, InvalidRequestError
 from app.core.settings import Settings
 from app.core.tokens import hash_token, new_token
 from app.domain.phone import normalize_egypt_mobile
@@ -29,7 +29,7 @@ MAX_ATTEMPTS = 5
 CODES_PER_HOUR = 5
 RESEND_AFTER = timedelta(seconds=30)
 SESSION_LIFETIME = timedelta(days=30)
-# The demo's "wrong code", to show that state (LO2MA_OTP_DEMO).
+# The demo's "wrong code", to show that state (LO2MA_DEMO_SIGN_IN).
 DEMO_WRONG_CODE = "000000"
 
 _EMAIL = re.compile(r"\S+@\S+\.\S+")
@@ -37,15 +37,6 @@ _EMAIL = re.compile(r"\S+@\S+\.\S+")
 
 class InvalidDestinationError(DomainError):
     code = "invalid_destination"
-
-
-class InvalidCodeError(DomainError):
-    code = "invalid_code"
-
-
-class SignedOutError(DomainError):
-    status = 401
-    code = "signed_out"
 
 
 def normalize_destination(channel: OtpChannel, destination: str) -> str | None:
@@ -159,7 +150,7 @@ async def verify_code(
             # Two tries at once wait for each other, so both count.
             .with_for_update()
         )
-        if settings.otp_demo:
+        if settings.demo_sign_in:
             accepted = code != DEMO_WRONG_CODE
         else:
             accepted = (

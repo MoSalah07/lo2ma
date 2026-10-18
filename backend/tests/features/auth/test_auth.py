@@ -1,22 +1,18 @@
 """The auth part of apps/web/src/mocks/handlers/handlers.test.ts against the real API, and what a
 real sign-in has to get right: codes that expire, run out of tries and work once; sending limits."""
 
-from collections.abc import AsyncIterator, Callable
 from datetime import timedelta
 from typing import Any
 
 import pytest
-from fastapi import FastAPI
 from httpx import AsyncClient
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.now import utc_now
 from app.core.settings import Settings
 from app.features.auth import service
 from app.features.auth.cookie import SESSION_COOKIE
 from app.features.auth.models import OtpCodeRecord, SessionRecord
-from app.main import create_app
 from tests.clock import Clock
 
 pytestmark = pytest.mark.anyio
@@ -186,17 +182,6 @@ async def test_signing_out_without_a_session_is_fine(db_client: AsyncClient) -> 
     assert (await db_client.post("/api/auth/sign-out")).status_code == 204
 
 
-@pytest.fixture
-async def demo_client(
-    settings: Settings, client_of: Callable[[FastAPI], AsyncClient], clock: Clock
-) -> AsyncIterator[AsyncClient]:
-    """The app as the demo and the end-to-end tests run it (LO2MA_OTP_DEMO)."""
-    app = create_app(settings.model_copy(update={"otp_demo": True}))
-    app.dependency_overrides[utc_now] = clock
-    async with client_of(app) as client:
-        yield client
-
-
 async def test_the_demo_takes_any_code_but_its_wrong_one(demo_client: AsyncClient) -> None:
     wrong = await demo_client.post("/api/auth/verify", json={**PHONE, "code": "000000"})
     assert wrong.json() == {"code": "invalid_code"}
@@ -207,5 +192,7 @@ async def test_the_demo_takes_any_code_but_its_wrong_one(demo_client: AsyncClien
 
 
 def test_production_refuses_demo_codes(settings: Settings) -> None:
-    with pytest.raises(ValueError, match="OTP_DEMO"):
-        Settings.model_validate({**settings.model_dump(), "environment": "prod", "otp_demo": True})
+    with pytest.raises(ValueError, match="DEMO_SIGN_IN"):
+        Settings.model_validate(
+            {**settings.model_dump(), "environment": "prod", "demo_sign_in": True}
+        )

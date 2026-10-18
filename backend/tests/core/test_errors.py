@@ -34,6 +34,10 @@ def app(settings: Settings) -> FastAPI:
     async def update_prefs(body: Budget) -> Budget:
         return body
 
+    @app.post("/api/probe/sign-in", openapi_extra=invalid_input("invalid_credentials", status=401))
+    async def sign_in(body: Budget) -> Budget:
+        return body
+
     @app.post("/api/probe/anything")
     async def anything(body: Budget) -> Budget:
         return body
@@ -55,6 +59,14 @@ async def test_a_malformed_body_is_400_with_the_routes_own_code(client: AsyncCli
     response = await client.put("/api/probe/budget", json={"budget": "a lot"})
     assert response.status_code == 400
     assert response.json() == {"code": "invalid_prefs"}
+
+
+async def test_a_route_can_answer_a_malformed_body_with_another_status(
+    client: AsyncClient,
+) -> None:
+    response = await client.post("/api/probe/sign-in", json={})
+    assert response.status_code == 401
+    assert response.json() == {"code": "invalid_credentials"}
 
 
 async def test_a_route_without_its_own_code_gets_the_general_one(client: AsyncClient) -> None:
