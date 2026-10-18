@@ -11,6 +11,9 @@ import type {
   adminSignInSchema,
   adminUserSchema,
   adminVerifySchema,
+  companySchema,
+  couponSchema,
+  createCouponSchema,
   otpRequestSchema,
   otpVerifySchema,
   placeSchema,
@@ -41,4 +44,7 @@ export type Contract = [
   Expect<Same<z.infer<typeof adminChallengeSchema>, Api['AdminChallenge']>>,
   Expect<Same<z.infer<typeof adminVerifySchema>, Api['AdminVerify']>>,
   Expect<Same<z.infer<typeof adminUserSchema>, Api['AdminUser']>>,
+  Expect<Same<z.infer<typeof companySchema>, Api['Company']>>,
+  Expect<Same<z.infer<typeof createCouponSchema>, Api['CreateCoupon']>>,
+  Expect<Same<z.infer<typeof couponSchema>, Api['Coupon']>>,
 ];

@@ -12,6 +12,7 @@ const { districts, places, suggestedPlaces } = await import('../src/mocks/data/p
 const { menu, restaurants } = await import('../src/mocks/data/restaurants.ts');
 const { foods } = await import('../src/mocks/data/foods.ts');
 const { estimateDish } = await import('../src/mocks/engine/estimate.ts');
+const { companies, seedCoupons } = await import('../src/mocks/data/admin.ts');
 
 const slug = (text) =>
   text
@@ -109,11 +110,23 @@ const seedFoods = Object.entries(foods).map(
   }),
 );
 
+// A coupon names its company by id, as the admin form sends it. Its status is worked out on the server from the
+// date and the uses; only a pause is kept.
+const coupons = seedCoupons.map(({ audience, used, status, ...terms }) => ({
+  ...terms,
+  audience:
+    audience.type === 'company' ? { type: 'company', companyId: audience.company.id } : audience,
+  used,
+  paused: status === 'paused',
+}));
+
 const outputs = {
   'places.json': seedPlaces,
   'foods.json': seedFoods,
   'restaurants.json': seedRestaurants,
   'dishes.json': seedDishes,
+  'companies.json': companies,
+  'coupons.json': coupons,
 };
 
 const target = (file) => fileURLToPath(new URL(`../../../backend/seed/${file}`, import.meta.url));

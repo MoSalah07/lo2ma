@@ -11,6 +11,8 @@ from app.core.errors import install_error_handlers
 from app.core.settings import Settings, load_settings
 from app.features.admin_auth import router as admin_auth
 from app.features.auth import router as auth
+from app.features.companies import router as companies
+from app.features.coupons import router as coupons
 from app.features.places import router as places
 from app.features.prefs import router as prefs
 
@@ -60,6 +62,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     api = APIRouter(prefix="/api")
     api.include_router(admin_auth.router)
     api.include_router(auth.router)
+    api.include_router(companies.router)
+    api.include_router(coupons.router)
     api.include_router(places.router)
     api.include_router(prefs.router)
     app.include_router(api)

@@ -29,6 +29,7 @@ import {
   VOICE_MAX_BYTES,
   WORKPLACE_DETAILS_MAX,
 } from '../src/rules.ts';
+import { COUPON_CODE, MAX_PERCENT_OFF } from '../src/schemas/admin.ts';
 import { OTP_LENGTH } from '../src/schemas/auth.ts';
 import { FIT_LUNCH_LIMITS } from '../src/schemas/fit.ts';
 import type { GeoPoint } from '../src/schemas/location.ts';
@@ -55,6 +56,8 @@ const RULES: Record<string, Record<string, Rule>> = {
   },
   'schemas/fit.ts': { FIT_LUNCH_LIMITS },
   'schemas/auth.ts': { OTP_LENGTH },
+  // The pattern's source: Python compiles the same text.
+  'schemas/admin.ts': { COUPON_CODE: COUPON_CODE.source, MAX_PERCENT_OFF },
 };
 
 const upperSnake = (name: string) => name.replace(/([a-z0-9])([A-Z])/g, '$1_$2').toUpperCase();
