@@ -1,4 +1,11 @@
-import { distanceMeters, type GeoPoint, type LocalizedText, type Place } from '@lo2ma/core';
+import {
+  distanceMeters,
+  foldForSearch,
+  searchWords,
+  type GeoPoint,
+  type LocalizedText,
+  type Place,
+} from '@lo2ma/core';
 
 // The places the demo's location search knows: real office districts and business parks in and around Cairo, at
 // approximate points. The backend will use a real geocoder; these only have to behave like one.
@@ -103,7 +110,7 @@ const SUGGESTED_COUNT = 6;
 export const suggestedPlaces = places.slice(0, SUGGESTED_COUNT);
 
 /** Districts, for naming a pin that isn't on a known building. */
-const districts: { name: LocalizedText; area: LocalizedText; point: GeoPoint }[] = [
+export const districts: { name: LocalizedText; area: LocalizedText; point: GeoPoint }[] = [
   {
     name: text('القرية الذكية', 'Smart Village'),
     area: giza,
@@ -145,26 +152,15 @@ export function nameAt(point: GeoPoint): { name: LocalizedText; area: LocalizedT
   return nearest(districts);
 }
 
-/**
- * Arabic and English folded the way people type them: no diacritics or tatweel, every alef the same, ى as ي and
- * ة as ه, and lower case. «القريه الذكيه» finds «القرية الذكية».
- */
-export function fold(value: string): string {
-  return value
-    .toLowerCase()
-    .replace(/[ً-ٰٟـ]/g, '')
-    .replace(/[أإآٱ]/g, 'ا')
-    .replace(/ى/g, 'ي')
-    .replace(/ة/g, 'ه');
-}
-
 /** Places whose name or area contains every word of the query, in either language. */
 export function searchPlaces(query: string, limit = 6): Place[] {
-  const words = fold(query).split(/\s+/).filter(Boolean);
+  const words = searchWords(query);
   if (words.length === 0) return [];
   return places
     .filter((place) => {
-      const haystack = fold([place.name.ar, place.name.en, place.area.ar, place.area.en].join(' '));
+      const haystack = foldForSearch(
+        [place.name.ar, place.name.en, place.area.ar, place.area.en].join(' '),
+      );
       return words.every((word) => haystack.includes(word));
     })
     .slice(0, limit);

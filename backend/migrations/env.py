@@ -2,13 +2,16 @@
 `config.attributes["database_url"]` (the tests do)."""
 
 import logging
+from typing import Literal
 
 from alembic import context
+from alembic.autogenerate.api import AutogenContext
+from geoalchemy2 import Geography
 from sqlalchemy import create_engine, pool
 from sqlalchemy.schema import SchemaItem
 
-from app.core.db import Base
 from app.core.settings import load_settings
+from app.models import Base
 
 config = context.config
 target_metadata = Base.metadata
@@ -36,6 +39,14 @@ def include_object(
     return not (type_ == "table" and reflected and compare_to is None)
 
 
+def render_item(type_: str, item: object, autogen_context: AutogenContext) -> str | Literal[False]:
+    """A geography column gets its import in the migration (autogenerate forgets it)."""
+    if type_ == "type" and isinstance(item, Geography):
+        autogen_context.imports.add("from geoalchemy2 import Geography")
+        return repr(item)
+    return False
+
+
 def run_migrations_offline() -> None:
     """`alembic upgrade head --sql`: prints the SQL instead of running it."""
     context.configure(
@@ -54,7 +65,10 @@ def run_migrations_online() -> None:
     engine = create_engine(database_url(), poolclass=pool.NullPool)
     with engine.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=target_metadata, include_object=include_object
+            connection=connection,
+            target_metadata=target_metadata,
+            include_object=include_object,
+            render_item=render_item,
         )
         with context.begin_transaction():
             context.run_migrations()

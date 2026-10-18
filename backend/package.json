@@ -4,11 +4,12 @@
   "private": true,
   "description": "Runs the Python tools through uv, so the root npm scripts check the backend too.",
   "scripts": {
-    "predev": "npm run db:up && npm run db:migrate",
+    "predev": "npm run db:up && npm run db:migrate && npm run db:seed",
     "dev": "uv run --locked fastapi dev",
     "db:up": "docker compose up -d --wait",
     "db:down": "docker compose down",
     "db:migrate": "uv run --locked alembic upgrade head",
+    "db:seed": "uv run --locked python -m app.seed",
     "typecheck": "uv run --locked pyright",
     "lint": "uv run --locked ruff check",
     "format": "uv run --locked ruff format",

@@ -1,0 +1,504 @@
+[
+  {
+    "id": "sv-b2",
+    "kind": "building",
+    "name": {
+      "ar": "القرية الذكية · مبنى B2",
+      "en": "Smart Village · Building B2"
+    },
+    "area": {
+      "ar": "طريق مصر إسكندرية الصحراوي، الجيزة",
+      "en": "Cairo–Alex Desert Road, Giza"
+    },
+    "point": {
+      "lat": 30.0712,
+      "lng": 31.0175
+    },
+    "suggestedRank": 1
+  },
+  {
+    "id": "sv-b7",
+    "kind": "building",
+    "name": {
+      "ar": "القرية الذكية · مبنى B7",
+      "en": "Smart Village · Building B7"
+    },
+    "area": {
+      "ar": "طريق مصر إسكندرية الصحراوي، الجيزة",
+      "en": "Cairo–Alex Desert Road, Giza"
+    },
+    "point": {
+      "lat": 30.0722,
+      "lng": 31.016
+    },
+    "suggestedRank": 2
+  },
+  {
+    "id": "sv-b12",
+    "kind": "building",
+    "name": {
+      "ar": "القرية الذكية · مبنى B12",
+      "en": "Smart Village · Building B12"
+    },
+    "area": {
+      "ar": "طريق مصر إسكندرية الصحراوي، الجيزة",
+      "en": "Cairo–Alex Desert Road, Giza"
+    },
+    "point": {
+      "lat": 30.073,
+      "lng": 31.019
+    },
+    "suggestedRank": 3
+  },
+  {
+    "id": "cfc-business-park",
+    "kind": "building",
+    "name": {
+      "ar": "كايرو فستيفال سيتي · بيزنس بارك",
+      "en": "Cairo Festival City · Business Park"
+    },
+    "area": {
+      "ar": "التجمع الخامس، القاهرة الجديدة",
+      "en": "Fifth Settlement, New Cairo"
+    },
+    "point": {
+      "lat": 30.0287,
+      "lng": 31.4086
+    },
+    "suggestedRank": 4
+  },
+  {
+    "id": "maadi-road-9",
+    "kind": "building",
+    "name": {
+      "ar": "المعادي · شارع 9",
+      "en": "Maadi · Road 9"
+    },
+    "area": {
+      "ar": "المعادي، القاهرة",
+      "en": "Maadi, Cairo"
+    },
+    "point": {
+      "lat": 29.9602,
+      "lng": 31.2569
+    },
+    "suggestedRank": 5
+  },
+  {
+    "id": "zamalek-26-july",
+    "kind": "building",
+    "name": {
+      "ar": "الزمالك · شارع 26 يوليو",
+      "en": "Zamalek · 26th of July Street"
+    },
+    "area": {
+      "ar": "الزمالك، القاهرة",
+      "en": "Zamalek, Cairo"
+    },
+    "point": {
+      "lat": 30.0618,
+      "lng": 31.2201
+    },
+    "suggestedRank": 6
+  },
+  {
+    "id": "downtown-talaat-harb",
+    "kind": "building",
+    "name": {
+      "ar": "وسط البلد · ميدان طلعت حرب",
+      "en": "Downtown · Talaat Harb Square"
+    },
+    "area": {
+      "ar": "وسط البلد، القاهرة",
+      "en": "Downtown, Cairo"
+    },
+    "point": {
+      "lat": 30.0478,
+      "lng": 31.2389
+    }
+  },
+  {
+    "id": "nasr-city-makram-ebeid",
+    "kind": "building",
+    "name": {
+      "ar": "مدينة نصر · شارع مكرم عبيد",
+      "en": "Nasr City · Makram Ebeid Street"
+    },
+    "area": {
+      "ar": "مدينة نصر، القاهرة",
+      "en": "Nasr City, Cairo"
+    },
+    "point": {
+      "lat": 30.0566,
+      "lng": 31.3456
+    }
+  },
+  {
+    "id": "mohandessin-arab-league",
+    "kind": "building",
+    "name": {
+      "ar": "المهندسين · شارع جامعة الدول العربية",
+      "en": "Mohandessin · Arab League Street"
+    },
+    "area": {
+      "ar": "المهندسين، الجيزة",
+      "en": "Mohandessin, Giza"
+    },
+    "point": {
+      "lat": 30.0571,
+      "lng": 31.2001
+    }
+  },
+  {
+    "id": "dokki-mesaha",
+    "kind": "building",
+    "name": {
+      "ar": "الدقي · ميدان المساحة",
+      "en": "Dokki · El Mesaha Square"
+    },
+    "area": {
+      "ar": "الدقي، الجيزة",
+      "en": "Dokki, Giza"
+    },
+    "point": {
+      "lat": 30.0383,
+      "lng": 31.2126
+    }
+  },
+  {
+    "id": "heliopolis-korba",
+    "kind": "building",
+    "name": {
+      "ar": "مصر الجديدة · الكوربة",
+      "en": "Heliopolis · El Korba"
+    },
+    "area": {
+      "ar": "مصر الجديدة، القاهرة",
+      "en": "Heliopolis, Cairo"
+    },
+    "point": {
+      "lat": 30.0905,
+      "lng": 31.3237
+    }
+  },
+  {
+    "id": "zayed-arkan",
+    "kind": "building",
+    "name": {
+      "ar": "الشيخ زايد · أركان بلازا",
+      "en": "Sheikh Zayed · Arkan Plaza"
+    },
+    "area": {
+      "ar": "الشيخ زايد، الجيزة",
+      "en": "Sheikh Zayed, Giza"
+    },
+    "point": {
+      "lat": 30.0207,
+      "lng": 30.9813
+    }
+  },
+  {
+    "id": "october-central-axis",
+    "kind": "building",
+    "name": {
+      "ar": "6 أكتوبر · المحور المركزي",
+      "en": "6th of October · Central Axis"
+    },
+    "area": {
+      "ar": "6 أكتوبر، الجيزة",
+      "en": "6th of October, Giza"
+    },
+    "point": {
+      "lat": 29.9725,
+      "lng": 30.9445
+    }
+  },
+  {
+    "id": "new-capital-cbd",
+    "kind": "building",
+    "name": {
+      "ar": "العاصمة الإدارية · حي المال والأعمال",
+      "en": "New Capital · Central Business District"
+    },
+    "area": {
+      "ar": "العاصمة الإدارية الجديدة",
+      "en": "New Administrative Capital"
+    },
+    "point": {
+      "lat": 30.011,
+      "lng": 31.74
+    }
+  },
+  {
+    "id": "district-smart-village",
+    "kind": "district",
+    "name": {
+      "ar": "القرية الذكية",
+      "en": "Smart Village"
+    },
+    "area": {
+      "ar": "الجيزة",
+      "en": "Giza"
+    },
+    "point": {
+      "lat": 30.0717,
+      "lng": 31.0167
+    }
+  },
+  {
+    "id": "district-sheikh-zayed",
+    "kind": "district",
+    "name": {
+      "ar": "الشيخ زايد",
+      "en": "Sheikh Zayed"
+    },
+    "area": {
+      "ar": "الجيزة",
+      "en": "Giza"
+    },
+    "point": {
+      "lat": 30.045,
+      "lng": 30.988
+    }
+  },
+  {
+    "id": "district-6th-of-october",
+    "kind": "district",
+    "name": {
+      "ar": "6 أكتوبر",
+      "en": "6th of October"
+    },
+    "area": {
+      "ar": "الجيزة",
+      "en": "Giza"
+    },
+    "point": {
+      "lat": 29.96,
+      "lng": 30.93
+    }
+  },
+  {
+    "id": "district-haram",
+    "kind": "district",
+    "name": {
+      "ar": "الهرم",
+      "en": "Haram"
+    },
+    "area": {
+      "ar": "الجيزة",
+      "en": "Giza"
+    },
+    "point": {
+      "lat": 30.0131,
+      "lng": 31.2089
+    }
+  },
+  {
+    "id": "district-mohandessin",
+    "kind": "district",
+    "name": {
+      "ar": "المهندسين",
+      "en": "Mohandessin"
+    },
+    "area": {
+      "ar": "الجيزة",
+      "en": "Giza"
+    },
+    "point": {
+      "lat": 30.0571,
+      "lng": 31.2001
+    }
+  },
+  {
+    "id": "district-dokki",
+    "kind": "district",
+    "name": {
+      "ar": "الدقي",
+      "en": "Dokki"
+    },
+    "area": {
+      "ar": "الجيزة",
+      "en": "Giza"
+    },
+    "point": {
+      "lat": 30.0383,
+      "lng": 31.2126
+    }
+  },
+  {
+    "id": "district-zamalek",
+    "kind": "district",
+    "name": {
+      "ar": "الزمالك",
+      "en": "Zamalek"
+    },
+    "area": {
+      "ar": "القاهرة",
+      "en": "Cairo"
+    },
+    "point": {
+      "lat": 30.0618,
+      "lng": 31.2201
+    }
+  },
+  {
+    "id": "district-downtown",
+    "kind": "district",
+    "name": {
+      "ar": "وسط البلد",
+      "en": "Downtown"
+    },
+    "area": {
+      "ar": "القاهرة",
+      "en": "Cairo"
+    },
+    "point": {
+      "lat": 30.0478,
+      "lng": 31.2389
+    }
+  },
+  {
+    "id": "district-garden-city",
+    "kind": "district",
+    "name": {
+      "ar": "جاردن سيتي",
+      "en": "Garden City"
+    },
+    "area": {
+      "ar": "القاهرة",
+      "en": "Cairo"
+    },
+    "point": {
+      "lat": 30.036,
+      "lng": 31.231
+    }
+  },
+  {
+    "id": "district-maadi",
+    "kind": "district",
+    "name": {
+      "ar": "المعادي",
+      "en": "Maadi"
+    },
+    "area": {
+      "ar": "القاهرة",
+      "en": "Cairo"
+    },
+    "point": {
+      "lat": 29.9602,
+      "lng": 31.2569
+    }
+  },
+  {
+    "id": "district-nasr-city",
+    "kind": "district",
+    "name": {
+      "ar": "مدينة نصر",
+      "en": "Nasr City"
+    },
+    "area": {
+      "ar": "القاهرة",
+      "en": "Cairo"
+    },
+    "point": {
+      "lat": 30.0566,
+      "lng": 31.3456
+    }
+  },
+  {
+    "id": "district-heliopolis",
+    "kind": "district",
+    "name": {
+      "ar": "مصر الجديدة",
+      "en": "Heliopolis"
+    },
+    "area": {
+      "ar": "القاهرة",
+      "en": "Cairo"
+    },
+    "point": {
+      "lat": 30.0905,
+      "lng": 31.3237
+    }
+  },
+  {
+    "id": "district-shubra",
+    "kind": "district",
+    "name": {
+      "ar": "شبرا",
+      "en": "Shubra"
+    },
+    "area": {
+      "ar": "القاهرة",
+      "en": "Cairo"
+    },
+    "point": {
+      "lat": 30.095,
+      "lng": 31.245
+    }
+  },
+  {
+    "id": "district-mokattam",
+    "kind": "district",
+    "name": {
+      "ar": "المقطم",
+      "en": "Mokattam"
+    },
+    "area": {
+      "ar": "القاهرة",
+      "en": "Cairo"
+    },
+    "point": {
+      "lat": 30.02,
+      "lng": 31.3
+    }
+  },
+  {
+    "id": "district-new-cairo",
+    "kind": "district",
+    "name": {
+      "ar": "القاهرة الجديدة",
+      "en": "New Cairo"
+    },
+    "area": {
+      "ar": "القاهرة",
+      "en": "Cairo"
+    },
+    "point": {
+      "lat": 30.03,
+      "lng": 31.47
+    }
+  },
+  {
+    "id": "district-helwan",
+    "kind": "district",
+    "name": {
+      "ar": "حلوان",
+      "en": "Helwan"
+    },
+    "area": {
+      "ar": "القاهرة",
+      "en": "Cairo"
+    },
+    "point": {
+      "lat": 29.85,
+      "lng": 31.334
+    }
+  },
+  {
+    "id": "district-new-administrative-capital",
+    "kind": "district",
+    "name": {
+      "ar": "العاصمة الإدارية الجديدة",
+      "en": "New Administrative Capital"
+    },
+    "area": {
+      "ar": "مصر",
+      "en": "Egypt"
+    },
+    "point": {
+      "lat": 30.02,
+      "lng": 31.76
+    }
+  }
+]

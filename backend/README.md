@@ -29,6 +29,7 @@ the repo root:
 | `npm run test -w @lo2ma/backend` | only the backend's tests (`typecheck`, `lint`, `format` work too)             |
 | `npm run db:up` / `db:down`      | starts or stops the local database                                            |
 | `npm run db:migrate`             | `alembic upgrade head` on the development database                            |
+| `npm run db:seed`                | loads the demo data from `seed/` (again any time: rows update in place)       |
 
 `backend/package.json` only runs these tools through `uv run --locked`, which fails when `uv.lock` is out of date.
 Settings come from `LO2MA_*` environment variables or `backend/.env`.
@@ -169,4 +170,13 @@ minimum order on the server too.
 ## Connecting the web app
 
 Run the web app with `NEXT_PUBLIC_API_MOCKING=disabled` and it sends every `/api/*` request to the real service
-instead of the in-browser mock. Nothing else in the app changes.
+instead of the in-browser mock: `next.config.ts` forwards them to `API_URL` (`http://127.0.0.1:8000` by default).
+The browser only ever talks to the web app's origin, so the session cookie is first-party and there is no CORS.
+Nothing else in the app changes.
+
+Every route here lives under `/api`, so the path is the same in the browser, in the logs and in the tests.
+`/health` (and, later, `/internal/*`) sits outside it, out of the web app's reach.
+
+The demo data is the mock's own. The web app writes it to `backend/seed/*.json`
+(`npm run export:seed -w @lo2ma/web`), `npm run db:seed` loads it, and `npm run dev:api` seeds before it starts.
+Implemented so far: `/places/*`.
