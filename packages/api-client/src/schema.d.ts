@@ -247,6 +247,28 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/chat/transcribe": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Transcribe
+         * @description A voice message, written down for the user to check before sending.
+         *
+         *     Multipart, as the browser records it: the `audio` file and the page's `locale`.
+         */
+        post: operations["transcribe"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -326,6 +348,16 @@ export interface components {
             mode: "around";
             /** Kcal */
             kcal: number;
+        };
+        /** Body_transcribe */
+        Body_transcribe: {
+            /** Audio */
+            audio: string;
+            /**
+             * Locale
+             * @default ar
+             */
+            locale: string;
         };
         /**
          * Company
@@ -557,6 +589,14 @@ export interface components {
             phone?: string;
             /** Email */
             email?: string;
+        };
+        /**
+         * Transcription
+         * @description What a voice message said (transcriptionSchema).
+         */
+        Transcription: {
+            /** Text */
+            text: string;
         };
         /** UnderCalories */
         UnderCalories: {
@@ -1105,6 +1145,39 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["UserPrefs"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    transcribe: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_transcribe"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Transcription"];
                 };
             };
             /** @description Validation Error */

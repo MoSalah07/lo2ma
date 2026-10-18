@@ -13,6 +13,7 @@ const { menu, restaurants } = await import('../src/mocks/data/restaurants.ts');
 const { foods } = await import('../src/mocks/data/foods.ts');
 const { estimateDish } = await import('../src/mocks/engine/estimate.ts');
 const { companies, seedCoupons } = await import('../src/mocks/data/admin.ts');
+const { demoTranscripts } = await import('../src/mocks/data/voice.ts');
 
 const slug = (text) =>
   text
@@ -127,6 +128,7 @@ const outputs = {
   'dishes.json': seedDishes,
   'companies.json': companies,
   'coupons.json': coupons,
+  'voice.json': demoTranscripts,
 };
 
 const target = (file) => fileURLToPath(new URL(`../../../backend/seed/${file}`, import.meta.url));

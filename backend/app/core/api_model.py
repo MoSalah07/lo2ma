@@ -45,6 +45,8 @@ Kcal = Annotated[int, Field(strict=True, gt=0)]
 Time24 = Annotated[str, Field(pattern=r"^([01][0-9]|2[0-3]):([0-5][0-9])$")]
 # What people may avoid; a dish lists every one it contains (ingredientSchema).
 Ingredient = Literal["chicken", "beef", "fish", "nuts", "dairy"]
+# The apps' languages (locales in packages/i18n).
+Locale = Literal["ar", "en"]
 
 
 class LocalizedText(ApiModel):

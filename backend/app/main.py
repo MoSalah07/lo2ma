@@ -15,6 +15,7 @@ from app.features.companies import router as companies
 from app.features.coupons import router as coupons
 from app.features.places import router as places
 from app.features.prefs import router as prefs
+from app.features.voice import router as voice
 
 
 class State(TypedDict):
@@ -66,5 +67,6 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     api.include_router(coupons.router)
     api.include_router(places.router)
     api.include_router(prefs.router)
+    api.include_router(voice.router)
     app.include_router(api)
     return app
