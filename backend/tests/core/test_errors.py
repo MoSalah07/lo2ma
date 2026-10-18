@@ -107,10 +107,3 @@ async def test_a_bug_is_500_and_tells_nothing(lenient_client: AsyncClient) -> No
     assert response.status_code == 500
     assert response.json() == {"code": "internal_error"}
     assert "hunter2" not in response.text
-
-
-async def test_production_hides_the_docs(settings: Settings) -> None:
-    app = create_app(settings.model_copy(update={"environment": "prod"}))
-    async with AsyncClient(transport=ASGITransport(app=app), base_url="https://test") as client:
-        assert (await client.get("/docs")).status_code == 404
-        assert (await client.get("/openapi.json")).status_code == 404

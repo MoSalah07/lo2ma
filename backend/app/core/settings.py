@@ -11,7 +11,9 @@ class Settings(BaseSettings):
     # The .env file may hold other tools' variables too (Docker Compose's, for one).
     model_config = SettingsConfigDict(env_prefix="LO2MA_", env_file=".env", extra="ignore")
 
-    environment: Literal["dev", "test", "prod"] = "dev"
+    # Required, with no default: a server that doesn't say it isn't production must not act as a
+    # development one (open docs, demo sign-ins, sign-in codes in the log).
+    environment: Literal["dev", "test", "prod"]
     # postgresql+psycopg://user:password@host:5432/name. Required, so a missing one stops the app at
     # startup. Secret, so the password never shows in a log or an error.
     database_url: SecretStr

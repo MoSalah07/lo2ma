@@ -11,7 +11,6 @@ from alembic.config import Config
 from fastapi import FastAPI
 from httpx import ASGITransport, AsyncClient
 from pydantic import SecretStr
-from pydantic_settings import BaseSettings, PydanticBaseSettingsSource
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.ext.asyncio import AsyncConnection, AsyncEngine, AsyncSession
 
@@ -21,6 +20,7 @@ from app.core.settings import Settings
 from app.features.catalog.seed import load_catalog, seed_catalog
 from app.main import create_app
 from tests.clock import Clock
+from tests.settings import IsolatedSettings
 
 BACKEND = Path(__file__).resolve().parents[1]
 
@@ -37,22 +37,6 @@ def anyio_backend() -> tuple[str, dict[str, object]]:
         {"loop_factory": asyncio.SelectorEventLoop} if sys.platform == "win32" else {}
     )
     return "asyncio", options
-
-
-class IsolatedSettings(Settings):
-    """Settings from the arguments alone: not backend/.env, not LO2MA_* variables. The tests mustn't
-    change with a developer's settings (LO2MA_DEMO_SIGN_IN, for one)."""
-
-    @classmethod
-    def settings_customise_sources(
-        cls,
-        settings_cls: type[BaseSettings],
-        init_settings: PydanticBaseSettingsSource,
-        env_settings: PydanticBaseSettingsSource,
-        dotenv_settings: PydanticBaseSettingsSource,
-        file_secret_settings: PydanticBaseSettingsSource,
-    ) -> tuple[PydanticBaseSettingsSource, ...]:
-        return (init_settings,)
 
 
 @pytest.fixture(scope="session")

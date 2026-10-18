@@ -541,32 +541,6 @@
         "x-invalid-status": 400
       }
     },
-    "/api/payment-methods": {
-      "get": {
-        "tags": [
-          "payments"
-        ],
-        "summary": "List Payment Methods",
-        "description": "The mock's card and wallet, for everyone: nothing is saved before phase 4.",
-        "operationId": "list_payment_methods",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/SavedPaymentMethod"
-                  },
-                  "type": "array",
-                  "title": "Response List Payment Methods"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/places/suggested": {
       "get": {
         "tags": [
@@ -939,6 +913,32 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/payment-methods": {
+      "get": {
+        "tags": [
+          "payments"
+        ],
+        "summary": "List Payment Methods",
+        "description": "The mock's card and wallet, for everyone: nothing is saved before phase 4.",
+        "operationId": "list_payment_methods",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/SavedPaymentMethod"
+                  },
+                  "type": "array",
+                  "title": "Response List Payment Methods"
                 }
               }
             }

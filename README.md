@@ -153,16 +153,17 @@ npm install
 npm run dev          # http://localhost:3000 opens the Arabic app at /ar
 ```
 
-| Command                             | What it does                                              |
-| ----------------------------------- | --------------------------------------------------------- |
-| `npm run dev`                       | the web app in development                                |
-| `npm run build`                     | a production build of the web app                         |
-| `npm run check`                     | typecheck, lint, every unit test and the format check     |
-| `npm run e2e -w @lo2ma/web`         | Playwright journeys on the production build (build first) |
-| `npm run lighthouse -w @lo2ma/web`  | Lighthouse as a phone on the production build             |
-| `npm run screenshots -w @lo2ma/web` | retakes the images in this README                         |
-| `npm run images -w @lo2ma/web`      | redraws the link preview cards and the app icons          |
-| `npm run build -w @lo2ma/tokens`    | regenerates the CSS from the design tokens                |
+| Command                             | What it does                                               |
+| ----------------------------------- | ---------------------------------------------------------- |
+| `npm run dev`                       | the web app in development                                 |
+| `npm run build:demo`                | the demo build: the mock API in the browser                |
+| `npm run build`                     | a production build against the real API at `API_URL`       |
+| `npm run check`                     | typecheck, lint, every unit test and the format check      |
+| `npm run e2e -w @lo2ma/web`         | Playwright journeys on the demo build (`build:demo` first) |
+| `npm run lighthouse -w @lo2ma/web`  | Lighthouse as a phone on the production build              |
+| `npm run screenshots -w @lo2ma/web` | retakes the images in this README                          |
+| `npm run images -w @lo2ma/web`      | redraws the link preview cards and the app icons           |
+| `npm run build -w @lo2ma/tokens`    | regenerates the CSS from the design tokens                 |
 
 The end-to-end tests and the screenshot script use the Chrome that is already installed, so nothing is downloaded.
 

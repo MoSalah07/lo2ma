@@ -16,9 +16,12 @@ OPENAPI_FILE = Path(__file__).resolve().parents[2] / "packages" / "api-client" /
 
 
 def render() -> str:
-    # The schema doesn't depend on the settings, but the app needs some to be built.
+    # The schema as development serves it, the demo's stand-ins included. The rest of the settings
+    # don't change it, but the app needs some to be built.
     settings = Settings(
-        database_url=SecretStr("postgresql+psycopg://unused"), otp_pepper=SecretStr("unused")
+        environment="dev",
+        database_url=SecretStr("postgresql+psycopg://unused"),
+        otp_pepper=SecretStr("unused"),
     )
     return json.dumps(create_app(settings).openapi(), indent=2, ensure_ascii=False) + "\n"
 

@@ -67,10 +67,13 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     api.include_router(auth.router)
     api.include_router(companies.router)
     api.include_router(coupons.router)
-    api.include_router(payments.router)
     api.include_router(places.router)
     api.include_router(prefs.router)
     api.include_router(suggestions.router)
-    api.include_router(voice.router)
+    # Stand-ins until their phase brings the real thing: speech to text (3), payments (4).
+    # Production never serves them: a sentence nobody said, or a card nobody saved, misleads.
+    if settings.environment != "prod":
+        api.include_router(payments.router)
+        api.include_router(voice.router)
     app.include_router(api)
     return app
