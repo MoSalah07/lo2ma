@@ -13,8 +13,10 @@ from app.features.admin_auth import router as admin_auth
 from app.features.auth import router as auth
 from app.features.companies import router as companies
 from app.features.coupons import router as coupons
+from app.features.payments import router as payments
 from app.features.places import router as places
 from app.features.prefs import router as prefs
+from app.features.suggestions import router as suggestions
 from app.features.voice import router as voice
 
 
@@ -65,8 +67,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     api.include_router(auth.router)
     api.include_router(companies.router)
     api.include_router(coupons.router)
+    api.include_router(payments.router)
     api.include_router(places.router)
     api.include_router(prefs.router)
+    api.include_router(suggestions.router)
     api.include_router(voice.router)
     app.include_router(api)
     return app

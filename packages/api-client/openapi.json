@@ -541,6 +541,32 @@
         "x-invalid-status": 400
       }
     },
+    "/api/payment-methods": {
+      "get": {
+        "tags": [
+          "payments"
+        ],
+        "summary": "List Payment Methods",
+        "description": "The mock's card and wallet, for everyone: nothing is saved before phase 4.",
+        "operationId": "list_payment_methods",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/SavedPaymentMethod"
+                  },
+                  "type": "array",
+                  "title": "Response List Payment Methods"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/places/suggested": {
       "get": {
         "tags": [
@@ -808,6 +834,116 @@
         },
         "x-invalid-code": "invalid_prefs",
         "x-invalid-status": 400
+      }
+    },
+    "/api/suggestions/{suggestion_id}/nutrition": {
+      "get": {
+        "tags": [
+          "suggestions"
+        ],
+        "summary": "Read Meal Breakdown",
+        "operationId": "read_meal_breakdown",
+        "parameters": [
+          {
+            "name": "suggestion_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Suggestion Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MealBreakdown"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/suggestions/{suggestion_id}/nutrition/report": {
+      "post": {
+        "tags": [
+          "suggestions"
+        ],
+        "summary": "Report Meal Nutrition",
+        "description": "Taken for review; nothing comes back.",
+        "operationId": "report_meal_nutrition",
+        "parameters": [
+          {
+            "name": "suggestion_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Suggestion Id"
+            }
+          },
+          {
+            "name": "__Host-lo2ma_guest",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Guest"
+            }
+          },
+          {
+            "name": "__Host-lo2ma_session",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Session"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/chat/transcribe": {
@@ -1271,6 +1407,57 @@
         "title": "CreateCoupon",
         "description": "What the coupon form sends (createCouponSchema)."
       },
+      "DishBreakdown": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "quantity": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Quantity"
+          },
+          "kcal": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Kcal"
+          },
+          "kcalSource": {
+            "type": "string",
+            "enum": [
+              "restaurant",
+              "ai"
+            ],
+            "title": "Kcalsource"
+          },
+          "kcalRange": {
+            "$ref": "#/components/schemas/KcalRange",
+            "title": "Kcalrange"
+          },
+          "lines": {
+            "items": {
+              "$ref": "#/components/schemas/RecipeLine"
+            },
+            "type": "array",
+            "title": "Lines"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "quantity",
+          "kcal",
+          "kcalSource",
+          "lines"
+        ],
+        "title": "DishBreakdown",
+        "description": "A dish of a meal and how its calories were worked out (dishBreakdownSchema).\n\nA dish the restaurant published has no lines: its number is the restaurant's."
+      },
       "FitCalories": {
         "properties": {
           "mode": {
@@ -1345,6 +1532,27 @@
         "type": "object",
         "title": "HTTPValidationError"
       },
+      "KcalRange": {
+        "properties": {
+          "low": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Low"
+          },
+          "high": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "High"
+          }
+        },
+        "type": "object",
+        "required": [
+          "low",
+          "high"
+        ],
+        "title": "KcalRange",
+        "description": "The fewest and the most calories an estimate allows (kcalRangeSchema)."
+      },
       "LocalizedText": {
         "properties": {
           "ar": {
@@ -1365,6 +1573,24 @@
         ],
         "title": "LocalizedText",
         "description": "Text in both languages, such as a place's name (localizedTextSchema)."
+      },
+      "MealBreakdown": {
+        "properties": {
+          "dishes": {
+            "items": {
+              "$ref": "#/components/schemas/DishBreakdown"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Dishes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "dishes"
+        ],
+        "title": "MealBreakdown",
+        "description": "GET /suggestions/:id/nutrition (mealBreakdownSchema)."
       },
       "NewCustomers": {
         "properties": {
@@ -1524,6 +1750,60 @@
         ],
         "title": "PointLookup",
         "description": "What is at a point on the map, and whether Lo2ma delivers there (pointLookupSchema)."
+      },
+      "RecipeLine": {
+        "properties": {
+          "name": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "grams": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Grams"
+          },
+          "kcal": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Kcal"
+          },
+          "protein": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Protein"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "grams",
+          "kcal",
+          "protein"
+        ],
+        "title": "RecipeLine",
+        "description": "One food of an estimated dish, as «حسبناها ازاي» lists it (recipeLineSchema)."
+      },
+      "SavedPaymentMethod": {
+        "properties": {
+          "method": {
+            "type": "string",
+            "enum": [
+              "card",
+              "wallet"
+            ],
+            "title": "Method"
+          },
+          "last4": {
+            "type": "string",
+            "pattern": "^[0-9]{4}$",
+            "title": "Last4"
+          }
+        },
+        "type": "object",
+        "required": [
+          "method"
+        ],
+        "title": "SavedPaymentMethod",
+        "description": "A way to pay the user saved (savedPaymentMethodSchema)."
       },
       "SessionUser": {
         "properties": {

@@ -16,13 +16,8 @@ SMART_VILLAGE_B2 = Point(30.0712, 31.0175)
 ZAMALEK = Point(30.0618, 31.2201)
 
 
-@pytest.fixture
-async def seeded(session: AsyncSession) -> None:
-    await seed_catalog(session, load_catalog())
-
-
 async def test_offers_every_restaurant_around_the_smart_village(
-    session: AsyncSession, seeded: None
+    session: AsyncSession, catalog: None
 ) -> None:
     dishes = await nearby_dishes(session, SMART_VILLAGE_B2, [])
     assert len({nearby.restaurant.id for nearby in dishes}) == 30
@@ -30,7 +25,7 @@ async def test_offers_every_restaurant_around_the_smart_village(
 
 
 async def test_measures_from_the_workplace_and_lists_the_nearest_first(
-    session: AsyncSession, seeded: None
+    session: AsyncSession, catalog: None
 ) -> None:
     dishes = await nearby_dishes(session, SMART_VILLAGE_B2, [])
     distances = [nearby.distance_meters for nearby in dishes]
@@ -42,13 +37,13 @@ async def test_measures_from_the_workplace_and_lists_the_nearest_first(
 
 
 async def test_offers_nothing_beyond_the_delivery_radius(
-    session: AsyncSession, seeded: None
+    session: AsyncSession, catalog: None
 ) -> None:
     assert await nearby_dishes(session, ZAMALEK, []) == []
 
 
 async def test_leaves_out_every_dish_with_an_ingredient_to_avoid(
-    session: AsyncSession, seeded: None
+    session: AsyncSession, catalog: None
 ) -> None:
     dishes = await nearby_dishes(session, SMART_VILLAGE_B2, ["chicken", "dairy"])
     assert dishes
@@ -57,7 +52,7 @@ async def test_leaves_out_every_dish_with_an_ingredient_to_avoid(
         assert "dairy" not in nearby.dish.contains
 
 
-async def test_leaves_out_what_is_switched_off(session: AsyncSession, seeded: None) -> None:
+async def test_leaves_out_what_is_switched_off(session: AsyncSession, catalog: None) -> None:
     await session.execute(
         update(RestaurantRecord).where(RestaurantRecord.id == "r03").values(is_active=False)
     )
@@ -69,14 +64,14 @@ async def test_leaves_out_what_is_switched_off(session: AsyncSession, seeded: No
     assert not any(dish_id.startswith("r03-") for dish_id in ids)
 
 
-async def test_seeding_again_changes_nothing(session: AsyncSession, seeded: None) -> None:
-    catalog = load_catalog()
-    await seed_catalog(session, catalog)
+async def test_seeding_again_changes_nothing(session: AsyncSession, catalog: None) -> None:
+    again = load_catalog()
+    await seed_catalog(session, again)
     lines = await session.scalar(select(func.count()).select_from(RecipeLineRecord))
-    assert lines == sum(len(dish.lines) for dish in catalog.dishes)
+    assert lines == sum(len(dish.lines) for dish in again.dishes)
 
 
-async def test_only_estimates_have_a_range(session: AsyncSession, seeded: None) -> None:
+async def test_only_estimates_have_a_range(session: AsyncSession, catalog: None) -> None:
     published = await session.scalar(
         select(DishRecord).where(DishRecord.kcal_source == "restaurant")
     )

@@ -6,6 +6,7 @@ import {
   type OrderStatus,
 } from '@lo2ma/core';
 import { http, HttpResponse } from 'msw';
+import { savedPaymentMethods } from '../data/payments';
 import { courierPhoneAt, timelineFor } from '../engine/order-timeline';
 import { planOrders } from '../engine/plan-progress';
 import { suggestionFromId } from '../engine/suggest';
@@ -32,9 +33,7 @@ function allOrders(): Order[] {
 }
 
 export const orderHandlers = [
-  http.get(route('/payment-methods'), () =>
-    HttpResponse.json([{ method: 'card', last4: '4821' }, { method: 'wallet' }]),
-  ),
+  http.get(route('/payment-methods'), () => HttpResponse.json(savedPaymentMethods)),
 
   http.post(route('/orders'), async ({ request }) => {
     const db = readDb();

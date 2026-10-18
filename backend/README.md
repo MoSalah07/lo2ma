@@ -196,7 +196,9 @@ Every route here lives under `/api`, so the path is the same in the browser, in 
 The demo data is the mock's own: places, foods, restaurants, dishes, companies and coupons. The web app writes it
 to `backend/seed/*.json` (`npm run export:seed -w @lo2ma/web`), `npm run db:seed` loads it, and `npm run dev:api`
 seeds before it starts. Implemented so far: `/places/*`, `/prefs`, `/auth/*`, `/chat/transcribe`,
-`/admin/auth/*`, `/admin/companies` and `/admin/coupons`, plus the menus behind the meal search. A coupon's status isn't stored:
-it has ended once its last day has passed in Cairo or its uses ran out, and only a pause is kept. The mock's
-restaurants only say how far they are from the Smart Village, so the seed places each one that far from it, in
-its own direction; workplaces elsewhere in Cairo have no demo restaurants nearby.
+`/suggestions/:id/nutrition` (and its report), `/payment-methods` (the mock's demo card and wallet until payments),
+`/admin/auth/*`, `/admin/companies` and `/admin/coupons`, plus the menus behind the meal search. A suggestion's id
+names its meal (`r01.m1.m4`: restaurant r01, dishes r01-m1 and r01-m4), so any meal opens from a link. A coupon's
+status isn't stored: it has ended once its last day has passed in Cairo or its uses ran out, and only a pause is
+kept. The mock's restaurants only say how far they are from the Smart Village, so the seed places each one that far
+from it, in its own direction; workplaces elsewhere in Cairo have no demo restaurants nearby.
