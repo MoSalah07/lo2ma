@@ -1,0 +1,71 @@
+[project]
+name = "lo2ma-backend"
+version = "0.0.0"
+description = "Lo2ma's API: preferences, meal search, the agent, orders and weekly plans."
+readme = "README.md"
+# 3.15 is out, but PyYAML has no 3.15 wheels yet and fastapi-cli needs it (through uvicorn[standard]).
+# Move up once it ships them, the way TypeScript waits for typescript-eslint.
+requires-python = "==3.14.*"
+dependencies = [
+    "fastapi==0.143.3",
+    "fastapi-cli==0.0.32",
+    "pydantic==2.14.1",
+    "pydantic-settings==2.16.0",
+    "starlette==1.8.0",
+]
+
+[dependency-groups]
+dev = [
+    "anyio==4.15.1",
+    "httpx==0.28.1",
+    "pyright==1.1.414",
+    "pytest==9.1.1",
+    "ruff==0.17.1",
+]
+
+[tool.uv]
+required-version = "==0.13.1"
+
+[tool.fastapi]
+entrypoint = "app.main:app"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+    "E",     # pycodestyle errors
+    "W",     # pycodestyle warnings
+    "F",     # pyflakes: unused names, missing imports
+    "I",     # import order
+    "B",     # bugbear: likely bugs, such as mutable defaults
+    "UP",    # newer syntax: X | None instead of Optional[X]
+    "SIM",   # simpler code
+    "N",     # naming
+    "ASYNC", # blocking calls inside async def
+    "S",     # security (bandit)
+    "DTZ",   # datetimes without a timezone
+    "FAST",  # FastAPI: Depends inside Annotated, and the like
+    "T10",   # a forgotten breakpoint()
+    "T20",   # a forgotten print()
+    "RUF",   # ruff's own rules
+]
+
+[tool.ruff.lint.per-file-ignores]
+# pytest checks with plain assert.
+"tests/**" = ["S101"]
+
+[tool.pyright]
+typeCheckingMode = "strict"
+pythonVersion = "3.14"
+venvPath = "."
+venv = ".venv"
+include = ["app", "tests"]
+
+[tool.pytest]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = ["--import-mode=importlib", "--strict-markers", "--strict-config", "-ra"]
+xfail_strict = true
+# A warning is a failure, like ESLint's zero warnings.
+filterwarnings = ["error"]

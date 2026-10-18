@@ -1,11 +1,13 @@
 # Lo2ma backend
 
-> **Status: planned (phase 2 onward).** Nothing here is built yet. The web app already runs against a mock of
-> this service, and that mock defines the API described below.
+> **Status: being built.** The app skeleton, its error handling and the tooling are in place; the endpoints
+> below arrive one feature at a time. Until then the web app runs against a mock of this service, and that
+> mock defines the API described here.
 
 The backend will serve the web and mobile apps, run the agent that picks meals, take payments, and send each day
 of a weekly plan to the restaurant on time.
 
+- [Running it](#running-it)
 - [Planned stack](#planned-stack)
 - [The API contract](#the-api-contract)
 - [The agent](#the-agent)
@@ -13,6 +15,22 @@ of a weekly plan to the restaurant on time.
 - [Payments](#payments)
 - [Voice](#voice)
 - [Connecting the web app](#connecting-the-web-app)
+
+## Running it
+
+You need [uv](https://docs.astral.sh/uv/) 0.13.1. It installs Python 3.14 and every package from `uv.lock`, so
+nothing else is installed by hand. From the repo root:
+
+| Command                          | What it does                                                      |
+| -------------------------------- | ----------------------------------------------------------------- |
+| `npm run dev:api`                | `fastapi dev` on http://localhost:8000, with the docs at `/docs`  |
+| `npm run check`                  | the whole repo, the backend included: pyright, ruff, pytest       |
+| `npm run test -w @lo2ma/backend` | only the backend's tests (`typecheck`, `lint`, `format` work too) |
+
+`backend/package.json` only runs these tools through `uv run --locked`, which fails when `uv.lock` is out of date.
+Settings come from `LO2MA_*` environment variables or `backend/.env` (see `.env.example`).
+
+Python stays on 3.14 for now: 3.15 is out, but PyYAML has no 3.15 wheels yet, and `fastapi-cli` needs it.
 
 ## Planned stack
 
@@ -23,7 +41,7 @@ of a weekly plan to the restaurant on time.
 | ORM and migrations | SQLAlchemy 2 and Alembic                                                                            |
 | Agent              | A hand-written tool loop on an OpenAI-compatible SDK first, then Pydantic AI with a provider switch |
 | Local models       | Ollama for development; the cloud model is chosen by evaluation results                             |
-| Tooling            | uv, ruff, pytest; PostgreSQL in Docker for local development                                        |
+| Tooling            | uv, ruff, pyright (strict), pytest; PostgreSQL in Docker for local development                      |
 
 ## The API contract
 
@@ -48,25 +66,27 @@ behavior, so the FastAPI service has to return the same shapes, statuses and err
 
 **Customer endpoints**
 
-| Method and path                 | Purpose                                                                             |
-| ------------------------------- | ----------------------------------------------------------------------------------- |
-| `POST /auth/otp`                | send a one-time code to a phone number or an email                                  |
-| `POST /auth/verify`             | check the code and start a session                                                  |
-| `GET /auth/session`             | the signed-in user, if any                                                          |
-| `POST /auth/sign-out`           | end the session                                                                     |
-| `GET /places/suggested`         | popular workplaces, shown before anything is typed                                  |
-| `GET /places/search?q=`         | places whose name or district matches, in Arabic or English                         |
-| `GET /places/reverse?lat=&lng=` | what is at a map point (a building or a district), and whether Lo2ma delivers there |
-| `GET /prefs`, `PUT /prefs`      | workplace, break time, budget, calorie limit, foods to avoid                        |
-| `POST /chat`                    | a message to the agent; the reply streams back as server-sent events                |
-| `POST /chat/transcribe`         | multipart `audio` + `locale` → the words that were said                             |
-| `GET /suggestions/:id`          | one suggested meal with its dishes, bill and calories                               |
-| `GET /payment-methods`          | the ways to pay                                                                     |
-| `GET /orders`, `POST /orders`   | the user's orders; create one from a suggestion (the pay button)                    |
-| `GET /orders/:id`               | one order and its timeline                                                          |
-| `GET /plan`                     | next week's plan, or the confirmed week with each day's status                      |
-| `POST /plan/days/:date/swap`    | another meal for one day, before its cut-off                                        |
-| `POST /plan/confirm`            | confirm and pay the whole week                                                      |
+| Method and path                          | Purpose                                                                             |
+| ---------------------------------------- | ----------------------------------------------------------------------------------- |
+| `POST /auth/otp`                         | send a one-time code to a phone number or an email                                  |
+| `POST /auth/verify`                      | check the code and start a session                                                  |
+| `GET /auth/session`                      | the signed-in user, if any                                                          |
+| `POST /auth/sign-out`                    | end the session                                                                     |
+| `GET /places/suggested`                  | popular workplaces, shown before anything is typed                                  |
+| `GET /places/search?q=`                  | places whose name or district matches, in Arabic or English                         |
+| `GET /places/reverse?lat=&lng=`          | what is at a map point (a building or a district), and whether Lo2ma delivers there |
+| `GET /prefs`, `PUT /prefs`               | workplace, break time, budget, calorie limit, foods to avoid                        |
+| `POST /chat`                             | a message to the agent; the reply streams back as server-sent events                |
+| `POST /chat/transcribe`                  | multipart `audio` + `locale` → the words that were said                             |
+| `GET /suggestions/:id`                   | one suggested meal with its dishes, bill and calories                               |
+| `GET /suggestions/:id/nutrition`         | how each dish's calories were worked out: its foods, grams and protein              |
+| `POST /suggestions/:id/nutrition/report` | the dish came different; queues it for review (`202`)                               |
+| `GET /payment-methods`                   | the ways to pay                                                                     |
+| `GET /orders`, `POST /orders`            | the user's orders; create one from a suggestion (the pay button)                    |
+| `GET /orders/:id`                        | one order and its timeline                                                          |
+| `GET /plan`                              | next week's plan, or the confirmed week with each day's status                      |
+| `POST /plan/days/:date/swap`             | another meal for one day, before its cut-off                                        |
+| `POST /plan/confirm`                     | confirm and pay the whole week                                                      |
 
 **Admin endpoints** (a separate session: password, then an authenticator code)
 
@@ -87,7 +107,11 @@ behavior, so the FastAPI service has to return the same shapes, statuses and err
 `unknown_company` · `ends_in_past` — `401` `auth_required` · `signed_out` · `admin_required` ·
 `invalid_credentials` — `404` `not_found` · `not_onboarded` · `suggestion_not_found` · `order_not_found` ·
 `plan_not_found` · `day_not_found` — `409` `day_locked` · `plan_expired` · `duplicate_code` —
-`413` `audio_too_large` — `422` `no_speech` · `outside_service_area`
+`413` `audio_too_large` — `422` `no_speech` · `outside_service_area` — `500` `internal_error`, with nothing
+about the error itself
+
+A malformed request is always `400`, never FastAPI's `422`: each route names its own code (such as
+`invalid_prefs`), and `invalid_request` covers the rest. An unknown path is `404` `not_found`.
 
 ## The agent
 
