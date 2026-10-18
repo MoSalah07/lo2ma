@@ -11,7 +11,7 @@ from fastapi import FastAPI
 from httpx import ASGITransport, AsyncClient
 from pydantic import SecretStr
 from sqlalchemy.exc import OperationalError
-from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
+from sqlalchemy.ext.asyncio import AsyncConnection, AsyncEngine, AsyncSession
 
 from app.core.db import create_db_engine, get_session
 from app.core.settings import Settings
@@ -46,8 +46,11 @@ def app(settings: Settings) -> FastAPI:
 
 @pytest.fixture
 async def client(app: FastAPI) -> AsyncIterator[AsyncClient]:
-    """Calls the app in memory, the way the web app calls it over HTTP. No database."""
-    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
+    """Calls the app in memory, the way the web app calls it. No database.
+
+    Over https, like the browser on localhost: httpx only sends Secure cookies back over https.
+    """
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="https://test") as client:
         yield client
 
 
@@ -84,21 +87,38 @@ async def engine(settings: Settings, migrated_database: None) -> AsyncIterator[A
 
 
 @pytest.fixture
-async def session(engine: AsyncEngine) -> AsyncIterator[AsyncSession]:
-    """A session inside a transaction that is rolled back after the test, so tests never see each
-    other's rows. A service's own `session.begin()` becomes a savepoint inside it."""
+async def connection(engine: AsyncEngine) -> AsyncIterator[AsyncConnection]:
+    """One connection per test, inside a transaction that is rolled back at the end, so tests never
+    see each other's rows."""
     async with engine.connect() as connection:
         transaction = await connection.begin()
-        async with AsyncSession(
-            bind=connection, join_transaction_mode="create_savepoint", expire_on_commit=False
-        ) as session:
-            yield session
+        yield connection
         await transaction.rollback()
 
 
+def session_on(connection: AsyncConnection) -> AsyncSession:
+    # A service's own `session.begin()` becomes a savepoint inside the test's transaction.
+    return AsyncSession(
+        bind=connection, join_transaction_mode="create_savepoint", expire_on_commit=False
+    )
+
+
 @pytest.fixture
-async def db_client(app: FastAPI, session: AsyncSession) -> AsyncIterator[AsyncClient]:
-    """Like `client`, with every SessionDep given the test's session."""
-    app.dependency_overrides[get_session] = lambda: session
-    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
+async def session(connection: AsyncConnection) -> AsyncIterator[AsyncSession]:
+    """For a test's own reads and writes, on the test's connection."""
+    async with session_on(connection) as session:
+        yield session
+
+
+@pytest.fixture
+async def db_client(app: FastAPI, connection: AsyncConnection) -> AsyncIterator[AsyncClient]:
+    """Like `client`, on the test's connection. Each request gets its own session, as in production,
+    so what one request leaves open never leaks into the next."""
+
+    async def request_session() -> AsyncIterator[AsyncSession]:
+        async with session_on(connection) as session:
+            yield session
+
+    app.dependency_overrides[get_session] = request_session
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="https://test") as client:
         yield client

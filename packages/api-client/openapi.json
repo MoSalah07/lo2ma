@@ -132,10 +132,189 @@
         },
         "x-invalid-code": "invalid_point"
       }
+    },
+    "/api/prefs": {
+      "get": {
+        "tags": [
+          "prefs"
+        ],
+        "summary": "Read Prefs",
+        "operationId": "read_prefs",
+        "parameters": [
+          {
+            "name": "__Host-lo2ma_guest",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Guest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserPrefs"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "prefs"
+        ],
+        "summary": "Update Prefs",
+        "operationId": "update_prefs",
+        "parameters": [
+          {
+            "name": "__Host-lo2ma_guest",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Guest"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserPrefs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserPrefs"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-invalid-code": "invalid_prefs"
+      }
     }
   },
   "components": {
     "schemas": {
+      "AnyCalories": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "const": "any",
+            "title": "Mode"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mode"
+        ],
+        "title": "AnyCalories"
+      },
+      "AroundCalories": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "const": "around",
+            "title": "Mode"
+          },
+          "kcal": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Kcal"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mode",
+          "kcal"
+        ],
+        "title": "AroundCalories"
+      },
+      "FitCalories": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "const": "fit",
+            "title": "Mode"
+          },
+          "goal": {
+            "type": "string",
+            "enum": [
+              "cut",
+              "keep",
+              "bulk"
+            ],
+            "title": "Goal"
+          },
+          "kcal": {
+            "type": "integer",
+            "maximum": 1500.0,
+            "minimum": 300.0,
+            "title": "Kcal"
+          },
+          "protein": {
+            "type": "integer",
+            "maximum": 120.0,
+            "minimum": 10.0,
+            "title": "Protein"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mode",
+          "kcal",
+          "protein"
+        ],
+        "title": "FitCalories",
+        "description": "«وضع الفورمة»: a lunch goal in calories and protein, within the steppers' limits."
+      },
       "GeoPoint": {
         "properties": {
           "lat": {
@@ -241,6 +420,93 @@
         "title": "PointLookup",
         "description": "What is at a point on the map, and whether Lo2ma delivers there (pointLookupSchema)."
       },
+      "UnderCalories": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "const": "under",
+            "title": "Mode"
+          },
+          "kcal": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Kcal"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mode",
+          "kcal"
+        ],
+        "title": "UnderCalories"
+      },
+      "UserPrefs": {
+        "properties": {
+          "workplace": {
+            "$ref": "#/components/schemas/Workplace"
+          },
+          "breakTime": {
+            "type": "string",
+            "pattern": "^([01][0-9]|2[0-3]):([0-5][0-9])$",
+            "title": "Breaktime"
+          },
+          "budget": {
+            "type": "integer",
+            "minimum": 10000.0,
+            "title": "Budget"
+          },
+          "calories": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/AnyCalories"
+              },
+              {
+                "$ref": "#/components/schemas/AroundCalories"
+              },
+              {
+                "$ref": "#/components/schemas/UnderCalories"
+              },
+              {
+                "$ref": "#/components/schemas/FitCalories"
+              }
+            ],
+            "title": "Calories",
+            "discriminator": {
+              "propertyName": "mode",
+              "mapping": {
+                "any": "#/components/schemas/AnyCalories",
+                "around": "#/components/schemas/AroundCalories",
+                "fit": "#/components/schemas/FitCalories",
+                "under": "#/components/schemas/UnderCalories"
+              }
+            }
+          },
+          "exclusions": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "chicken",
+                "beef",
+                "fish",
+                "nuts",
+                "dairy"
+              ]
+            },
+            "type": "array",
+            "title": "Exclusions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "workplace",
+          "breakTime",
+          "budget",
+          "calories",
+          "exclusions"
+        ],
+        "title": "UserPrefs",
+        "description": "What onboarding collects and «حسابي» edits (userPrefsSchema)."
+      },
       "ValidationError": {
         "properties": {
           "loc": {
@@ -280,6 +546,33 @@
           "type"
         ],
         "title": "ValidationError"
+      },
+      "Workplace": {
+        "properties": {
+          "name": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "area": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "point": {
+            "$ref": "#/components/schemas/GeoPoint"
+          },
+          "details": {
+            "type": "string",
+            "maxLength": 120,
+            "title": "Details"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "area",
+          "point",
+          "details"
+        ],
+        "title": "Workplace",
+        "description": "Where lunch goes: a point on the map, its name in both languages, and the courier's notes."
       }
     }
   }

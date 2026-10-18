@@ -188,4 +188,4 @@ Every route here lives under `/api`, so the path is the same in the browser, in 
 
 The demo data is the mock's own. The web app writes it to `backend/seed/*.json`
 (`npm run export:seed -w @lo2ma/web`), `npm run db:seed` loads it, and `npm run dev:api` seeds before it starts.
-Implemented so far: `/places/*`.
+Implemented so far: `/places/*` and `/prefs`.

@@ -10,6 +10,7 @@ from app.core.db import SessionFactory, create_db_engine, create_session_factory
 from app.core.errors import install_error_handlers
 from app.core.settings import Settings, load_settings
 from app.features.places import router as places
+from app.features.prefs import router as prefs
 
 
 class State(TypedDict):
@@ -55,5 +56,6 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     # Everything the apps call lives under /api, the path the web app's rewrite forwards.
     api = APIRouter(prefix="/api")
     api.include_router(places.router)
+    api.include_router(prefs.router)
     app.include_router(api)
     return app
