@@ -15,6 +15,7 @@ dependencies = [
     "pydantic-settings==2.16.0",
     "sqlalchemy[asyncio]==2.1.5",
     "starlette==1.8.0",
+    "tzdata==2026.5",
 ]
 
 [dependency-groups]

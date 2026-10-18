@@ -11,7 +11,8 @@
     "zod": "4.6.7"
   },
   "scripts": {
-    "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "export:python": "node scripts/export-python.ts",
+    "test": "vitest run && node scripts/export-python.ts --check",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p scripts"
   }
 }
