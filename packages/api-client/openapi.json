@@ -809,6 +809,50 @@
         "x-invalid-code": "invalid_prefs",
         "x-invalid-status": 400
       }
+    },
+    "/api/chat/transcribe": {
+      "post": {
+        "tags": [
+          "chat"
+        ],
+        "summary": "Transcribe",
+        "description": "A voice message, written down for the user to check before sending.\n\nMultipart, as the browser records it: the `audio` file and the page's `locale`.",
+        "operationId": "transcribe",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_transcribe"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transcription"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-invalid-code": "invalid_audio",
+        "x-invalid-status": 400
+      }
     }
   },
   "components": {
@@ -958,6 +1002,25 @@
           "kcal"
         ],
         "title": "AroundCalories"
+      },
+      "Body_transcribe": {
+        "properties": {
+          "audio": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "Audio"
+          },
+          "locale": {
+            "type": "string",
+            "title": "Locale",
+            "default": "ar"
+          }
+        },
+        "type": "object",
+        "required": [
+          "audio"
+        ],
+        "title": "Body_transcribe"
       },
       "Company": {
         "properties": {
@@ -1488,6 +1551,20 @@
         ],
         "title": "SessionUser",
         "description": "The signed-in user (sessionUserSchema)."
+      },
+      "Transcription": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "Transcription",
+        "description": "What a voice message said (transcriptionSchema)."
       },
       "UnderCalories": {
         "properties": {

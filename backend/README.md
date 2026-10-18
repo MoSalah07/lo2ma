@@ -178,7 +178,8 @@ minimum order on the server too.
 ## Voice
 
 - Dictation needs only `POST /chat/transcribe`. The speech-to-text model for Egyptian Arabic will be chosen by
-  evaluation, like the language model.
+  evaluation, like the language model. Until then the demo hears the mock's sentence in any recording
+  (`seed/voice.json`), so the chat that follows finds the same meals.
 - Real voice calls come later, with LiveKit Agents: speech-to-text, then the same agent loop, then Egyptian
   text-to-speech, with turn detection and interruptions. The web app's call screen is already built for it.
 
@@ -194,8 +195,8 @@ Every route here lives under `/api`, so the path is the same in the browser, in 
 
 The demo data is the mock's own: places, foods, restaurants, dishes, companies and coupons. The web app writes it
 to `backend/seed/*.json` (`npm run export:seed -w @lo2ma/web`), `npm run db:seed` loads it, and `npm run dev:api`
-seeds before it starts. Implemented so far: `/places/*`, `/prefs`, `/auth/*`, `/admin/auth/*`,
-`/admin/companies` and `/admin/coupons`, plus the menus behind the meal search. A coupon's status isn't stored:
+seeds before it starts. Implemented so far: `/places/*`, `/prefs`, `/auth/*`, `/chat/transcribe`,
+`/admin/auth/*`, `/admin/companies` and `/admin/coupons`, plus the menus behind the meal search. A coupon's status isn't stored:
 it has ended once its last day has passed in Cairo or its uses ran out, and only a pause is kept. The mock's
 restaurants only say how far they are from the Smart Village, so the seed places each one that far from it, in
 its own direction; workplaces elsewhere in Cairo have no demo restaurants nearby.

@@ -19,6 +19,7 @@ import type {
   placeSchema,
   pointLookupSchema,
   sessionUserSchema,
+  transcriptionSchema,
   userPrefsSchema,
   workplaceSchema,
 } from '@lo2ma/core';
@@ -47,4 +48,5 @@ export type Contract = [
   Expect<Same<z.infer<typeof companySchema>, Api['Company']>>,
   Expect<Same<z.infer<typeof createCouponSchema>, Api['CreateCoupon']>>,
   Expect<Same<z.infer<typeof couponSchema>, Api['Coupon']>>,
+  Expect<Same<z.infer<typeof transcriptionSchema>, Api['Transcription']>>,
 ];
