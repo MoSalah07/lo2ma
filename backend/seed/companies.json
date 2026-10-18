@@ -1,0 +1,37 @@
+[
+  {
+    "id": "c1",
+    "name": {
+      "ar": "أفق للحلول",
+      "en": "Ofok Solutions"
+    }
+  },
+  {
+    "id": "c2",
+    "name": {
+      "ar": "مكتب نون للتصميم",
+      "en": "Noon Design Studio"
+    }
+  },
+  {
+    "id": "c3",
+    "name": {
+      "ar": "الندى للبرمجيات",
+      "en": "Al Nada Software"
+    }
+  },
+  {
+    "id": "c4",
+    "name": {
+      "ar": "مدار للاستشارات",
+      "en": "Madar Consulting"
+    }
+  },
+  {
+    "id": "c5",
+    "name": {
+      "ar": "بيانات بلس",
+      "en": "Bayanat Plus"
+    }
+  }
+]

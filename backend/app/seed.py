@@ -5,8 +5,11 @@ import logging
 import sys
 
 from app.core.db import create_db_engine, create_session_factory
+from app.core.now import utc_now
 from app.core.settings import load_settings
 from app.features.catalog.seed import load_catalog, seed_catalog
+from app.features.companies.seed import load_companies, seed_companies
+from app.features.coupons.seed import load_coupons, seed_coupons
 from app.features.places.seed import load_places, seed_places
 
 logger = logging.getLogger("app.seed")
@@ -20,11 +23,17 @@ async def seed() -> None:
             await seed_places(session, places)
             catalog = load_catalog()
             await seed_catalog(session, catalog)
+            companies = load_companies()
+            await seed_companies(session, companies)
+            coupons = load_coupons()
+            await seed_coupons(session, coupons, utc_now())
             logger.info(
-                "Seeded %d places, %d restaurants and %d dishes",
+                "Seeded %d places, %d restaurants, %d dishes, %d companies and %d coupons",
                 len(places),
                 len(catalog.restaurants),
                 len(catalog.dishes),
+                len(companies),
+                len(coupons),
             )
     finally:
         await engine.dispose()

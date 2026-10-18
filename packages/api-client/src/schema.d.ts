@@ -140,6 +140,44 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/admin/companies": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Companies
+         * @description Every company, for the dashboard's filters and the coupon form.
+         */
+        get: operations["list_companies"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin/coupons": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Coupons */
+        get: operations["list_coupons"];
+        put?: never;
+        /** Create Coupon */
+        post: operations["create_coupon"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/places/suggested": {
         parameters: {
             query?: never;
@@ -253,6 +291,24 @@ export interface components {
             /** Code */
             code: string;
         };
+        /** AllCustomers */
+        AllCustomers: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "all";
+        };
+        /** AmountOff */
+        AmountOff: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "amount";
+            /** Value */
+            value: number;
+        };
         /** AnyCalories */
         AnyCalories: {
             /**
@@ -270,6 +326,93 @@ export interface components {
             mode: "around";
             /** Kcal */
             kcal: number;
+        };
+        /**
+         * Company
+         * @description A company, by its id and its name in both languages (companySchema).
+         */
+        Company: {
+            /** Id */
+            id: string;
+            name: components["schemas"]["LocalizedText"];
+        };
+        /**
+         * CompanyChoice
+         * @description One company's people, as the form picks it: by id.
+         */
+        CompanyChoice: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "company";
+            /** Companyid */
+            companyId: string;
+        };
+        /**
+         * CompanyCustomers
+         * @description One company's people, as the dashboard shows it: with the name.
+         */
+        CompanyCustomers: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "company";
+            company: components["schemas"]["Company"];
+        };
+        /**
+         * Coupon
+         * @description A coupon in the dashboard's list (couponSchema).
+         */
+        Coupon: {
+            /** Code */
+            code: string;
+            /** Discount */
+            discount: components["schemas"]["PercentOff"] | components["schemas"]["AmountOff"];
+            /** Minorder */
+            minOrder: number;
+            /** Limit */
+            limit: number | null;
+            /** Percustomer */
+            perCustomer: number;
+            /**
+             * Endson
+             * Format: date
+             */
+            endsOn: string;
+            /** Audience */
+            audience: components["schemas"]["AllCustomers"] | components["schemas"]["NewCustomers"] | components["schemas"]["CompanyCustomers"];
+            /** Used */
+            used: number;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "active" | "paused" | "ended";
+        };
+        /**
+         * CreateCoupon
+         * @description What the coupon form sends (createCouponSchema).
+         */
+        CreateCoupon: {
+            /** Code */
+            code: string;
+            /** Discount */
+            discount: components["schemas"]["PercentOff"] | components["schemas"]["AmountOff"];
+            /** Minorder */
+            minOrder: number;
+            /** Limit */
+            limit: number | null;
+            /** Percustomer */
+            perCustomer: number;
+            /**
+             * Endson
+             * Format: date
+             */
+            endsOn: string;
+            /** Audience */
+            audience: components["schemas"]["AllCustomers"] | components["schemas"]["NewCustomers"] | components["schemas"]["CompanyChoice"];
         };
         /**
          * FitCalories
@@ -317,6 +460,17 @@ export interface components {
             en: string;
         };
         /**
+         * NewCustomers
+         * @description A customer's first order.
+         */
+        NewCustomers: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "new";
+        };
+        /**
          * OtpRequest
          * @description Where to send a sign-in code (otpRequestSchema).
          */
@@ -351,6 +505,21 @@ export interface components {
             destination: string;
             /** Code */
             code: string;
+        };
+        /**
+         * PercentOff
+         * @description A share of the food, up to a cap in piasters.
+         */
+        PercentOff: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "percent";
+            /** Value */
+            value: number;
+            /** Cap */
+            cap: number;
         };
         /**
          * Place
@@ -689,6 +858,103 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_companies: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                "__Host-lo2ma_admin"?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Company"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_coupons: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                "__Host-lo2ma_admin"?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Coupon"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_coupon: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                "__Host-lo2ma_admin"?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateCoupon"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Coupon"];
+                };
             };
             /** @description Validation Error */
             422: {

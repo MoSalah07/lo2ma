@@ -5,6 +5,8 @@ from app.core.db import Base
 from app.features.admin_auth.models import AdminChallengeRecord, AdminRecord, AdminSessionRecord
 from app.features.auth.models import OtpCodeRecord, SessionRecord, UserRecord
 from app.features.catalog.models import DishRecord, FoodRecord, RecipeLineRecord, RestaurantRecord
+from app.features.companies.models import CompanyRecord
+from app.features.coupons.models import CouponRecord
 from app.features.guests.models import GuestRecord
 from app.features.places.models import PlaceRecord
 from app.features.prefs.models import PrefsRecord
@@ -14,6 +16,8 @@ __all__ = [
     "AdminRecord",
     "AdminSessionRecord",
     "Base",
+    "CompanyRecord",
+    "CouponRecord",
     "DishRecord",
     "FoodRecord",
     "GuestRecord",

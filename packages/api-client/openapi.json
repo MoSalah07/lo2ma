@@ -375,6 +375,172 @@
         }
       }
     },
+    "/api/admin/companies": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "List Companies",
+        "description": "Every company, for the dashboard's filters and the coupon form.",
+        "operationId": "list_companies",
+        "parameters": [
+          {
+            "name": "__Host-lo2ma_admin",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Admin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Company"
+                  },
+                  "title": "Response List Companies"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/coupons": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "List Coupons",
+        "operationId": "list_coupons",
+        "parameters": [
+          {
+            "name": "__Host-lo2ma_admin",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Admin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Coupon"
+                  },
+                  "title": "Response List Coupons"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Create Coupon",
+        "operationId": "create_coupon",
+        "parameters": [
+          {
+            "name": "__Host-lo2ma_admin",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Admin"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCoupon"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Coupon"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-invalid-code": "invalid_coupon",
+        "x-invalid-status": 400
+      }
+    },
     "/api/places/suggested": {
       "get": {
         "tags": [
@@ -725,6 +891,40 @@
         "title": "AdminVerify",
         "description": "The code step: the challenge and the authenticator's code (adminVerifySchema)."
       },
+      "AllCustomers": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "all",
+            "title": "Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "title": "AllCustomers"
+      },
+      "AmountOff": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "amount",
+            "title": "Type"
+          },
+          "value": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Value"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "value"
+        ],
+        "title": "AmountOff"
+      },
       "AnyCalories": {
         "properties": {
           "mode": {
@@ -758,6 +958,255 @@
           "kcal"
         ],
         "title": "AroundCalories"
+      },
+      "Company": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "$ref": "#/components/schemas/LocalizedText"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "Company",
+        "description": "A company, by its id and its name in both languages (companySchema)."
+      },
+      "CompanyChoice": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "company",
+            "title": "Type"
+          },
+          "companyId": {
+            "type": "string",
+            "title": "Companyid"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "companyId"
+        ],
+        "title": "CompanyChoice",
+        "description": "One company's people, as the form picks it: by id."
+      },
+      "CompanyCustomers": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "company",
+            "title": "Type"
+          },
+          "company": {
+            "$ref": "#/components/schemas/Company"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "company"
+        ],
+        "title": "CompanyCustomers",
+        "description": "One company's people, as the dashboard shows it: with the name."
+      },
+      "Coupon": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "pattern": "^[A-Z0-9]{4,16}$",
+            "title": "Code"
+          },
+          "discount": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PercentOff"
+              },
+              {
+                "$ref": "#/components/schemas/AmountOff"
+              }
+            ],
+            "title": "Discount",
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "amount": "#/components/schemas/AmountOff",
+                "percent": "#/components/schemas/PercentOff"
+              }
+            }
+          },
+          "minOrder": {
+            "type": "integer",
+            "minimum": 10000.0,
+            "title": "Minorder"
+          },
+          "limit": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Limit"
+          },
+          "perCustomer": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Percustomer"
+          },
+          "endsOn": {
+            "type": "string",
+            "format": "date",
+            "title": "Endson"
+          },
+          "audience": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/AllCustomers"
+              },
+              {
+                "$ref": "#/components/schemas/NewCustomers"
+              },
+              {
+                "$ref": "#/components/schemas/CompanyCustomers"
+              }
+            ],
+            "title": "Audience",
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "all": "#/components/schemas/AllCustomers",
+                "company": "#/components/schemas/CompanyCustomers",
+                "new": "#/components/schemas/NewCustomers"
+              }
+            }
+          },
+          "used": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Used"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "paused",
+              "ended"
+            ],
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "discount",
+          "minOrder",
+          "limit",
+          "perCustomer",
+          "endsOn",
+          "audience",
+          "used",
+          "status"
+        ],
+        "title": "Coupon",
+        "description": "A coupon in the dashboard's list (couponSchema)."
+      },
+      "CreateCoupon": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "pattern": "^[A-Z0-9]{4,16}$",
+            "title": "Code"
+          },
+          "discount": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PercentOff"
+              },
+              {
+                "$ref": "#/components/schemas/AmountOff"
+              }
+            ],
+            "title": "Discount",
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "amount": "#/components/schemas/AmountOff",
+                "percent": "#/components/schemas/PercentOff"
+              }
+            }
+          },
+          "minOrder": {
+            "type": "integer",
+            "minimum": 10000.0,
+            "title": "Minorder"
+          },
+          "limit": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Limit"
+          },
+          "perCustomer": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Percustomer"
+          },
+          "endsOn": {
+            "type": "string",
+            "format": "date",
+            "title": "Endson"
+          },
+          "audience": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/AllCustomers"
+              },
+              {
+                "$ref": "#/components/schemas/NewCustomers"
+              },
+              {
+                "$ref": "#/components/schemas/CompanyChoice"
+              }
+            ],
+            "title": "Audience",
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "all": "#/components/schemas/AllCustomers",
+                "company": "#/components/schemas/CompanyChoice",
+                "new": "#/components/schemas/NewCustomers"
+              }
+            }
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "discount",
+          "minOrder",
+          "limit",
+          "perCustomer",
+          "endsOn",
+          "audience"
+        ],
+        "title": "CreateCoupon",
+        "description": "What the coupon form sends (createCouponSchema)."
       },
       "FitCalories": {
         "properties": {
@@ -854,6 +1303,21 @@
         "title": "LocalizedText",
         "description": "Text in both languages, such as a place's name (localizedTextSchema)."
       },
+      "NewCustomers": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "new",
+            "title": "Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "title": "NewCustomers",
+        "description": "A customer's first order."
+      },
       "OtpRequest": {
         "properties": {
           "channel": {
@@ -921,6 +1385,34 @@
         ],
         "title": "OtpVerify",
         "description": "The code the user typed (otpVerifySchema)."
+      },
+      "PercentOff": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "percent",
+            "title": "Type"
+          },
+          "value": {
+            "type": "integer",
+            "maximum": 90.0,
+            "minimum": 1.0,
+            "title": "Value"
+          },
+          "cap": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Cap"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "value",
+          "cap"
+        ],
+        "title": "PercentOff",
+        "description": "A share of the food, up to a cap in piasters."
       },
       "Place": {
         "properties": {
