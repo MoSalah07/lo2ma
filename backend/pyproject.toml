@@ -32,7 +32,7 @@ dev = [
 required-version = "==0.13.1"
 
 [tool.fastapi]
-entrypoint = "app.main:app"
+entrypoint = "app.server:app"
 
 [tool.ruff]
 line-length = 100

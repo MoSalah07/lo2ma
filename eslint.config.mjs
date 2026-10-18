@@ -55,6 +55,8 @@ export default defineConfig([
     'apps/web/public/vendor/**',
     // The backend's Python environment: pyright ships its JavaScript inside it.
     '**/.venv/**',
+    // Generated from the backend's OpenAPI schema (npm run api:generate).
+    'packages/api-client/src/schema.d.ts',
   ]),
 
   ...nextVitals,
