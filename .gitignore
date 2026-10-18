@@ -11,6 +11,12 @@ dist/
 *.tsbuildinfo
 next-env.d.ts
 
+# Python (backend/)
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+
 # Tests
 coverage/
 playwright-report/
@@ -35,3 +41,6 @@ Thumbs.db
 
 # Deploy
 .vercel/
+
+# Local study notes
+/learn/

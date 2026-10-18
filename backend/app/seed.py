@@ -1,0 +1,58 @@
+"""Fills the database with the demo data: `npm run db:seed`. Running it again updates the rows.
+
+Never in production: the restaurants, companies and coupons are made up, and a seeded coupon would
+be a real discount once payments exist.
+"""
+
+import asyncio
+import logging
+import sys
+
+from app.core.db import create_db_engine, create_session_factory
+from app.core.now import utc_now
+from app.core.settings import Settings, load_settings
+from app.features.catalog.seed import load_catalog, seed_catalog
+from app.features.companies.seed import load_companies, seed_companies
+from app.features.coupons.seed import load_coupons, seed_coupons
+from app.features.places.seed import load_places, seed_places
+
+logger = logging.getLogger("app.seed")
+
+
+class DemoDataInProductionError(RuntimeError):
+    pass
+
+
+async def seed(settings: Settings) -> None:
+    if settings.environment == "prod":
+        raise DemoDataInProductionError("The demo data never goes into the production database")
+    engine = create_db_engine(settings)
+    try:
+        async with create_session_factory(engine)() as session, session.begin():
+            places = load_places()
+            await seed_places(session, places)
+            catalog = load_catalog()
+            await seed_catalog(session, catalog)
+            companies = load_companies()
+            await seed_companies(session, companies)
+            coupons = load_coupons()
+            await seed_coupons(session, coupons, utc_now())
+            logger.info(
+                "Seeded %d places, %d restaurants, %d dishes, %d companies and %d coupons",
+                len(places),
+                len(catalog.restaurants),
+                len(catalog.dishes),
+                len(companies),
+                len(coupons),
+            )
+    finally:
+        await engine.dispose()
+
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO, format="%(message)s")
+    # psycopg's async mode can't run on Windows' default event loop (Proactor).
+    asyncio.run(
+        seed(load_settings()),
+        loop_factory=asyncio.SelectorEventLoop if sys.platform == "win32" else None,
+    )

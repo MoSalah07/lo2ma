@@ -1,0 +1,5170 @@
+[
+  {
+    "id": "r01-m1",
+    "restaurantId": "r01",
+    "position": 1,
+    "name": {
+      "ar": "كشري كبير",
+      "en": "Large koshari"
+    },
+    "role": "main",
+    "price": 9500,
+    "kcal": 900,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 660,
+      "high": 1140
+    },
+    "macros": {
+      "protein": 28,
+      "carbs": 140,
+      "fat": 25
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "rice",
+        "grams": 150,
+        "kcal": 195,
+        "protein": 4
+      },
+      {
+        "food": "pasta",
+        "grams": 150,
+        "kcal": 235,
+        "protein": 9
+      },
+      {
+        "food": "lentils",
+        "grams": 100,
+        "kcal": 115,
+        "protein": 9
+      },
+      {
+        "food": "chickpeas",
+        "grams": 30,
+        "kcal": 50,
+        "protein": 3
+      },
+      {
+        "food": "friedOnions",
+        "grams": 30,
+        "kcal": 125,
+        "protein": 1
+      },
+      {
+        "food": "tomatoSauce",
+        "grams": 150,
+        "kcal": 90,
+        "protein": 2
+      },
+      {
+        "food": "oil",
+        "grams": 10,
+        "kcal": 90,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r01-m2",
+    "restaurantId": "r01",
+    "position": 2,
+    "name": {
+      "ar": "كشري وسط",
+      "en": "Medium koshari"
+    },
+    "role": "main",
+    "price": 7000,
+    "kcal": 650,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 480,
+      "high": 820
+    },
+    "macros": {
+      "protein": 20,
+      "carbs": 102,
+      "fat": 18
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "rice",
+        "grams": 110,
+        "kcal": 145,
+        "protein": 3
+      },
+      {
+        "food": "pasta",
+        "grams": 110,
+        "kcal": 175,
+        "protein": 6
+      },
+      {
+        "food": "lentils",
+        "grams": 75,
+        "kcal": 85,
+        "protein": 7
+      },
+      {
+        "food": "chickpeas",
+        "grams": 20,
+        "kcal": 35,
+        "protein": 2
+      },
+      {
+        "food": "friedOnions",
+        "grams": 20,
+        "kcal": 90,
+        "protein": 1
+      },
+      {
+        "food": "tomatoSauce",
+        "grams": 105,
+        "kcal": 65,
+        "protein": 1
+      },
+      {
+        "food": "oil",
+        "grams": 7,
+        "kcal": 65,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r01-m3",
+    "restaurantId": "r01",
+    "position": 3,
+    "name": {
+      "ar": "رز بلبن",
+      "en": "Rice pudding"
+    },
+    "role": "side",
+    "price": 2500,
+    "kcal": 250,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 210,
+      "high": 290
+    },
+    "macros": {
+      "protein": 7,
+      "carbs": 42,
+      "fat": 6
+    },
+    "contains": [
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "ricePudding",
+        "grams": 190,
+        "kcal": 250,
+        "protein": 7
+      }
+    ]
+  },
+  {
+    "id": "r01-m4",
+    "restaurantId": "r01",
+    "position": 4,
+    "name": {
+      "ar": "سلطة بلدي",
+      "en": "Baladi salad"
+    },
+    "role": "side",
+    "price": 1500,
+    "kcal": 60,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 30,
+      "high": 90
+    },
+    "macros": {
+      "protein": 2,
+      "carbs": 7,
+      "fat": 3
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "vegetables",
+        "grams": 140,
+        "kcal": 35,
+        "protein": 2
+      },
+      {
+        "food": "oil",
+        "grams": 3,
+        "kcal": 25,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r02-m1",
+    "restaurantId": "r02",
+    "position": 1,
+    "name": {
+      "ar": "كفتة مشوية + رز",
+      "en": "Grilled kofta + rice"
+    },
+    "role": "main",
+    "price": 14500,
+    "kcal": 690,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 570,
+      "high": 810
+    },
+    "macros": {
+      "protein": 41,
+      "carbs": 62,
+      "fat": 30
+    },
+    "contains": [
+      "beef"
+    ],
+    "lines": [
+      {
+        "food": "kofta",
+        "grams": 175,
+        "kcal": 435,
+        "protein": 35
+      },
+      {
+        "food": "rice",
+        "grams": 195,
+        "kcal": 255,
+        "protein": 5
+      }
+    ]
+  },
+  {
+    "id": "r02-m2",
+    "restaurantId": "r02",
+    "position": 2,
+    "name": {
+      "ar": "ربع كباب + رز",
+      "en": "Quarter kebab + rice"
+    },
+    "role": "main",
+    "price": 19000,
+    "kcal": 760,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 620,
+      "high": 900
+    },
+    "macros": {
+      "protein": 64,
+      "carbs": 58,
+      "fat": 29
+    },
+    "contains": [
+      "beef"
+    ],
+    "lines": [
+      {
+        "food": "kebab",
+        "grams": 205,
+        "kcal": 445,
+        "protein": 58
+      },
+      {
+        "food": "rice",
+        "grams": 205,
+        "kcal": 270,
+        "protein": 6
+      },
+      {
+        "food": "oil",
+        "grams": 5,
+        "kcal": 45,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r02-m3",
+    "restaurantId": "r02",
+    "position": 3,
+    "name": {
+      "ar": "طرب + عيش",
+      "en": "Tarb + bread"
+    },
+    "role": "main",
+    "price": 17000,
+    "kcal": 820,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 670,
+      "high": 970
+    },
+    "macros": {
+      "protein": 50,
+      "carbs": 55,
+      "fat": 46
+    },
+    "contains": [
+      "beef"
+    ],
+    "lines": [
+      {
+        "food": "kofta",
+        "grams": 210,
+        "kcal": 510,
+        "protein": 42
+      },
+      {
+        "food": "oil",
+        "grams": 9,
+        "kcal": 85,
+        "protein": 0
+      },
+      {
+        "food": "baladiBread",
+        "grams": 85,
+        "kcal": 225,
+        "protein": 8
+      }
+    ]
+  },
+  {
+    "id": "r02-m4",
+    "restaurantId": "r02",
+    "position": 4,
+    "name": {
+      "ar": "سلطة طحينة",
+      "en": "Tahini salad"
+    },
+    "role": "side",
+    "price": 2000,
+    "kcal": 150,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 100,
+      "high": 200
+    },
+    "macros": {
+      "protein": 4,
+      "carbs": 5,
+      "fat": 13
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "tahini",
+        "grams": 50,
+        "kcal": 150,
+        "protein": 4
+      }
+    ]
+  },
+  {
+    "id": "r03-m1",
+    "restaurantId": "r03",
+    "position": 1,
+    "name": {
+      "ar": "سلطة تونة + عيش بلدي",
+      "en": "Tuna salad + baladi bread"
+    },
+    "role": "main",
+    "price": 12000,
+    "kcal": 480,
+    "kcalSource": "restaurant",
+    "macros": {
+      "protein": 40,
+      "carbs": 44,
+      "fat": 16
+    },
+    "contains": [
+      "fish"
+    ],
+    "lines": []
+  },
+  {
+    "id": "r03-m2",
+    "restaurantId": "r03",
+    "position": 2,
+    "name": {
+      "ar": "سلطة سيزر بالفراخ",
+      "en": "Chicken Caesar salad"
+    },
+    "role": "main",
+    "price": 14500,
+    "kcal": 520,
+    "kcalSource": "restaurant",
+    "macros": {
+      "protein": 56,
+      "carbs": 23,
+      "fat": 22
+    },
+    "contains": [
+      "chicken",
+      "dairy"
+    ],
+    "lines": []
+  },
+  {
+    "id": "r03-m3",
+    "restaurantId": "r03",
+    "position": 3,
+    "name": {
+      "ar": "بول كينوا وخضار",
+      "en": "Quinoa & veggie bowl"
+    },
+    "role": "main",
+    "price": 13500,
+    "kcal": 450,
+    "kcalSource": "restaurant",
+    "macros": {
+      "protein": 15,
+      "carbs": 64,
+      "fat": 15
+    },
+    "contains": [],
+    "lines": []
+  },
+  {
+    "id": "r03-m4",
+    "restaurantId": "r03",
+    "position": 4,
+    "name": {
+      "ar": "زبادي بالفواكه",
+      "en": "Yogurt with fruit"
+    },
+    "role": "side",
+    "price": 4500,
+    "kcal": 220,
+    "kcalSource": "restaurant",
+    "macros": {
+      "protein": 7,
+      "carbs": 36,
+      "fat": 6
+    },
+    "contains": [
+      "dairy"
+    ],
+    "lines": []
+  },
+  {
+    "id": "r04-m1",
+    "restaurantId": "r04",
+    "position": 1,
+    "name": {
+      "ar": "شاورما لحمة + سلطة",
+      "en": "Beef shawarma + salad"
+    },
+    "role": "main",
+    "price": 13000,
+    "kcal": 700,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 560,
+      "high": 840
+    },
+    "macros": {
+      "protein": 51,
+      "carbs": 49,
+      "fat": 34
+    },
+    "contains": [
+      "beef"
+    ],
+    "lines": [
+      {
+        "food": "beefShawarma",
+        "grams": 170,
+        "kcal": 395,
+        "protein": 41
+      },
+      {
+        "food": "whiteBread",
+        "grams": 75,
+        "kcal": 200,
+        "protein": 7
+      },
+      {
+        "food": "tahini",
+        "grams": 30,
+        "kcal": 85,
+        "protein": 2
+      },
+      {
+        "food": "vegetables",
+        "grams": 75,
+        "kcal": 20,
+        "protein": 1
+      }
+    ]
+  },
+  {
+    "id": "r04-m2",
+    "restaurantId": "r04",
+    "position": 2,
+    "name": {
+      "ar": "شاورما فراخ + بطاطس",
+      "en": "Chicken shawarma + fries"
+    },
+    "role": "main",
+    "price": 11500,
+    "kcal": 720,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 590,
+      "high": 850
+    },
+    "macros": {
+      "protein": 36,
+      "carbs": 57,
+      "fat": 37
+    },
+    "contains": [
+      "chicken"
+    ],
+    "lines": [
+      {
+        "food": "chicken",
+        "grams": 115,
+        "kcal": 245,
+        "protein": 28
+      },
+      {
+        "food": "whiteBread",
+        "grams": 55,
+        "kcal": 150,
+        "protein": 5
+      },
+      {
+        "food": "garlicSauce",
+        "grams": 18,
+        "kcal": 105,
+        "protein": 0
+      },
+      {
+        "food": "fries",
+        "grams": 70,
+        "kcal": 220,
+        "protein": 2
+      }
+    ]
+  },
+  {
+    "id": "r04-m3",
+    "restaurantId": "r04",
+    "position": 3,
+    "name": {
+      "ar": "فتة شاورما",
+      "en": "Shawarma fatta"
+    },
+    "role": "main",
+    "price": 15000,
+    "kcal": 920,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 710,
+      "high": 1130
+    },
+    "macros": {
+      "protein": 50,
+      "carbs": 76,
+      "fat": 47
+    },
+    "contains": [
+      "beef",
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "beefShawarma",
+        "grams": 165,
+        "kcal": 375,
+        "protein": 39
+      },
+      {
+        "food": "rice",
+        "grams": 135,
+        "kcal": 175,
+        "protein": 4
+      },
+      {
+        "food": "baladiBread",
+        "grams": 55,
+        "kcal": 145,
+        "protein": 5
+      },
+      {
+        "food": "yogurt",
+        "grams": 55,
+        "kcal": 35,
+        "protein": 2
+      },
+      {
+        "food": "garlicSauce",
+        "grams": 18,
+        "kcal": 110,
+        "protein": 0
+      },
+      {
+        "food": "ghee",
+        "grams": 9,
+        "kcal": 80,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r04-m4",
+    "restaurantId": "r04",
+    "position": 4,
+    "name": {
+      "ar": "ثومية زيادة",
+      "en": "Extra garlic sauce"
+    },
+    "role": "side",
+    "price": 1000,
+    "kcal": 120,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 80,
+      "high": 160
+    },
+    "macros": {
+      "protein": 0,
+      "carbs": 1,
+      "fat": 13
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "garlicSauce",
+        "grams": 20,
+        "kcal": 120,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r05-m1",
+    "restaurantId": "r05",
+    "position": 1,
+    "name": {
+      "ar": "فول وطعمية وبيض + عيش",
+      "en": "Foul, taameya & eggs + bread"
+    },
+    "role": "main",
+    "price": 9000,
+    "kcal": 650,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 510,
+      "high": 790
+    },
+    "macros": {
+      "protein": 32,
+      "carbs": 90,
+      "fat": 20
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "foul",
+        "grams": 165,
+        "kcal": 185,
+        "protein": 13
+      },
+      {
+        "food": "taameya",
+        "grams": 50,
+        "kcal": 165,
+        "protein": 7
+      },
+      {
+        "food": "egg",
+        "grams": 40,
+        "kcal": 65,
+        "protein": 5
+      },
+      {
+        "food": "baladiBread",
+        "grams": 75,
+        "kcal": 200,
+        "protein": 7
+      },
+      {
+        "food": "oil",
+        "grams": 4,
+        "kcal": 35,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r05-m2",
+    "restaurantId": "r05",
+    "position": 2,
+    "name": {
+      "ar": "طبق فول بالزيت الحار + طعمية",
+      "en": "Foul with hot oil + taameya"
+    },
+    "role": "main",
+    "price": 6500,
+    "kcal": 520,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 380,
+      "high": 660
+    },
+    "macros": {
+      "protein": 23,
+      "carbs": 58,
+      "fat": 23
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "foul",
+        "grams": 215,
+        "kcal": 235,
+        "protein": 16
+      },
+      {
+        "food": "oil",
+        "grams": 13,
+        "kcal": 115,
+        "protein": 0
+      },
+      {
+        "food": "taameya",
+        "grams": 50,
+        "kcal": 170,
+        "protein": 7
+      }
+    ]
+  },
+  {
+    "id": "r05-m3",
+    "restaurantId": "r05",
+    "position": 3,
+    "name": {
+      "ar": "سلطة بلدي",
+      "en": "Baladi salad"
+    },
+    "role": "side",
+    "price": 1500,
+    "kcal": 60,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 30,
+      "high": 90
+    },
+    "macros": {
+      "protein": 2,
+      "carbs": 7,
+      "fat": 3
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "vegetables",
+        "grams": 140,
+        "kcal": 35,
+        "protein": 2
+      },
+      {
+        "food": "oil",
+        "grams": 3,
+        "kcal": 25,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r05-m4",
+    "restaurantId": "r05",
+    "position": 4,
+    "name": {
+      "ar": "بطاطس محمرة",
+      "en": "Fried potatoes"
+    },
+    "role": "side",
+    "price": 2500,
+    "kcal": 320,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 250,
+      "high": 390
+    },
+    "macros": {
+      "protein": 3,
+      "carbs": 42,
+      "fat": 15
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "fries",
+        "grams": 105,
+        "kcal": 320,
+        "protein": 3
+      }
+    ]
+  },
+  {
+    "id": "r06-m1",
+    "restaurantId": "r06",
+    "position": 1,
+    "name": {
+      "ar": "كشري كبير",
+      "en": "Large koshari"
+    },
+    "role": "main",
+    "price": 8500,
+    "kcal": 900,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 660,
+      "high": 1140
+    },
+    "macros": {
+      "protein": 28,
+      "carbs": 140,
+      "fat": 25
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "rice",
+        "grams": 150,
+        "kcal": 195,
+        "protein": 4
+      },
+      {
+        "food": "pasta",
+        "grams": 150,
+        "kcal": 235,
+        "protein": 9
+      },
+      {
+        "food": "lentils",
+        "grams": 100,
+        "kcal": 115,
+        "protein": 9
+      },
+      {
+        "food": "chickpeas",
+        "grams": 30,
+        "kcal": 50,
+        "protein": 3
+      },
+      {
+        "food": "friedOnions",
+        "grams": 30,
+        "kcal": 125,
+        "protein": 1
+      },
+      {
+        "food": "tomatoSauce",
+        "grams": 150,
+        "kcal": 90,
+        "protein": 2
+      },
+      {
+        "food": "oil",
+        "grams": 10,
+        "kcal": 90,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r06-m2",
+    "restaurantId": "r06",
+    "position": 2,
+    "name": {
+      "ar": "كشري وسط",
+      "en": "Medium koshari"
+    },
+    "role": "main",
+    "price": 6500,
+    "kcal": 650,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 480,
+      "high": 820
+    },
+    "macros": {
+      "protein": 20,
+      "carbs": 102,
+      "fat": 18
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "rice",
+        "grams": 110,
+        "kcal": 145,
+        "protein": 3
+      },
+      {
+        "food": "pasta",
+        "grams": 110,
+        "kcal": 175,
+        "protein": 6
+      },
+      {
+        "food": "lentils",
+        "grams": 75,
+        "kcal": 85,
+        "protein": 7
+      },
+      {
+        "food": "chickpeas",
+        "grams": 20,
+        "kcal": 35,
+        "protein": 2
+      },
+      {
+        "food": "friedOnions",
+        "grams": 20,
+        "kcal": 90,
+        "protein": 1
+      },
+      {
+        "food": "tomatoSauce",
+        "grams": 105,
+        "kcal": 65,
+        "protein": 1
+      },
+      {
+        "food": "oil",
+        "grams": 7,
+        "kcal": 65,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r06-m3",
+    "restaurantId": "r06",
+    "position": 3,
+    "name": {
+      "ar": "رز بلبن",
+      "en": "Rice pudding"
+    },
+    "role": "side",
+    "price": 2500,
+    "kcal": 250,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 210,
+      "high": 290
+    },
+    "macros": {
+      "protein": 7,
+      "carbs": 42,
+      "fat": 6
+    },
+    "contains": [
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "ricePudding",
+        "grams": 190,
+        "kcal": 250,
+        "protein": 7
+      }
+    ]
+  },
+  {
+    "id": "r06-m4",
+    "restaurantId": "r06",
+    "position": 4,
+    "name": {
+      "ar": "سلطة بلدي",
+      "en": "Baladi salad"
+    },
+    "role": "side",
+    "price": 1500,
+    "kcal": 60,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 30,
+      "high": 90
+    },
+    "macros": {
+      "protein": 2,
+      "carbs": 7,
+      "fat": 3
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "vegetables",
+        "grams": 140,
+        "kcal": 35,
+        "protein": 2
+      },
+      {
+        "food": "oil",
+        "grams": 3,
+        "kcal": 25,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r07-m1",
+    "restaurantId": "r07",
+    "position": 1,
+    "name": {
+      "ar": "ملوخية + فراخ + رز",
+      "en": "Molokhia, chicken & rice"
+    },
+    "role": "main",
+    "price": 16000,
+    "kcal": 850,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 670,
+      "high": 1030
+    },
+    "macros": {
+      "protein": 55,
+      "carbs": 73,
+      "fat": 35
+    },
+    "contains": [
+      "chicken"
+    ],
+    "lines": [
+      {
+        "food": "cookedVegetables",
+        "grams": 250,
+        "kcal": 225,
+        "protein": 5
+      },
+      {
+        "food": "chicken",
+        "grams": 180,
+        "kcal": 390,
+        "protein": 45
+      },
+      {
+        "food": "rice",
+        "grams": 180,
+        "kcal": 235,
+        "protein": 5
+      }
+    ]
+  },
+  {
+    "id": "r07-m2",
+    "restaurantId": "r07",
+    "position": 2,
+    "name": {
+      "ar": "محشي مشكل",
+      "en": "Mixed mahshi"
+    },
+    "role": "main",
+    "price": 12000,
+    "kcal": 600,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 430,
+      "high": 770
+    },
+    "macros": {
+      "protein": 11,
+      "carbs": 84,
+      "fat": 23
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "cookedVegetables",
+        "grams": 225,
+        "kcal": 205,
+        "protein": 5
+      },
+      {
+        "food": "rice",
+        "grams": 225,
+        "kcal": 295,
+        "protein": 6
+      },
+      {
+        "food": "oil",
+        "grams": 11,
+        "kcal": 100,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r07-m3",
+    "restaurantId": "r07",
+    "position": 3,
+    "name": {
+      "ar": "مسقعة + رز",
+      "en": "Mesaqaa + rice"
+    },
+    "role": "main",
+    "price": 10500,
+    "kcal": 580,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 420,
+      "high": 740
+    },
+    "macros": {
+      "protein": 10,
+      "carbs": 77,
+      "fat": 24
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "cookedVegetables",
+        "grams": 265,
+        "kcal": 240,
+        "protein": 5
+      },
+      {
+        "food": "rice",
+        "grams": 190,
+        "kcal": 250,
+        "protein": 5
+      },
+      {
+        "food": "oil",
+        "grams": 11,
+        "kcal": 95,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r07-m4",
+    "restaurantId": "r07",
+    "position": 4,
+    "name": {
+      "ar": "فتة لحمة",
+      "en": "Beef fatta"
+    },
+    "role": "main",
+    "price": 17500,
+    "kcal": 980,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 780,
+      "high": 1180
+    },
+    "macros": {
+      "protein": 57,
+      "carbs": 107,
+      "fat": 36
+    },
+    "contains": [
+      "beef",
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "kebab",
+        "grams": 155,
+        "kcal": 330,
+        "protein": 43
+      },
+      {
+        "food": "rice",
+        "grams": 205,
+        "kcal": 265,
+        "protein": 6
+      },
+      {
+        "food": "baladiBread",
+        "grams": 80,
+        "kcal": 215,
+        "protein": 8
+      },
+      {
+        "food": "tomatoSauce",
+        "grams": 60,
+        "kcal": 35,
+        "protein": 1
+      },
+      {
+        "food": "ghee",
+        "grams": 15,
+        "kcal": 135,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r08-m1",
+    "restaurantId": "r08",
+    "position": 1,
+    "name": {
+      "ar": "فطير مشلتت + عسل وجبنة",
+      "en": "Feteer meshaltet with honey & cheese"
+    },
+    "role": "main",
+    "price": 11000,
+    "kcal": 900,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 700,
+      "high": 1100
+    },
+    "macros": {
+      "protein": 21,
+      "carbs": 109,
+      "fat": 44
+    },
+    "contains": [
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "feteerDough",
+        "grams": 165,
+        "kcal": 655,
+        "protein": 11
+      },
+      {
+        "food": "honey",
+        "grams": 35,
+        "kcal": 110,
+        "protein": 0
+      },
+      {
+        "food": "cheese",
+        "grams": 45,
+        "kcal": 135,
+        "protein": 9
+      }
+    ]
+  },
+  {
+    "id": "r08-m2",
+    "restaurantId": "r08",
+    "position": 2,
+    "name": {
+      "ar": "فطير سجق",
+      "en": "Sausage feteer"
+    },
+    "role": "main",
+    "price": 13000,
+    "kcal": 950,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 760,
+      "high": 1140
+    },
+    "macros": {
+      "protein": 29,
+      "carbs": 72,
+      "fat": 61
+    },
+    "contains": [
+      "beef",
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "feteerDough",
+        "grams": 145,
+        "kcal": 575,
+        "protein": 10
+      },
+      {
+        "food": "sausage",
+        "grams": 90,
+        "kcal": 270,
+        "protein": 12
+      },
+      {
+        "food": "cheese",
+        "grams": 35,
+        "kcal": 110,
+        "protein": 7
+      }
+    ]
+  },
+  {
+    "id": "r08-m3",
+    "restaurantId": "r08",
+    "position": 3,
+    "name": {
+      "ar": "فطير خضار",
+      "en": "Veggie feteer"
+    },
+    "role": "main",
+    "price": 10500,
+    "kcal": 720,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 570,
+      "high": 870
+    },
+    "macros": {
+      "protein": 19,
+      "carbs": 75,
+      "fat": 38
+    },
+    "contains": [
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "feteerDough",
+        "grams": 145,
+        "kcal": 580,
+        "protein": 10
+      },
+      {
+        "food": "vegetables",
+        "grams": 95,
+        "kcal": 25,
+        "protein": 1
+      },
+      {
+        "food": "cheese",
+        "grams": 40,
+        "kcal": 115,
+        "protein": 8
+      }
+    ]
+  },
+  {
+    "id": "r08-m4",
+    "restaurantId": "r08",
+    "position": 4,
+    "name": {
+      "ar": "أم علي",
+      "en": "Om Ali"
+    },
+    "role": "side",
+    "price": 4500,
+    "kcal": 450,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 340,
+      "high": 560
+    },
+    "macros": {
+      "protein": 10,
+      "carbs": 53,
+      "fat": 22
+    },
+    "contains": [
+      "dairy",
+      "nuts"
+    ],
+    "lines": [
+      {
+        "food": "feteerDough",
+        "grams": 50,
+        "kcal": 195,
+        "protein": 3
+      },
+      {
+        "food": "milk",
+        "grams": 125,
+        "kcal": 75,
+        "protein": 4
+      },
+      {
+        "food": "nuts",
+        "grams": 16,
+        "kcal": 100,
+        "protein": 3
+      },
+      {
+        "food": "sugar",
+        "grams": 20,
+        "kcal": 80,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r09-m1",
+    "restaurantId": "r09",
+    "position": 1,
+    "name": {
+      "ar": "حواوشي بلدي",
+      "en": "Baladi hawawshi"
+    },
+    "role": "main",
+    "price": 10000,
+    "kcal": 760,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 620,
+      "high": 900
+    },
+    "macros": {
+      "protein": 40,
+      "carbs": 79,
+      "fat": 34
+    },
+    "contains": [
+      "beef"
+    ],
+    "lines": [
+      {
+        "food": "baladiBread",
+        "grams": 135,
+        "kcal": 355,
+        "protein": 13
+      },
+      {
+        "food": "kofta",
+        "grams": 135,
+        "kcal": 325,
+        "protein": 27
+      },
+      {
+        "food": "oil",
+        "grams": 9,
+        "kcal": 80,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r09-m2",
+    "restaurantId": "r09",
+    "position": 2,
+    "name": {
+      "ar": "حواوشي بالجبنة",
+      "en": "Cheese hawawshi"
+    },
+    "role": "main",
+    "price": 11500,
+    "kcal": 860,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 700,
+      "high": 1020
+    },
+    "macros": {
+      "protein": 47,
+      "carbs": 79,
+      "fat": 43
+    },
+    "contains": [
+      "beef",
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "baladiBread",
+        "grams": 135,
+        "kcal": 350,
+        "protein": 13
+      },
+      {
+        "food": "kofta",
+        "grams": 135,
+        "kcal": 325,
+        "protein": 27
+      },
+      {
+        "food": "cheese",
+        "grams": 35,
+        "kcal": 105,
+        "protein": 7
+      },
+      {
+        "food": "oil",
+        "grams": 9,
+        "kcal": 80,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r09-m3",
+    "restaurantId": "r09",
+    "position": 3,
+    "name": {
+      "ar": "مخلل",
+      "en": "Pickles"
+    },
+    "role": "side",
+    "price": 1000,
+    "kcal": 20,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 10,
+      "high": 30
+    },
+    "macros": {
+      "protein": 1,
+      "carbs": 4,
+      "fat": 0
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "pickles",
+        "grams": 145,
+        "kcal": 20,
+        "protein": 1
+      }
+    ]
+  },
+  {
+    "id": "r10-m1",
+    "restaurantId": "r10",
+    "position": 1,
+    "name": {
+      "ar": "3 سندوتشات كبدة إسكندراني",
+      "en": "3 Alexandrian liver sandwiches"
+    },
+    "role": "main",
+    "price": 10500,
+    "kcal": 840,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 700,
+      "high": 980
+    },
+    "macros": {
+      "protein": 53,
+      "carbs": 96,
+      "fat": 26
+    },
+    "contains": [
+      "beef"
+    ],
+    "lines": [
+      {
+        "food": "liver",
+        "grams": 150,
+        "kcal": 300,
+        "protein": 37
+      },
+      {
+        "food": "whiteBread",
+        "grams": 175,
+        "kcal": 460,
+        "protein": 16
+      },
+      {
+        "food": "oil",
+        "grams": 8,
+        "kcal": 75,
+        "protein": 0
+      },
+      {
+        "food": "vegetables",
+        "grams": 25,
+        "kcal": 5,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r10-m2",
+    "restaurantId": "r10",
+    "position": 2,
+    "name": {
+      "ar": "3 سندوتشات سجق",
+      "en": "3 sausage sandwiches"
+    },
+    "role": "main",
+    "price": 10500,
+    "kcal": 900,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 760,
+      "high": 1040
+    },
+    "macros": {
+      "protein": 35,
+      "carbs": 90,
+      "fat": 44
+    },
+    "contains": [
+      "beef"
+    ],
+    "lines": [
+      {
+        "food": "sausage",
+        "grams": 145,
+        "kcal": 440,
+        "protein": 19
+      },
+      {
+        "food": "whiteBread",
+        "grams": 170,
+        "kcal": 455,
+        "protein": 15
+      },
+      {
+        "food": "vegetables",
+        "grams": 25,
+        "kcal": 5,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r10-m3",
+    "restaurantId": "r10",
+    "position": 3,
+    "name": {
+      "ar": "سندوتشات بطاطس وبيض",
+      "en": "Potato & egg sandwiches"
+    },
+    "role": "main",
+    "price": 8000,
+    "kcal": 700,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 590,
+      "high": 810
+    },
+    "macros": {
+      "protein": 22,
+      "carbs": 93,
+      "fat": 26
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "fries",
+        "grams": 105,
+        "kcal": 320,
+        "protein": 3
+      },
+      {
+        "food": "egg",
+        "grams": 70,
+        "kcal": 105,
+        "protein": 9
+      },
+      {
+        "food": "whiteBread",
+        "grams": 105,
+        "kcal": 275,
+        "protein": 9
+      }
+    ]
+  },
+  {
+    "id": "r10-m4",
+    "restaurantId": "r10",
+    "position": 4,
+    "name": {
+      "ar": "طحينة",
+      "en": "Tahini"
+    },
+    "role": "side",
+    "price": 1000,
+    "kcal": 90,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 60,
+      "high": 120
+    },
+    "macros": {
+      "protein": 3,
+      "carbs": 3,
+      "fat": 8
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "tahini",
+        "grams": 30,
+        "kcal": 90,
+        "protein": 3
+      }
+    ]
+  },
+  {
+    "id": "r11-m1",
+    "restaurantId": "r11",
+    "position": 1,
+    "name": {
+      "ar": "ربع فرخة مشوية + رز",
+      "en": "Quarter grilled chicken + rice"
+    },
+    "role": "main",
+    "price": 12000,
+    "kcal": 650,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 540,
+      "high": 760
+    },
+    "macros": {
+      "protein": 52,
+      "carbs": 53,
+      "fat": 23
+    },
+    "contains": [
+      "chicken"
+    ],
+    "lines": [
+      {
+        "food": "chicken",
+        "grams": 190,
+        "kcal": 405,
+        "protein": 47
+      },
+      {
+        "food": "rice",
+        "grams": 190,
+        "kcal": 245,
+        "protein": 5
+      }
+    ]
+  },
+  {
+    "id": "r11-m2",
+    "restaurantId": "r11",
+    "position": 2,
+    "name": {
+      "ar": "نص فرخة مشوية + رز",
+      "en": "Half grilled chicken + rice"
+    },
+    "role": "main",
+    "price": 19000,
+    "kcal": 950,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 790,
+      "high": 1110
+    },
+    "macros": {
+      "protein": 85,
+      "carbs": 56,
+      "fat": 39
+    },
+    "contains": [
+      "chicken"
+    ],
+    "lines": [
+      {
+        "food": "chicken",
+        "grams": 320,
+        "kcal": 690,
+        "protein": 80
+      },
+      {
+        "food": "rice",
+        "grams": 200,
+        "kcal": 260,
+        "protein": 5
+      }
+    ]
+  },
+  {
+    "id": "r11-m3",
+    "restaurantId": "r11",
+    "position": 3,
+    "name": {
+      "ar": "فراخ بانيه + بطاطس",
+      "en": "Chicken pané + fries"
+    },
+    "role": "main",
+    "price": 13500,
+    "kcal": 780,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 620,
+      "high": 940
+    },
+    "macros": {
+      "protein": 34,
+      "carbs": 69,
+      "fat": 42
+    },
+    "contains": [
+      "chicken"
+    ],
+    "lines": [
+      {
+        "food": "chickenPane",
+        "grams": 165,
+        "kcal": 435,
+        "protein": 30
+      },
+      {
+        "food": "fries",
+        "grams": 110,
+        "kcal": 345,
+        "protein": 4
+      }
+    ]
+  },
+  {
+    "id": "r11-m4",
+    "restaurantId": "r11",
+    "position": 4,
+    "name": {
+      "ar": "سلطة كول سلو",
+      "en": "Coleslaw"
+    },
+    "role": "side",
+    "price": 2000,
+    "kcal": 140,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 100,
+      "high": 180
+    },
+    "macros": {
+      "protein": 1,
+      "carbs": 12,
+      "fat": 10
+    },
+    "contains": [
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "coleslaw",
+        "grams": 95,
+        "kcal": 140,
+        "protein": 1
+      }
+    ]
+  },
+  {
+    "id": "r12-m1",
+    "restaurantId": "r12",
+    "position": 1,
+    "name": {
+      "ar": "بلطي مشوي + رز صيادية",
+      "en": "Grilled tilapia + sayadeya rice"
+    },
+    "role": "main",
+    "price": 16500,
+    "kcal": 620,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 490,
+      "high": 750
+    },
+    "macros": {
+      "protein": 66,
+      "carbs": 56,
+      "fat": 14
+    },
+    "contains": [
+      "fish"
+    ],
+    "lines": [
+      {
+        "food": "tilapia",
+        "grams": 235,
+        "kcal": 300,
+        "protein": 60
+      },
+      {
+        "food": "rice",
+        "grams": 185,
+        "kcal": 240,
+        "protein": 5
+      },
+      {
+        "food": "friedOnions",
+        "grams": 9,
+        "kcal": 40,
+        "protein": 0
+      },
+      {
+        "food": "oil",
+        "grams": 5,
+        "kcal": 40,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r12-m2",
+    "restaurantId": "r12",
+    "position": 2,
+    "name": {
+      "ar": "جمبري مقلي + رز",
+      "en": "Fried shrimp + rice"
+    },
+    "role": "main",
+    "price": 26500,
+    "kcal": 680,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 540,
+      "high": 820
+    },
+    "macros": {
+      "protein": 42,
+      "carbs": 75,
+      "fat": 22
+    },
+    "contains": [
+      "fish"
+    ],
+    "lines": [
+      {
+        "food": "shrimp",
+        "grams": 175,
+        "kcal": 425,
+        "protein": 37
+      },
+      {
+        "food": "rice",
+        "grams": 195,
+        "kcal": 255,
+        "protein": 5
+      }
+    ]
+  },
+  {
+    "id": "r12-m3",
+    "restaurantId": "r12",
+    "position": 3,
+    "name": {
+      "ar": "سمك فيليه + سلطة",
+      "en": "Fish fillet + salad"
+    },
+    "role": "main",
+    "price": 18000,
+    "kcal": 540,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 420,
+      "high": 660
+    },
+    "macros": {
+      "protein": 63,
+      "carbs": 30,
+      "fat": 19
+    },
+    "contains": [
+      "fish"
+    ],
+    "lines": [
+      {
+        "food": "fishFillet",
+        "grams": 250,
+        "kcal": 265,
+        "protein": 58
+      },
+      {
+        "food": "vegetables",
+        "grams": 150,
+        "kcal": 40,
+        "protein": 2
+      },
+      {
+        "food": "oil",
+        "grams": 15,
+        "kcal": 135,
+        "protein": 0
+      },
+      {
+        "food": "baladiBread",
+        "grams": 40,
+        "kcal": 105,
+        "protein": 4
+      }
+    ]
+  },
+  {
+    "id": "r12-m4",
+    "restaurantId": "r12",
+    "position": 4,
+    "name": {
+      "ar": "شوربة سي فود",
+      "en": "Seafood soup"
+    },
+    "role": "side",
+    "price": 6500,
+    "kcal": 260,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 210,
+      "high": 310
+    },
+    "macros": {
+      "protein": 30,
+      "carbs": 13,
+      "fat": 10
+    },
+    "contains": [
+      "fish",
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "fishFillet",
+        "grams": 80,
+        "kcal": 85,
+        "protein": 18
+      },
+      {
+        "food": "shrimp",
+        "grams": 30,
+        "kcal": 70,
+        "protein": 6
+      },
+      {
+        "food": "milk",
+        "grams": 150,
+        "kcal": 90,
+        "protein": 5
+      },
+      {
+        "food": "vegetables",
+        "grams": 50,
+        "kcal": 10,
+        "protein": 1
+      }
+    ]
+  },
+  {
+    "id": "r13-m1",
+    "restaurantId": "r13",
+    "position": 1,
+    "name": {
+      "ar": "بيتزا مارجريتا وسط",
+      "en": "Medium Margherita pizza"
+    },
+    "role": "main",
+    "price": 14000,
+    "kcal": 880,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 720,
+      "high": 1040
+    },
+    "macros": {
+      "protein": 38,
+      "carbs": 111,
+      "fat": 31
+    },
+    "contains": [
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "pizzaDough",
+        "grams": 210,
+        "kcal": 560,
+        "protein": 19
+      },
+      {
+        "food": "cheese",
+        "grams": 95,
+        "kcal": 285,
+        "protein": 19
+      },
+      {
+        "food": "tomatoSauce",
+        "grams": 55,
+        "kcal": 35,
+        "protein": 1
+      }
+    ]
+  },
+  {
+    "id": "r13-m2",
+    "restaurantId": "r13",
+    "position": 2,
+    "name": {
+      "ar": "بيتزا خضار وسط",
+      "en": "Medium veggie pizza"
+    },
+    "role": "main",
+    "price": 15000,
+    "kcal": 840,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 690,
+      "high": 990
+    },
+    "macros": {
+      "protein": 36,
+      "carbs": 114,
+      "fat": 27
+    },
+    "contains": [
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "pizzaDough",
+        "grams": 205,
+        "kcal": 555,
+        "protein": 19
+      },
+      {
+        "food": "cheese",
+        "grams": 75,
+        "kcal": 225,
+        "protein": 15
+      },
+      {
+        "food": "vegetables",
+        "grams": 95,
+        "kcal": 25,
+        "protein": 1
+      },
+      {
+        "food": "tomatoSauce",
+        "grams": 55,
+        "kcal": 35,
+        "protein": 1
+      }
+    ]
+  },
+  {
+    "id": "r13-m3",
+    "restaurantId": "r13",
+    "position": 3,
+    "name": {
+      "ar": "بيتزا فراخ وسط",
+      "en": "Medium chicken pizza"
+    },
+    "role": "main",
+    "price": 17000,
+    "kcal": 950,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 790,
+      "high": 1110
+    },
+    "macros": {
+      "protein": 58,
+      "carbs": 107,
+      "fat": 31
+    },
+    "contains": [
+      "chicken",
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "pizzaDough",
+        "grams": 205,
+        "kcal": 545,
+        "protein": 18
+      },
+      {
+        "food": "cheese",
+        "grams": 85,
+        "kcal": 250,
+        "protein": 17
+      },
+      {
+        "food": "chickenBreast",
+        "grams": 75,
+        "kcal": 120,
+        "protein": 23
+      },
+      {
+        "food": "tomatoSauce",
+        "grams": 55,
+        "kcal": 35,
+        "protein": 1
+      }
+    ]
+  },
+  {
+    "id": "r13-m4",
+    "restaurantId": "r13",
+    "position": 4,
+    "name": {
+      "ar": "أصابع جبنة",
+      "en": "Cheese sticks"
+    },
+    "role": "side",
+    "price": 4500,
+    "kcal": 380,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 300,
+      "high": 460
+    },
+    "macros": {
+      "protein": 17,
+      "carbs": 31,
+      "fat": 21
+    },
+    "contains": [
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "cheese",
+        "grams": 60,
+        "kcal": 175,
+        "protein": 12
+      },
+      {
+        "food": "pizzaDough",
+        "grams": 60,
+        "kcal": 160,
+        "protein": 5
+      },
+      {
+        "food": "oil",
+        "grams": 5,
+        "kcal": 45,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r14-m1",
+    "restaurantId": "r14",
+    "position": 1,
+    "name": {
+      "ar": "برجر كلاسيك + بطاطس",
+      "en": "Classic burger + fries"
+    },
+    "role": "main",
+    "price": 14000,
+    "kcal": 820,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 680,
+      "high": 960
+    },
+    "macros": {
+      "protein": 34,
+      "carbs": 70,
+      "fat": 45
+    },
+    "contains": [
+      "beef",
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "burgerPatty",
+        "grams": 125,
+        "kcal": 320,
+        "protein": 22
+      },
+      {
+        "food": "whiteBread",
+        "grams": 70,
+        "kcal": 180,
+        "protein": 6
+      },
+      {
+        "food": "cheese",
+        "grams": 17,
+        "kcal": 50,
+        "protein": 3
+      },
+      {
+        "food": "fries",
+        "grams": 85,
+        "kcal": 265,
+        "protein": 3
+      },
+      {
+        "food": "vegetables",
+        "grams": 25,
+        "kcal": 5,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r14-m2",
+    "restaurantId": "r14",
+    "position": 2,
+    "name": {
+      "ar": "برجر فراخ كرسبي",
+      "en": "Crispy chicken burger"
+    },
+    "role": "main",
+    "price": 13000,
+    "kcal": 760,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 610,
+      "high": 910
+    },
+    "macros": {
+      "protein": 36,
+      "carbs": 63,
+      "fat": 40
+    },
+    "contains": [
+      "chicken"
+    ],
+    "lines": [
+      {
+        "food": "chickenPane",
+        "grams": 160,
+        "kcal": 410,
+        "protein": 29
+      },
+      {
+        "food": "whiteBread",
+        "grams": 80,
+        "kcal": 210,
+        "protein": 7
+      },
+      {
+        "food": "garlicSauce",
+        "grams": 20,
+        "kcal": 130,
+        "protein": 0
+      },
+      {
+        "food": "vegetables",
+        "grams": 25,
+        "kcal": 5,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r14-m3",
+    "restaurantId": "r14",
+    "position": 3,
+    "name": {
+      "ar": "دبل تشيز برجر",
+      "en": "Double cheeseburger"
+    },
+    "role": "main",
+    "price": 19000,
+    "kcal": 1050,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 890,
+      "high": 1210
+    },
+    "macros": {
+      "protein": 64,
+      "carbs": 40,
+      "fat": 70
+    },
+    "contains": [
+      "beef",
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "burgerPatty",
+        "grams": 290,
+        "kcal": 725,
+        "protein": 49
+      },
+      {
+        "food": "whiteBread",
+        "grams": 75,
+        "kcal": 205,
+        "protein": 7
+      },
+      {
+        "food": "cheese",
+        "grams": 40,
+        "kcal": 115,
+        "protein": 8
+      },
+      {
+        "food": "vegetables",
+        "grams": 30,
+        "kcal": 5,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r14-m4",
+    "restaurantId": "r14",
+    "position": 4,
+    "name": {
+      "ar": "بطاطس بالجبنة",
+      "en": "Cheese fries"
+    },
+    "role": "side",
+    "price": 4000,
+    "kcal": 420,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 330,
+      "high": 510
+    },
+    "macros": {
+      "protein": 10,
+      "carbs": 43,
+      "fat": 23
+    },
+    "contains": [
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "fries",
+        "grams": 105,
+        "kcal": 325,
+        "protein": 4
+      },
+      {
+        "food": "cheese",
+        "grams": 30,
+        "kcal": 95,
+        "protein": 6
+      }
+    ]
+  },
+  {
+    "id": "r15-m1",
+    "restaurantId": "r15",
+    "position": 1,
+    "name": {
+      "ar": "كريب فراخ",
+      "en": "Chicken crepe"
+    },
+    "role": "main",
+    "price": 10500,
+    "kcal": 760,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 630,
+      "high": 890
+    },
+    "macros": {
+      "protein": 47,
+      "carbs": 50,
+      "fat": 41
+    },
+    "contains": [
+      "chicken",
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "crepe",
+        "grams": 170,
+        "kcal": 375,
+        "protein": 10
+      },
+      {
+        "food": "chicken",
+        "grams": 110,
+        "kcal": 240,
+        "protein": 28
+      },
+      {
+        "food": "cheese",
+        "grams": 45,
+        "kcal": 135,
+        "protein": 9
+      },
+      {
+        "food": "vegetables",
+        "grams": 35,
+        "kcal": 10,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r15-m2",
+    "restaurantId": "r15",
+    "position": 2,
+    "name": {
+      "ar": "كريب سجق",
+      "en": "Sausage crepe"
+    },
+    "role": "main",
+    "price": 10000,
+    "kcal": 800,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 650,
+      "high": 950
+    },
+    "macros": {
+      "protein": 32,
+      "carbs": 48,
+      "fat": 53
+    },
+    "contains": [
+      "beef",
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "crepe",
+        "grams": 160,
+        "kcal": 355,
+        "protein": 10
+      },
+      {
+        "food": "sausage",
+        "grams": 105,
+        "kcal": 315,
+        "protein": 14
+      },
+      {
+        "food": "cheese",
+        "grams": 40,
+        "kcal": 125,
+        "protein": 8
+      }
+    ]
+  },
+  {
+    "id": "r15-m3",
+    "restaurantId": "r15",
+    "position": 3,
+    "name": {
+      "ar": "كريب خضار بالجبنة",
+      "en": "Veggie & cheese crepe"
+    },
+    "role": "main",
+    "price": 9500,
+    "kcal": 640,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 520,
+      "high": 760
+    },
+    "macros": {
+      "protein": 26,
+      "carbs": 56,
+      "fat": 35
+    },
+    "contains": [
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "crepe",
+        "grams": 180,
+        "kcal": 400,
+        "protein": 11
+      },
+      {
+        "food": "cheese",
+        "grams": 70,
+        "kcal": 215,
+        "protein": 14
+      },
+      {
+        "food": "vegetables",
+        "grams": 95,
+        "kcal": 25,
+        "protein": 1
+      }
+    ]
+  },
+  {
+    "id": "r15-m4",
+    "restaurantId": "r15",
+    "position": 4,
+    "name": {
+      "ar": "كريب نوتيلا",
+      "en": "Nutella crepe"
+    },
+    "role": "side",
+    "price": 8500,
+    "kcal": 650,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 500,
+      "high": 800
+    },
+    "macros": {
+      "protein": 12,
+      "carbs": 75,
+      "fat": 33
+    },
+    "contains": [
+      "dairy",
+      "nuts"
+    ],
+    "lines": [
+      {
+        "food": "crepe",
+        "grams": 135,
+        "kcal": 310,
+        "protein": 8
+      },
+      {
+        "food": "chocolateSpread",
+        "grams": 65,
+        "kcal": 340,
+        "protein": 4
+      }
+    ]
+  },
+  {
+    "id": "r16-m1",
+    "restaurantId": "r16",
+    "position": 1,
+    "name": {
+      "ar": "سلطة تونة + عيش بلدي",
+      "en": "Tuna salad + baladi bread"
+    },
+    "role": "main",
+    "price": 13000,
+    "kcal": 480,
+    "kcalSource": "restaurant",
+    "macros": {
+      "protein": 40,
+      "carbs": 44,
+      "fat": 16
+    },
+    "contains": [
+      "fish"
+    ],
+    "lines": []
+  },
+  {
+    "id": "r16-m2",
+    "restaurantId": "r16",
+    "position": 2,
+    "name": {
+      "ar": "سلطة سيزر بالفراخ",
+      "en": "Chicken Caesar salad"
+    },
+    "role": "main",
+    "price": 16000,
+    "kcal": 520,
+    "kcalSource": "restaurant",
+    "macros": {
+      "protein": 56,
+      "carbs": 23,
+      "fat": 22
+    },
+    "contains": [
+      "chicken",
+      "dairy"
+    ],
+    "lines": []
+  },
+  {
+    "id": "r16-m3",
+    "restaurantId": "r16",
+    "position": 3,
+    "name": {
+      "ar": "بول كينوا وخضار",
+      "en": "Quinoa & veggie bowl"
+    },
+    "role": "main",
+    "price": 15000,
+    "kcal": 450,
+    "kcalSource": "restaurant",
+    "macros": {
+      "protein": 15,
+      "carbs": 64,
+      "fat": 15
+    },
+    "contains": [],
+    "lines": []
+  },
+  {
+    "id": "r16-m4",
+    "restaurantId": "r16",
+    "position": 4,
+    "name": {
+      "ar": "زبادي بالفواكه",
+      "en": "Yogurt with fruit"
+    },
+    "role": "side",
+    "price": 5000,
+    "kcal": 220,
+    "kcalSource": "restaurant",
+    "macros": {
+      "protein": 7,
+      "carbs": 36,
+      "fat": 6
+    },
+    "contains": [
+      "dairy"
+    ],
+    "lines": []
+  },
+  {
+    "id": "r17-m1",
+    "restaurantId": "r17",
+    "position": 1,
+    "name": {
+      "ar": "كفتة مشوية + رز",
+      "en": "Grilled kofta + rice"
+    },
+    "role": "main",
+    "price": 16000,
+    "kcal": 690,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 570,
+      "high": 810
+    },
+    "macros": {
+      "protein": 41,
+      "carbs": 62,
+      "fat": 30
+    },
+    "contains": [
+      "beef"
+    ],
+    "lines": [
+      {
+        "food": "kofta",
+        "grams": 175,
+        "kcal": 435,
+        "protein": 35
+      },
+      {
+        "food": "rice",
+        "grams": 195,
+        "kcal": 255,
+        "protein": 5
+      }
+    ]
+  },
+  {
+    "id": "r17-m2",
+    "restaurantId": "r17",
+    "position": 2,
+    "name": {
+      "ar": "ربع كباب + رز",
+      "en": "Quarter kebab + rice"
+    },
+    "role": "main",
+    "price": 21000,
+    "kcal": 760,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 620,
+      "high": 900
+    },
+    "macros": {
+      "protein": 64,
+      "carbs": 58,
+      "fat": 29
+    },
+    "contains": [
+      "beef"
+    ],
+    "lines": [
+      {
+        "food": "kebab",
+        "grams": 205,
+        "kcal": 445,
+        "protein": 58
+      },
+      {
+        "food": "rice",
+        "grams": 205,
+        "kcal": 270,
+        "protein": 6
+      },
+      {
+        "food": "oil",
+        "grams": 5,
+        "kcal": 45,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r17-m3",
+    "restaurantId": "r17",
+    "position": 3,
+    "name": {
+      "ar": "طرب + عيش",
+      "en": "Tarb + bread"
+    },
+    "role": "main",
+    "price": 18500,
+    "kcal": 820,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 670,
+      "high": 970
+    },
+    "macros": {
+      "protein": 50,
+      "carbs": 55,
+      "fat": 46
+    },
+    "contains": [
+      "beef"
+    ],
+    "lines": [
+      {
+        "food": "kofta",
+        "grams": 210,
+        "kcal": 510,
+        "protein": 42
+      },
+      {
+        "food": "oil",
+        "grams": 9,
+        "kcal": 85,
+        "protein": 0
+      },
+      {
+        "food": "baladiBread",
+        "grams": 85,
+        "kcal": 225,
+        "protein": 8
+      }
+    ]
+  },
+  {
+    "id": "r17-m4",
+    "restaurantId": "r17",
+    "position": 4,
+    "name": {
+      "ar": "سلطة طحينة",
+      "en": "Tahini salad"
+    },
+    "role": "side",
+    "price": 2000,
+    "kcal": 150,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 100,
+      "high": 200
+    },
+    "macros": {
+      "protein": 4,
+      "carbs": 5,
+      "fat": 13
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "tahini",
+        "grams": 50,
+        "kcal": 150,
+        "protein": 4
+      }
+    ]
+  },
+  {
+    "id": "r18-m1",
+    "restaurantId": "r18",
+    "position": 1,
+    "name": {
+      "ar": "شاورما لحمة + سلطة",
+      "en": "Beef shawarma + salad"
+    },
+    "role": "main",
+    "price": 12500,
+    "kcal": 700,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 560,
+      "high": 840
+    },
+    "macros": {
+      "protein": 51,
+      "carbs": 49,
+      "fat": 34
+    },
+    "contains": [
+      "beef"
+    ],
+    "lines": [
+      {
+        "food": "beefShawarma",
+        "grams": 170,
+        "kcal": 395,
+        "protein": 41
+      },
+      {
+        "food": "whiteBread",
+        "grams": 75,
+        "kcal": 200,
+        "protein": 7
+      },
+      {
+        "food": "tahini",
+        "grams": 30,
+        "kcal": 85,
+        "protein": 2
+      },
+      {
+        "food": "vegetables",
+        "grams": 75,
+        "kcal": 20,
+        "protein": 1
+      }
+    ]
+  },
+  {
+    "id": "r18-m2",
+    "restaurantId": "r18",
+    "position": 2,
+    "name": {
+      "ar": "شاورما فراخ + بطاطس",
+      "en": "Chicken shawarma + fries"
+    },
+    "role": "main",
+    "price": 11000,
+    "kcal": 720,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 590,
+      "high": 850
+    },
+    "macros": {
+      "protein": 36,
+      "carbs": 57,
+      "fat": 37
+    },
+    "contains": [
+      "chicken"
+    ],
+    "lines": [
+      {
+        "food": "chicken",
+        "grams": 115,
+        "kcal": 245,
+        "protein": 28
+      },
+      {
+        "food": "whiteBread",
+        "grams": 55,
+        "kcal": 150,
+        "protein": 5
+      },
+      {
+        "food": "garlicSauce",
+        "grams": 18,
+        "kcal": 105,
+        "protein": 0
+      },
+      {
+        "food": "fries",
+        "grams": 70,
+        "kcal": 220,
+        "protein": 2
+      }
+    ]
+  },
+  {
+    "id": "r18-m3",
+    "restaurantId": "r18",
+    "position": 3,
+    "name": {
+      "ar": "فتة شاورما",
+      "en": "Shawarma fatta"
+    },
+    "role": "main",
+    "price": 14500,
+    "kcal": 920,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 710,
+      "high": 1130
+    },
+    "macros": {
+      "protein": 50,
+      "carbs": 76,
+      "fat": 47
+    },
+    "contains": [
+      "beef",
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "beefShawarma",
+        "grams": 165,
+        "kcal": 375,
+        "protein": 39
+      },
+      {
+        "food": "rice",
+        "grams": 135,
+        "kcal": 175,
+        "protein": 4
+      },
+      {
+        "food": "baladiBread",
+        "grams": 55,
+        "kcal": 145,
+        "protein": 5
+      },
+      {
+        "food": "yogurt",
+        "grams": 55,
+        "kcal": 35,
+        "protein": 2
+      },
+      {
+        "food": "garlicSauce",
+        "grams": 18,
+        "kcal": 110,
+        "protein": 0
+      },
+      {
+        "food": "ghee",
+        "grams": 9,
+        "kcal": 80,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r18-m4",
+    "restaurantId": "r18",
+    "position": 4,
+    "name": {
+      "ar": "ثومية زيادة",
+      "en": "Extra garlic sauce"
+    },
+    "role": "side",
+    "price": 1000,
+    "kcal": 120,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 80,
+      "high": 160
+    },
+    "macros": {
+      "protein": 0,
+      "carbs": 1,
+      "fat": 13
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "garlicSauce",
+        "grams": 20,
+        "kcal": 120,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r19-m1",
+    "restaurantId": "r19",
+    "position": 1,
+    "name": {
+      "ar": "فول وطعمية وبيض + عيش",
+      "en": "Foul, taameya & eggs + bread"
+    },
+    "role": "main",
+    "price": 10000,
+    "kcal": 650,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 510,
+      "high": 790
+    },
+    "macros": {
+      "protein": 32,
+      "carbs": 90,
+      "fat": 20
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "foul",
+        "grams": 165,
+        "kcal": 185,
+        "protein": 13
+      },
+      {
+        "food": "taameya",
+        "grams": 50,
+        "kcal": 165,
+        "protein": 7
+      },
+      {
+        "food": "egg",
+        "grams": 40,
+        "kcal": 65,
+        "protein": 5
+      },
+      {
+        "food": "baladiBread",
+        "grams": 75,
+        "kcal": 200,
+        "protein": 7
+      },
+      {
+        "food": "oil",
+        "grams": 4,
+        "kcal": 35,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r19-m2",
+    "restaurantId": "r19",
+    "position": 2,
+    "name": {
+      "ar": "طبق فول بالزيت الحار + طعمية",
+      "en": "Foul with hot oil + taameya"
+    },
+    "role": "main",
+    "price": 7000,
+    "kcal": 520,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 380,
+      "high": 660
+    },
+    "macros": {
+      "protein": 23,
+      "carbs": 58,
+      "fat": 23
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "foul",
+        "grams": 215,
+        "kcal": 235,
+        "protein": 16
+      },
+      {
+        "food": "oil",
+        "grams": 13,
+        "kcal": 115,
+        "protein": 0
+      },
+      {
+        "food": "taameya",
+        "grams": 50,
+        "kcal": 170,
+        "protein": 7
+      }
+    ]
+  },
+  {
+    "id": "r19-m3",
+    "restaurantId": "r19",
+    "position": 3,
+    "name": {
+      "ar": "سلطة بلدي",
+      "en": "Baladi salad"
+    },
+    "role": "side",
+    "price": 1500,
+    "kcal": 60,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 30,
+      "high": 90
+    },
+    "macros": {
+      "protein": 2,
+      "carbs": 7,
+      "fat": 3
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "vegetables",
+        "grams": 140,
+        "kcal": 35,
+        "protein": 2
+      },
+      {
+        "food": "oil",
+        "grams": 3,
+        "kcal": 25,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r19-m4",
+    "restaurantId": "r19",
+    "position": 4,
+    "name": {
+      "ar": "بطاطس محمرة",
+      "en": "Fried potatoes"
+    },
+    "role": "side",
+    "price": 2500,
+    "kcal": 320,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 250,
+      "high": 390
+    },
+    "macros": {
+      "protein": 3,
+      "carbs": 42,
+      "fat": 15
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "fries",
+        "grams": 105,
+        "kcal": 320,
+        "protein": 3
+      }
+    ]
+  },
+  {
+    "id": "r20-m1",
+    "restaurantId": "r20",
+    "position": 1,
+    "name": {
+      "ar": "كشري كبير",
+      "en": "Large koshari"
+    },
+    "role": "main",
+    "price": 10000,
+    "kcal": 900,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 660,
+      "high": 1140
+    },
+    "macros": {
+      "protein": 28,
+      "carbs": 140,
+      "fat": 25
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "rice",
+        "grams": 150,
+        "kcal": 195,
+        "protein": 4
+      },
+      {
+        "food": "pasta",
+        "grams": 150,
+        "kcal": 235,
+        "protein": 9
+      },
+      {
+        "food": "lentils",
+        "grams": 100,
+        "kcal": 115,
+        "protein": 9
+      },
+      {
+        "food": "chickpeas",
+        "grams": 30,
+        "kcal": 50,
+        "protein": 3
+      },
+      {
+        "food": "friedOnions",
+        "grams": 30,
+        "kcal": 125,
+        "protein": 1
+      },
+      {
+        "food": "tomatoSauce",
+        "grams": 150,
+        "kcal": 90,
+        "protein": 2
+      },
+      {
+        "food": "oil",
+        "grams": 10,
+        "kcal": 90,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r20-m2",
+    "restaurantId": "r20",
+    "position": 2,
+    "name": {
+      "ar": "كشري وسط",
+      "en": "Medium koshari"
+    },
+    "role": "main",
+    "price": 7500,
+    "kcal": 650,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 480,
+      "high": 820
+    },
+    "macros": {
+      "protein": 20,
+      "carbs": 102,
+      "fat": 18
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "rice",
+        "grams": 110,
+        "kcal": 145,
+        "protein": 3
+      },
+      {
+        "food": "pasta",
+        "grams": 110,
+        "kcal": 175,
+        "protein": 6
+      },
+      {
+        "food": "lentils",
+        "grams": 75,
+        "kcal": 85,
+        "protein": 7
+      },
+      {
+        "food": "chickpeas",
+        "grams": 20,
+        "kcal": 35,
+        "protein": 2
+      },
+      {
+        "food": "friedOnions",
+        "grams": 20,
+        "kcal": 90,
+        "protein": 1
+      },
+      {
+        "food": "tomatoSauce",
+        "grams": 105,
+        "kcal": 65,
+        "protein": 1
+      },
+      {
+        "food": "oil",
+        "grams": 7,
+        "kcal": 65,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r20-m3",
+    "restaurantId": "r20",
+    "position": 3,
+    "name": {
+      "ar": "رز بلبن",
+      "en": "Rice pudding"
+    },
+    "role": "side",
+    "price": 2500,
+    "kcal": 250,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 210,
+      "high": 290
+    },
+    "macros": {
+      "protein": 7,
+      "carbs": 42,
+      "fat": 6
+    },
+    "contains": [
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "ricePudding",
+        "grams": 190,
+        "kcal": 250,
+        "protein": 7
+      }
+    ]
+  },
+  {
+    "id": "r20-m4",
+    "restaurantId": "r20",
+    "position": 4,
+    "name": {
+      "ar": "سلطة بلدي",
+      "en": "Baladi salad"
+    },
+    "role": "side",
+    "price": 1500,
+    "kcal": 60,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 30,
+      "high": 90
+    },
+    "macros": {
+      "protein": 2,
+      "carbs": 7,
+      "fat": 3
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "vegetables",
+        "grams": 140,
+        "kcal": 35,
+        "protein": 2
+      },
+      {
+        "food": "oil",
+        "grams": 3,
+        "kcal": 25,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r21-m1",
+    "restaurantId": "r21",
+    "position": 1,
+    "name": {
+      "ar": "ملوخية + فراخ + رز",
+      "en": "Molokhia, chicken & rice"
+    },
+    "role": "main",
+    "price": 15000,
+    "kcal": 850,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 670,
+      "high": 1030
+    },
+    "macros": {
+      "protein": 55,
+      "carbs": 73,
+      "fat": 35
+    },
+    "contains": [
+      "chicken"
+    ],
+    "lines": [
+      {
+        "food": "cookedVegetables",
+        "grams": 250,
+        "kcal": 225,
+        "protein": 5
+      },
+      {
+        "food": "chicken",
+        "grams": 180,
+        "kcal": 390,
+        "protein": 45
+      },
+      {
+        "food": "rice",
+        "grams": 180,
+        "kcal": 235,
+        "protein": 5
+      }
+    ]
+  },
+  {
+    "id": "r21-m2",
+    "restaurantId": "r21",
+    "position": 2,
+    "name": {
+      "ar": "محشي مشكل",
+      "en": "Mixed mahshi"
+    },
+    "role": "main",
+    "price": 11500,
+    "kcal": 600,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 430,
+      "high": 770
+    },
+    "macros": {
+      "protein": 11,
+      "carbs": 84,
+      "fat": 23
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "cookedVegetables",
+        "grams": 225,
+        "kcal": 205,
+        "protein": 5
+      },
+      {
+        "food": "rice",
+        "grams": 225,
+        "kcal": 295,
+        "protein": 6
+      },
+      {
+        "food": "oil",
+        "grams": 11,
+        "kcal": 100,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r21-m3",
+    "restaurantId": "r21",
+    "position": 3,
+    "name": {
+      "ar": "مسقعة + رز",
+      "en": "Mesaqaa + rice"
+    },
+    "role": "main",
+    "price": 10000,
+    "kcal": 580,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 420,
+      "high": 740
+    },
+    "macros": {
+      "protein": 10,
+      "carbs": 77,
+      "fat": 24
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "cookedVegetables",
+        "grams": 265,
+        "kcal": 240,
+        "protein": 5
+      },
+      {
+        "food": "rice",
+        "grams": 190,
+        "kcal": 250,
+        "protein": 5
+      },
+      {
+        "food": "oil",
+        "grams": 11,
+        "kcal": 95,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r21-m4",
+    "restaurantId": "r21",
+    "position": 4,
+    "name": {
+      "ar": "فتة لحمة",
+      "en": "Beef fatta"
+    },
+    "role": "main",
+    "price": 16500,
+    "kcal": 980,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 780,
+      "high": 1180
+    },
+    "macros": {
+      "protein": 57,
+      "carbs": 107,
+      "fat": 36
+    },
+    "contains": [
+      "beef",
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "kebab",
+        "grams": 155,
+        "kcal": 330,
+        "protein": 43
+      },
+      {
+        "food": "rice",
+        "grams": 205,
+        "kcal": 265,
+        "protein": 6
+      },
+      {
+        "food": "baladiBread",
+        "grams": 80,
+        "kcal": 215,
+        "protein": 8
+      },
+      {
+        "food": "tomatoSauce",
+        "grams": 60,
+        "kcal": 35,
+        "protein": 1
+      },
+      {
+        "food": "ghee",
+        "grams": 15,
+        "kcal": 135,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r22-m1",
+    "restaurantId": "r22",
+    "position": 1,
+    "name": {
+      "ar": "3 سندوتشات كبدة إسكندراني",
+      "en": "3 Alexandrian liver sandwiches"
+    },
+    "role": "main",
+    "price": 10000,
+    "kcal": 840,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 700,
+      "high": 980
+    },
+    "macros": {
+      "protein": 53,
+      "carbs": 96,
+      "fat": 26
+    },
+    "contains": [
+      "beef"
+    ],
+    "lines": [
+      {
+        "food": "liver",
+        "grams": 150,
+        "kcal": 300,
+        "protein": 37
+      },
+      {
+        "food": "whiteBread",
+        "grams": 175,
+        "kcal": 460,
+        "protein": 16
+      },
+      {
+        "food": "oil",
+        "grams": 8,
+        "kcal": 75,
+        "protein": 0
+      },
+      {
+        "food": "vegetables",
+        "grams": 25,
+        "kcal": 5,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r22-m2",
+    "restaurantId": "r22",
+    "position": 2,
+    "name": {
+      "ar": "3 سندوتشات سجق",
+      "en": "3 sausage sandwiches"
+    },
+    "role": "main",
+    "price": 10000,
+    "kcal": 900,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 760,
+      "high": 1040
+    },
+    "macros": {
+      "protein": 35,
+      "carbs": 90,
+      "fat": 44
+    },
+    "contains": [
+      "beef"
+    ],
+    "lines": [
+      {
+        "food": "sausage",
+        "grams": 145,
+        "kcal": 440,
+        "protein": 19
+      },
+      {
+        "food": "whiteBread",
+        "grams": 170,
+        "kcal": 455,
+        "protein": 15
+      },
+      {
+        "food": "vegetables",
+        "grams": 25,
+        "kcal": 5,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r22-m3",
+    "restaurantId": "r22",
+    "position": 3,
+    "name": {
+      "ar": "سندوتشات بطاطس وبيض",
+      "en": "Potato & egg sandwiches"
+    },
+    "role": "main",
+    "price": 7500,
+    "kcal": 700,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 590,
+      "high": 810
+    },
+    "macros": {
+      "protein": 22,
+      "carbs": 93,
+      "fat": 26
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "fries",
+        "grams": 105,
+        "kcal": 320,
+        "protein": 3
+      },
+      {
+        "food": "egg",
+        "grams": 70,
+        "kcal": 105,
+        "protein": 9
+      },
+      {
+        "food": "whiteBread",
+        "grams": 105,
+        "kcal": 275,
+        "protein": 9
+      }
+    ]
+  },
+  {
+    "id": "r22-m4",
+    "restaurantId": "r22",
+    "position": 4,
+    "name": {
+      "ar": "طحينة",
+      "en": "Tahini"
+    },
+    "role": "side",
+    "price": 1000,
+    "kcal": 90,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 60,
+      "high": 120
+    },
+    "macros": {
+      "protein": 3,
+      "carbs": 3,
+      "fat": 8
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "tahini",
+        "grams": 30,
+        "kcal": 90,
+        "protein": 3
+      }
+    ]
+  },
+  {
+    "id": "r23-m1",
+    "restaurantId": "r23",
+    "position": 1,
+    "name": {
+      "ar": "سلطة تونة + عيش بلدي",
+      "en": "Tuna salad + baladi bread"
+    },
+    "role": "main",
+    "price": 14000,
+    "kcal": 480,
+    "kcalSource": "restaurant",
+    "macros": {
+      "protein": 40,
+      "carbs": 44,
+      "fat": 16
+    },
+    "contains": [
+      "fish"
+    ],
+    "lines": []
+  },
+  {
+    "id": "r23-m2",
+    "restaurantId": "r23",
+    "position": 2,
+    "name": {
+      "ar": "سلطة سيزر بالفراخ",
+      "en": "Chicken Caesar salad"
+    },
+    "role": "main",
+    "price": 16500,
+    "kcal": 520,
+    "kcalSource": "restaurant",
+    "macros": {
+      "protein": 56,
+      "carbs": 23,
+      "fat": 22
+    },
+    "contains": [
+      "chicken",
+      "dairy"
+    ],
+    "lines": []
+  },
+  {
+    "id": "r23-m3",
+    "restaurantId": "r23",
+    "position": 3,
+    "name": {
+      "ar": "بول كينوا وخضار",
+      "en": "Quinoa & veggie bowl"
+    },
+    "role": "main",
+    "price": 15500,
+    "kcal": 450,
+    "kcalSource": "restaurant",
+    "macros": {
+      "protein": 15,
+      "carbs": 64,
+      "fat": 15
+    },
+    "contains": [],
+    "lines": []
+  },
+  {
+    "id": "r23-m4",
+    "restaurantId": "r23",
+    "position": 4,
+    "name": {
+      "ar": "زبادي بالفواكه",
+      "en": "Yogurt with fruit"
+    },
+    "role": "side",
+    "price": 5000,
+    "kcal": 220,
+    "kcalSource": "restaurant",
+    "macros": {
+      "protein": 7,
+      "carbs": 36,
+      "fat": 6
+    },
+    "contains": [
+      "dairy"
+    ],
+    "lines": []
+  },
+  {
+    "id": "r24-m1",
+    "restaurantId": "r24",
+    "position": 1,
+    "name": {
+      "ar": "ربع فرخة مشوية + رز",
+      "en": "Quarter grilled chicken + rice"
+    },
+    "role": "main",
+    "price": 11500,
+    "kcal": 650,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 540,
+      "high": 760
+    },
+    "macros": {
+      "protein": 52,
+      "carbs": 53,
+      "fat": 23
+    },
+    "contains": [
+      "chicken"
+    ],
+    "lines": [
+      {
+        "food": "chicken",
+        "grams": 190,
+        "kcal": 405,
+        "protein": 47
+      },
+      {
+        "food": "rice",
+        "grams": 190,
+        "kcal": 245,
+        "protein": 5
+      }
+    ]
+  },
+  {
+    "id": "r24-m2",
+    "restaurantId": "r24",
+    "position": 2,
+    "name": {
+      "ar": "نص فرخة مشوية + رز",
+      "en": "Half grilled chicken + rice"
+    },
+    "role": "main",
+    "price": 18000,
+    "kcal": 950,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 790,
+      "high": 1110
+    },
+    "macros": {
+      "protein": 85,
+      "carbs": 56,
+      "fat": 39
+    },
+    "contains": [
+      "chicken"
+    ],
+    "lines": [
+      {
+        "food": "chicken",
+        "grams": 320,
+        "kcal": 690,
+        "protein": 80
+      },
+      {
+        "food": "rice",
+        "grams": 200,
+        "kcal": 260,
+        "protein": 5
+      }
+    ]
+  },
+  {
+    "id": "r24-m3",
+    "restaurantId": "r24",
+    "position": 3,
+    "name": {
+      "ar": "فراخ بانيه + بطاطس",
+      "en": "Chicken pané + fries"
+    },
+    "role": "main",
+    "price": 13000,
+    "kcal": 780,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 620,
+      "high": 940
+    },
+    "macros": {
+      "protein": 34,
+      "carbs": 69,
+      "fat": 42
+    },
+    "contains": [
+      "chicken"
+    ],
+    "lines": [
+      {
+        "food": "chickenPane",
+        "grams": 165,
+        "kcal": 435,
+        "protein": 30
+      },
+      {
+        "food": "fries",
+        "grams": 110,
+        "kcal": 345,
+        "protein": 4
+      }
+    ]
+  },
+  {
+    "id": "r24-m4",
+    "restaurantId": "r24",
+    "position": 4,
+    "name": {
+      "ar": "سلطة كول سلو",
+      "en": "Coleslaw"
+    },
+    "role": "side",
+    "price": 2000,
+    "kcal": 140,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 100,
+      "high": 180
+    },
+    "macros": {
+      "protein": 1,
+      "carbs": 12,
+      "fat": 10
+    },
+    "contains": [
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "coleslaw",
+        "grams": 95,
+        "kcal": 140,
+        "protein": 1
+      }
+    ]
+  },
+  {
+    "id": "r25-m1",
+    "restaurantId": "r25",
+    "position": 1,
+    "name": {
+      "ar": "بلطي مشوي + رز صيادية",
+      "en": "Grilled tilapia + sayadeya rice"
+    },
+    "role": "main",
+    "price": 15000,
+    "kcal": 620,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 490,
+      "high": 750
+    },
+    "macros": {
+      "protein": 66,
+      "carbs": 56,
+      "fat": 14
+    },
+    "contains": [
+      "fish"
+    ],
+    "lines": [
+      {
+        "food": "tilapia",
+        "grams": 235,
+        "kcal": 300,
+        "protein": 60
+      },
+      {
+        "food": "rice",
+        "grams": 185,
+        "kcal": 240,
+        "protein": 5
+      },
+      {
+        "food": "friedOnions",
+        "grams": 9,
+        "kcal": 40,
+        "protein": 0
+      },
+      {
+        "food": "oil",
+        "grams": 5,
+        "kcal": 40,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r25-m2",
+    "restaurantId": "r25",
+    "position": 2,
+    "name": {
+      "ar": "جمبري مقلي + رز",
+      "en": "Fried shrimp + rice"
+    },
+    "role": "main",
+    "price": 24000,
+    "kcal": 680,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 540,
+      "high": 820
+    },
+    "macros": {
+      "protein": 42,
+      "carbs": 75,
+      "fat": 22
+    },
+    "contains": [
+      "fish"
+    ],
+    "lines": [
+      {
+        "food": "shrimp",
+        "grams": 175,
+        "kcal": 425,
+        "protein": 37
+      },
+      {
+        "food": "rice",
+        "grams": 195,
+        "kcal": 255,
+        "protein": 5
+      }
+    ]
+  },
+  {
+    "id": "r25-m3",
+    "restaurantId": "r25",
+    "position": 3,
+    "name": {
+      "ar": "سمك فيليه + سلطة",
+      "en": "Fish fillet + salad"
+    },
+    "role": "main",
+    "price": 16500,
+    "kcal": 540,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 420,
+      "high": 660
+    },
+    "macros": {
+      "protein": 63,
+      "carbs": 30,
+      "fat": 19
+    },
+    "contains": [
+      "fish"
+    ],
+    "lines": [
+      {
+        "food": "fishFillet",
+        "grams": 250,
+        "kcal": 265,
+        "protein": 58
+      },
+      {
+        "food": "vegetables",
+        "grams": 150,
+        "kcal": 40,
+        "protein": 2
+      },
+      {
+        "food": "oil",
+        "grams": 15,
+        "kcal": 135,
+        "protein": 0
+      },
+      {
+        "food": "baladiBread",
+        "grams": 40,
+        "kcal": 105,
+        "protein": 4
+      }
+    ]
+  },
+  {
+    "id": "r25-m4",
+    "restaurantId": "r25",
+    "position": 4,
+    "name": {
+      "ar": "شوربة سي فود",
+      "en": "Seafood soup"
+    },
+    "role": "side",
+    "price": 6000,
+    "kcal": 260,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 210,
+      "high": 310
+    },
+    "macros": {
+      "protein": 30,
+      "carbs": 13,
+      "fat": 10
+    },
+    "contains": [
+      "fish",
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "fishFillet",
+        "grams": 80,
+        "kcal": 85,
+        "protein": 18
+      },
+      {
+        "food": "shrimp",
+        "grams": 30,
+        "kcal": 70,
+        "protein": 6
+      },
+      {
+        "food": "milk",
+        "grams": 150,
+        "kcal": 90,
+        "protein": 5
+      },
+      {
+        "food": "vegetables",
+        "grams": 50,
+        "kcal": 10,
+        "protein": 1
+      }
+    ]
+  },
+  {
+    "id": "r26-m1",
+    "restaurantId": "r26",
+    "position": 1,
+    "name": {
+      "ar": "بيتزا مارجريتا وسط",
+      "en": "Medium Margherita pizza"
+    },
+    "role": "main",
+    "price": 13500,
+    "kcal": 880,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 720,
+      "high": 1040
+    },
+    "macros": {
+      "protein": 38,
+      "carbs": 111,
+      "fat": 31
+    },
+    "contains": [
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "pizzaDough",
+        "grams": 210,
+        "kcal": 560,
+        "protein": 19
+      },
+      {
+        "food": "cheese",
+        "grams": 95,
+        "kcal": 285,
+        "protein": 19
+      },
+      {
+        "food": "tomatoSauce",
+        "grams": 55,
+        "kcal": 35,
+        "protein": 1
+      }
+    ]
+  },
+  {
+    "id": "r26-m2",
+    "restaurantId": "r26",
+    "position": 2,
+    "name": {
+      "ar": "بيتزا خضار وسط",
+      "en": "Medium veggie pizza"
+    },
+    "role": "main",
+    "price": 14500,
+    "kcal": 840,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 690,
+      "high": 990
+    },
+    "macros": {
+      "protein": 36,
+      "carbs": 114,
+      "fat": 27
+    },
+    "contains": [
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "pizzaDough",
+        "grams": 205,
+        "kcal": 555,
+        "protein": 19
+      },
+      {
+        "food": "cheese",
+        "grams": 75,
+        "kcal": 225,
+        "protein": 15
+      },
+      {
+        "food": "vegetables",
+        "grams": 95,
+        "kcal": 25,
+        "protein": 1
+      },
+      {
+        "food": "tomatoSauce",
+        "grams": 55,
+        "kcal": 35,
+        "protein": 1
+      }
+    ]
+  },
+  {
+    "id": "r26-m3",
+    "restaurantId": "r26",
+    "position": 3,
+    "name": {
+      "ar": "بيتزا فراخ وسط",
+      "en": "Medium chicken pizza"
+    },
+    "role": "main",
+    "price": 16000,
+    "kcal": 950,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 790,
+      "high": 1110
+    },
+    "macros": {
+      "protein": 58,
+      "carbs": 107,
+      "fat": 31
+    },
+    "contains": [
+      "chicken",
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "pizzaDough",
+        "grams": 205,
+        "kcal": 545,
+        "protein": 18
+      },
+      {
+        "food": "cheese",
+        "grams": 85,
+        "kcal": 250,
+        "protein": 17
+      },
+      {
+        "food": "chickenBreast",
+        "grams": 75,
+        "kcal": 120,
+        "protein": 23
+      },
+      {
+        "food": "tomatoSauce",
+        "grams": 55,
+        "kcal": 35,
+        "protein": 1
+      }
+    ]
+  },
+  {
+    "id": "r26-m4",
+    "restaurantId": "r26",
+    "position": 4,
+    "name": {
+      "ar": "أصابع جبنة",
+      "en": "Cheese sticks"
+    },
+    "role": "side",
+    "price": 4500,
+    "kcal": 380,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 300,
+      "high": 460
+    },
+    "macros": {
+      "protein": 17,
+      "carbs": 31,
+      "fat": 21
+    },
+    "contains": [
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "cheese",
+        "grams": 60,
+        "kcal": 175,
+        "protein": 12
+      },
+      {
+        "food": "pizzaDough",
+        "grams": 60,
+        "kcal": 160,
+        "protein": 5
+      },
+      {
+        "food": "oil",
+        "grams": 5,
+        "kcal": 45,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r27-m1",
+    "restaurantId": "r27",
+    "position": 1,
+    "name": {
+      "ar": "برجر كلاسيك + بطاطس",
+      "en": "Classic burger + fries"
+    },
+    "role": "main",
+    "price": 15500,
+    "kcal": 820,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 680,
+      "high": 960
+    },
+    "macros": {
+      "protein": 34,
+      "carbs": 70,
+      "fat": 45
+    },
+    "contains": [
+      "beef",
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "burgerPatty",
+        "grams": 125,
+        "kcal": 320,
+        "protein": 22
+      },
+      {
+        "food": "whiteBread",
+        "grams": 70,
+        "kcal": 180,
+        "protein": 6
+      },
+      {
+        "food": "cheese",
+        "grams": 17,
+        "kcal": 50,
+        "protein": 3
+      },
+      {
+        "food": "fries",
+        "grams": 85,
+        "kcal": 265,
+        "protein": 3
+      },
+      {
+        "food": "vegetables",
+        "grams": 25,
+        "kcal": 5,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r27-m2",
+    "restaurantId": "r27",
+    "position": 2,
+    "name": {
+      "ar": "برجر فراخ كرسبي",
+      "en": "Crispy chicken burger"
+    },
+    "role": "main",
+    "price": 14500,
+    "kcal": 760,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 610,
+      "high": 910
+    },
+    "macros": {
+      "protein": 36,
+      "carbs": 63,
+      "fat": 40
+    },
+    "contains": [
+      "chicken"
+    ],
+    "lines": [
+      {
+        "food": "chickenPane",
+        "grams": 160,
+        "kcal": 410,
+        "protein": 29
+      },
+      {
+        "food": "whiteBread",
+        "grams": 80,
+        "kcal": 210,
+        "protein": 7
+      },
+      {
+        "food": "garlicSauce",
+        "grams": 20,
+        "kcal": 130,
+        "protein": 0
+      },
+      {
+        "food": "vegetables",
+        "grams": 25,
+        "kcal": 5,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r27-m3",
+    "restaurantId": "r27",
+    "position": 3,
+    "name": {
+      "ar": "دبل تشيز برجر",
+      "en": "Double cheeseburger"
+    },
+    "role": "main",
+    "price": 21000,
+    "kcal": 1050,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 890,
+      "high": 1210
+    },
+    "macros": {
+      "protein": 64,
+      "carbs": 40,
+      "fat": 70
+    },
+    "contains": [
+      "beef",
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "burgerPatty",
+        "grams": 290,
+        "kcal": 725,
+        "protein": 49
+      },
+      {
+        "food": "whiteBread",
+        "grams": 75,
+        "kcal": 205,
+        "protein": 7
+      },
+      {
+        "food": "cheese",
+        "grams": 40,
+        "kcal": 115,
+        "protein": 8
+      },
+      {
+        "food": "vegetables",
+        "grams": 30,
+        "kcal": 5,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r27-m4",
+    "restaurantId": "r27",
+    "position": 4,
+    "name": {
+      "ar": "بطاطس بالجبنة",
+      "en": "Cheese fries"
+    },
+    "role": "side",
+    "price": 4500,
+    "kcal": 420,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 330,
+      "high": 510
+    },
+    "macros": {
+      "protein": 10,
+      "carbs": 43,
+      "fat": 23
+    },
+    "contains": [
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "fries",
+        "grams": 105,
+        "kcal": 325,
+        "protein": 4
+      },
+      {
+        "food": "cheese",
+        "grams": 30,
+        "kcal": 95,
+        "protein": 6
+      }
+    ]
+  },
+  {
+    "id": "r28-m1",
+    "restaurantId": "r28",
+    "position": 1,
+    "name": {
+      "ar": "كريب فراخ",
+      "en": "Chicken crepe"
+    },
+    "role": "main",
+    "price": 10000,
+    "kcal": 760,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 630,
+      "high": 890
+    },
+    "macros": {
+      "protein": 47,
+      "carbs": 50,
+      "fat": 41
+    },
+    "contains": [
+      "chicken",
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "crepe",
+        "grams": 170,
+        "kcal": 375,
+        "protein": 10
+      },
+      {
+        "food": "chicken",
+        "grams": 110,
+        "kcal": 240,
+        "protein": 28
+      },
+      {
+        "food": "cheese",
+        "grams": 45,
+        "kcal": 135,
+        "protein": 9
+      },
+      {
+        "food": "vegetables",
+        "grams": 35,
+        "kcal": 10,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r28-m2",
+    "restaurantId": "r28",
+    "position": 2,
+    "name": {
+      "ar": "كريب سجق",
+      "en": "Sausage crepe"
+    },
+    "role": "main",
+    "price": 9500,
+    "kcal": 800,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 650,
+      "high": 950
+    },
+    "macros": {
+      "protein": 32,
+      "carbs": 48,
+      "fat": 53
+    },
+    "contains": [
+      "beef",
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "crepe",
+        "grams": 160,
+        "kcal": 355,
+        "protein": 10
+      },
+      {
+        "food": "sausage",
+        "grams": 105,
+        "kcal": 315,
+        "protein": 14
+      },
+      {
+        "food": "cheese",
+        "grams": 40,
+        "kcal": 125,
+        "protein": 8
+      }
+    ]
+  },
+  {
+    "id": "r28-m3",
+    "restaurantId": "r28",
+    "position": 3,
+    "name": {
+      "ar": "كريب خضار بالجبنة",
+      "en": "Veggie & cheese crepe"
+    },
+    "role": "main",
+    "price": 9000,
+    "kcal": 640,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 520,
+      "high": 760
+    },
+    "macros": {
+      "protein": 26,
+      "carbs": 56,
+      "fat": 35
+    },
+    "contains": [
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "crepe",
+        "grams": 180,
+        "kcal": 400,
+        "protein": 11
+      },
+      {
+        "food": "cheese",
+        "grams": 70,
+        "kcal": 215,
+        "protein": 14
+      },
+      {
+        "food": "vegetables",
+        "grams": 95,
+        "kcal": 25,
+        "protein": 1
+      }
+    ]
+  },
+  {
+    "id": "r28-m4",
+    "restaurantId": "r28",
+    "position": 4,
+    "name": {
+      "ar": "كريب نوتيلا",
+      "en": "Nutella crepe"
+    },
+    "role": "side",
+    "price": 8000,
+    "kcal": 650,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 500,
+      "high": 800
+    },
+    "macros": {
+      "protein": 12,
+      "carbs": 75,
+      "fat": 33
+    },
+    "contains": [
+      "dairy",
+      "nuts"
+    ],
+    "lines": [
+      {
+        "food": "crepe",
+        "grams": 135,
+        "kcal": 310,
+        "protein": 8
+      },
+      {
+        "food": "chocolateSpread",
+        "grams": 65,
+        "kcal": 340,
+        "protein": 4
+      }
+    ]
+  },
+  {
+    "id": "r29-m1",
+    "restaurantId": "r29",
+    "position": 1,
+    "name": {
+      "ar": "ملوخية + فراخ + رز",
+      "en": "Molokhia, chicken & rice"
+    },
+    "role": "main",
+    "price": 17000,
+    "kcal": 850,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 670,
+      "high": 1030
+    },
+    "macros": {
+      "protein": 55,
+      "carbs": 73,
+      "fat": 35
+    },
+    "contains": [
+      "chicken"
+    ],
+    "lines": [
+      {
+        "food": "cookedVegetables",
+        "grams": 250,
+        "kcal": 225,
+        "protein": 5
+      },
+      {
+        "food": "chicken",
+        "grams": 180,
+        "kcal": 390,
+        "protein": 45
+      },
+      {
+        "food": "rice",
+        "grams": 180,
+        "kcal": 235,
+        "protein": 5
+      }
+    ]
+  },
+  {
+    "id": "r29-m2",
+    "restaurantId": "r29",
+    "position": 2,
+    "name": {
+      "ar": "محشي مشكل",
+      "en": "Mixed mahshi"
+    },
+    "role": "main",
+    "price": 12500,
+    "kcal": 600,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 430,
+      "high": 770
+    },
+    "macros": {
+      "protein": 11,
+      "carbs": 84,
+      "fat": 23
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "cookedVegetables",
+        "grams": 225,
+        "kcal": 205,
+        "protein": 5
+      },
+      {
+        "food": "rice",
+        "grams": 225,
+        "kcal": 295,
+        "protein": 6
+      },
+      {
+        "food": "oil",
+        "grams": 11,
+        "kcal": 100,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r29-m3",
+    "restaurantId": "r29",
+    "position": 3,
+    "name": {
+      "ar": "مسقعة + رز",
+      "en": "Mesaqaa + rice"
+    },
+    "role": "main",
+    "price": 11000,
+    "kcal": 580,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 420,
+      "high": 740
+    },
+    "macros": {
+      "protein": 10,
+      "carbs": 77,
+      "fat": 24
+    },
+    "contains": [],
+    "lines": [
+      {
+        "food": "cookedVegetables",
+        "grams": 265,
+        "kcal": 240,
+        "protein": 5
+      },
+      {
+        "food": "rice",
+        "grams": 190,
+        "kcal": 250,
+        "protein": 5
+      },
+      {
+        "food": "oil",
+        "grams": 11,
+        "kcal": 95,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r29-m4",
+    "restaurantId": "r29",
+    "position": 4,
+    "name": {
+      "ar": "فتة لحمة",
+      "en": "Beef fatta"
+    },
+    "role": "main",
+    "price": 18500,
+    "kcal": 980,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 780,
+      "high": 1180
+    },
+    "macros": {
+      "protein": 57,
+      "carbs": 107,
+      "fat": 36
+    },
+    "contains": [
+      "beef",
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "kebab",
+        "grams": 155,
+        "kcal": 330,
+        "protein": 43
+      },
+      {
+        "food": "rice",
+        "grams": 205,
+        "kcal": 265,
+        "protein": 6
+      },
+      {
+        "food": "baladiBread",
+        "grams": 80,
+        "kcal": 215,
+        "protein": 8
+      },
+      {
+        "food": "tomatoSauce",
+        "grams": 60,
+        "kcal": 35,
+        "protein": 1
+      },
+      {
+        "food": "ghee",
+        "grams": 15,
+        "kcal": 135,
+        "protein": 0
+      }
+    ]
+  },
+  {
+    "id": "r30-m1",
+    "restaurantId": "r30",
+    "position": 1,
+    "name": {
+      "ar": "فطير مشلتت + عسل وجبنة",
+      "en": "Feteer meshaltet with honey & cheese"
+    },
+    "role": "main",
+    "price": 10500,
+    "kcal": 900,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 700,
+      "high": 1100
+    },
+    "macros": {
+      "protein": 21,
+      "carbs": 109,
+      "fat": 44
+    },
+    "contains": [
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "feteerDough",
+        "grams": 165,
+        "kcal": 655,
+        "protein": 11
+      },
+      {
+        "food": "honey",
+        "grams": 35,
+        "kcal": 110,
+        "protein": 0
+      },
+      {
+        "food": "cheese",
+        "grams": 45,
+        "kcal": 135,
+        "protein": 9
+      }
+    ]
+  },
+  {
+    "id": "r30-m2",
+    "restaurantId": "r30",
+    "position": 2,
+    "name": {
+      "ar": "فطير سجق",
+      "en": "Sausage feteer"
+    },
+    "role": "main",
+    "price": 12500,
+    "kcal": 950,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 760,
+      "high": 1140
+    },
+    "macros": {
+      "protein": 29,
+      "carbs": 72,
+      "fat": 61
+    },
+    "contains": [
+      "beef",
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "feteerDough",
+        "grams": 145,
+        "kcal": 575,
+        "protein": 10
+      },
+      {
+        "food": "sausage",
+        "grams": 90,
+        "kcal": 270,
+        "protein": 12
+      },
+      {
+        "food": "cheese",
+        "grams": 35,
+        "kcal": 110,
+        "protein": 7
+      }
+    ]
+  },
+  {
+    "id": "r30-m3",
+    "restaurantId": "r30",
+    "position": 3,
+    "name": {
+      "ar": "فطير خضار",
+      "en": "Veggie feteer"
+    },
+    "role": "main",
+    "price": 10000,
+    "kcal": 720,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 570,
+      "high": 870
+    },
+    "macros": {
+      "protein": 19,
+      "carbs": 75,
+      "fat": 38
+    },
+    "contains": [
+      "dairy"
+    ],
+    "lines": [
+      {
+        "food": "feteerDough",
+        "grams": 145,
+        "kcal": 580,
+        "protein": 10
+      },
+      {
+        "food": "vegetables",
+        "grams": 95,
+        "kcal": 25,
+        "protein": 1
+      },
+      {
+        "food": "cheese",
+        "grams": 40,
+        "kcal": 115,
+        "protein": 8
+      }
+    ]
+  },
+  {
+    "id": "r30-m4",
+    "restaurantId": "r30",
+    "position": 4,
+    "name": {
+      "ar": "أم علي",
+      "en": "Om Ali"
+    },
+    "role": "side",
+    "price": 4500,
+    "kcal": 450,
+    "kcalSource": "ai",
+    "kcalRange": {
+      "low": 340,
+      "high": 560
+    },
+    "macros": {
+      "protein": 10,
+      "carbs": 53,
+      "fat": 22
+    },
+    "contains": [
+      "dairy",
+      "nuts"
+    ],
+    "lines": [
+      {
+        "food": "feteerDough",
+        "grams": 50,
+        "kcal": 195,
+        "protein": 3
+      },
+      {
+        "food": "milk",
+        "grams": 125,
+        "kcal": 75,
+        "protein": 4
+      },
+      {
+        "food": "nuts",
+        "grams": 16,
+        "kcal": 100,
+        "protein": 3
+      },
+      {
+        "food": "sugar",
+        "grams": 20,
+        "kcal": 80,
+        "protein": 0
+      }
+    ]
+  }
+]

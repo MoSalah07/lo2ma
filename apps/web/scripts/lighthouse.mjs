@@ -1,5 +1,5 @@
-// Lighthouse on the production build: starts `next start`, audits the main pages as a phone, prints the
-// scores and fails when performance or accessibility is under 90. Run `npm run build` first.
+// Lighthouse on the demo build: starts `next start`, audits the main pages as a phone, prints the
+// scores and fails when performance or accessibility is under 90. Run `npm run build:demo` first.
 import { spawn } from 'node:child_process';
 import { createServer } from 'node:net';
 import * as chromeLauncher from 'chrome-launcher';

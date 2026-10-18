@@ -76,9 +76,14 @@ scripts/               Lighthouse and README screenshots
 - **The chat streams.** `POST /api/chat` answers with server-sent events (`token`, then `suggestions`, then
   `done`, or `error`), validated event by event.
 - **Money is in piasters** everywhere and only becomes «150 ج» / «EGP 150» through `formatMoney`.
-- **The mock API runs in the browser.** Its code is loaded on the first request, and its data sits in local
-  storage so it survives a reload. Set `NEXT_PUBLIC_API_MOCKING=disabled` to call a real backend instead; nothing
-  else changes.
+- **The mock API runs in the browser, only when asked for.** `NEXT_PUBLIC_API_MOCKING=enabled` turns it on:
+  `.env.development` sets it for `npm run dev`, and `npm run build:demo` for a build. Its code is loaded on the
+  first request, and its data sits in local storage so it survives a reload. Without it the app calls the real
+  backend: `next.config.ts` forwards `/api/*` to it (`API_URL`), so the browser still talks to this origin only
+  (the session cookie stays first-party, and there is no CORS). Nothing else changes.
+- **A production build says what it talks to.** Without the mocks and without `API_URL`, `next build` stops, so
+  a forgotten variable can't ship the demo to real customers, or an app that calls localhost. A value other than
+  `enabled` or `disabled` stops it too.
 
 ## Text, languages and right to left
 
@@ -228,22 +233,25 @@ Run from the repo root.
 | Command                             | What it does                                                          |
 | ----------------------------------- | --------------------------------------------------------------------- |
 | `npm run dev`                       | development server                                                    |
-| `npm run build`                     | production build                                                      |
+| `npm run build:demo`                | the demo build, with the mock API in the browser                      |
+| `npm run build`                     | production build against the real API (needs `API_URL`)               |
 | `npm run check`                     | typecheck, lint, unit tests and format check for the whole repo       |
-| `npm run e2e -w @lo2ma/web`         | Playwright on the production build (run `npm run build` first)        |
-| `npm run lighthouse -w @lo2ma/web`  | Lighthouse on the production build                                    |
-| `npm run screenshots -w @lo2ma/web` | retakes `docs/screenshots/` from the production build                 |
+| `npm run e2e -w @lo2ma/web`         | Playwright on the demo build (run `npm run build:demo` first)         |
+| `npm run lighthouse -w @lo2ma/web`  | Lighthouse on the demo build                                          |
+| `npm run screenshots -w @lo2ma/web` | retakes `docs/screenshots/` from the demo build                       |
 | `npm run models -w @lo2ma/web`      | downloads the 3D food models and compresses them into `public/models` |
 | `npm run images -w @lo2ma/web`      | redraws the link preview cards and the app icons                      |
+| `npm run export:seed -w @lo2ma/web` | writes the mock's places into `backend/seed/` for the real API        |
 
 ### Environment variables
 
-| Variable                   | Default                      | Effect                                                                |
-| -------------------------- | ---------------------------- | --------------------------------------------------------------------- |
-| `NEXT_PUBLIC_API_MOCKING`  | (mocks on)                   | `disabled` sends `/api/*` to a real backend instead of the mock API   |
-| `SITE_URL`                 | the Vercel production domain | the site's address for canonical links, the sitemap and link previews |
-| `GOOGLE_SITE_VERIFICATION` | (none)                       | the code Google Search Console gives, as a meta tag                   |
-| `BING_SITE_VERIFICATION`   | (none)                       | the code Bing Webmaster Tools gives, as a meta tag                    |
+| Variable                   | Default                                | Effect                                                                             |
+| -------------------------- | -------------------------------------- | ---------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_API_MOCKING`  | off (`enabled` in `npm run dev`)       | `enabled` runs the mock API in the browser; `disabled` or unset calls the real one |
+| `API_URL`                  | `http://127.0.0.1:8000` in development | where `/api/*` goes when the mocks are off; a production build needs it            |
+| `SITE_URL`                 | the Vercel production domain           | the site's address for canonical links, the sitemap and link previews              |
+| `GOOGLE_SITE_VERIFICATION` | (none)                                 | the code Google Search Console gives, as a meta tag                                |
+| `BING_SITE_VERIFICATION`   | (none)                                 | the code Bing Webmaster Tools gives, as a meta tag                                 |
 
 ## Troubleshooting
 
@@ -256,7 +264,9 @@ from our own code doesn't get past them.
 
 ## Deploying to Vercel
 
-The demo needs no backend and no environment variables: the mock API runs in the visitor's browser.
+The demo needs no backend: the mock API runs in the visitor's browser. It needs one variable,
+`NEXT_PUBLIC_API_MOCKING=enabled`, for Production and Preview. Without it the build stops and asks what it talks
+to, so a deployment meant for the real API can never ship the demo by accident.
 
 1. Import the repository in Vercel.
 2. Set **Root Directory** to `apps/web`. Vercel detects Next.js.

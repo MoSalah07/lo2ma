@@ -1,0 +1,554 @@
+[
+  {
+    "id": "baladiBread",
+    "name": {
+      "ar": "عيش بلدي",
+      "en": "Baladi bread"
+    },
+    "kcal": 265,
+    "protein": 9.8,
+    "carbs": 55,
+    "fat": 2.6,
+    "spread": 0.15
+  },
+  {
+    "id": "whiteBread",
+    "name": {
+      "ar": "عيش فينو",
+      "en": "White bread"
+    },
+    "kcal": 265,
+    "protein": 9,
+    "carbs": 49,
+    "fat": 3.3,
+    "spread": 0.1
+  },
+  {
+    "id": "rice",
+    "name": {
+      "ar": "رز أبيض مطبوخ",
+      "en": "Cooked white rice"
+    },
+    "kcal": 130,
+    "protein": 2.7,
+    "carbs": 28,
+    "fat": 0.3,
+    "spread": 0.2
+  },
+  {
+    "id": "pasta",
+    "name": {
+      "ar": "مكرونة مسلوقة",
+      "en": "Cooked pasta"
+    },
+    "kcal": 158,
+    "protein": 5.8,
+    "carbs": 31,
+    "fat": 0.9,
+    "spread": 0.2
+  },
+  {
+    "id": "lentils",
+    "name": {
+      "ar": "عدس مطبوخ",
+      "en": "Cooked lentils"
+    },
+    "kcal": 116,
+    "protein": 9,
+    "carbs": 20,
+    "fat": 0.4,
+    "spread": 0.2
+  },
+  {
+    "id": "chickpeas",
+    "name": {
+      "ar": "حمص مسلوق",
+      "en": "Cooked chickpeas"
+    },
+    "kcal": 164,
+    "protein": 8.9,
+    "carbs": 27,
+    "fat": 2.6,
+    "spread": 0.2
+  },
+  {
+    "id": "foul",
+    "name": {
+      "ar": "فول مدمس",
+      "en": "Stewed fava beans"
+    },
+    "kcal": 110,
+    "protein": 7.6,
+    "carbs": 19.7,
+    "fat": 0.4,
+    "spread": 0.2
+  },
+  {
+    "id": "taameya",
+    "name": {
+      "ar": "طعمية",
+      "en": "Taameya"
+    },
+    "kcal": 333,
+    "protein": 13.3,
+    "carbs": 31.8,
+    "fat": 17.8,
+    "spread": 0.25
+  },
+  {
+    "id": "friedOnions",
+    "name": {
+      "ar": "بصل مقلي",
+      "en": "Fried onions"
+    },
+    "kcal": 420,
+    "protein": 4,
+    "carbs": 40,
+    "fat": 27,
+    "spread": 0.4
+  },
+  {
+    "id": "tomatoSauce",
+    "name": {
+      "ar": "صلصة طماطم",
+      "en": "Tomato sauce"
+    },
+    "kcal": 60,
+    "protein": 1.4,
+    "carbs": 8,
+    "fat": 2.5,
+    "spread": 0.3
+  },
+  {
+    "id": "egg",
+    "name": {
+      "ar": "بيض",
+      "en": "Egg"
+    },
+    "kcal": 155,
+    "protein": 13,
+    "carbs": 1.1,
+    "fat": 11,
+    "spread": 0.15
+  },
+  {
+    "id": "kofta",
+    "name": {
+      "ar": "كفتة لحمة",
+      "en": "Beef kofta"
+    },
+    "kcal": 245,
+    "protein": 20,
+    "carbs": 4,
+    "fat": 16.5,
+    "spread": 0.15
+  },
+  {
+    "id": "kebab",
+    "name": {
+      "ar": "لحمة مشوية",
+      "en": "Grilled beef"
+    },
+    "kcal": 215,
+    "protein": 28,
+    "carbs": 0,
+    "fat": 11,
+    "spread": 0.15
+  },
+  {
+    "id": "beefShawarma",
+    "name": {
+      "ar": "شاورما لحمة",
+      "en": "Beef shawarma"
+    },
+    "kcal": 230,
+    "protein": 24,
+    "carbs": 3,
+    "fat": 14,
+    "spread": 0.2
+  },
+  {
+    "id": "liver",
+    "name": {
+      "ar": "كبدة",
+      "en": "Beef liver"
+    },
+    "kcal": 200,
+    "protein": 25,
+    "carbs": 6,
+    "fat": 8,
+    "spread": 0.2
+  },
+  {
+    "id": "sausage",
+    "name": {
+      "ar": "سجق",
+      "en": "Sausage"
+    },
+    "kcal": 300,
+    "protein": 13,
+    "carbs": 3,
+    "fat": 26,
+    "spread": 0.2
+  },
+  {
+    "id": "chicken",
+    "name": {
+      "ar": "فراخ مشوية",
+      "en": "Grilled chicken"
+    },
+    "kcal": 215,
+    "protein": 25,
+    "carbs": 0,
+    "fat": 12,
+    "spread": 0.15
+  },
+  {
+    "id": "chickenBreast",
+    "name": {
+      "ar": "صدور فراخ",
+      "en": "Chicken breast"
+    },
+    "kcal": 165,
+    "protein": 31,
+    "carbs": 0,
+    "fat": 3.6,
+    "spread": 0.15
+  },
+  {
+    "id": "chickenPane",
+    "name": {
+      "ar": "فراخ بانيه",
+      "en": "Breaded chicken"
+    },
+    "kcal": 260,
+    "protein": 18,
+    "carbs": 14,
+    "fat": 15,
+    "spread": 0.2
+  },
+  {
+    "id": "tilapia",
+    "name": {
+      "ar": "سمك بلطي",
+      "en": "Tilapia"
+    },
+    "kcal": 128,
+    "protein": 26,
+    "carbs": 0,
+    "fat": 2.7,
+    "spread": 0.15
+  },
+  {
+    "id": "shrimp",
+    "name": {
+      "ar": "جمبري مقلي",
+      "en": "Fried shrimp"
+    },
+    "kcal": 242,
+    "protein": 21,
+    "carbs": 11.5,
+    "fat": 12.3,
+    "spread": 0.2
+  },
+  {
+    "id": "fishFillet",
+    "name": {
+      "ar": "فيليه سمك",
+      "en": "Fish fillet"
+    },
+    "kcal": 105,
+    "protein": 23,
+    "carbs": 0,
+    "fat": 1.2,
+    "spread": 0.15
+  },
+  {
+    "id": "tuna",
+    "name": {
+      "ar": "تونة",
+      "en": "Tuna"
+    },
+    "kcal": 198,
+    "protein": 29,
+    "carbs": 0,
+    "fat": 8.2,
+    "spread": 0.15
+  },
+  {
+    "id": "cheese",
+    "name": {
+      "ar": "جبنة",
+      "en": "Cheese"
+    },
+    "kcal": 300,
+    "protein": 20,
+    "carbs": 2,
+    "fat": 24,
+    "spread": 0.2
+  },
+  {
+    "id": "yogurt",
+    "name": {
+      "ar": "زبادي",
+      "en": "Yogurt"
+    },
+    "kcal": 61,
+    "protein": 3.5,
+    "carbs": 4.7,
+    "fat": 3.3,
+    "spread": 0.15
+  },
+  {
+    "id": "milk",
+    "name": {
+      "ar": "لبن",
+      "en": "Milk"
+    },
+    "kcal": 61,
+    "protein": 3.2,
+    "carbs": 4.8,
+    "fat": 3.3,
+    "spread": 0.15
+  },
+  {
+    "id": "fruit",
+    "name": {
+      "ar": "فاكهة",
+      "en": "Fruit"
+    },
+    "kcal": 55,
+    "protein": 0.7,
+    "carbs": 14,
+    "fat": 0.2,
+    "spread": 0.2
+  },
+  {
+    "id": "vegetables",
+    "name": {
+      "ar": "خضار",
+      "en": "Vegetables"
+    },
+    "kcal": 25,
+    "protein": 1.2,
+    "carbs": 5,
+    "fat": 0.2,
+    "spread": 0.3
+  },
+  {
+    "id": "cookedVegetables",
+    "name": {
+      "ar": "خضار مطبوخ",
+      "en": "Cooked vegetables"
+    },
+    "kcal": 90,
+    "protein": 2,
+    "carbs": 9,
+    "fat": 5,
+    "spread": 0.3
+  },
+  {
+    "id": "tahini",
+    "name": {
+      "ar": "طحينة",
+      "en": "Tahini sauce"
+    },
+    "kcal": 300,
+    "protein": 8.5,
+    "carbs": 10,
+    "fat": 26,
+    "spread": 0.3
+  },
+  {
+    "id": "garlicSauce",
+    "name": {
+      "ar": "ثومية",
+      "en": "Garlic sauce"
+    },
+    "kcal": 600,
+    "protein": 1,
+    "carbs": 4,
+    "fat": 64,
+    "spread": 0.3
+  },
+  {
+    "id": "coleslaw",
+    "name": {
+      "ar": "كول سلو",
+      "en": "Coleslaw"
+    },
+    "kcal": 150,
+    "protein": 1,
+    "carbs": 13,
+    "fat": 11,
+    "spread": 0.25
+  },
+  {
+    "id": "oil",
+    "name": {
+      "ar": "زيت",
+      "en": "Oil"
+    },
+    "kcal": 884,
+    "protein": 0,
+    "carbs": 0,
+    "fat": 100,
+    "spread": 0.4
+  },
+  {
+    "id": "ghee",
+    "name": {
+      "ar": "سمنة",
+      "en": "Ghee"
+    },
+    "kcal": 876,
+    "protein": 0.3,
+    "carbs": 0,
+    "fat": 99,
+    "spread": 0.4
+  },
+  {
+    "id": "fries",
+    "name": {
+      "ar": "بطاطس محمرة",
+      "en": "Fries"
+    },
+    "kcal": 312,
+    "protein": 3.4,
+    "carbs": 41,
+    "fat": 15,
+    "spread": 0.2
+  },
+  {
+    "id": "quinoa",
+    "name": {
+      "ar": "كينوا مطبوخة",
+      "en": "Cooked quinoa"
+    },
+    "kcal": 120,
+    "protein": 4.4,
+    "carbs": 21,
+    "fat": 1.9,
+    "spread": 0.2
+  },
+  {
+    "id": "pizzaDough",
+    "name": {
+      "ar": "عجينة بيتزا",
+      "en": "Pizza dough"
+    },
+    "kcal": 270,
+    "protein": 9,
+    "carbs": 50,
+    "fat": 3.5,
+    "spread": 0.15
+  },
+  {
+    "id": "burgerPatty",
+    "name": {
+      "ar": "برجر لحمة",
+      "en": "Beef patty"
+    },
+    "kcal": 250,
+    "protein": 17,
+    "carbs": 0,
+    "fat": 20,
+    "spread": 0.15
+  },
+  {
+    "id": "feteerDough",
+    "name": {
+      "ar": "عجينة فطير",
+      "en": "Feteer dough"
+    },
+    "kcal": 400,
+    "protein": 7,
+    "carbs": 48,
+    "fat": 20,
+    "spread": 0.2
+  },
+  {
+    "id": "crepe",
+    "name": {
+      "ar": "عجينة كريب",
+      "en": "Crepe"
+    },
+    "kcal": 225,
+    "protein": 6,
+    "carbs": 28,
+    "fat": 10,
+    "spread": 0.15
+  },
+  {
+    "id": "honey",
+    "name": {
+      "ar": "عسل",
+      "en": "Honey"
+    },
+    "kcal": 304,
+    "protein": 0.3,
+    "carbs": 82,
+    "fat": 0,
+    "spread": 0.3
+  },
+  {
+    "id": "chocolateSpread",
+    "name": {
+      "ar": "شوكولاتة بالبندق",
+      "en": "Chocolate spread"
+    },
+    "kcal": 540,
+    "protein": 6,
+    "carbs": 58,
+    "fat": 31,
+    "spread": 0.3
+  },
+  {
+    "id": "ricePudding",
+    "name": {
+      "ar": "رز بلبن",
+      "en": "Rice pudding"
+    },
+    "kcal": 130,
+    "protein": 3.6,
+    "carbs": 22,
+    "fat": 3.2,
+    "spread": 0.15
+  },
+  {
+    "id": "nuts",
+    "name": {
+      "ar": "مكسرات",
+      "en": "Nuts"
+    },
+    "kcal": 600,
+    "protein": 18,
+    "carbs": 20,
+    "fat": 52,
+    "spread": 0.3
+  },
+  {
+    "id": "sugar",
+    "name": {
+      "ar": "سكر",
+      "en": "Sugar"
+    },
+    "kcal": 387,
+    "protein": 0,
+    "carbs": 100,
+    "fat": 0,
+    "spread": 0.3
+  },
+  {
+    "id": "pickles",
+    "name": {
+      "ar": "مخلل",
+      "en": "Pickles"
+    },
+    "kcal": 14,
+    "protein": 0.5,
+    "carbs": 2.5,
+    "fat": 0.2,
+    "spread": 0.3
+  }
+]

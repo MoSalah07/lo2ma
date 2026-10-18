@@ -6,6 +6,7 @@ import {
   type Ingredient,
 } from '@lo2ma/core';
 import { delay, http, HttpResponse } from 'msw';
+import { demoTranscripts } from '../data/voice';
 import { parseMessage } from '../engine/parse-message';
 import { replyText } from '../engine/reply';
 import { calorieFilter, suggestMeals } from '../engine/suggest';
@@ -14,9 +15,6 @@ import { fail, readBody, route } from './respond';
 
 /** «سعرات أقل» in fit mode looks for meals this share of the goal. */
 const LIGHTER = 0.85;
-
-/** What the demo "hears" in any voice message. */
-const DEMO_TRANSCRIPTS = { ar: 'معايا 150 ومش عايز فراخ', en: 'I have 150, no chicken please' };
 
 const encoder = new TextEncoder();
 const sseFrame = (event: ChatEvent) => encoder.encode(`data: ${JSON.stringify(event)}\n\n`);
@@ -90,6 +88,6 @@ export const chatHandlers = [
     if (audio.size === 0) return fail(422, 'no_speech');
     await delay(600);
     const locale = form?.get('locale') === 'en' ? 'en' : 'ar';
-    return HttpResponse.json(transcriptionSchema.parse({ text: DEMO_TRANSCRIPTS[locale] }));
+    return HttpResponse.json(transcriptionSchema.parse({ text: demoTranscripts[locale] }));
   }),
 ];

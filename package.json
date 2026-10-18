@@ -6,16 +6,25 @@
   },
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "backend"
   ],
   "scripts": {
     "dev": "npm run dev -w @lo2ma/web",
+    "dev:api": "npm run dev -w @lo2ma/backend",
+    "db:up": "npm run db:up -w @lo2ma/backend",
+    "db:down": "npm run db:down -w @lo2ma/backend",
+    "db:migrate": "npm run db:migrate -w @lo2ma/backend",
+    "db:seed": "npm run db:seed -w @lo2ma/backend",
+    "admin:create": "npm run admin:create -w @lo2ma/backend --",
+    "api:generate": "npm run export:openapi -w @lo2ma/backend && npm run generate -w @lo2ma/api-client",
     "build": "npm run build -w @lo2ma/web",
+    "build:demo": "npm run build:demo -w @lo2ma/web",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "lint": "eslint .",
+    "format": "prettier --write . && npm run format -w @lo2ma/backend",
+    "format:check": "prettier --check . && npm run format:check -w @lo2ma/backend",
+    "lint": "eslint . && npm run lint -w @lo2ma/backend",
     "check": "npm run typecheck && npm run lint && npm test && npm run format:check"
   },
   "devDependencies": {

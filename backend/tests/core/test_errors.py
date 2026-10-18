@@ -1,0 +1,109 @@
+from collections.abc import AsyncIterator
+
+import pytest
+from fastapi import FastAPI
+from httpx import ASGITransport, AsyncClient
+from pydantic import BaseModel
+
+from app.core.errors import DomainError, invalid_input
+from app.core.settings import Settings
+from app.main import create_app
+
+pytestmark = pytest.mark.anyio
+
+
+class DayLockedError(DomainError):
+    status = 409
+    code = "day_locked"
+
+
+class Budget(BaseModel):
+    budget: int
+
+
+@pytest.fixture
+def app(settings: Settings) -> FastAPI:
+    """The real app, plus a few routes that fail on purpose."""
+    app = create_app(settings)
+
+    @app.post("/api/probe/locked")
+    async def swap() -> None:
+        raise DayLockedError()
+
+    @app.put("/api/probe/budget", openapi_extra=invalid_input("invalid_prefs"))
+    async def update_prefs(body: Budget) -> Budget:
+        return body
+
+    @app.post("/api/probe/sign-in", openapi_extra=invalid_input("invalid_credentials", status=401))
+    async def sign_in(body: Budget) -> Budget:
+        return body
+
+    @app.post("/api/probe/anything")
+    async def anything(body: Budget) -> Budget:
+        return body
+
+    @app.get("/api/probe/broken")
+    async def broken() -> None:
+        raise RuntimeError("password=hunter2")
+
+    return app
+
+
+async def test_a_broken_rule_is_its_status_and_code(client: AsyncClient) -> None:
+    response = await client.post("/api/probe/locked")
+    assert response.status_code == 409
+    assert response.json() == {"code": "day_locked"}
+
+
+async def test_a_malformed_body_is_400_with_the_routes_own_code(client: AsyncClient) -> None:
+    response = await client.put("/api/probe/budget", json={"budget": "a lot"})
+    assert response.status_code == 400
+    assert response.json() == {"code": "invalid_prefs"}
+
+
+async def test_a_route_can_answer_a_malformed_body_with_another_status(
+    client: AsyncClient,
+) -> None:
+    response = await client.post("/api/probe/sign-in", json={})
+    assert response.status_code == 401
+    assert response.json() == {"code": "invalid_credentials"}
+
+
+async def test_a_route_without_its_own_code_gets_the_general_one(client: AsyncClient) -> None:
+    response = await client.post("/api/probe/anything", json={})
+    assert response.status_code == 400
+    assert response.json() == {"code": "invalid_request"}
+
+
+async def test_a_valid_body_goes_through(client: AsyncClient) -> None:
+    response = await client.put("/api/probe/budget", json={"budget": 15000})
+    assert response.status_code == 200
+    assert response.json() == {"budget": 15000}
+
+
+async def test_an_unknown_path_is_not_found(client: AsyncClient) -> None:
+    response = await client.get("/api/probe/nothing-here")
+    assert response.status_code == 404
+    assert response.json() == {"code": "not_found"}
+
+
+async def test_a_wrong_method_keeps_405_and_says_what_is_allowed(client: AsyncClient) -> None:
+    response = await client.delete("/api/probe/budget")
+    assert response.status_code == 405
+    assert response.json() == {"code": "invalid_request"}
+    assert response.headers["allow"] == "PUT"
+
+
+@pytest.fixture
+async def lenient_client(app: FastAPI) -> AsyncIterator[AsyncClient]:
+    """Answers with the 500 response instead of raising the app's error inside the test."""
+    transport = ASGITransport(app=app, raise_app_exceptions=False)
+    async with AsyncClient(transport=transport, base_url="https://test") as client:
+        yield client
+
+
+async def test_a_bug_is_500_and_tells_nothing(lenient_client: AsyncClient) -> None:
+    response = await lenient_client.get("/api/probe/broken")
+    assert response.status_code == 500
+    assert response.json() == {"code": "internal_error"}
+    assert "hunter2" not in response.text

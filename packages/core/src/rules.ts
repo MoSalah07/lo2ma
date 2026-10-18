@@ -48,6 +48,9 @@ export const SERVICE_AREA = {
   radiusMeters: 35_000,
 } as const;
 
+/** A restaurant delivers to workplaces this close to it, in meters. */
+export const DELIVERY_RADIUS_METERS = 5_000;
+
 /** The most a user can write for the courier about their workplace (building, floor, a landmark). */
 export const WORKPLACE_DETAILS_MAX = 120;
 

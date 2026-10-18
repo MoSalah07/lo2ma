@@ -1,8 +1,9 @@
 /**
- * Phase 1 runs on MSW mocks. Set NEXT_PUBLIC_API_MOCKING=disabled once FastAPI is ready (phase 2):
- * nothing else in the app changes, because every request already goes through /api.
+ * The mock API (MSW, in the browser) runs only when asked for: NEXT_PUBLIC_API_MOCKING=enabled, which
+ * `npm run dev` (.env.development) and `npm run build:demo` set. Anything else calls the real API through
+ * /api, so a forgotten variable can never put a real customer on the demo. next.config.ts checks the value.
  */
-export const apiMocking = process.env.NEXT_PUBLIC_API_MOCKING !== 'disabled';
+export const apiMocking = process.env.NEXT_PUBLIC_API_MOCKING === 'enabled';
 
 let started: Promise<unknown> | undefined;
 

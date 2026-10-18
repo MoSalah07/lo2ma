@@ -1,0 +1,86 @@
+[
+  {
+    "code": "LO2MA20",
+    "discount": {
+      "type": "percent",
+      "value": 20,
+      "cap": 4000
+    },
+    "minOrder": 10000,
+    "limit": 500,
+    "perCustomer": 1,
+    "endsOn": "2026-10-31",
+    "audience": {
+      "type": "all"
+    },
+    "used": 142,
+    "paused": false
+  },
+  {
+    "code": "WELCOME30",
+    "discount": {
+      "type": "amount",
+      "value": 3000
+    },
+    "minOrder": 10000,
+    "limit": null,
+    "perCustomer": 1,
+    "endsOn": "2026-12-31",
+    "audience": {
+      "type": "new"
+    },
+    "used": 86,
+    "paused": false
+  },
+  {
+    "code": "OFOK15",
+    "discount": {
+      "type": "percent",
+      "value": 15,
+      "cap": 3000
+    },
+    "minOrder": 12000,
+    "limit": 200,
+    "perCustomer": 2,
+    "endsOn": "2026-11-30",
+    "audience": {
+      "type": "company",
+      "companyId": "c1"
+    },
+    "used": 64,
+    "paused": false
+  },
+  {
+    "code": "NOON25",
+    "discount": {
+      "type": "amount",
+      "value": 2500
+    },
+    "minOrder": 10000,
+    "limit": 100,
+    "perCustomer": 1,
+    "endsOn": "2026-11-15",
+    "audience": {
+      "type": "company",
+      "companyId": "c2"
+    },
+    "used": 0,
+    "paused": true
+  },
+  {
+    "code": "LUNCH10",
+    "discount": {
+      "type": "amount",
+      "value": 1000
+    },
+    "minOrder": 10000,
+    "limit": 300,
+    "perCustomer": 3,
+    "endsOn": "2026-09-30",
+    "audience": {
+      "type": "all"
+    },
+    "used": 300,
+    "paused": false
+  }
+]

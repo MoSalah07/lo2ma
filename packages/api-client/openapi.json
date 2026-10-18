@@ -1,0 +1,1986 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Lo2ma API",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/admin/auth/sign-in": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Admin Sign In",
+        "operationId": "admin_sign_in",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminSignIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminChallenge"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error, by its code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "x-invalid-code": "invalid_credentials",
+        "x-invalid-status": 401
+      }
+    },
+    "/api/admin/auth/verify": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Admin Verify",
+        "operationId": "admin_verify",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminVerify"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminUser"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error, by its code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "x-invalid-code": "invalid_challenge",
+        "x-invalid-status": 400
+      }
+    },
+    "/api/admin/auth/session": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Read Admin Session",
+        "operationId": "read_admin_session",
+        "parameters": [
+          {
+            "name": "__Host-lo2ma_admin",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Admin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminUser"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error, by its code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/auth/sign-out": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Admin Sign Out",
+        "operationId": "admin_sign_out",
+        "parameters": [
+          {
+            "name": "__Host-lo2ma_admin",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Admin"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "default": {
+            "description": "An error, by its code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/otp": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Request Code",
+        "operationId": "request_code",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OtpRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OtpSent"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error, by its code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "x-invalid-code": "invalid_destination",
+        "x-invalid-status": 400
+      }
+    },
+    "/api/auth/verify": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Verify Code",
+        "operationId": "verify_code",
+        "parameters": [
+          {
+            "name": "__Host-lo2ma_guest",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Guest"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OtpVerify"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionUser"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error, by its code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/session": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Read Session",
+        "operationId": "read_session",
+        "parameters": [
+          {
+            "name": "__Host-lo2ma_session",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Session"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionUser"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error, by its code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/sign-out": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Sign Out",
+        "operationId": "sign_out",
+        "parameters": [
+          {
+            "name": "__Host-lo2ma_session",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Session"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "default": {
+            "description": "An error, by its code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/companies": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "List Companies",
+        "description": "Every company, for the dashboard's filters and the coupon form.",
+        "operationId": "list_companies",
+        "parameters": [
+          {
+            "name": "__Host-lo2ma_admin",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Admin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Company"
+                  },
+                  "title": "Response List Companies"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error, by its code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/coupons": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "List Coupons",
+        "operationId": "list_coupons",
+        "parameters": [
+          {
+            "name": "__Host-lo2ma_admin",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Admin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Coupon"
+                  },
+                  "title": "Response List Coupons"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error, by its code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Create Coupon",
+        "operationId": "create_coupon",
+        "parameters": [
+          {
+            "name": "__Host-lo2ma_admin",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Admin"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCoupon"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Coupon"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error, by its code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "x-invalid-code": "invalid_coupon",
+        "x-invalid-status": 400
+      }
+    },
+    "/api/places/suggested": {
+      "get": {
+        "tags": [
+          "places"
+        ],
+        "summary": "Suggested Places",
+        "operationId": "suggested_places",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Place"
+                  },
+                  "type": "array",
+                  "title": "Response Suggested Places"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error, by its code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/places/search": {
+      "get": {
+        "tags": [
+          "places"
+        ],
+        "summary": "Search Places",
+        "operationId": "search_places",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Q"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Place"
+                  },
+                  "title": "Response Search Places"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error, by its code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/places/reverse": {
+      "get": {
+        "tags": [
+          "places"
+        ],
+        "summary": "Reverse Place",
+        "operationId": "reverse_place",
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "maximum": 90,
+              "minimum": -90,
+              "title": "Lat"
+            }
+          },
+          {
+            "name": "lng",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "maximum": 180,
+              "minimum": -180,
+              "title": "Lng"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PointLookup"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error, by its code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "x-invalid-code": "invalid_point",
+        "x-invalid-status": 400
+      }
+    },
+    "/api/prefs": {
+      "get": {
+        "tags": [
+          "prefs"
+        ],
+        "summary": "Read Prefs",
+        "operationId": "read_prefs",
+        "parameters": [
+          {
+            "name": "__Host-lo2ma_guest",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Guest"
+            }
+          },
+          {
+            "name": "__Host-lo2ma_session",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Session"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserPrefs"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error, by its code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "prefs"
+        ],
+        "summary": "Update Prefs",
+        "operationId": "update_prefs",
+        "parameters": [
+          {
+            "name": "__Host-lo2ma_guest",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Guest"
+            }
+          },
+          {
+            "name": "__Host-lo2ma_session",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Session"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserPrefs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserPrefs"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error, by its code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "x-invalid-code": "invalid_prefs",
+        "x-invalid-status": 400
+      }
+    },
+    "/api/suggestions/{suggestion_id}/nutrition": {
+      "get": {
+        "tags": [
+          "suggestions"
+        ],
+        "summary": "Read Meal Breakdown",
+        "operationId": "read_meal_breakdown",
+        "parameters": [
+          {
+            "name": "suggestion_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Suggestion Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MealBreakdown"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error, by its code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/suggestions/{suggestion_id}/nutrition/report": {
+      "post": {
+        "tags": [
+          "suggestions"
+        ],
+        "summary": "Report Meal Nutrition",
+        "description": "Taken for review; nothing comes back.",
+        "operationId": "report_meal_nutrition",
+        "parameters": [
+          {
+            "name": "suggestion_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Suggestion Id"
+            }
+          },
+          {
+            "name": "__Host-lo2ma_guest",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Guest"
+            }
+          },
+          {
+            "name": "__Host-lo2ma_session",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Session"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Successful Response"
+          },
+          "default": {
+            "description": "An error, by its code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/payment-methods": {
+      "get": {
+        "tags": [
+          "payments"
+        ],
+        "summary": "List Payment Methods",
+        "description": "The mock's card and wallet, for everyone: nothing is saved before phase 4.",
+        "operationId": "list_payment_methods",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/SavedPaymentMethod"
+                  },
+                  "type": "array",
+                  "title": "Response List Payment Methods"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error, by its code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/transcribe": {
+      "post": {
+        "tags": [
+          "chat"
+        ],
+        "summary": "Transcribe",
+        "description": "A voice message, written down for the user to check before sending.\n\nMultipart, as the browser records it: the `audio` file and the page's `locale`.",
+        "operationId": "transcribe",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_transcribe"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transcription"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error, by its code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "x-invalid-code": "invalid_audio",
+        "x-invalid-status": 400
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AdminChallenge": {
+        "properties": {
+          "challenge": {
+            "type": "string",
+            "title": "Challenge"
+          }
+        },
+        "type": "object",
+        "required": [
+          "challenge"
+        ],
+        "title": "AdminChallenge",
+        "description": "What the password step hands back for the code step (adminChallengeSchema)."
+      },
+      "AdminSignIn": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Password"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "AdminSignIn",
+        "description": "The password step (adminSignInSchema)."
+      },
+      "AdminUser": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "email"
+        ],
+        "title": "AdminUser",
+        "description": "The signed-in admin (adminUserSchema)."
+      },
+      "AdminVerify": {
+        "properties": {
+          "challenge": {
+            "type": "string",
+            "title": "Challenge"
+          },
+          "code": {
+            "type": "string",
+            "pattern": "^[0-9]{6}$",
+            "title": "Code"
+          }
+        },
+        "type": "object",
+        "required": [
+          "challenge",
+          "code"
+        ],
+        "title": "AdminVerify",
+        "description": "The code step: the challenge and the authenticator's code (adminVerifySchema)."
+      },
+      "AllCustomers": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "all",
+            "title": "Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "title": "AllCustomers"
+      },
+      "AmountOff": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "amount",
+            "title": "Type"
+          },
+          "value": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Value"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "value"
+        ],
+        "title": "AmountOff"
+      },
+      "AnyCalories": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "const": "any",
+            "title": "Mode"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mode"
+        ],
+        "title": "AnyCalories"
+      },
+      "AroundCalories": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "const": "around",
+            "title": "Mode"
+          },
+          "kcal": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Kcal"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mode",
+          "kcal"
+        ],
+        "title": "AroundCalories"
+      },
+      "Body_transcribe": {
+        "properties": {
+          "audio": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "Audio"
+          },
+          "locale": {
+            "type": "string",
+            "title": "Locale",
+            "default": "ar"
+          }
+        },
+        "type": "object",
+        "required": [
+          "audio"
+        ],
+        "title": "Body_transcribe"
+      },
+      "Company": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "$ref": "#/components/schemas/LocalizedText"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "Company",
+        "description": "A company, by its id and its name in both languages (companySchema)."
+      },
+      "CompanyChoice": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "company",
+            "title": "Type"
+          },
+          "companyId": {
+            "type": "string",
+            "title": "Companyid"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "companyId"
+        ],
+        "title": "CompanyChoice",
+        "description": "One company's people, as the form picks it: by id."
+      },
+      "CompanyCustomers": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "company",
+            "title": "Type"
+          },
+          "company": {
+            "$ref": "#/components/schemas/Company"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "company"
+        ],
+        "title": "CompanyCustomers",
+        "description": "One company's people, as the dashboard shows it: with the name."
+      },
+      "Coupon": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "pattern": "^[A-Z0-9]{4,16}$",
+            "title": "Code"
+          },
+          "discount": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PercentOff"
+              },
+              {
+                "$ref": "#/components/schemas/AmountOff"
+              }
+            ],
+            "title": "Discount",
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "amount": "#/components/schemas/AmountOff",
+                "percent": "#/components/schemas/PercentOff"
+              }
+            }
+          },
+          "minOrder": {
+            "type": "integer",
+            "minimum": 10000.0,
+            "title": "Minorder"
+          },
+          "limit": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Limit"
+          },
+          "perCustomer": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Percustomer"
+          },
+          "endsOn": {
+            "type": "string",
+            "format": "date",
+            "title": "Endson"
+          },
+          "audience": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/AllCustomers"
+              },
+              {
+                "$ref": "#/components/schemas/NewCustomers"
+              },
+              {
+                "$ref": "#/components/schemas/CompanyCustomers"
+              }
+            ],
+            "title": "Audience",
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "all": "#/components/schemas/AllCustomers",
+                "company": "#/components/schemas/CompanyCustomers",
+                "new": "#/components/schemas/NewCustomers"
+              }
+            }
+          },
+          "used": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Used"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "paused",
+              "ended"
+            ],
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "discount",
+          "minOrder",
+          "limit",
+          "perCustomer",
+          "endsOn",
+          "audience",
+          "used",
+          "status"
+        ],
+        "title": "Coupon",
+        "description": "A coupon in the dashboard's list (couponSchema)."
+      },
+      "CreateCoupon": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "pattern": "^[A-Z0-9]{4,16}$",
+            "title": "Code"
+          },
+          "discount": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PercentOff"
+              },
+              {
+                "$ref": "#/components/schemas/AmountOff"
+              }
+            ],
+            "title": "Discount",
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "amount": "#/components/schemas/AmountOff",
+                "percent": "#/components/schemas/PercentOff"
+              }
+            }
+          },
+          "minOrder": {
+            "type": "integer",
+            "minimum": 10000.0,
+            "title": "Minorder"
+          },
+          "limit": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Limit"
+          },
+          "perCustomer": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Percustomer"
+          },
+          "endsOn": {
+            "type": "string",
+            "format": "date",
+            "title": "Endson"
+          },
+          "audience": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/AllCustomers"
+              },
+              {
+                "$ref": "#/components/schemas/NewCustomers"
+              },
+              {
+                "$ref": "#/components/schemas/CompanyChoice"
+              }
+            ],
+            "title": "Audience",
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "all": "#/components/schemas/AllCustomers",
+                "company": "#/components/schemas/CompanyChoice",
+                "new": "#/components/schemas/NewCustomers"
+              }
+            }
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "discount",
+          "minOrder",
+          "limit",
+          "perCustomer",
+          "endsOn",
+          "audience"
+        ],
+        "title": "CreateCoupon",
+        "description": "What the coupon form sends (createCouponSchema)."
+      },
+      "DishBreakdown": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "quantity": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Quantity"
+          },
+          "kcal": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Kcal"
+          },
+          "kcalSource": {
+            "type": "string",
+            "enum": [
+              "restaurant",
+              "ai"
+            ],
+            "title": "Kcalsource"
+          },
+          "kcalRange": {
+            "$ref": "#/components/schemas/KcalRange",
+            "title": "Kcalrange"
+          },
+          "lines": {
+            "items": {
+              "$ref": "#/components/schemas/RecipeLine"
+            },
+            "type": "array",
+            "title": "Lines"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "quantity",
+          "kcal",
+          "kcalSource",
+          "lines"
+        ],
+        "title": "DishBreakdown",
+        "description": "A dish of a meal and how its calories were worked out (dishBreakdownSchema).\n\nA dish the restaurant published has no lines: its number is the restaurant's."
+      },
+      "FitCalories": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "const": "fit",
+            "title": "Mode"
+          },
+          "goal": {
+            "type": "string",
+            "enum": [
+              "cut",
+              "keep",
+              "bulk"
+            ],
+            "title": "Goal"
+          },
+          "kcal": {
+            "type": "integer",
+            "maximum": 1500.0,
+            "minimum": 300.0,
+            "title": "Kcal"
+          },
+          "protein": {
+            "type": "integer",
+            "maximum": 120.0,
+            "minimum": 10.0,
+            "title": "Protein"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mode",
+          "kcal",
+          "protein"
+        ],
+        "title": "FitCalories",
+        "description": "«وضع الفورمة»: a lunch goal in calories and protein, within the steppers' limits."
+      },
+      "GeoPoint": {
+        "properties": {
+          "lat": {
+            "type": "number",
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Lat"
+          },
+          "lng": {
+            "type": "number",
+            "maximum": 180.0,
+            "minimum": -180.0,
+            "title": "Lng"
+          }
+        },
+        "type": "object",
+        "required": [
+          "lat",
+          "lng"
+        ],
+        "title": "GeoPoint",
+        "description": "A point in degrees, WGS 84 (geoPointSchema)."
+      },
+      "KcalRange": {
+        "properties": {
+          "low": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Low"
+          },
+          "high": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "High"
+          }
+        },
+        "type": "object",
+        "required": [
+          "low",
+          "high"
+        ],
+        "title": "KcalRange",
+        "description": "The fewest and the most calories an estimate allows (kcalRangeSchema)."
+      },
+      "LocalizedText": {
+        "properties": {
+          "ar": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Ar"
+          },
+          "en": {
+            "type": "string",
+            "minLength": 1,
+            "title": "En"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ar",
+          "en"
+        ],
+        "title": "LocalizedText",
+        "description": "Text in both languages, such as a place's name (localizedTextSchema)."
+      },
+      "MealBreakdown": {
+        "properties": {
+          "dishes": {
+            "items": {
+              "$ref": "#/components/schemas/DishBreakdown"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Dishes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "dishes"
+        ],
+        "title": "MealBreakdown",
+        "description": "GET /suggestions/:id/nutrition (mealBreakdownSchema)."
+      },
+      "NewCustomers": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "new",
+            "title": "Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "title": "NewCustomers",
+        "description": "A customer's first order."
+      },
+      "OtpRequest": {
+        "properties": {
+          "channel": {
+            "type": "string",
+            "enum": [
+              "phone",
+              "email"
+            ],
+            "title": "Channel"
+          },
+          "destination": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Destination"
+          }
+        },
+        "type": "object",
+        "required": [
+          "channel",
+          "destination"
+        ],
+        "title": "OtpRequest",
+        "description": "Where to send a sign-in code (otpRequestSchema)."
+      },
+      "OtpSent": {
+        "properties": {
+          "expiresIn": {
+            "type": "integer",
+            "title": "Expiresin"
+          }
+        },
+        "type": "object",
+        "required": [
+          "expiresIn"
+        ],
+        "title": "OtpSent",
+        "description": "How long the code works, in seconds."
+      },
+      "OtpVerify": {
+        "properties": {
+          "channel": {
+            "type": "string",
+            "enum": [
+              "phone",
+              "email"
+            ],
+            "title": "Channel"
+          },
+          "destination": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Destination"
+          },
+          "code": {
+            "type": "string",
+            "pattern": "^[0-9]{6}$",
+            "title": "Code"
+          }
+        },
+        "type": "object",
+        "required": [
+          "channel",
+          "destination",
+          "code"
+        ],
+        "title": "OtpVerify",
+        "description": "The code the user typed (otpVerifySchema)."
+      },
+      "PercentOff": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "percent",
+            "title": "Type"
+          },
+          "value": {
+            "type": "integer",
+            "maximum": 90.0,
+            "minimum": 1.0,
+            "title": "Value"
+          },
+          "cap": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Cap"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "value",
+          "cap"
+        ],
+        "title": "PercentOff",
+        "description": "A share of the food, up to a cap in piasters."
+      },
+      "Place": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "area": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "point": {
+            "$ref": "#/components/schemas/GeoPoint"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "area",
+          "point"
+        ],
+        "title": "Place",
+        "description": "A place the location search knows: an office building, a business park or a district.\n\nplaceSchema in packages/core."
+      },
+      "PointLookup": {
+        "properties": {
+          "name": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "area": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "inServiceArea": {
+            "type": "boolean",
+            "title": "Inservicearea"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "area",
+          "inServiceArea"
+        ],
+        "title": "PointLookup",
+        "description": "What is at a point on the map, and whether Lo2ma delivers there (pointLookupSchema)."
+      },
+      "RecipeLine": {
+        "properties": {
+          "name": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "grams": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Grams"
+          },
+          "kcal": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Kcal"
+          },
+          "protein": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Protein"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "grams",
+          "kcal",
+          "protein"
+        ],
+        "title": "RecipeLine",
+        "description": "One food of an estimated dish, as «حسبناها ازاي» lists it (recipeLineSchema)."
+      },
+      "SavedPaymentMethod": {
+        "properties": {
+          "method": {
+            "type": "string",
+            "enum": [
+              "card",
+              "wallet"
+            ],
+            "title": "Method"
+          },
+          "last4": {
+            "type": "string",
+            "pattern": "^[0-9]{4}$",
+            "title": "Last4"
+          }
+        },
+        "type": "object",
+        "required": [
+          "method"
+        ],
+        "title": "SavedPaymentMethod",
+        "description": "A way to pay the user saved (savedPaymentMethodSchema)."
+      },
+      "SessionUser": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "phone": {
+            "type": "string",
+            "title": "Phone"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "SessionUser",
+        "description": "The signed-in user (sessionUserSchema)."
+      },
+      "Transcription": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "Transcription",
+        "description": "What a voice message said (transcriptionSchema)."
+      },
+      "UnderCalories": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "const": "under",
+            "title": "Mode"
+          },
+          "kcal": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Kcal"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mode",
+          "kcal"
+        ],
+        "title": "UnderCalories"
+      },
+      "UserPrefs": {
+        "properties": {
+          "workplace": {
+            "$ref": "#/components/schemas/Workplace"
+          },
+          "breakTime": {
+            "type": "string",
+            "pattern": "^([01][0-9]|2[0-3]):([0-5][0-9])$",
+            "title": "Breaktime"
+          },
+          "budget": {
+            "type": "integer",
+            "minimum": 10000.0,
+            "title": "Budget"
+          },
+          "calories": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/AnyCalories"
+              },
+              {
+                "$ref": "#/components/schemas/AroundCalories"
+              },
+              {
+                "$ref": "#/components/schemas/UnderCalories"
+              },
+              {
+                "$ref": "#/components/schemas/FitCalories"
+              }
+            ],
+            "title": "Calories",
+            "discriminator": {
+              "propertyName": "mode",
+              "mapping": {
+                "any": "#/components/schemas/AnyCalories",
+                "around": "#/components/schemas/AroundCalories",
+                "fit": "#/components/schemas/FitCalories",
+                "under": "#/components/schemas/UnderCalories"
+              }
+            }
+          },
+          "exclusions": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "chicken",
+                "beef",
+                "fish",
+                "nuts",
+                "dairy"
+              ]
+            },
+            "type": "array",
+            "title": "Exclusions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "workplace",
+          "breakTime",
+          "budget",
+          "calories",
+          "exclusions"
+        ],
+        "title": "UserPrefs",
+        "description": "What onboarding collects and «حسابي» edits (userPrefsSchema)."
+      },
+      "Workplace": {
+        "properties": {
+          "name": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "area": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "point": {
+            "$ref": "#/components/schemas/GeoPoint"
+          },
+          "details": {
+            "type": "string",
+            "maxLength": 120,
+            "title": "Details"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "area",
+          "point",
+          "details"
+        ],
+        "title": "Workplace",
+        "description": "Where lunch goes: a point on the map, its name in both languages, and the courier's notes."
+      },
+      "ApiError": {
+        "description": "What every error carries: a code the apps turn into text (the web's lib/api.ts reads it).",
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "title": "ApiError",
+        "type": "object"
+      }
+    }
+  }
+}
