@@ -35,3 +35,6 @@ Thumbs.db
 
 # Deploy
 .vercel/
+
+# Local study notes
+/learn/
