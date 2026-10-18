@@ -53,6 +53,8 @@ export default defineConfig([
     'apps/web/public/mockServiceWorker.js',
     // Copied from node_modules before dev and build (scripts/vendor.mjs).
     'apps/web/public/vendor/**',
+    // The backend's Python environment: pyright ships its JavaScript inside it.
+    '**/.venv/**',
   ]),
 
   ...nextVitals,

@@ -1,0 +1,14 @@
+{
+  "name": "@lo2ma/backend",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Runs the Python tools through uv, so the root npm scripts check the backend too.",
+  "scripts": {
+    "dev": "uv run --locked fastapi dev",
+    "typecheck": "uv run --locked pyright",
+    "lint": "uv run --locked ruff check",
+    "format": "uv run --locked ruff format",
+    "format:check": "uv run --locked ruff format --check",
+    "test": "uv run --locked pytest"
+  }
+}
