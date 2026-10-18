@@ -1,0 +1,29 @@
+# The local database for development and tests: `npm run db:up` from the repo root.
+# The project name is fixed, so any checkout of the repo uses the same container and volume.
+name: lo2ma
+
+services:
+  db:
+    build: ./db
+    image: lo2ma-db:18.6
+    environment:
+      # Local only: the port below is bound to this machine.
+      POSTGRES_USER: lo2ma
+      POSTGRES_PASSWORD: lo2ma
+      POSTGRES_DB: lo2ma
+    ports:
+      - '127.0.0.1:5432:5432'
+    volumes:
+      # Postgres 18 images keep their data under /var/lib/postgresql/18/docker, inside this volume.
+      - pgdata:/var/lib/postgresql
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      # Over TCP: while the first start runs the init scripts, Postgres only listens on its socket, so
+      # this stays unhealthy until lo2ma_test exists.
+      test: ['CMD', 'pg_isready', '--host=127.0.0.1', '--username=lo2ma', '--dbname=lo2ma']
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  pgdata:

@@ -1,8 +1,8 @@
 # Lo2ma backend
 
-> **Status: being built.** The app skeleton, its error handling and the tooling are in place; the endpoints
-> below arrive one feature at a time. Until then the web app runs against a mock of this service, and that
-> mock defines the API described here.
+> **Status: being built.** The app skeleton, its error handling, the database and the tooling are in place;
+> the endpoints below arrive one feature at a time. Until then the web app runs against a mock of this
+> service, and that mock defines the API described here.
 
 The backend will serve the web and mobile apps, run the agent that picks meals, take payments, and send each day
 of a weekly plan to the restaurant on time.
@@ -18,19 +18,36 @@ of a weekly plan to the restaurant on time.
 
 ## Running it
 
-You need [uv](https://docs.astral.sh/uv/) 0.13.1. It installs Python 3.14 and every package from `uv.lock`, so
-nothing else is installed by hand. From the repo root:
+You need [uv](https://docs.astral.sh/uv/) 0.13.1 and Docker. uv installs Python 3.14 and every package from
+`uv.lock`, so nothing else is installed by hand. Copy `backend/.env.example` to `backend/.env` once. Then, from
+the repo root:
 
-| Command                          | What it does                                                      |
-| -------------------------------- | ----------------------------------------------------------------- |
-| `npm run dev:api`                | `fastapi dev` on http://localhost:8000, with the docs at `/docs`  |
-| `npm run check`                  | the whole repo, the backend included: pyright, ruff, pytest       |
-| `npm run test -w @lo2ma/backend` | only the backend's tests (`typecheck`, `lint`, `format` work too) |
+| Command                          | What it does                                                                  |
+| -------------------------------- | ----------------------------------------------------------------------------- |
+| `npm run dev:api`                | starts the database, migrates it, then `fastapi dev` on http://localhost:8000 |
+| `npm run check`                  | the whole repo, the backend included: pyright, ruff, pytest                   |
+| `npm run test -w @lo2ma/backend` | only the backend's tests (`typecheck`, `lint`, `format` work too)             |
+| `npm run db:up` / `db:down`      | starts or stops the local database                                            |
+| `npm run db:migrate`             | `alembic upgrade head` on the development database                            |
 
 `backend/package.json` only runs these tools through `uv run --locked`, which fails when `uv.lock` is out of date.
-Settings come from `LO2MA_*` environment variables or `backend/.env` (see `.env.example`).
+Settings come from `LO2MA_*` environment variables or `backend/.env`.
 
 Python stays on 3.14 for now: 3.15 is out, but PyYAML has no 3.15 wheels yet, and `fastapi-cli` needs it.
+
+### The database
+
+`compose.yaml` runs PostgreSQL 18.6 with PostGIS 3.6.4 and pgvector 0.8.7, built from `db/Dockerfile` with
+exact package versions, on `127.0.0.1:5432`. It holds two databases: `lo2ma` for development and `lo2ma_test`
+for the tests.
+
+- Migrations are Alembic, configured in `pyproject.toml` (there is no `alembic.ini`). The URL comes from
+  `LO2MA_DATABASE_URL`. New migration files are named by date and come out formatted by ruff.
+- Every test run walks all migrations down and up again on `lo2ma_test`, and checks that the models match them.
+  Each test runs in a transaction that is rolled back.
+- The app talks to the database with SQLAlchemy 2 (async) on psycopg 3. psycopg's async mode can't use Windows'
+  default event loop: `fastapi dev` and the tests are set up for it, and anything else that serves the app on
+  Windows without `--reload` needs `--loop asyncio:SelectorEventLoop`.
 
 ## Planned stack
 

@@ -7,10 +7,13 @@ readme = "README.md"
 # Move up once it ships them, the way TypeScript waits for typescript-eslint.
 requires-python = "==3.14.*"
 dependencies = [
+    "alembic==1.20.0",
     "fastapi==0.143.3",
     "fastapi-cli==0.0.32",
+    "psycopg[binary]==3.3.6",
     "pydantic==2.14.1",
     "pydantic-settings==2.16.0",
+    "sqlalchemy[asyncio]==2.1.5",
     "starlette==1.8.0",
 ]
 
@@ -60,7 +63,7 @@ typeCheckingMode = "strict"
 pythonVersion = "3.14"
 venvPath = "."
 venv = ".venv"
-include = ["app", "tests"]
+include = ["app", "migrations", "tests"]
 
 [tool.pytest]
 testpaths = ["tests"]
@@ -69,3 +72,25 @@ addopts = ["--import-mode=importlib", "--strict-markers", "--strict-config", "-r
 xfail_strict = true
 # A warning is a failure, like ESLint's zero warnings.
 filterwarnings = ["error"]
+
+# Settings only: the database URL comes from LO2MA_DATABASE_URL (migrations/env.py), so there is no alembic.ini.
+[tool.alembic]
+script_location = "%(here)s/migrations"
+# 2026_10_18_1a2b3c4d5e6f_add_places.py: the file explorer lists them by date.
+file_template = "%%(year)d_%%(month).2d_%%(day).2d_%%(rev)s_%%(slug)s"
+prepend_sys_path = ["."]
+timezone = "UTC"
+truncate_slug_length = 40
+
+# A new migration comes out lint-clean and formatted, so the check passes on it as generated.
+[[tool.alembic.post_write_hooks]]
+name = "ruff_fix"
+type = "module"
+module = "ruff"
+options = "check --fix REVISION_SCRIPT_FILENAME"
+
+[[tool.alembic.post_write_hooks]]
+name = "ruff_format"
+type = "module"
+module = "ruff"
+options = "format REVISION_SCRIPT_FILENAME"
