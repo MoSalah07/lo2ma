@@ -22,9 +22,9 @@ class Budget(BaseModel):
 
 
 @pytest.fixture
-def app() -> FastAPI:
+def app(settings: Settings) -> FastAPI:
     """The real app, plus a few routes that fail on purpose."""
-    app = create_app(Settings(environment="test"))
+    app = create_app(settings)
 
     @app.post("/api/plan/swap")
     async def swap() -> None:
@@ -97,8 +97,8 @@ async def test_a_bug_is_500_and_tells_nothing(lenient_client: AsyncClient) -> No
     assert "hunter2" not in response.text
 
 
-async def test_production_hides_the_docs() -> None:
-    app = create_app(Settings(environment="prod"))
+async def test_production_hides_the_docs(settings: Settings) -> None:
+    app = create_app(settings.model_copy(update={"environment": "prod"}))
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
         assert (await client.get("/docs")).status_code == 404
         assert (await client.get("/openapi.json")).status_code == 404
