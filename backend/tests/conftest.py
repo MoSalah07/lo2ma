@@ -40,7 +40,7 @@ def anyio_backend() -> tuple[str, dict[str, object]]:
 
 class IsolatedSettings(Settings):
     """Settings from the arguments alone: not backend/.env, not LO2MA_* variables. The tests mustn't
-    change with a developer's settings (LO2MA_OTP_DEMO, for one)."""
+    change with a developer's settings (LO2MA_DEMO_SIGN_IN, for one)."""
 
     @classmethod
     def settings_customise_sources(
@@ -169,4 +169,20 @@ async def db_client(
 ) -> AsyncIterator[AsyncClient]:
     """Like `client`, with the database."""
     async with client_of(app) as client:
+        yield client
+
+
+@pytest.fixture
+def demo_app(settings: Settings, clock: Clock) -> FastAPI:
+    """The app as the demo and the end-to-end tests run it (LO2MA_DEMO_SIGN_IN)."""
+    app = create_app(settings.model_copy(update={"demo_sign_in": True}))
+    app.dependency_overrides[utc_now] = clock
+    return app
+
+
+@pytest.fixture
+async def demo_client(
+    demo_app: FastAPI, client_of: Callable[[FastAPI], AsyncClient]
+) -> AsyncIterator[AsyncClient]:
+    async with client_of(demo_app) as client:
         yield client
