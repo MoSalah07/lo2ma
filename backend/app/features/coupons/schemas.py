@@ -3,13 +3,12 @@ from typing import Annotated, Literal
 
 from pydantic import Field
 
-from app.core.api_model import ApiModel
+from app.core.api_model import ApiModel, NonNegativeInt, PositiveInt
 from app.domain.rules import COUPON_CODE, MAX_PERCENT_OFF, MIN_ORDER
 from app.features.companies.schemas import Company
 
 # Piasters, more than none.
-PositivePiasters = Annotated[int, Field(strict=True, gt=0)]
-Count = Annotated[int, Field(strict=True, gt=0)]
+PositivePiasters = PositiveInt
 
 CouponStatus = Literal["active", "paused", "ended"]
 
@@ -60,8 +59,8 @@ class _CouponTerms(ApiModel):
     # A coupon can't lower Lo2ma's minimum order.
     min_order: Annotated[int, Field(strict=True, ge=MIN_ORDER)]
     # None means no limit.
-    limit: Count | None
-    per_customer: Count
+    limit: PositiveInt | None
+    per_customer: PositiveInt
     # The last day it works, "YYYY-MM-DD".
     ends_on: date
 
@@ -76,5 +75,5 @@ class Coupon(_CouponTerms):
     """A coupon in the dashboard's list (couponSchema)."""
 
     audience: Annotated[AllCustomers | NewCustomers | CompanyCustomers, Field(discriminator="type")]
-    used: Annotated[int, Field(strict=True, ge=0)]
+    used: NonNegativeInt
     status: CouponStatus

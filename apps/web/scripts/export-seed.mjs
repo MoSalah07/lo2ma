@@ -14,6 +14,7 @@ const { foods } = await import('../src/mocks/data/foods.ts');
 const { estimateDish } = await import('../src/mocks/engine/estimate.ts');
 const { companies, seedCoupons } = await import('../src/mocks/data/admin.ts');
 const { demoTranscripts } = await import('../src/mocks/data/voice.ts');
+const { savedPaymentMethods } = await import('../src/mocks/data/payments.ts');
 
 const slug = (text) =>
   text
@@ -129,6 +130,7 @@ const outputs = {
   'companies.json': companies,
   'coupons.json': coupons,
   'voice.json': demoTranscripts,
+  'payment-methods.json': savedPaymentMethods,
 };
 
 const target = (file) => fileURLToPath(new URL(`../../../backend/seed/${file}`, import.meta.url));

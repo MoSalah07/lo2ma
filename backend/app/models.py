@@ -10,6 +10,7 @@ from app.features.coupons.models import CouponRecord
 from app.features.guests.models import GuestRecord
 from app.features.places.models import PlaceRecord
 from app.features.prefs.models import PrefsRecord
+from app.features.suggestions.models import DishReportRecord
 
 __all__ = [
     "AdminChallengeRecord",
@@ -19,6 +20,7 @@ __all__ = [
     "CompanyRecord",
     "CouponRecord",
     "DishRecord",
+    "DishReportRecord",
     "FoodRecord",
     "GuestRecord",
     "OtpCodeRecord",

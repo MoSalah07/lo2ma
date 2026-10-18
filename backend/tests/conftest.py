@@ -18,6 +18,7 @@ from sqlalchemy.ext.asyncio import AsyncConnection, AsyncEngine, AsyncSession
 from app.core.db import create_db_engine, get_session
 from app.core.now import utc_now
 from app.core.settings import Settings
+from app.features.catalog.seed import load_catalog, seed_catalog
 from app.main import create_app
 from tests.clock import Clock
 
@@ -186,3 +187,10 @@ async def demo_client(
 ) -> AsyncIterator[AsyncClient]:
     async with client_of(demo_app) as client:
         yield client
+
+
+@pytest.fixture
+async def catalog(session: AsyncSession) -> None:
+    """The demo's menus (backend/seed), as `npm run db:seed` loads them."""
+    async with session.begin():
+        await seed_catalog(session, load_catalog())

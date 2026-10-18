@@ -41,6 +41,9 @@ def omitted() -> Any:
 Piasters = Annotated[int, Field(strict=True, ge=0)]
 # A whole, positive number of kilocalories.
 Kcal = Annotated[int, Field(strict=True, gt=0)]
+# Whole numbers, strict like zod's z.int(): .positive() and .nonnegative().
+PositiveInt = Annotated[int, Field(strict=True, gt=0)]
+NonNegativeInt = Annotated[int, Field(strict=True, ge=0)]
 # "13:30" on Cairo's clock (time24Schema). [0-9], not \d, which matches other scripts' digits.
 Time24 = Annotated[str, Field(pattern=r"^([01][0-9]|2[0-3]):([0-5][0-9])$")]
 # What people may avoid; a dish lists every one it contains (ingredientSchema).

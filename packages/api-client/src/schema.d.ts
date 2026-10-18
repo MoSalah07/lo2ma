@@ -178,6 +178,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/payment-methods": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Payment Methods
+         * @description The mock's card and wallet, for everyone: nothing is saved before phase 4.
+         */
+        get: operations["list_payment_methods"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/places/suggested": {
         parameters: {
             query?: never;
@@ -241,6 +261,43 @@ export interface paths {
         /** Update Prefs */
         put: operations["update_prefs"];
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/suggestions/{suggestion_id}/nutrition": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Read Meal Breakdown */
+        get: operations["read_meal_breakdown"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/suggestions/{suggestion_id}/nutrition/report": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Report Meal Nutrition
+         * @description Taken for review; nothing comes back.
+         */
+        post: operations["report_meal_nutrition"];
         delete?: never;
         options?: never;
         head?: never;
@@ -447,6 +504,30 @@ export interface components {
             audience: components["schemas"]["AllCustomers"] | components["schemas"]["NewCustomers"] | components["schemas"]["CompanyChoice"];
         };
         /**
+         * DishBreakdown
+         * @description A dish of a meal and how its calories were worked out (dishBreakdownSchema).
+         *
+         *     A dish the restaurant published has no lines: its number is the restaurant's.
+         */
+        DishBreakdown: {
+            /** Id */
+            id: string;
+            name: components["schemas"]["LocalizedText"];
+            /** Quantity */
+            quantity: number;
+            /** Kcal */
+            kcal: number;
+            /**
+             * Kcalsource
+             * @enum {string}
+             */
+            kcalSource: "restaurant" | "ai";
+            /** Kcalrange */
+            kcalRange?: components["schemas"]["KcalRange"];
+            /** Lines */
+            lines: components["schemas"]["RecipeLine"][];
+        };
+        /**
          * FitCalories
          * @description «وضع الفورمة»: a lunch goal in calories and protein, within the steppers' limits.
          */
@@ -482,6 +563,16 @@ export interface components {
             detail?: components["schemas"]["ValidationError"][];
         };
         /**
+         * KcalRange
+         * @description The fewest and the most calories an estimate allows (kcalRangeSchema).
+         */
+        KcalRange: {
+            /** Low */
+            low: number;
+            /** High */
+            high: number;
+        };
+        /**
          * LocalizedText
          * @description Text in both languages, such as a place's name (localizedTextSchema).
          */
@@ -490,6 +581,14 @@ export interface components {
             ar: string;
             /** En */
             en: string;
+        };
+        /**
+         * MealBreakdown
+         * @description GET /suggestions/:id/nutrition (mealBreakdownSchema).
+         */
+        MealBreakdown: {
+            /** Dishes */
+            dishes: components["schemas"]["DishBreakdown"][];
         };
         /**
          * NewCustomers
@@ -575,6 +674,32 @@ export interface components {
             area: components["schemas"]["LocalizedText"];
             /** Inservicearea */
             inServiceArea: boolean;
+        };
+        /**
+         * RecipeLine
+         * @description One food of an estimated dish, as «حسبناها ازاي» lists it (recipeLineSchema).
+         */
+        RecipeLine: {
+            name: components["schemas"]["LocalizedText"];
+            /** Grams */
+            grams: number;
+            /** Kcal */
+            kcal: number;
+            /** Protein */
+            protein: number;
+        };
+        /**
+         * SavedPaymentMethod
+         * @description A way to pay the user saved (savedPaymentMethodSchema).
+         */
+        SavedPaymentMethod: {
+            /**
+             * Method
+             * @enum {string}
+             */
+            method: "card" | "wallet";
+            /** Last4 */
+            last4?: string;
         };
         /**
          * SessionUser
@@ -1007,6 +1132,26 @@ export interface operations {
             };
         };
     };
+    list_payment_methods: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SavedPaymentMethod"][];
+                };
+            };
+        };
+    };
     suggested_places: {
         parameters: {
             query?: never;
@@ -1146,6 +1291,69 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["UserPrefs"];
                 };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    read_meal_breakdown: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                suggestion_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MealBreakdown"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    report_meal_nutrition: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                suggestion_id: string;
+            };
+            cookie?: {
+                "__Host-lo2ma_guest"?: string | null;
+                "__Host-lo2ma_session"?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             /** @description Validation Error */
             422: {
