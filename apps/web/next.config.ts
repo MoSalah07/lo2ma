@@ -14,6 +14,16 @@ const nextConfig: NextConfig = {
   },
   // Our packages ship TypeScript source, so Next compiles them like app code.
   transpilePackages: ['@lo2ma/core', '@lo2ma/i18n', '@lo2ma/tokens'],
+  // With the mocks off, /api/* goes on to FastAPI (API_URL, the local one by default). The browser only ever talks
+  // to this origin: the session cookie stays first-party and there is no CORS.
+  rewrites() {
+    const api = process.env.API_URL ?? 'http://127.0.0.1:8000';
+    return Promise.resolve(
+      process.env.NEXT_PUBLIC_API_MOCKING === 'disabled'
+        ? [{ source: '/api/:path*', destination: `${api}/api/:path*` }]
+        : [],
+    );
+  },
 };
 
 export default withNextIntl(nextConfig);

@@ -3,6 +3,7 @@ package-lock.json
 # Generated files
 packages/tokens/tokens.css
 backend/tests/vectors/*.json
+backend/seed/*.json
 apps/web/public/mockServiceWorker.js
 apps/web/public/vendor/
 

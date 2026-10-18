@@ -77,8 +77,9 @@ scripts/               Lighthouse and README screenshots
   `done`, or `error`), validated event by event.
 - **Money is in piasters** everywhere and only becomes «150 ج» / «EGP 150» through `formatMoney`.
 - **The mock API runs in the browser.** Its code is loaded on the first request, and its data sits in local
-  storage so it survives a reload. Set `NEXT_PUBLIC_API_MOCKING=disabled` to call a real backend instead; nothing
-  else changes.
+  storage so it survives a reload. Set `NEXT_PUBLIC_API_MOCKING=disabled` to call the real backend instead:
+  `next.config.ts` then forwards `/api/*` to it (`API_URL`), so the browser still talks to this origin only (the
+  session cookie stays first-party, and there is no CORS). Nothing else changes.
 
 ## Text, languages and right to left
 
@@ -235,12 +236,14 @@ Run from the repo root.
 | `npm run screenshots -w @lo2ma/web` | retakes `docs/screenshots/` from the production build                 |
 | `npm run models -w @lo2ma/web`      | downloads the 3D food models and compresses them into `public/models` |
 | `npm run images -w @lo2ma/web`      | redraws the link preview cards and the app icons                      |
+| `npm run export:seed -w @lo2ma/web` | writes the mock's places into `backend/seed/` for the real API        |
 
 ### Environment variables
 
 | Variable                   | Default                      | Effect                                                                |
 | -------------------------- | ---------------------------- | --------------------------------------------------------------------- |
 | `NEXT_PUBLIC_API_MOCKING`  | (mocks on)                   | `disabled` sends `/api/*` to a real backend instead of the mock API   |
+| `API_URL`                  | `http://127.0.0.1:8000`      | where `/api/*` goes when the mocks are off                            |
 | `SITE_URL`                 | the Vercel production domain | the site's address for canonical links, the sitemap and link previews |
 | `GOOGLE_SITE_VERIFICATION` | (none)                       | the code Google Search Console gives, as a meta tag                   |
 | `BING_SITE_VERIFICATION`   | (none)                       | the code Bing Webmaster Tools gives, as a meta tag                    |

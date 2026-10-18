@@ -2,13 +2,14 @@ from collections.abc import AsyncGenerator, Callable
 from contextlib import AbstractAsyncContextManager, asynccontextmanager
 from typing import TypedDict
 
-from fastapi import FastAPI
+from fastapi import APIRouter, FastAPI
 from fastapi.routing import APIRoute
 
 from app.core import health
 from app.core.db import SessionFactory, create_db_engine, create_session_factory
 from app.core.errors import install_error_handlers
 from app.core.settings import Settings, load_settings
+from app.features.places import router as places
 
 
 class State(TypedDict):
@@ -51,6 +52,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     )
     install_error_handlers(app)
     app.include_router(health.router)
+    # Everything the apps call lives under /api, the path the web app's rewrite forwards.
+    api = APIRouter(prefix="/api")
+    api.include_router(places.router)
+    app.include_router(api)
     return app
 
 

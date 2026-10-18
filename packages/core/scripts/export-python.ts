@@ -11,6 +11,7 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { distanceMeters, isInServiceArea } from '../src/geo.ts';
 import { normalizeEgyptMobile } from '../src/phone.ts';
+import { foldForSearch, searchWords } from '../src/search.ts';
 import {
   ARRIVAL_BUFFER_MINUTES,
   arrivalTimeFor,
@@ -159,6 +160,22 @@ function vectors(): Record<string, Vectors> {
         NEW_CAPITAL,
         ALEXANDRIA,
       ].map((point) => [point.lat, point.lng, isInServiceArea(point)]),
+    },
+    search: {
+      fold_for_search: [
+        'القرية الذكية',
+        'القريه الذكيه',
+        'أحمد إبراهيم آمال ٱلقاهرة',
+        'مُحَمَّد',
+        'مـــصـر',
+        'مستشفى',
+        'Smart VILLAGE · Building B7',
+        'كايرو فستيفال سيتي · بيزنس بارك',
+      ].map((text) => [text, foldForSearch(text)]),
+      search_words: ['  القريه   B7 ', 'smart village', '   ', ''].map((query) => [
+        query,
+        searchWords(query),
+      ]),
     },
     phone: {
       normalize_egypt_mobile: [

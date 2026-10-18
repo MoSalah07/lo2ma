@@ -22,6 +22,7 @@ export {
   type MealNumbers,
 } from './meal-fit.ts';
 export { formatGrams, mealNutrition, type MealNutrition, type Portion } from './nutrition.ts';
+export { foldForSearch, searchWords } from './search.ts';
 export { addMinutes, formatTime, minutesBetween, TIME_24H, timeOf } from './time.ts';
 export { orderProgress, planDayProgress } from './orders.ts';
 export {

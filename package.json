@@ -15,6 +15,7 @@
     "db:up": "npm run db:up -w @lo2ma/backend",
     "db:down": "npm run db:down -w @lo2ma/backend",
     "db:migrate": "npm run db:migrate -w @lo2ma/backend",
+    "db:seed": "npm run db:seed -w @lo2ma/backend",
     "build": "npm run build -w @lo2ma/web",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
