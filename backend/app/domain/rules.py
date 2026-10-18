@@ -31,6 +31,13 @@ FIT_LUNCH_LIMITS_PROTEIN_STEP: Final = 5
 # packages/core/src/schemas/auth.ts
 OTP_LENGTH: Final = 6
 
+# packages/core/src/orders.ts
+ORDER_STEP_MINUTES_SENT: Final = -45
+ORDER_STEP_MINUTES_ACCEPTED: Final = -44
+ORDER_STEP_MINUTES_PREPARING: Final = -35
+ORDER_STEP_MINUTES_ON_THE_WAY: Final = -20
+ORDER_STEP_MINUTES_DELIVERED: Final = 0
+
 # packages/core/src/schemas/admin.ts
 COUPON_CODE: Final = "^[A-Z0-9]{4,16}$"
 MAX_PERCENT_OFF: Final = 90

@@ -24,7 +24,14 @@ export {
 export { formatGrams, mealNutrition, type MealNutrition, type Portion } from './nutrition.ts';
 export { foldForSearch, searchWords } from './search.ts';
 export { addMinutes, formatTime, minutesBetween, TIME_24H, timeOf } from './time.ts';
-export { orderProgress, planDayProgress } from './orders.ts';
+export {
+  orderProgress,
+  orderStepAt,
+  orderTimeline,
+  planDayProgress,
+  planDayStatusAt,
+  sharesCourierPhone,
+} from './orders.ts';
 export {
   formatList,
   formatNumber,
