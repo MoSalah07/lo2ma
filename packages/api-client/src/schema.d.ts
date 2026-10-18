@@ -55,10 +55,66 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/prefs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Read Prefs */
+        get: operations["read_prefs"];
+        /** Update Prefs */
+        put: operations["update_prefs"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** AnyCalories */
+        AnyCalories: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            mode: "any";
+        };
+        /** AroundCalories */
+        AroundCalories: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            mode: "around";
+            /** Kcal */
+            kcal: number;
+        };
+        /**
+         * FitCalories
+         * @description «وضع الفورمة»: a lunch goal in calories and protein, within the steppers' limits.
+         */
+        FitCalories: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            mode: "fit";
+            /**
+             * Goal
+             * @enum {string}
+             */
+            goal?: "cut" | "keep" | "bulk";
+            /** Kcal */
+            kcal: number;
+            /** Protein */
+            protein: number;
+        };
         /**
          * GeoPoint
          * @description A point in degrees, WGS 84 (geoPointSchema).
@@ -107,6 +163,31 @@ export interface components {
             /** Inservicearea */
             inServiceArea: boolean;
         };
+        /** UnderCalories */
+        UnderCalories: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            mode: "under";
+            /** Kcal */
+            kcal: number;
+        };
+        /**
+         * UserPrefs
+         * @description What onboarding collects and «حسابي» edits (userPrefsSchema).
+         */
+        UserPrefs: {
+            workplace: components["schemas"]["Workplace"];
+            /** Breaktime */
+            breakTime: string;
+            /** Budget */
+            budget: number;
+            /** Calories */
+            calories: components["schemas"]["AnyCalories"] | components["schemas"]["AroundCalories"] | components["schemas"]["UnderCalories"] | components["schemas"]["FitCalories"];
+            /** Exclusions */
+            exclusions: ("chicken" | "beef" | "fish" | "nuts" | "dairy")[];
+        };
         /** ValidationError */
         ValidationError: {
             /** Location */
@@ -119,6 +200,17 @@ export interface components {
             input?: unknown;
             /** Context */
             ctx?: Record<string, never>;
+        };
+        /**
+         * Workplace
+         * @description Where lunch goes: a point on the map, its name in both languages, and the courier's notes.
+         */
+        Workplace: {
+            name: components["schemas"]["LocalizedText"];
+            area: components["schemas"]["LocalizedText"];
+            point: components["schemas"]["GeoPoint"];
+            /** Details */
+            details: string;
         };
     };
     responses: never;
@@ -199,6 +291,72 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["PointLookup"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    read_prefs: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                "__Host-lo2ma_guest"?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserPrefs"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_prefs: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                "__Host-lo2ma_guest"?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UserPrefs"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserPrefs"];
                 };
             };
             /** @description Validation Error */
