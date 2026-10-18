@@ -8,12 +8,17 @@ from app.core.db import Base
 
 
 class PrefsRecord(Base):
-    """One guest's preferences (an account's, once sign-in exists)."""
+    """A signed-in user's preferences, or a guest's."""
 
     __tablename__ = "prefs"
 
     id: Mapped[UUID] = mapped_column(primary_key=True, default=uuid7, server_default=func.uuidv7())
-    guest_id: Mapped[UUID] = mapped_column(ForeignKey("guests.id", ondelete="CASCADE"), unique=True)
+    user_id: Mapped[UUID | None] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), unique=True
+    )
+    guest_id: Mapped[UUID | None] = mapped_column(
+        ForeignKey("guests.id", ondelete="CASCADE"), unique=True
+    )
     workplace_name_ar: Mapped[str]
     workplace_name_en: Mapped[str]
     workplace_area_ar: Mapped[str]
@@ -33,6 +38,7 @@ class PrefsRecord(Base):
     updated_at: Mapped[datetime] = mapped_column(server_default=func.now())
 
     __table_args__ = (
+        CheckConstraint("num_nonnulls(user_id, guest_id) = 1", name="one_owner"),
         CheckConstraint("workplace_lat BETWEEN -90 AND 90", name="workplace_lat"),
         CheckConstraint("workplace_lng BETWEEN -180 AND 180", name="workplace_lng"),
         CheckConstraint("char_length(workplace_details) <= 120", name="workplace_details"),

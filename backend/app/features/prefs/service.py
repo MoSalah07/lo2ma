@@ -1,6 +1,7 @@
 """A guest's preferences: read them, and save them (making the guest on the first save)."""
 
 from datetime import time
+from uuid import UUID
 
 from pydantic import TypeAdapter
 from sqlalchemy import func, select
@@ -94,27 +95,9 @@ def _to_prefs(record: PrefsRecord) -> UserPrefs:
     )
 
 
-async def load_prefs(session: AsyncSession, guest_token: str | None) -> UserPrefs:
-    guest = await find_guest(session, guest_token)
-    record = guest and await session.scalar(
-        select(PrefsRecord).where(PrefsRecord.guest_id == guest.id)
-    )
-    if not record:
-        raise NotOnboardedError()
-    return _to_prefs(record)
-
-
-async def save_prefs(
-    session: AsyncSession, guest_token: str | None, prefs: UserPrefs
-) -> tuple[UserPrefs, str | None]:
-    """Saves them, and returns the new guest's token when this browser had none yet.
-
-    The area is checked first, so a refused save leaves nothing behind: no guest, no cookie.
-    """
+def _columns(prefs: UserPrefs) -> dict[str, object]:
     workplace = prefs.workplace
-    if not is_in_service_area(workplace.point):
-        raise OutsideServiceAreaError()
-    values: dict[str, object] = {
+    return {
         "workplace_name_ar": workplace.name.ar,
         "workplace_name_en": workplace.name.en,
         "workplace_area_ar": workplace.area.ar,
@@ -127,15 +110,71 @@ async def save_prefs(
         **_calorie_columns(prefs.calories),
         "exclusions": list(prefs.exclusions),
     }
+
+
+async def _find_prefs(
+    session: AsyncSession, user_id: UUID | None, guest_token: str | None
+) -> PrefsRecord | None:
+    if user_id is not None:
+        return await session.scalar(select(PrefsRecord).where(PrefsRecord.user_id == user_id))
+    guest = await find_guest(session, guest_token)
+    if guest is None:
+        return None
+    return await session.scalar(select(PrefsRecord).where(PrefsRecord.guest_id == guest.id))
+
+
+async def load_prefs(
+    session: AsyncSession, user_id: UUID | None, guest_token: str | None
+) -> UserPrefs:
+    """The signed-in user's preferences, or else this browser's guest's."""
     async with session.begin():
-        guest = await find_guest(session, guest_token)
-        new_token = None
-        if guest is None:
-            guest, new_token = await create_guest(session)
-        upsert = insert(PrefsRecord).values(guest_id=guest.id, **values)
+        record = await _find_prefs(session, user_id, guest_token)
+    if record is None:
+        raise NotOnboardedError()
+    return _to_prefs(record)
+
+
+async def save_prefs(
+    session: AsyncSession, user_id: UUID | None, guest_token: str | None, prefs: UserPrefs
+) -> tuple[UserPrefs, str | None]:
+    """Saves them for the signed-in user, or else for this browser's guest, making the guest on its
+    first save. Returns the new guest's token, when there is one.
+
+    The area is checked first, so a refused save leaves nothing behind: no guest, no cookie.
+    """
+    if not is_in_service_area(prefs.workplace.point):
+        raise OutsideServiceAreaError()
+    values = _columns(prefs)
+    new_token = None
+    async with session.begin():
+        if user_id is not None:
+            owner, key = {"user_id": user_id}, "user_id"
+        else:
+            guest = await find_guest(session, guest_token)
+            if guest is None:
+                guest, new_token = await create_guest(session)
+            owner, key = {"guest_id": guest.id}, "guest_id"
+        upsert = insert(PrefsRecord).values(**owner, **values)
         await session.execute(
             upsert.on_conflict_do_update(
-                index_elements=["guest_id"], set_={**values, "updated_at": func.now()}
+                index_elements=[key], set_={**values, "updated_at": func.now()}
             )
         )
     return prefs, new_token
+
+
+async def copy_guest_prefs(session: AsyncSession, guest_token: str | None, user_id: UUID) -> None:
+    """On signing in, inside the caller's transaction: a user who has no preferences takes this
+    browser's guest's, so onboarding done before signing in is kept. The guest keeps its own, for
+    this browser after signing out."""
+    guest = await find_guest(session, guest_token)
+    if guest is None:
+        return
+    record = await session.scalar(select(PrefsRecord).where(PrefsRecord.guest_id == guest.id))
+    if record is None:
+        return
+    await session.execute(
+        insert(PrefsRecord)
+        .values(user_id=user_id, **_columns(_to_prefs(record)))
+        .on_conflict_do_nothing(index_elements=["user_id"])
+    )

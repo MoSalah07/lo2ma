@@ -5,6 +5,198 @@
     "version": "0.1.0"
   },
   "paths": {
+    "/api/auth/otp": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Request Code",
+        "operationId": "request_code",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OtpRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OtpSent"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-invalid-code": "invalid_destination"
+      }
+    },
+    "/api/auth/verify": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Verify Code",
+        "operationId": "verify_code",
+        "parameters": [
+          {
+            "name": "__Host-lo2ma_guest",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Guest"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OtpVerify"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionUser"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/session": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Read Session",
+        "operationId": "read_session",
+        "parameters": [
+          {
+            "name": "__Host-lo2ma_session",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Session"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionUser"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/sign-out": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Sign Out",
+        "operationId": "sign_out",
+        "parameters": [
+          {
+            "name": "__Host-lo2ma_session",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Session"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/places/suggested": {
       "get": {
         "tags": [
@@ -156,6 +348,22 @@
               ],
               "title": "  Host-Lo2Ma Guest"
             }
+          },
+          {
+            "name": "__Host-lo2ma_session",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Session"
+            }
           }
         ],
         "responses": {
@@ -202,6 +410,22 @@
                 }
               ],
               "title": "  Host-Lo2Ma Guest"
+            }
+          },
+          {
+            "name": "__Host-lo2ma_session",
+            "in": "cookie",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "  Host-Lo2Ma Session"
             }
           }
         ],
@@ -372,6 +596,74 @@
         "title": "LocalizedText",
         "description": "Text in both languages, such as a place's name (localizedTextSchema)."
       },
+      "OtpRequest": {
+        "properties": {
+          "channel": {
+            "type": "string",
+            "enum": [
+              "phone",
+              "email"
+            ],
+            "title": "Channel"
+          },
+          "destination": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Destination"
+          }
+        },
+        "type": "object",
+        "required": [
+          "channel",
+          "destination"
+        ],
+        "title": "OtpRequest",
+        "description": "Where to send a sign-in code (otpRequestSchema)."
+      },
+      "OtpSent": {
+        "properties": {
+          "expiresIn": {
+            "type": "integer",
+            "title": "Expiresin"
+          }
+        },
+        "type": "object",
+        "required": [
+          "expiresIn"
+        ],
+        "title": "OtpSent",
+        "description": "How long the code works, in seconds."
+      },
+      "OtpVerify": {
+        "properties": {
+          "channel": {
+            "type": "string",
+            "enum": [
+              "phone",
+              "email"
+            ],
+            "title": "Channel"
+          },
+          "destination": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Destination"
+          },
+          "code": {
+            "type": "string",
+            "pattern": "^[0-9]{6}$",
+            "title": "Code"
+          }
+        },
+        "type": "object",
+        "required": [
+          "channel",
+          "destination",
+          "code"
+        ],
+        "title": "OtpVerify",
+        "description": "The code the user typed (otpVerifySchema)."
+      },
       "Place": {
         "properties": {
           "id": {
@@ -419,6 +711,33 @@
         ],
         "title": "PointLookup",
         "description": "What is at a point on the map, and whether Lo2ma delivers there (pointLookupSchema)."
+      },
+      "SessionUser": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "phone": {
+            "type": "string",
+            "title": "Phone"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "SessionUser",
+        "description": "The signed-in user (sessionUserSchema)."
       },
       "UnderCalories": {
         "properties": {

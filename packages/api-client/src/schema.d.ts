@@ -4,6 +4,74 @@
  */
 
 export interface paths {
+    "/api/auth/otp": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Request Code */
+        post: operations["request_code"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/auth/verify": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Verify Code */
+        post: operations["verify_code"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/auth/session": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Read Session */
+        get: operations["read_session"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/auth/sign-out": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Sign Out */
+        post: operations["sign_out"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/places/suggested": {
         parameters: {
             query?: never;
@@ -141,6 +209,42 @@ export interface components {
             en: string;
         };
         /**
+         * OtpRequest
+         * @description Where to send a sign-in code (otpRequestSchema).
+         */
+        OtpRequest: {
+            /**
+             * Channel
+             * @enum {string}
+             */
+            channel: "phone" | "email";
+            /** Destination */
+            destination: string;
+        };
+        /**
+         * OtpSent
+         * @description How long the code works, in seconds.
+         */
+        OtpSent: {
+            /** Expiresin */
+            expiresIn: number;
+        };
+        /**
+         * OtpVerify
+         * @description The code the user typed (otpVerifySchema).
+         */
+        OtpVerify: {
+            /**
+             * Channel
+             * @enum {string}
+             */
+            channel: "phone" | "email";
+            /** Destination */
+            destination: string;
+            /** Code */
+            code: string;
+        };
+        /**
          * Place
          * @description A place the location search knows: an office building, a business park or a district.
          *
@@ -162,6 +266,20 @@ export interface components {
             area: components["schemas"]["LocalizedText"];
             /** Inservicearea */
             inServiceArea: boolean;
+        };
+        /**
+         * SessionUser
+         * @description The signed-in user (sessionUserSchema).
+         */
+        SessionUser: {
+            /** Id */
+            id: string;
+            /** Name */
+            name: string;
+            /** Phone */
+            phone?: string;
+            /** Email */
+            email?: string;
         };
         /** UnderCalories */
         UnderCalories: {
@@ -221,6 +339,134 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    request_code: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OtpRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OtpSent"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    verify_code: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                "__Host-lo2ma_guest"?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OtpVerify"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SessionUser"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    read_session: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                "__Host-lo2ma_session"?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SessionUser"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    sign_out: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                "__Host-lo2ma_session"?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     suggested_places: {
         parameters: {
             query?: never;
@@ -311,6 +557,7 @@ export interface operations {
             path?: never;
             cookie?: {
                 "__Host-lo2ma_guest"?: string | null;
+                "__Host-lo2ma_session"?: string | null;
             };
         };
         requestBody?: never;
@@ -342,6 +589,7 @@ export interface operations {
             path?: never;
             cookie?: {
                 "__Host-lo2ma_guest"?: string | null;
+                "__Host-lo2ma_session"?: string | null;
             };
         };
         requestBody: {

@@ -4,6 +4,7 @@ from alembic.config import Config
 from fastapi import FastAPI
 from httpx import AsyncClient
 from sqlalchemy import text
+from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.db import SessionDep
@@ -20,7 +21,8 @@ def app(settings: Settings) -> FastAPI:
 
     @app.get("/api/postgis")
     async def postgis(session: SessionDep) -> str | None:
-        return await session.scalar(text("SELECT postgis_lib_version()"))
+        async with session.begin():
+            return await session.scalar(text("SELECT postgis_lib_version()"))
 
     return app
 
@@ -37,8 +39,21 @@ async def test_a_request_gets_a_session(db_client: AsyncClient) -> None:
 
 
 async def test_the_lifespan_opens_one_pool_and_closes_it(app: FastAPI, settings: Settings) -> None:
-    async with make_lifespan(settings)(app) as state, state["session_factory"]() as session:
+    async with (
+        make_lifespan(settings)(app) as state,
+        state["session_factory"]() as session,
+        session.begin(),
+    ):
         assert await session.scalar(text("SELECT 1")) == 1
+
+
+async def test_a_query_outside_a_transaction_fails_at_once(
+    app: FastAPI, settings: Settings
+) -> None:
+    # autobegin is off: a forgotten `session.begin()` shows up here, not as a stray transaction.
+    async with make_lifespan(settings)(app) as state, state["session_factory"]() as session:
+        with pytest.raises(InvalidRequestError, match="Autobegin is disabled"):
+            await session.scalar(text("SELECT 1"))
 
 
 async def test_a_service_commits_inside_the_test(session: AsyncSession) -> None:
