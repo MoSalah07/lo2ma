@@ -1,10 +1,10 @@
 """The location search: what to suggest, what matches a query, and what is at a point on the map."""
 
-from geoalchemy2 import Geography
-from sqlalchemy import ColumnElement, cast, func, select
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.api_model import GeoPoint, LocalizedText
+from app.core.geography import as_geography
 from app.domain.geo import is_in_service_area
 from app.domain.search import search_words
 from app.features.places.models import PlaceRecord
@@ -22,10 +22,6 @@ def _to_place(record: PlaceRecord) -> Place:
         area=LocalizedText(ar=record.area_ar, en=record.area_en),
         point=GeoPoint(lat=record.lat, lng=record.lng),
     )
-
-
-def _geography(point: GeoPoint) -> ColumnElement[Geography]:
-    return cast(func.ST_SetSRID(func.ST_MakePoint(point.lng, point.lat), 4326), Geography)
 
 
 async def suggested(session: AsyncSession) -> list[Place]:
@@ -61,7 +57,7 @@ async def search(session: AsyncSession, query: str) -> list[Place]:
 async def _nearest(
     session: AsyncSession, kind: str, point: GeoPoint, within: float | None = None
 ) -> PlaceRecord | None:
-    here = _geography(point)
+    here = as_geography(point)
     statement = select(PlaceRecord).where(PlaceRecord.kind == kind)
     if within is not None:
         statement = statement.where(func.ST_DWithin(PlaceRecord.location, here, within))

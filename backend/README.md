@@ -188,6 +188,8 @@ Nothing else in the app changes.
 Every route here lives under `/api`, so the path is the same in the browser, in the logs and in the tests.
 `/health` (and, later, `/internal/*`) sits outside it, out of the web app's reach.
 
-The demo data is the mock's own. The web app writes it to `backend/seed/*.json`
+The demo data is the mock's own: places, foods, restaurants and dishes. The web app writes it to `backend/seed/*.json`
 (`npm run export:seed -w @lo2ma/web`), `npm run db:seed` loads it, and `npm run dev:api` seeds before it starts.
-Implemented so far: `/places/*`, `/prefs` and `/auth/*`.
+Implemented so far: `/places/*`, `/prefs` and `/auth/*`, plus the menus behind the meal search. The mock's
+restaurants only say how far they are from the Smart Village, so the seed places each one that far from it, in
+its own direction; workplaces elsewhere in Cairo have no demo restaurants nearby.
