@@ -21,6 +21,17 @@ class DomainError(Exception):
     code: str = "invalid_request"
 
 
+class InvalidRequestError(DomainError):
+    """The request is well formed, but makes no sense (a code for an impossible phone number)."""
+
+
+class AuthRequiredError(DomainError):
+    """Only a signed-in user may do this (paying, for one)."""
+
+    status = 401
+    code = "auth_required"
+
+
 def invalid_input(code: str) -> dict[str, str]:
     """A route's `openapi_extra`: the code a malformed request gets, such as invalid_prefs."""
     return {INVALID_CODE_KEY: code}

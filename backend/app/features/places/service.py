@@ -30,12 +30,13 @@ def _geography(point: GeoPoint) -> ColumnElement[Geography]:
 
 async def suggested(session: AsyncSession) -> list[Place]:
     """The popular workplaces onboarding shows before anything is typed."""
-    records = await session.scalars(
-        select(PlaceRecord)
-        .where(PlaceRecord.suggested_rank.is_not(None))
-        .order_by(PlaceRecord.suggested_rank)
-    )
-    return [_to_place(record) for record in records]
+    async with session.begin():
+        records = await session.scalars(
+            select(PlaceRecord)
+            .where(PlaceRecord.suggested_rank.is_not(None))
+            .order_by(PlaceRecord.suggested_rank)
+        )
+        return [_to_place(record) for record in records]
 
 
 async def search(session: AsyncSession, query: str) -> list[Place]:
@@ -43,17 +44,18 @@ async def search(session: AsyncSession, query: str) -> list[Place]:
     words = search_words(query)
     if not words:
         return []
-    records = await session.scalars(
-        select(PlaceRecord)
-        .where(
-            PlaceRecord.kind == "building",
-            # autoescape: a % or _ someone typed is a letter, not a wildcard.
-            *(PlaceRecord.search_text.contains(word, autoescape=True) for word in words),
+    async with session.begin():
+        records = await session.scalars(
+            select(PlaceRecord)
+            .where(
+                PlaceRecord.kind == "building",
+                # autoescape: a % or _ someone typed is a letter, not a wildcard.
+                *(PlaceRecord.search_text.contains(word, autoescape=True) for word in words),
+            )
+            .order_by(PlaceRecord.suggested_rank.asc().nulls_last(), PlaceRecord.name_en)
+            .limit(SEARCH_LIMIT)
         )
-        .order_by(PlaceRecord.suggested_rank.asc().nulls_last(), PlaceRecord.name_en)
-        .limit(SEARCH_LIMIT)
-    )
-    return [_to_place(record) for record in records]
+        return [_to_place(record) for record in records]
 
 
 async def _nearest(
@@ -69,9 +71,10 @@ async def _nearest(
 
 async def look_up(session: AsyncSession, point: GeoPoint) -> PointLookup:
     """The building under a pin, or else the nearest district, and whether Lo2ma delivers there."""
-    named = await _nearest(session, "building", point, within=ON_A_PLACE_METERS) or await _nearest(
-        session, "district", point
-    )
+    async with session.begin():
+        named = await _nearest(
+            session, "building", point, within=ON_A_PLACE_METERS
+        ) or await _nearest(session, "district", point)
     if named is None:
         raise RuntimeError("The places table has no districts. Seed it: npm run db:seed")
     return PointLookup(

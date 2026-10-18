@@ -6,7 +6,15 @@
  *
  * A new endpoint adds a line per schema it sends or receives.
  */
-import type { placeSchema, pointLookupSchema, userPrefsSchema, workplaceSchema } from '@lo2ma/core';
+import type {
+  otpRequestSchema,
+  otpVerifySchema,
+  placeSchema,
+  pointLookupSchema,
+  sessionUserSchema,
+  userPrefsSchema,
+  workplaceSchema,
+} from '@lo2ma/core';
 import type { z } from 'zod';
 import type { components } from './schema';
 
@@ -22,4 +30,7 @@ export type Contract = [
   Expect<Same<z.infer<typeof pointLookupSchema>, Api['PointLookup']>>,
   Expect<Same<z.infer<typeof workplaceSchema>, Api['Workplace']>>,
   Expect<Same<z.infer<typeof userPrefsSchema>, Api['UserPrefs']>>,
+  Expect<Same<z.infer<typeof otpRequestSchema>, Api['OtpRequest']>>,
+  Expect<Same<z.infer<typeof otpVerifySchema>, Api['OtpVerify']>>,
+  Expect<Same<z.infer<typeof sessionUserSchema>, Api['SessionUser']>>,
 ];

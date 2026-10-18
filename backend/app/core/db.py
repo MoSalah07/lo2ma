@@ -49,15 +49,22 @@ def create_db_engine(settings: Settings) -> AsyncEngine:
 
 
 def create_session_factory(engine: AsyncEngine) -> SessionFactory:
-    # Objects stay readable after a commit: async code can't reload them behind your back.
-    return async_sessionmaker(engine, expire_on_commit=False)
+    return async_sessionmaker(
+        engine,
+        # Objects stay readable after a commit: async code can't reload them behind your back.
+        expire_on_commit=False,
+        # Every query runs inside an explicit `async with session.begin()`. A query outside one
+        # fails at once, instead of quietly opening a transaction that breaks the next begin().
+        autobegin=False,
+    )
 
 
 async def get_session(request: Request) -> AsyncIterator[AsyncSession]:
     """One session per request, closed after the response.
 
-    It never commits: a service opens its own transaction with `async with session.begin()`, so the
-    commit happens before the response goes out.
+    It never begins or commits: the service the route calls does, with `async with session.begin()`,
+    around all its reads and writes. So the commit happens before the response goes out, and a
+    service can still commit what must stay (a failed sign-in attempt) before it refuses.
     """
     factory: SessionFactory = request.state.session_factory
     async with factory() as session:

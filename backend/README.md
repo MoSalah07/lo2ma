@@ -32,7 +32,9 @@ the repo root:
 | `npm run db:seed`                | loads the demo data from `seed/` (again any time: rows update in place)       |
 
 `backend/package.json` only runs these tools through `uv run --locked`, which fails when `uv.lock` is out of date.
-Settings come from `LO2MA_*` environment variables or `backend/.env`.
+Settings come from `LO2MA_*` environment variables or `backend/.env`. With `LO2MA_OTP_DEMO=true` (the
+example's value, refused in production) any six digits sign in except `000000`, as in the mock. Outside
+production every sign-in code is also written to the log, since no SMS or email provider is wired yet.
 
 Python stays on 3.14 for now: 3.15 is out, but PyYAML has no 3.15 wheels yet, and `fastapi-cli` needs it.
 
@@ -188,4 +190,4 @@ Every route here lives under `/api`, so the path is the same in the browser, in 
 
 The demo data is the mock's own. The web app writes it to `backend/seed/*.json`
 (`npm run export:seed -w @lo2ma/web`), `npm run db:seed` loads it, and `npm run dev:api` seeds before it starts.
-Implemented so far: `/places/*` and `/prefs`.
+Implemented so far: `/places/*`, `/prefs` and `/auth/*`.
