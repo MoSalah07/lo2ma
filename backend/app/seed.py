@@ -6,6 +6,7 @@ import sys
 
 from app.core.db import create_db_engine, create_session_factory
 from app.core.settings import load_settings
+from app.features.catalog.seed import load_catalog, seed_catalog
 from app.features.places.seed import load_places, seed_places
 
 logger = logging.getLogger("app.seed")
@@ -17,7 +18,14 @@ async def seed() -> None:
         async with create_session_factory(engine)() as session, session.begin():
             places = load_places()
             await seed_places(session, places)
-            logger.info("Seeded %d places", len(places))
+            catalog = load_catalog()
+            await seed_catalog(session, catalog)
+            logger.info(
+                "Seeded %d places, %d restaurants and %d dishes",
+                len(places),
+                len(catalog.restaurants),
+                len(catalog.dishes),
+            )
     finally:
         await engine.dispose()
 

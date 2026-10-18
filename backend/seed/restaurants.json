@@ -1,0 +1,392 @@
+[
+  {
+    "id": "r01",
+    "name": {
+      "ar": "بيت الكشري",
+      "en": "Beit El Koshari"
+    },
+    "point": {
+      "lat": 30.08249,
+      "lng": 31.0167
+    },
+    "etaMinutes": 15,
+    "deliveryFee": 2000
+  },
+  {
+    "id": "r02",
+    "name": {
+      "ar": "مشويات الدار",
+      "en": "Mashweyat El Dar"
+    },
+    "point": {
+      "lat": 30.05777,
+      "lng": 31.03144
+    },
+    "etaMinutes": 20,
+    "deliveryFee": 2000
+  },
+  {
+    "id": "r03",
+    "name": {
+      "ar": "سلطات خضرا",
+      "en": "Salatat Khadra"
+    },
+    "point": {
+      "lat": 30.07233,
+      "lng": 31.00842
+    },
+    "etaMinutes": 12,
+    "deliveryFee": 1500
+  },
+  {
+    "id": "r04",
+    "name": {
+      "ar": "شاورما الركن",
+      "en": "Shawerma El Rokn"
+    },
+    "point": {
+      "lat": 30.08045,
+      "lng": 31.0299
+    },
+    "etaMinutes": 18,
+    "deliveryFee": 2000
+  },
+  {
+    "id": "r05",
+    "name": {
+      "ar": "فول وفلافل الحارة",
+      "en": "El Hara Foul & Falafel"
+    },
+    "point": {
+      "lat": 30.06373,
+      "lng": 31.01507
+    },
+    "etaMinutes": 10,
+    "deliveryFee": 1500
+  },
+  {
+    "id": "r06",
+    "name": {
+      "ar": "كشري الزعيم",
+      "en": "Koshari El Zaeem"
+    },
+    "point": {
+      "lat": 30.09295,
+      "lng": 31.00108
+    },
+    "etaMinutes": 22,
+    "deliveryFee": 2500
+  },
+  {
+    "id": "r07",
+    "name": {
+      "ar": "مطبخ ستي",
+      "en": "Matbakh Setty"
+    },
+    "point": {
+      "lat": 30.06726,
+      "lng": 31.03577
+    },
+    "etaMinutes": 25,
+    "deliveryFee": 2000
+  },
+  {
+    "id": "r08",
+    "name": {
+      "ar": "فطاطري الأمير",
+      "en": "Fatatri El Amir"
+    },
+    "point": {
+      "lat": 30.06175,
+      "lng": 30.99457
+    },
+    "etaMinutes": 25,
+    "deliveryFee": 2000
+  },
+  {
+    "id": "r09",
+    "name": {
+      "ar": "حواوشي الشلة",
+      "en": "Hawawshi El Shella"
+    },
+    "point": {
+      "lat": 30.08353,
+      "lng": 31.02169
+    },
+    "etaMinutes": 20,
+    "deliveryFee": 2000
+  },
+  {
+    "id": "r10",
+    "name": {
+      "ar": "كبدة المحطة",
+      "en": "El Mahatta Liver"
+    },
+    "point": {
+      "lat": 30.06256,
+      "lng": 31.02106
+    },
+    "etaMinutes": 12,
+    "deliveryFee": 1500
+  },
+  {
+    "id": "r11",
+    "name": {
+      "ar": "فراخ الفلاح",
+      "en": "Ferakh El Fallah"
+    },
+    "point": {
+      "lat": 30.07932,
+      "lng": 30.99787
+    },
+    "etaMinutes": 20,
+    "deliveryFee": 2000
+  },
+  {
+    "id": "r12",
+    "name": {
+      "ar": "سمك البحر",
+      "en": "Samak El Bahr"
+    },
+    "point": {
+      "lat": 30.08031,
+      "lng": 31.04843
+    },
+    "etaMinutes": 30,
+    "deliveryFee": 3000
+  },
+  {
+    "id": "r13",
+    "name": {
+      "ar": "بيتزا السطوح",
+      "en": "Rooftop Pizza"
+    },
+    "point": {
+      "lat": 30.05847,
+      "lng": 31.00784
+    },
+    "etaMinutes": 25,
+    "deliveryFee": 2000
+  },
+  {
+    "id": "r14",
+    "name": {
+      "ar": "برجر الحي",
+      "en": "Burger El Hay"
+    },
+    "point": {
+      "lat": 30.08312,
+      "lng": 31.0138
+    },
+    "etaMinutes": 18,
+    "deliveryFee": 2000
+  },
+  {
+    "id": "r15",
+    "name": {
+      "ar": "كريب وبس",
+      "en": "Just Crepe"
+    },
+    "point": {
+      "lat": 30.06808,
+      "lng": 31.02265
+    },
+    "etaMinutes": 12,
+    "deliveryFee": 1500
+  },
+  {
+    "id": "r16",
+    "name": {
+      "ar": "الطبق الأخضر",
+      "en": "Green Plate"
+    },
+    "point": {
+      "lat": 30.06869,
+      "lng": 30.98991
+    },
+    "etaMinutes": 22,
+    "deliveryFee": 2500
+  },
+  {
+    "id": "r17",
+    "name": {
+      "ar": "مشويات الكرمة",
+      "en": "El Karma Grill"
+    },
+    "point": {
+      "lat": 30.09233,
+      "lng": 31.0368
+    },
+    "etaMinutes": 28,
+    "deliveryFee": 2500
+  },
+  {
+    "id": "r18",
+    "name": {
+      "ar": "شاورما السلطان",
+      "en": "Sultan Shawerma"
+    },
+    "point": {
+      "lat": 30.05193,
+      "lng": 31.01764
+    },
+    "etaMinutes": 20,
+    "deliveryFee": 2000
+  },
+  {
+    "id": "r19",
+    "name": {
+      "ar": "طعمية أم حسن",
+      "en": "Om Hassan Taameya"
+    },
+    "point": {
+      "lat": 30.08126,
+      "lng": 31.0057
+    },
+    "etaMinutes": 14,
+    "deliveryFee": 1500
+  },
+  {
+    "id": "r20",
+    "name": {
+      "ar": "كشري الحلو",
+      "en": "Koshari El Helw"
+    },
+    "point": {
+      "lat": 30.07095,
+      "lng": 31.03539
+    },
+    "etaMinutes": 16,
+    "deliveryFee": 2000
+  },
+  {
+    "id": "r21",
+    "name": {
+      "ar": "بيت المحشي",
+      "en": "Beit El Mahshi"
+    },
+    "point": {
+      "lat": 30.05614,
+      "lng": 30.99516
+    },
+    "etaMinutes": 26,
+    "deliveryFee": 2500
+  },
+  {
+    "id": "r22",
+    "name": {
+      "ar": "سندوتشات الميدان",
+      "en": "El Midan Sandwiches"
+    },
+    "point": {
+      "lat": 30.07705,
+      "lng": 31.01753
+    },
+    "etaMinutes": 10,
+    "deliveryFee": 1500
+  },
+  {
+    "id": "r23",
+    "name": {
+      "ar": "بولز",
+      "en": "Bowls Co."
+    },
+    "point": {
+      "lat": 30.06432,
+      "lng": 31.02263
+    },
+    "etaMinutes": 15,
+    "deliveryFee": 2000
+  },
+  {
+    "id": "r24",
+    "name": {
+      "ar": "فراخ الواحة",
+      "en": "El Waha Chicken"
+    },
+    "point": {
+      "lat": 30.07466,
+      "lng": 31.00149
+    },
+    "etaMinutes": 18,
+    "deliveryFee": 2000
+  },
+  {
+    "id": "r25",
+    "name": {
+      "ar": "أسماك الإسكندراني",
+      "en": "El Eskandarani Fish"
+    },
+    "point": {
+      "lat": 30.08466,
+      "lng": 31.04285
+    },
+    "etaMinutes": 28,
+    "deliveryFee": 2500
+  },
+  {
+    "id": "r26",
+    "name": {
+      "ar": "بيتزا ونار",
+      "en": "Pizza w Nar"
+    },
+    "point": {
+      "lat": 30.05199,
+      "lng": 31.00944
+    },
+    "etaMinutes": 24,
+    "deliveryFee": 2000
+  },
+  {
+    "id": "r27",
+    "name": {
+      "ar": "سماش كورنر",
+      "en": "Smash Corner"
+    },
+    "point": {
+      "lat": 30.09211,
+      "lng": 31.0058
+    },
+    "etaMinutes": 22,
+    "deliveryFee": 2500
+  },
+  {
+    "id": "r28",
+    "name": {
+      "ar": "كريب الجامعة",
+      "en": "Uni Crepe"
+    },
+    "point": {
+      "lat": 30.0651,
+      "lng": 31.03491
+    },
+    "etaMinutes": 18,
+    "deliveryFee": 2000
+  },
+  {
+    "id": "r29",
+    "name": {
+      "ar": "مطبخ نونا",
+      "en": "Nona's Kitchen"
+    },
+    "point": {
+      "lat": 30.06805,
+      "lng": 31.00497
+    },
+    "etaMinutes": 20,
+    "deliveryFee": 2000
+  },
+  {
+    "id": "r30",
+    "name": {
+      "ar": "فطير وعسل",
+      "en": "Feteer w Asal"
+    },
+    "point": {
+      "lat": 30.08444,
+      "lng": 31.02444
+    },
+    "etaMinutes": 22,
+    "deliveryFee": 2000
+  }
+]
