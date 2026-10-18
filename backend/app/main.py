@@ -7,7 +7,7 @@ from fastapi.routing import APIRoute
 
 from app.core import health
 from app.core.db import SessionFactory, create_db_engine, create_session_factory
-from app.core.errors import install_error_handlers
+from app.core.errors import describe_errors, install_error_handlers
 from app.core.settings import Settings, load_settings
 from app.features.admin_auth import router as admin_auth
 from app.features.auth import router as auth
@@ -60,6 +60,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     )
     app.state.settings = settings
     install_error_handlers(app)
+    describe_errors(app)
     app.include_router(health.router)
     # Everything the apps call lives under /api, the path the web app's rewrite forwards.
     api = APIRouter(prefix="/api")

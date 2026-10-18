@@ -33,12 +33,12 @@
               }
             }
           },
-          "422": {
-            "description": "Validation Error",
+          "default": {
+            "description": "An error, by its code",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -76,12 +76,12 @@
               }
             }
           },
-          "422": {
-            "description": "Validation Error",
+          "default": {
+            "description": "An error, by its code",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -127,12 +127,12 @@
               }
             }
           },
-          "422": {
-            "description": "Validation Error",
+          "default": {
+            "description": "An error, by its code",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -169,12 +169,12 @@
           "204": {
             "description": "Successful Response"
           },
-          "422": {
-            "description": "Validation Error",
+          "default": {
+            "description": "An error, by its code",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -210,12 +210,12 @@
               }
             }
           },
-          "422": {
-            "description": "Validation Error",
+          "default": {
+            "description": "An error, by its code",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -271,12 +271,12 @@
               }
             }
           },
-          "422": {
-            "description": "Validation Error",
+          "default": {
+            "description": "An error, by its code",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -320,12 +320,12 @@
               }
             }
           },
-          "422": {
-            "description": "Validation Error",
+          "default": {
+            "description": "An error, by its code",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -362,12 +362,12 @@
           "204": {
             "description": "Successful Response"
           },
-          "422": {
-            "description": "Validation Error",
+          "default": {
+            "description": "An error, by its code",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -416,12 +416,12 @@
               }
             }
           },
-          "422": {
-            "description": "Validation Error",
+          "default": {
+            "description": "An error, by its code",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -469,12 +469,12 @@
               }
             }
           },
-          "422": {
-            "description": "Validation Error",
+          "default": {
+            "description": "An error, by its code",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -526,12 +526,12 @@
               }
             }
           },
-          "422": {
-            "description": "Validation Error",
+          "default": {
+            "description": "An error, by its code",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -559,6 +559,16 @@
                   },
                   "type": "array",
                   "title": "Response Suggested Places"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error, by its code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -600,12 +610,12 @@
               }
             }
           },
-          "422": {
-            "description": "Validation Error",
+          "default": {
+            "description": "An error, by its code",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -655,12 +665,12 @@
               }
             }
           },
-          "422": {
-            "description": "Validation Error",
+          "default": {
+            "description": "An error, by its code",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -722,12 +732,12 @@
               }
             }
           },
-          "422": {
-            "description": "Validation Error",
+          "default": {
+            "description": "An error, by its code",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -795,12 +805,12 @@
               }
             }
           },
-          "422": {
-            "description": "Validation Error",
+          "default": {
+            "description": "An error, by its code",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -839,12 +849,12 @@
               }
             }
           },
-          "422": {
-            "description": "Validation Error",
+          "default": {
+            "description": "An error, by its code",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -907,12 +917,12 @@
           "202": {
             "description": "Successful Response"
           },
-          "422": {
-            "description": "Validation Error",
+          "default": {
+            "description": "An error, by its code",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -939,6 +949,16 @@
                   },
                   "type": "array",
                   "title": "Response List Payment Methods"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error, by its code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -975,12 +995,12 @@
               }
             }
           },
-          "422": {
-            "description": "Validation Error",
+          "default": {
+            "description": "An error, by its code",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -1519,19 +1539,6 @@
         "title": "GeoPoint",
         "description": "A point in degrees, WGS 84 (geoPointSchema)."
       },
-      "HTTPValidationError": {
-        "properties": {
-          "detail": {
-            "items": {
-              "$ref": "#/components/schemas/ValidationError"
-            },
-            "type": "array",
-            "title": "Detail"
-          }
-        },
-        "type": "object",
-        "title": "HTTPValidationError"
-      },
       "KcalRange": {
         "properties": {
           "low": {
@@ -1933,46 +1940,6 @@
         "title": "UserPrefs",
         "description": "What onboarding collects and «حسابي» edits (userPrefsSchema)."
       },
-      "ValidationError": {
-        "properties": {
-          "loc": {
-            "items": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "integer"
-                }
-              ]
-            },
-            "type": "array",
-            "title": "Location"
-          },
-          "msg": {
-            "type": "string",
-            "title": "Message"
-          },
-          "type": {
-            "type": "string",
-            "title": "Error Type"
-          },
-          "input": {
-            "title": "Input"
-          },
-          "ctx": {
-            "type": "object",
-            "title": "Context"
-          }
-        },
-        "type": "object",
-        "required": [
-          "loc",
-          "msg",
-          "type"
-        ],
-        "title": "ValidationError"
-      },
       "Workplace": {
         "properties": {
           "name": {
@@ -1999,6 +1966,20 @@
         ],
         "title": "Workplace",
         "description": "Where lunch goes: a point on the map, its name in both languages, and the courier's notes."
+      },
+      "ApiError": {
+        "description": "What every error carries: a code the apps turn into text (the web's lib/api.ts reads it).",
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "title": "ApiError",
+        "type": "object"
       }
     }
   }
