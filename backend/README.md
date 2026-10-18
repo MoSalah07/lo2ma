@@ -154,7 +154,8 @@ about the error itself
 
 A malformed request is never FastAPI's `422`: each route names its own code (such as `invalid_prefs`), and
 `invalid_request` covers the rest. It is `400`, except the admin sign-in, where a malformed one is `401`
-`invalid_credentials` like a wrong password. An unknown path is `404` `not_found`.
+`invalid_credentials` like a wrong password. An unknown path is `404` `not_found`. The OpenAPI schema says the
+same: no operation lists a `422`, and every status an operation doesn't list is an `ApiError` (`{code}`).
 
 ## The agent
 

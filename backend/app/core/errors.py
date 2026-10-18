@@ -2,6 +2,7 @@
 
 import logging
 from collections.abc import Mapping
+from typing import Any
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
@@ -9,10 +10,18 @@ from fastapi.responses import JSONResponse
 from fastapi.routing import APIRoute
 from starlette.exceptions import HTTPException
 
+from app.core.api_model import ApiModel
+
 logger = logging.getLogger(__name__)
 
 INVALID_CODE_KEY = "x-invalid-code"
 INVALID_STATUS_KEY = "x-invalid-status"
+
+
+class ApiError(ApiModel):
+    """What every error carries: a code the apps turn into text (the web's lib/api.ts reads it)."""
+
+    code: str
 
 
 class DomainError(Exception):
@@ -99,3 +108,32 @@ def install_error_handlers(app: FastAPI) -> None:
         # Nothing about the error goes out: it can hold SQL, paths or keys. Starlette raises it
         # again after this response, so the server logs it with its traceback.
         return error_response(500, "internal_error")
+
+
+def describe_errors(app: FastAPI) -> None:
+    """Makes the OpenAPI schema say what the API really answers: never FastAPI's 422, and every
+    status an operation doesn't list is an ApiError. A route's own code for a malformed request is
+    in its `x-invalid-code`."""
+    generate = app.openapi
+    error = {"$ref": "#/components/schemas/ApiError"}
+
+    def openapi() -> dict[str, Any]:
+        if app.openapi_schema is not None:
+            return app.openapi_schema
+        # FastAPI keeps what it generates as app.openapi_schema; it's changed in place.
+        schema = generate()
+        for operations in schema["paths"].values():
+            for operation in operations.values():
+                responses = operation["responses"]
+                responses.pop("422", None)
+                responses["default"] = {
+                    "description": "An error, by its code",
+                    "content": {"application/json": {"schema": error}},
+                }
+        schemas = schema.setdefault("components", {}).setdefault("schemas", {})
+        for unused in ("HTTPValidationError", "ValidationError"):
+            schemas.pop(unused, None)
+        schemas["ApiError"] = ApiError.model_json_schema()
+        return schema
+
+    app.openapi = openapi
