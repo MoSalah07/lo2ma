@@ -1,4 +1,4 @@
-// The README screenshots, taken from the production build (run `npm run build` first): the main screens in Arabic
+// The README screenshots, taken from the demo build (run `npm run build:demo` first): the main screens in Arabic
 // and English, light and dark, on a phone and on a desktop. They go to docs/screenshots/ at the repo root.
 import { spawn } from 'node:child_process';
 import { mkdirSync, readFileSync } from 'node:fs';

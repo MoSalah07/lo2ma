@@ -4,7 +4,7 @@ import type { AppOptions } from './e2e/fixtures';
 const PORT = 3100;
 
 /**
- * End-to-end tests run against the production build (`npm run build` first) in the Chrome that is already
+ * End-to-end tests run against the demo build (`npm run build:demo` first) in the Chrome that is already
  * installed, so nothing is downloaded. Every test runs in Arabic and English, light and dark.
  */
 export default defineConfig<AppOptions>({

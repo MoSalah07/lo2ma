@@ -9,7 +9,6 @@ from httpx import AsyncClient
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.settings import Settings
 from app.features.auth import service
 from app.features.auth.cookie import SESSION_COOKIE
 from app.features.auth.models import OtpCodeRecord, SessionRecord
@@ -189,10 +188,3 @@ async def test_the_demo_takes_any_code_but_its_wrong_one(demo_client: AsyncClien
     right = await demo_client.post("/api/auth/verify", json={**PHONE, "code": "135790"})
     assert right.status_code == 200
     assert (await demo_client.get("/api/auth/session")).status_code == 200
-
-
-def test_production_refuses_demo_codes(settings: Settings) -> None:
-    with pytest.raises(ValueError, match="DEMO_SIGN_IN"):
-        Settings.model_validate(
-            {**settings.model_dump(), "environment": "prod", "demo_sign_in": True}
-        )

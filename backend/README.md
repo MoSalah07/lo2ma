@@ -39,6 +39,11 @@ customer in except `000000`, and any `@lo2ma.test` email with a password of 8+ c
 `000000`, signs an admin in. Outside production every sign-in code is also written to the log, since no SMS or
 email provider is wired yet.
 
+`LO2MA_ENVIRONMENT` (`dev`, `test` or `prod`) has no default, so a server that doesn't say where it runs doesn't
+start. In `prod` the docs are hidden, the demo sign-ins are refused, the demo's stand-ins (`/payment-methods`,
+`/chat/transcribe`) aren't served, and `npm run db:seed` refuses to load the made-up data. `tests/test_production.py`
+holds these rules.
+
 Python stays on 3.14 for now: 3.15 is out, but PyYAML has no 3.15 wheels yet, and `fastapi-cli` needs it.
 
 The business rules come from `packages/core`, like the apps' own. `app/domain/rules.py` (the constants) and
