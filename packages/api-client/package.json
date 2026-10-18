@@ -1,0 +1,20 @@
+{
+  "name": "@lo2ma/api-client",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "The FastAPI contract as TypeScript types, generated from its OpenAPI schema and checked against the zod schemas.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "generate": "openapi-typescript openapi.json --output src/schema.d.ts",
+    "test": "openapi-typescript openapi.json --output src/schema.d.ts --check",
+    "typecheck": "node ../../node_modules/typescript/bin/tsc --noEmit"
+  },
+  "devDependencies": {
+    "@lo2ma/core": "0.0.0",
+    "openapi-typescript": "7.13.0",
+    "zod": "4.6.7"
+  }
+}

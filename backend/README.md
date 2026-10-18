@@ -70,8 +70,17 @@ for the tests.
 
 The web app talks to `/api/*` only, and every response is validated by a zod schema in `packages/core`. The
 mock handlers in `apps/web/src/mocks/handlers` answer those requests today, and `handlers.test.ts` pins their
-behavior, so the FastAPI service has to return the same shapes, statuses and error codes. Once it exists,
-`packages/api-client` will be generated from its OpenAPI schema.
+behavior, so the FastAPI service has to return the same shapes, statuses and error codes.
+
+Two checks keep the two sides together:
+
+- **Shapes**: `npm run api:generate` writes this service's OpenAPI schema to `packages/api-client/openapi.json`, and
+  openapi-typescript turns it into `src/schema.d.ts`. `packages/api-client/src/parity.ts` then asks the compiler
+  whether each zod schema and the model of the same name describe the same JSON, so a field that is missing,
+  optional on one side only, or of another type fails `npm run typecheck`. The tests fail while either generated
+  file is out of date.
+- **Behavior**: the backend's tests repeat the cases of `handlers.test.ts` against the real API, with the same
+  statuses and error codes.
 
 **Shared rules**
 
