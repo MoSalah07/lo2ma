@@ -11,6 +11,13 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { calculateBill, type BillInput } from '../src/bill.ts';
 import { distanceMeters, isInServiceArea } from '../src/geo.ts';
+import {
+  ORDER_STEP_MINUTES,
+  orderStepAt,
+  orderTimeline,
+  planDayStatusAt,
+  sharesCourierPhone,
+} from '../src/orders.ts';
 import { normalizeEgyptMobile } from '../src/phone.ts';
 import { foldForSearch, searchWords } from '../src/search.ts';
 import {
@@ -32,6 +39,7 @@ import {
 } from '../src/rules.ts';
 import { COUPON_CODE, MAX_PERCENT_OFF } from '../src/schemas/admin.ts';
 import { OTP_LENGTH } from '../src/schemas/auth.ts';
+import { orderSteps } from '../src/schemas/order.ts';
 import { FIT_LUNCH_LIMITS } from '../src/schemas/fit.ts';
 import type { GeoPoint } from '../src/schemas/location.ts';
 import { addMinutes } from '../src/time.ts';
@@ -57,6 +65,7 @@ const RULES: Record<string, Record<string, Rule>> = {
   },
   'schemas/fit.ts': { FIT_LUNCH_LIMITS },
   'schemas/auth.ts': { OTP_LENGTH },
+  'orders.ts': { ORDER_STEP_MINUTES },
   // The pattern's source: Python compiles the same text.
   'schemas/admin.ts': { COUPON_CODE: COUPON_CODE.source, MAX_PERCENT_OFF },
 };
@@ -156,6 +165,44 @@ function vectors(): Record<string, Vectors> {
         input.delivery,
         input.service,
         refusal(() => calculateBill(input)),
+      ]),
+    },
+    orders: {
+      order_timeline: ['13:15', '12:00', '15:00', '00:20'].map((arrival) => [
+        arrival,
+        orderTimeline(arrival),
+      ]),
+      order_step_at: (
+        [
+          ['13:15', '12:29'],
+          ['13:15', '12:30'],
+          ['13:15', '12:31'],
+          ['13:15', '12:40'],
+          ['13:15', '12:54'],
+          ['13:15', '12:55'],
+          ['13:15', '13:15'],
+          ['13:15', '18:00'],
+          ['12:00', '09:00'],
+        ] as const
+      ).map(([arrival, time]) => [arrival, time, orderStepAt(arrival, time)]),
+      shares_courier_phone: orderSteps.map((status) => [status, sharesCourierPhone(status)]),
+      // [day, today, time, arrival]: the days before, the day itself through its timeline, the days after.
+      plan_day_status_at: (
+        [
+          ['2026-10-19', '2026-10-20', '09:00', '13:15'],
+          ['2026-10-20', '2026-10-20', '12:29', '13:15'],
+          ['2026-10-20', '2026-10-20', '12:30', '13:15'],
+          ['2026-10-20', '2026-10-20', '12:55', '13:15'],
+          ['2026-10-20', '2026-10-20', '13:15', '13:15'],
+          ['2026-10-21', '2026-10-20', '23:00', '13:15'],
+          ['2026-11-01', '2026-10-31', '12:00', '12:00'],
+        ] as const
+      ).map(([day, today, time, arrival]) => [
+        day,
+        today,
+        time,
+        arrival,
+        planDayStatusAt(day, today, time, arrival),
       ]),
     },
     clock: {

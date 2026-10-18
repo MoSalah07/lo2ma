@@ -1,0 +1,35 @@
+{
+  "order_timeline": [
+    ["13:15",[{"status":"sent","at":"12:30"},{"status":"accepted","at":"12:31"},{"status":"preparing","at":"12:40"},{"status":"onTheWay","at":"12:55"},{"status":"delivered","at":"13:15"}]],
+    ["12:00",[{"status":"sent","at":"11:15"},{"status":"accepted","at":"11:16"},{"status":"preparing","at":"11:25"},{"status":"onTheWay","at":"11:40"},{"status":"delivered","at":"12:00"}]],
+    ["15:00",[{"status":"sent","at":"14:15"},{"status":"accepted","at":"14:16"},{"status":"preparing","at":"14:25"},{"status":"onTheWay","at":"14:40"},{"status":"delivered","at":"15:00"}]],
+    ["00:20",[{"status":"sent","at":"23:35"},{"status":"accepted","at":"23:36"},{"status":"preparing","at":"23:45"},{"status":"onTheWay","at":"00:00"},{"status":"delivered","at":"00:20"}]]
+  ],
+  "order_step_at": [
+    ["13:15","12:29",null],
+    ["13:15","12:30","sent"],
+    ["13:15","12:31","accepted"],
+    ["13:15","12:40","preparing"],
+    ["13:15","12:54","preparing"],
+    ["13:15","12:55","onTheWay"],
+    ["13:15","13:15","delivered"],
+    ["13:15","18:00","delivered"],
+    ["12:00","09:00",null]
+  ],
+  "shares_courier_phone": [
+    ["sent",false],
+    ["accepted",false],
+    ["preparing",false],
+    ["onTheWay",true],
+    ["delivered",true]
+  ],
+  "plan_day_status_at": [
+    ["2026-10-19","2026-10-20","09:00","13:15","delivered"],
+    ["2026-10-20","2026-10-20","12:29","13:15","scheduled"],
+    ["2026-10-20","2026-10-20","12:30","13:15","sent"],
+    ["2026-10-20","2026-10-20","12:55","13:15","onTheWay"],
+    ["2026-10-20","2026-10-20","13:15","13:15","delivered"],
+    ["2026-10-21","2026-10-20","23:00","13:15","scheduled"],
+    ["2026-11-01","2026-10-31","12:00","12:00","scheduled"]
+  ]
+}

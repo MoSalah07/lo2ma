@@ -1,14 +1,16 @@
 import {
   canChangePlanDay,
+  orderTimeline,
   planChangeDeadline,
   planDayBill,
+  planDayStatusAt,
   timeOf,
   toIsoDate,
   type Order,
   type PlanDay,
   type WeeklyPlan,
 } from '@lo2ma/core';
-import { courierPhoneAt, stepAt, timelineFor } from './order-timeline';
+import { courierPhoneAt } from './order-timeline';
 
 // In phase 5 the scheduler sends each planned day's order and the restaurant moves it along.
 // The mock reads the same story off the clock instead, so the plan screen shows it as days pass.
@@ -20,11 +22,8 @@ function progressOf(day: PlanDay, plan: WeeklyPlan, now: Date): PlanDay {
   const base = { ...day, canChange: canChangePlanDay(day.date, now, deadline) };
   if (!plan.confirmed) return base;
 
-  const today = toIsoDate(now);
-  if (day.date > today) return { ...base, status: 'scheduled' };
-
-  const status = day.date < today ? 'delivered' : stepAt(plan.arrivalTime, timeOf(now));
-  if (!status) return { ...base, status: 'scheduled' };
+  const status = planDayStatusAt(day.date, toIsoDate(now), timeOf(now), plan.arrivalTime);
+  if (status === 'scheduled') return { ...base, status };
   const deliveredAt = status === 'delivered' ? plan.arrivalTime : undefined;
   return { ...base, status, orderId: planOrderId(day.date), deliveredAt };
 }
@@ -52,7 +51,7 @@ export function planOrders(plan: WeeklyPlan | null, now = new Date()): Order[] {
           // The plan charges its own bill: the food plus the shared delivery.
           suggestion: { ...day.suggestion, bill: planDayBill(day.suggestion.bill.food) },
           status: day.status,
-          timeline: timelineFor(plan.arrivalTime),
+          timeline: orderTimeline(plan.arrivalTime),
           breakTime: plan.breakTime,
           arrivalTime: plan.arrivalTime,
           onTime: true,

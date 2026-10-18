@@ -1,13 +1,14 @@
 import {
   arrivalTimeFor,
   createOrderSchema,
+  orderTimeline,
   orderSteps,
   type Order,
   type OrderStatus,
 } from '@lo2ma/core';
 import { http, HttpResponse } from 'msw';
 import { savedPaymentMethods } from '../data/payments';
-import { courierPhoneAt, timelineFor } from '../engine/order-timeline';
+import { courierPhoneAt } from '../engine/order-timeline';
 import { planOrders } from '../engine/plan-progress';
 import { suggestionFromId } from '../engine/suggest';
 import { readDb, writeDb } from '../store';
@@ -49,7 +50,7 @@ export const orderHandlers = [
       id: `LQ-${10482 + db.orders.length}`,
       suggestion,
       status: 'sent' as const,
-      timeline: timelineFor(arrivalTime),
+      timeline: orderTimeline(arrivalTime),
       breakTime,
       arrivalTime,
       onTime: true,
