@@ -1,0 +1,15 @@
+{
+  "calculate_bill": [
+    [[{"price":9500,"quantity":1},{"price":2500,"quantity":1}],2000,1000,{"food":12000,"delivery":2000,"service":1000,"total":15000}],
+    [[{"price":4500,"quantity":3}],0,0,{"food":13500,"delivery":0,"service":0,"total":13500}],
+    [[],1000,1000,{"food":0,"delivery":1000,"service":1000,"total":2000}],
+    [[{"price":12500,"quantity":2},{"price":1500,"quantity":4}],1800,1000,{"food":31000,"delivery":1800,"service":1000,"total":33800}]
+  ],
+  "calculate_bill_refuses": [
+    [[{"price":95.5,"quantity":1}],0,0,"RangeError"],
+    [[{"price":9500,"quantity":0}],0,0,"RangeError"],
+    [[{"price":9500,"quantity":1.5}],0,0,"RangeError"],
+    [[],20.5,0,"RangeError"],
+    [[],0,10.25,"RangeError"]
+  ]
+}

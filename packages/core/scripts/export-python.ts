@@ -9,6 +9,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { calculateBill, type BillInput } from '../src/bill.ts';
 import { distanceMeters, isInServiceArea } from '../src/geo.ts';
 import { normalizeEgyptMobile } from '../src/phone.ts';
 import { foldForSearch, searchWords } from '../src/search.ts';
@@ -100,9 +101,63 @@ const SIXTH_OF_OCTOBER = at(29.9381, 30.9135);
 
 type Vectors = Record<string, readonly (readonly unknown[])[]>;
 
+/** The kind of error the TypeScript throws for an input (RangeError), for Python to raise its own. */
+function refusal(run: () => unknown): string {
+  try {
+    run();
+  } catch (error) {
+    return (error as Error).name;
+  }
+  throw new Error('Expected the input to be refused');
+}
+
+const bills: BillInput[] = [
+  {
+    items: [
+      { price: 9500, quantity: 1 },
+      { price: 2500, quantity: 1 },
+    ],
+    delivery: 2000,
+    service: 1000,
+  },
+  { items: [{ price: 4500, quantity: 3 }], delivery: 0, service: 0 },
+  { items: [], delivery: SHARED_DELIVERY_FEE, service: SERVICE_FEE },
+  {
+    items: [
+      { price: 12500, quantity: 2 },
+      { price: 1500, quantity: 4 },
+    ],
+    delivery: 1800,
+    service: SERVICE_FEE,
+  },
+];
+
+const refusedBills: BillInput[] = [
+  { items: [{ price: 95.5, quantity: 1 }], delivery: 0, service: 0 },
+  { items: [{ price: 9500, quantity: 0 }], delivery: 0, service: 0 },
+  { items: [{ price: 9500, quantity: 1.5 }], delivery: 0, service: 0 },
+  { items: [], delivery: 20.5, service: 0 },
+  { items: [], delivery: 0, service: 10.25 },
+];
+
 /** Each case is [...arguments, answer], so pytest can take them as parameters in order. */
 function vectors(): Record<string, Vectors> {
   return {
+    // calculate_bill is the user's to write (learn/backend/01); these only check it against the apps'.
+    bill: {
+      calculate_bill: bills.map((input) => [
+        input.items,
+        input.delivery,
+        input.service,
+        calculateBill(input),
+      ]),
+      calculate_bill_refuses: refusedBills.map((input) => [
+        input.items,
+        input.delivery,
+        input.service,
+        refusal(() => calculateBill(input)),
+      ]),
+    },
     clock: {
       add_minutes: (
         [
